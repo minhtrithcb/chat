@@ -1,0 +1,189 @@
+.hr {
+  width: 40%;
+  margin-left: 30%;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  height: 1px;
+  background-color: #d1d1d1;
+}
+
+.navBar {
+  min-width: 70px;
+  height: 100vh;
+  position: fixed;
+  padding: 1em 0;
+  z-index: 999;
+  background-color: #fff;
+  border-right: 1px solid #d1d1d1;
+}
+
+.navBar a {
+  padding: 1em 0;
+  position: relative;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.navBar a svg {
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.navBar a:hover svg {
+  color: #a29bfe;
+}
+
+.navBar a:hover p {
+  opacity: 1;
+  visibility: visible;
+}
+
+.navBar a p {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: .2s linear;
+  transition: .2s linear;
+  background-color: #fff;
+  padding: 0.4em 0.6em;
+  -webkit-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+          box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  position: absolute;
+  border-radius: 00.4em;
+  right: -60px;
+  top: -10px;
+}
+
+.navBar a span {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  top: 0;
+  border-radius: 50%;
+  right: 10px;
+  text-align: center;
+  color: white;
+  font-size: 0.7rem;
+  min-width: 20px;
+  height: 20px;
+  background-color: #ff7675;
+  position: absolute;
+}
+
+.navBar.dark {
+  border-right: 1px solid transparent;
+  background-color: #2f334d;
+}
+
+.navBar.dark a {
+  color: #585c76;
+}
+
+.navBar.dark p {
+  color: #000;
+}
+
+.navBar.dark .hr {
+  background-color: #585c76;
+}
+
+.navBar.dark .btn_plus svg {
+  color: #585c76;
+}
+
+.avatar {
+  padding: 1em;
+  cursor: pointer;
+  margin-bottom: 70px;
+  width: 70px;
+}
+
+.avatar img {
+  border: 1px solid #d1d1d1;
+  border-radius: 50%;
+  width: 100%;
+}
+
+.btn_plus {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+  margin: 2em 1.2em;
+  -webkit-transition: opacity .5s;
+  transition: opacity .5s;
+  background-color: #a29bfe;
+}
+
+.btn_plus:hover {
+  opacity: .9;
+}
+
+.btn_plus svg {
+  color: #fff;
+}
+
+.checkBox {
+  margin-top: 100px;
+  width: 45px;
+  height: 20px;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  -webkit-transition: .5s;
+  transition: .5s;
+  border-radius: 15px;
+  position: relative;
+  -webkit-box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+          box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  cursor: pointer;
+  margin-left: 10px;
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+  background-color: #a29bfe;
+}
+
+.checkBox::before {
+  content: "";
+  position: absolute;
+  background-color: #f1f1f1;
+  width: 16px;
+  height: 16px;
+  left: 2px;
+  top: 2px;
+  -webkit-transition: .5s;
+  transition: .5s;
+  border-radius: 50%;
+}
+
+.checkBox:checked {
+  background-color: #585c76;
+}
+
+.checkBox:checked::before {
+  left: 27px;
+  background-color: #a29bfe;
+}
+/*# sourceMappingURL=Navbar.module.css.map */

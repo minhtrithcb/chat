@@ -1,0 +1,19 @@
+.btn {
+  padding: 0.4em 1em;
+  border-radius: 3px;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-transition: 0.6s;
+  transition: 0.6s;
+  background-color: #f1f1f1;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.primary {
+  background-color: #3498db;
+  color: #fff;
+}
+/*# sourceMappingURL=Button.module.css.map */

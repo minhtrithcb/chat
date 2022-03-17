@@ -1,0 +1,210 @@
+.contact {
+  width: 300px;
+  height: 100vh;
+  background-color: #fff;
+  border-right: 1px solid #d1d1d1;
+}
+
+.contact.dark {
+  background-color: #292c43;
+  border-right: 1px solid #585c76;
+}
+
+.contact.dark .heading {
+  background-color: #292c43;
+  color: white;
+  border-right: 1px solid #585c76;
+}
+
+.contact.dark .heading input {
+  background-color: #2f334d;
+}
+
+.contact.dark .heading input:focus {
+  outline: 2px solid #585c76;
+}
+
+.contact.dark .messages::-webkit-scrollbar {
+  width: 0px;
+}
+
+.heading {
+  background-color: #fff;
+  left: 70px;
+  top: 0;
+  width: 300px;
+  height: 120px;
+  padding: 1em;
+  position: -webkit-sticky;
+  position: sticky;
+  border-right: 1px solid #d1d1d1;
+}
+
+.heading p {
+  font-weight: bold;
+}
+
+.heading input {
+  border-radius: 0.4em;
+  min-width: 100%;
+  padding: 0.7em;
+  outline: none;
+  border: none;
+  background-color: #f1f1f1;
+}
+
+.messages {
+  width: 100%;
+  height: 80vh;
+  overflow-y: auto;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-color: #fff;
+}
+
+.messages > small {
+  display: block;
+  padding: 1em;
+}
+
+.messages::-webkit-scrollbar {
+  width: 5px;
+}
+
+.messages:hover::-webkit-scrollbar {
+  border-radius: 0.8em;
+  width: 5px;
+}
+
+.messages::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 0.5em;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.messages:hover::-webkit-scrollbar-thumb {
+  background: #f1f1f1;
+}
+
+.messagesItem {
+  height: 70px;
+  padding: 0 1em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+  -webkit-transition: .5s;
+  transition: .5s;
+  border-left: 2px solid transparent;
+}
+
+.messagesItem.active, .messagesItem:hover {
+  background-color: #f6f7fb;
+  border-left: 2px solid #a29bfe;
+}
+
+.messagesItem .avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border: 1px solid #f1f1f1;
+  margin-right: 1em;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.messagesItem .avatar img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.messagesItem .avatar::before {
+  content: "";
+  position: absolute;
+  right: -2px;
+  bottom: 0px;
+  width: 8px;
+  height: 8px;
+  border: 2px solid white;
+  border-radius: 50%;
+  background-color: #2ecc71;
+}
+
+.messagesItem p {
+  margin: 0.5em 0;
+  font-size: 0.9rem;
+}
+
+.messagesItem span:last-of-type {
+  margin-left: auto;
+  position: relative;
+}
+
+.messagesItem span:last-of-type small {
+  font-size: 0.7rem;
+  color: gray;
+}
+
+.messagesItem span:last-of-type p {
+  font-size: 0.7rem;
+  width: 15px;
+  height: 15px;
+  color: #fff;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #ff7675;
+  margin-left: auto;
+}
+
+.messages.dark {
+  background-color: #292c43;
+  color: white;
+}
+
+.messages.dark .messagesItem {
+  padding: 0.5em 1em;
+  margin: 0.5em;
+  border-radius: 1em;
+}
+
+.messages.dark .messagesItem p:not(:last-child) {
+  color: #585c76;
+}
+
+.messages.dark .messagesItem.active, .messages.dark .messagesItem:hover {
+  background-color: #a29bfe;
+  border-left: 2px solid transparent;
+}
+
+.messages.dark .messagesItem.active small, .messages.dark .messagesItem:hover small {
+  color: white;
+}
+
+.messages.dark .messagesItem.active p, .messages.dark .messagesItem:hover p {
+  color: #f6f7fb;
+}
+/*# sourceMappingURL=Contact.module.css.map */

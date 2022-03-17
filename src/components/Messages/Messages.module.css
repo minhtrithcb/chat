@@ -1,0 +1,140 @@
+.conversation {
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: #f6f7fb;
+}
+
+.conversation::-webkit-scrollbar {
+  width: 0px;
+}
+
+.conversation.dark {
+  background-color: #292c43;
+}
+
+.conversation.dark .friendCover {
+  background-color: #2f334d;
+  color: #fff;
+  border-bottom: 1px solid #585c76;
+}
+
+.conversation.dark .chatForm {
+  background-color: #2f334d;
+  border-top: 1px solid #585c76;
+}
+
+.conversation.dark .chatForm textarea {
+  background-color: #2f334d;
+  border: 1px solid #585c76;
+}
+
+.chatForm {
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  background-color: #fff;
+  border-top: 1px solid #d1d1d1;
+  padding: 1em calc(40px + 2em);
+}
+
+.chatForm textarea {
+  width: 100%;
+  resize: none;
+  padding: 1em;
+  border-radius: 7px;
+  font-family: sans-serif;
+  border: 1px solid #d1d1d1;
+  padding-bottom: 2em;
+  position: relative;
+}
+
+.chatForm textarea:focus {
+  outline: 2px solid #a29bfe;
+}
+
+.sendBtn {
+  position: absolute;
+  right: 5em;
+  bottom: 1em;
+  cursor: pointer;
+}
+
+.sendBtn svg {
+  font-size: 3rem;
+  color: #a29bfe;
+}
+
+.friendCover {
+  border-bottom: 1px solid #d1d1d1;
+  background-color: #fff;
+  height: 70px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 0 1em;
+}
+
+.friendCover div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.friendCover div svg {
+  cursor: pointer;
+  font-size: 1.2em;
+}
+
+.friendCover .des {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.friendCover .des small {
+  font-size: 0.8rem;
+  padding-top: 0.4em;
+}
+
+.friendCover .avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border: 1px solid #f1f1f1;
+  margin-right: 1em;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+}
+
+.friendCover .avatar img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+/*# sourceMappingURL=Messages.module.css.map */

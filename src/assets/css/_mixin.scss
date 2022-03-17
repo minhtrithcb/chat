@@ -1,0 +1,59 @@
+@mixin center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin avatar($size, $dot : false) {
+    width: $size;
+    height: $size;
+    background-color: #fff;
+    border: 1px solid $gray-light;
+    margin-right: 1em;
+    border-radius: 50%;
+    @include center;
+    cursor: pointer;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    @if $dot {
+        position: relative;
+
+        &::before {
+            content: "";
+            position: absolute;
+            right: -2px;
+            bottom: 0px;
+            width: 8px;
+            height: 8px;
+            border: 2px solid white;
+            border-radius: 50%;
+            background-color: $green;
+        }
+    }
+}
+
+@mixin scrollBarDefault {
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    &:hover::-webkit-scrollbar {
+        border-radius: 0.8em;
+        width: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: transparent;
+        border-radius: 0.5em;
+        transition: all 0.5s;
+    }
+
+    &:hover::-webkit-scrollbar-thumb {
+        background: #f1f1f1;
+    }
+}

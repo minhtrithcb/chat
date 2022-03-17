@@ -1,0 +1,84 @@
+@import '../../assets/css/variable';
+@import '../../assets/css/mixin';
+
+.chatUser {
+    padding: 1em;
+
+    p {
+        margin: 0;
+        padding: 1em;
+        border-radius: 1em;
+        box-shadow: $box-shadow3;
+        font-size: 0.9rem;
+        line-height: 1.6;
+        width: 100%;
+        width: auto;
+    }
+
+    .userMess {
+        display: flex;
+
+        p {
+            background-color: #fff;
+            margin-right: calc(40px + 1em);
+            margin-right: auto;
+        }
+
+        span {
+            min-width: calc(40px + 1em);
+        }
+
+    }
+
+    .friendMess {
+        display: flex;
+
+        p {
+
+            background-color: $primary-color;
+            color: #fff;
+            margin-left: calc(40px + 1em);
+            margin-left: auto;
+        }
+
+        span {
+            min-width: calc(40px + 1em);
+        }
+    }
+
+    small {
+        display: flex;
+        justify-content: flex-end;
+        padding: 1em 0;
+        margin-right: 4em;
+        color: $black;
+    }
+
+    &:last-child {
+        margin-bottom: 2em;
+    }
+
+    &.dark {
+        .userMess {
+            p {
+                color: #fff;
+                background-color: $dark-lv3;
+            }
+        }
+
+        small {
+            color: #fff;
+        }
+    }
+}
+
+.avatar {
+    @include avatar(40px);
+    display: flex;
+    flex-shrink: 0;
+}
+
+.avatar2 {
+    margin-right: 0;
+    margin-left: 1em;
+}
