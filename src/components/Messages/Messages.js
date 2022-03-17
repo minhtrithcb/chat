@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import FriendProfile from '../FriendProfile/FriendProfile';
 import styles from "./Messages.module.scss"
 import boy from '../../assets/images/boy.png'
@@ -7,11 +7,12 @@ import Chat from '../Chat/Chat';
 import { TiLocationArrow } from "react-icons/ti";
 import { ThemeContext } from '../../context/ThemeContext';
 import clsx from 'clsx';
+import useToggle from '../../hooks/useToggle';
 
 
 const Messages = () => {
 
-    const [toggle, setToggle] = useState(false)
+    const [toggle, setToggle] = useToggle(false)
     const {theme} = useContext(ThemeContext)
     const bottomRef = useRef()
 
@@ -137,7 +138,7 @@ const Messages = () => {
                         </span>
                     </div>
 
-                    <div onClick={() => setToggle(prev => !prev)}>
+                    <div onClick={setToggle}>
                         {toggle ? <FiAlignRight /> : <FiMenu />}
                     </div>
                 </div>

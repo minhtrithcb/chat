@@ -1,0 +1,80 @@
+@import '../../assets/css/variable';
+@import '../../assets/css/mixin';
+
+.LoginContainer {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+.LoginImg {
+    width: 50%;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+.LoginSide {
+    width: 50%;
+    @include center;
+
+    a {
+        display: block;
+        text-align: center;
+        padding: 0.5em;
+    }
+}
+
+.LoginForm {
+    padding: 3em;
+    width: 500px;
+    height: 700px;
+    background-color: #fff;
+
+    h2 {
+        text-align: center;
+    }
+
+
+}
+
+.LoginHr {
+    margin-top: 2em;
+    position: relative;
+
+    hr {
+        position: relative;
+    }
+
+    p {
+        font-size: 0.8rem;
+        position: absolute;
+        left: 50%;
+        top: -20px;
+        padding: 0 10px;
+        background-color: #fff;
+        transform: translateX(-50%);
+    }
+}
+
+.LoginSocial {
+    margin: 2em auto;
+    width: 200px;
+    display: flex;
+    justify-content: space-around;
+    cursor: pointer;
+
+    span {
+        padding: 0.3em;
+        border-radius: 0.7em;
+        border: 1px solid $gray;
+        @include center;
+
+        svg {
+            font-size: 2em;
+        }
+    }
+}

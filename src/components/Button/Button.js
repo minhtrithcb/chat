@@ -3,14 +3,18 @@ import React from 'react'
 import styles from './Button.module.scss'
 
 
-const Button = ({primary, children}) => {
+const Button = ({primary, dark, fluid, children, size, ...rest}) => {
     
-    const classStyle = clsx(styles.btn , {
-        [styles.primary] : primary
+    const sizeDefaut = size ? size : "md"
+
+    const classStyle = clsx(styles.btn ,styles[sizeDefaut] ,{
+        [styles.primary] : primary,
+        [styles.btnDark] : dark, 
+        [styles.fluid]: fluid,
     })
-    
+
     return (
-        <div className={classStyle}>
+        <div className={classStyle} {...rest}>
             {children}
         </div>
     )

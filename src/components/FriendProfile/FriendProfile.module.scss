@@ -1,6 +1,101 @@
 @import '../../assets/css/variable';
+@import '../../assets/css/mixin';
 
 .friendProfile {
     min-width: 300px;
     border-left: 1px solid $gray;
+    padding: 1em;
+
+    &.dark {
+        background-color: $dark-lv3;
+        border-left: 1px solid $light-lv1;
+
+        h4 {
+            color: $gray-light;
+        }
+
+        .frinedInfo {
+            border-top: 1px solid $light-lv1;
+        }
+
+        .friendBtnConatiner {
+            span {
+                background-color: $primary-color;
+
+                svg {
+                    color: #fff;
+                }
+            }
+        }
+
+        .frinedInfoItem {
+            color: $gray-light;
+
+            small {
+                color: $gray-light;
+            }
+        }
+    }
+}
+
+.avatar {
+    overflow: hidden;
+    @include avatar(50px);
+    margin: 0 auto;
+}
+
+h4 {
+    margin: 2em;
+    text-align: center;
+}
+
+.friendBtnConatiner {
+    display: flex;
+    justify-content: space-between;
+
+    span {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: $gray-light;
+        @include center;
+        cursor: pointer;
+
+        &:hover {
+            opacity: 0.9;
+        }
+    }
+
+    svg {
+        color: $light-lv1;
+    }
+}
+
+.frinedInfo {
+    margin-top: 2em;
+    padding: 1em 0;
+    border-top: 1px solid $gray-light;
+
+    .frinedInfoItem {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 1em 0;
+
+        span {
+
+            display: flex;
+            align-items: center;
+            margin-right: 1em;
+
+            svg {
+                margin-right: 0.5em;
+            }
+        }
+
+        small {
+            color: $black;
+        }
+
+    }
 }

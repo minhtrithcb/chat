@@ -1,0 +1,16 @@
+.NotFound {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    img {
+        margin-top: 100px;
+        max-width: 500px;
+    }
+
+    .pageDes {
+        text-align: center;
+    }
+}

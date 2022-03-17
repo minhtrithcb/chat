@@ -4,6 +4,7 @@
     align-items: center;
 }
 
+
 @mixin avatar($size, $dot : false) {
     width: $size;
     height: $size;

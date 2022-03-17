@@ -1,6 +1,6 @@
 .btn {
   padding: 0.4em 1em;
-  border-radius: 3px;
+  border-radius: 0.4em;
   display: inline-block;
   cursor: pointer;
   -webkit-transition: 0.6s;
@@ -12,8 +12,30 @@
   opacity: 0.9;
 }
 
+.btn.sm {
+  padding: 0em;
+}
+
+.btn.lg {
+  padding: 0.7em;
+}
+
+.btn.xl {
+  padding: 0.9em;
+}
+
 .primary {
-  background-color: #3498db;
+  background-color: #a29bfe;
   color: #fff;
+}
+
+.btnDark {
+  background-color: #313443;
+  color: #fff;
+}
+
+.fluid {
+  display: block;
+  text-align: center;
 }
 /*# sourceMappingURL=Button.module.css.map */

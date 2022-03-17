@@ -1,0 +1,21 @@
+@import '../../assets/css/variable';
+
+
+.FromInput {
+    >input {
+        width: 100%;
+        padding: 1em;
+        border-radius: 0.4em;
+        border: 1px solid $gray;
+
+        &:focus {
+            outline: 1px solid $primary-color;
+        }
+    }
+
+    >label {
+        margin: 0.5em 0;
+        padding: 0.5em 0;
+        display: block;
+    }
+}
