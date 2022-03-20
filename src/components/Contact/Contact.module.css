@@ -96,6 +96,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  margin: 0.5em 0;
   cursor: pointer;
   -webkit-transition: .5s;
   transition: .5s;
@@ -186,7 +187,7 @@
 }
 
 .messages.dark .messagesItem {
-  padding: 0.5em 1em;
+  padding: 0.5em;
   margin: 0.5em;
   border-radius: 1em;
 }

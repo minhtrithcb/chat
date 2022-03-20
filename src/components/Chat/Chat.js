@@ -1,12 +1,12 @@
 import clsx from 'clsx'
-import React, { useContext } from 'react'
+import React from 'react'
 import boy from '../../assets/images/boy.png'
-import { ThemeContext } from '../../context/ThemeContext'
+import useTheme  from '../../hooks/useTheme'
 import styles from "./Chat.module.scss"
 
 const Chat = ({self, data}) => {
 
-    const {theme} = useContext(ThemeContext)
+    const {theme} = useTheme()
 
     const clsAvatar = clsx(styles.avatar, styles.avatar2)
     const classesDarkMode = clsx(styles.chatUser,{ 

@@ -1,13 +1,13 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { NavLink } from 'react-router-dom'
 import styles from './Navbar.module.scss'
 import avatar from '../../assets/images/user.png'
 import {BsPlusLg,  BsChatSquareDots, BsPeople, BsTelephone,BsGear , BsBookmarkPlus , BsStar} from "react-icons/bs";
-import {ThemeContext} from '../../context/ThemeContext'
 import clsx from 'clsx';
+import useTheme  from '../../hooks/useTheme'
 
 const Navbar = () => {
-  const {theme, toggle} = useContext(ThemeContext)
+  const {theme, toggle} = useTheme()
 
   const linkRoutePrim = [
     {

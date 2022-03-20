@@ -1,13 +1,13 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import styles from './Contact.module.scss'
 import girl from '../../assets/images/girl.png'
 import boy from '../../assets/images/boy.png'
 import clsx from 'clsx'
-import { ThemeContext } from '../../context/ThemeContext'
+import useTheme  from '../../hooks/useTheme'
 
 const Contact = () => {
 
-    const {theme} = useContext(ThemeContext)
+    const {theme} = useTheme()
 
     const classesDarkMode = clsx(styles.contact,{ 
         [styles.dark]: theme === "dark"
@@ -30,7 +30,7 @@ const Contact = () => {
                         <img src={girl} alt="friend" />
                     </div>
                     <span>
-                        <b>Yasuo</b>
+                        <b>username</b>
                         <p>Gank team nà</p>
                     </span>
                     <span>

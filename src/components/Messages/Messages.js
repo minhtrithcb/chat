@@ -1,19 +1,18 @@
-import React, { useContext, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import FriendProfile from '../FriendProfile/FriendProfile';
 import styles from "./Messages.module.scss"
 import boy from '../../assets/images/boy.png'
 import { FiAlignRight, FiMenu } from "react-icons/fi";
 import Chat from '../Chat/Chat';
 import { TiLocationArrow } from "react-icons/ti";
-import { ThemeContext } from '../../context/ThemeContext';
 import clsx from 'clsx';
 import useToggle from '../../hooks/useToggle';
-
+import useTheme  from '../../hooks/useTheme'
 
 const Messages = () => {
 
     const [toggle, setToggle] = useToggle(false)
-    const {theme} = useContext(ThemeContext)
+    const {theme} = useTheme()
     const bottomRef = useRef()
 
     const curruntUser = {
@@ -119,8 +118,8 @@ const Messages = () => {
     })
 
     useEffect(() => {
-      bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
-    //   bottomRef.current?.scrollIntoView();
+    //   bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
+      bottomRef.current?.scrollIntoView();
       return () => {}
     }, [])
     

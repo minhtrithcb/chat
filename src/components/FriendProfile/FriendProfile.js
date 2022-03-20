@@ -1,15 +1,15 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import styles from './FriendProfile.module.scss'
 import avatar from '../../assets/images/boy.png'
 import { BsTelephoneOutbound, BsChatSquareDots, BsThreeDots ,BsHeart
         ,BsFillEnvelopeFill,BsFillTelephoneFill,BsFillPersonFill,BsBriefcaseFill
       } from "react-icons/bs";
-import { ThemeContext } from '../../context/ThemeContext'
 import clsx from 'clsx';
+import useTheme  from '../../hooks/useTheme'
 
 const FriendProfile = () => {
 
-  const {theme} = useContext(ThemeContext)
+  const {theme} = useTheme()
 
   const classesDarkMode = clsx(styles.friendProfile, { 
     [styles.dark]: theme === "dark"

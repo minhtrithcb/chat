@@ -84,6 +84,7 @@
     padding: 0 1em;
     display: flex;
     align-items: center;
+    margin: 0.5em 0;
     cursor: pointer;
     transition: .5s;
     border-left: 2px solid transparent;
@@ -133,7 +134,7 @@
     color: white;
 
     .messagesItem {
-        padding: 0.5em 1em;
+        padding: 0.5em;
         margin: 0.5em;
         border-radius: 1em;
 

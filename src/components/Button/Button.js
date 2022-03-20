@@ -14,9 +14,9 @@ const Button = ({primary, dark, fluid, children, size, ...rest}) => {
     })
 
     return (
-        <div className={classStyle} {...rest}>
+        <button className={classStyle} {...rest}>
             {children}
-        </div>
+        </button>
     )
 }
 

@@ -8,13 +8,21 @@
         border-radius: 0.4em;
         border: 1px solid $gray;
 
+        margin-bottom: 0.5em;
+
         &:focus {
             outline: 1px solid $primary-color;
         }
+
+    }
+
+    small {
+        color: $red-light;
+        margin: 0.5em 0;
     }
 
     >label {
-        margin: 0.5em 0;
+        // margin: 0.5em 0;
         padding: 0.5em 0;
         display: block;
     }
