@@ -12,7 +12,7 @@ const NotFound = () => {
       
       <div className={styles.pageDes}>
         <h1>Trang bạn tìm kiếm hiện không khả dụng !</h1>
-        <Button primary onClick={() => navigate(-1)}>Quay về</Button>
+        <Button primary onClick={() => navigate(-1)} size="lg">Quay về</Button>
       </div>
     </div>
   )

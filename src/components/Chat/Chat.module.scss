@@ -39,6 +39,8 @@
             color: #fff;
             margin-left: calc(40px + 1em);
             margin-left: auto;
+
+
         }
 
         span {
@@ -46,7 +48,7 @@
         }
     }
 
-    small {
+    &>small {
         display: flex;
         justify-content: flex-end;
         padding: 1em 0;
@@ -81,4 +83,20 @@
 .avatar2 {
     margin-right: 0;
     margin-left: 1em;
+}
+
+.userMess~p:last-child {
+    font-size: 0.8rem;
+    padding: 0.5em;
+    margin-left: calc(40px + 1em);
+    box-shadow: none;
+}
+
+.friendMess~p:last-child {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 0.8rem;
+    padding: 0.5em;
+    margin-right: calc(40px + 1em);
+    box-shadow: none;
 }

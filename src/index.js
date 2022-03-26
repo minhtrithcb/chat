@@ -6,17 +6,25 @@ import AuthProvider from './context/AuthContext';
 import ThemeProvider from './context/ThemeContext';
 import reportWebVitals from './reportWebVitals';
 import { ToastContainer } from 'react-toastify';
+import ChatProvider from './context/ChatContext';
 
 ReactDOM.render(
   <AuthProvider>
-    <ThemeProvider>
-      <BrowserRouter>
-        <React.StrictMode>
-          <ToastContainer pauseOnHover={false} limit={3} />
-          <App />
-        </React.StrictMode>
-      </BrowserRouter>
-    </ThemeProvider>
+    <ChatProvider>
+      <ThemeProvider>
+        <BrowserRouter>
+          <React.StrictMode>
+            <ToastContainer 
+              pauseOnHover={false} 
+              limit={3} 
+              pauseOnFocusLoss={false} 
+              autoClose={2000} 
+            />
+            <App />
+          </React.StrictMode>
+        </BrowserRouter>
+      </ThemeProvider>
+    </ChatProvider>
   </AuthProvider>,
   document.getElementById('root')
 );

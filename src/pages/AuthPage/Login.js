@@ -26,16 +26,16 @@ const Login = () => {
       type: "email", 
       name: "email", 
       placeholder: "Type your Email",
-      value: "minhtrithcb@gmail.com",
-      err: errors.email
+      err: errors.email,
+      value: "minhtrithcb@gmail.com"
     },
     password: {
       label: "Password", 
       type: "password", 
       name: "password", 
       placeholder: "Type your Password",
-      value: "123456",
-      err: errors.password
+      err: errors.password,
+      value: "123456"
     }
   }
 
@@ -59,7 +59,7 @@ const Login = () => {
       setLoading(true)
       let {data} = await authApi.login(email, password)
       if(data?.success) {
-        toast.success(`Đăng nhập thành công`, {autoClose: 2000, hideProgressBar: true})
+        toast.success(`Đăng nhập thành công`)
         setLoading(false)
         setAuth({isLogin: true, accessToken:  data.accessToken})
         navigate(from, {replace: true})
@@ -105,7 +105,6 @@ const Login = () => {
 
           <Link to="/sign-up">Don't have an account yet? Sign Up</Link>
           <Link to="/forgot-password">Forgot your password ?</Link>
-          <Link to="/admin">Forgot your password ?</Link>
 
         </div>
       </div>

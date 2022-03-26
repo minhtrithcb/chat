@@ -1,17 +1,22 @@
 import clsx from 'clsx'
-import React from 'react'
-import boy from '../../assets/images/boy.png'
+import moment from 'moment'
+import React, { useContext } from 'react'
+import avatar from '../../assets/images/user.png'
+import { ChatContext } from '../../context/ChatContext'
 import useTheme  from '../../hooks/useTheme'
 import styles from "./Chat.module.scss"
 
 const Chat = ({self, data}) => {
 
     const {theme} = useTheme()
+    const {friend} = useContext(ChatContext)
 
     const clsAvatar = clsx(styles.avatar, styles.avatar2)
+
     const classesDarkMode = clsx(styles.chatUser,{ 
         [styles.dark]: theme === "dark"
     })
+
     return (
         <>
             {self ? 
@@ -19,22 +24,26 @@ const Chat = ({self, data}) => {
             <div className={classesDarkMode}>
                 <div className={styles.userMess }>
                     <div className={styles.avatar}>
-                        <img src={boy} alt="userChat" />
+                        <img src={avatar} alt="userChat" />
                     </div>
-                    <p>{data.text}</p>
+                    <p>
+                        {data.text}
+                    </p>                    
                     <span></span>
                 </div>
+                <p>{moment(data.createdAt).fromNow()}</p>
             </div>
             // Friend
             :<div className={classesDarkMode}>
-                <small>{data.sender.name}</small>
+                <small>{friend && friend.fullname}</small>
                 <div className={styles.friendMess }>
                     <span></span>
                     <p>{data.text}</p>
                     <div className={clsAvatar}>
-                        <img src={boy} alt="userChat" />
+                        <img src={avatar} alt="userChat" />
                     </div>
                 </div>
+                <p>{moment(data.createdAt).fromNow()}</p>
             </div>}
         </>
     )

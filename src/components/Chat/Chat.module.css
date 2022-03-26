@@ -47,7 +47,7 @@
   min-width: calc(40px + 1em);
 }
 
-.chatUser small {
+.chatUser > small {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -104,5 +104,27 @@
 .avatar2 {
   margin-right: 0;
   margin-left: 1em;
+}
+
+.userMess ~ p:last-child {
+  font-size: 0.8rem;
+  padding: 0.5em;
+  margin-left: calc(40px + 1em);
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.friendMess ~ p:last-child {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  font-size: 0.8rem;
+  padding: 0.5em;
+  margin-right: calc(40px + 1em);
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 /*# sourceMappingURL=Chat.module.css.map */

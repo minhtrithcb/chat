@@ -3,14 +3,19 @@
   padding: 1em;
   border-radius: 0.4em;
   border: 1px solid #d1d1d1;
+  margin-bottom: 0.5em;
 }
 
 .FromInput > input:focus {
   outline: 1px solid #a29bfe;
 }
 
-.FromInput > label {
+.FromInput small {
+  color: #ff7675;
   margin: 0.5em 0;
+}
+
+.FromInput > label {
   padding: 0.5em 0;
   display: block;
 }

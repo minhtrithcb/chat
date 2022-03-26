@@ -9,6 +9,7 @@
     "axios": "^0.26.1",
     "clsx": "^1.1.1",
     "jwt-decode": "^3.1.2",
+    "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.28.0",
@@ -16,6 +17,8 @@
     "react-router-dom": "^6.2.2",
     "react-scripts": "^5.0.0",
     "react-toastify": "^8.2.0",
+    "socket.io-client": "^4.4.1",
+    "sweetalert2": "^11.4.6",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

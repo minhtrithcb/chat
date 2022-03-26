@@ -8,6 +8,8 @@
 
 .LoginImg {
   width: 50%;
+  -webkit-transition: width .5s;
+  transition: width .5s;
 }
 
 .LoginImg img {
@@ -15,10 +17,33 @@
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+  -webkit-animation-name: run;
+          animation-name: run;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
+}
+
+@-webkit-keyframes run {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes run {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .LoginSide {
   width: 50%;
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -95,5 +120,14 @@
 
 .LoginSocial span svg {
   font-size: 2em;
+}
+
+@media screen and (max-width: 768px) {
+  .LoginImg {
+    width: 0;
+  }
+  .LoginSide {
+    width: 100%;
+  }
 }
 /*# sourceMappingURL=Auth.module.css.map */
