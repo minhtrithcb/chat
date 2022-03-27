@@ -20,65 +20,58 @@
             border-bottom: 1px solid $light-lv1;
         }
 
-        .chatForm {
-            background-color: $dark-lv3;
-            border-top: 1px solid $light-lv1;
-
-            textarea {
-                background-color: $dark-lv3;
-                border: 1px solid $light-lv1;
-            }
+        .mobileViewCover {
+            background-color: $dark-lv4;
+            color: #fff;
         }
+    }
+
+    @include maxWitdh(768px) {
+        position: fixed;
+        top: 70px;
+        width: 100%;
     }
 
 }
 
 .chatContainer {
     width: 100%;
-    height: calc(100vh - 170px);
+    height: calc(100vh - 150px);
     overflow-y: auto;
 
     &::-webkit-scrollbar {
-        width: 50px;
+        width: 5px;
+    }
+
+    @include maxWitdh(768px) {
+        padding-bottom: 100px;
     }
 }
 
-.chatForm {
-    position: sticky;
-    bottom: 0;
-    width: 100%;
-    height: 100px;
-    background-color: #fff;
-    border-top: 1px solid $gray;
-    padding: 1em calc(40px + 2em);
+.mobileViewCover {
+    display: none;
 
-    textarea {
+    @include maxWitdh(768px) {
+        display: flex;
+        height: 50px;
         width: 100%;
-        resize: none;
-        padding: 1em;
-        border-radius: 7px;
-        font-family: sans-serif;
-        border: 1px solid $gray;
-        padding-bottom: 2em;
-        position: relative;
-
-        &:focus {
-            outline: 2px solid $primary-color;
-        }
+        background-color: #fff;
+        border-bottom: 1px solid $gray;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
     }
+
+    .goBackBtn,
+    div:last-of-type {
+        width: 50px;
+        height: 50px;
+        @include center;
+    }
+
 }
 
-.sendBtn {
-    position: absolute;
-    right: 5em;
-    bottom: 1em;
-    cursor: pointer;
 
-    svg {
-        font-size: 3rem;
-        color: $primary-color;
-    }
-}
 
 .friendCover {
     border-bottom: 1px solid $gray;
@@ -112,5 +105,9 @@
 
     .avatar {
         @include avatar(40px);
+    }
+
+    @include maxWitdh(768px) {
+        display: none;
     }
 }

@@ -1,0 +1,84 @@
+@import '../../assets/css/variable';
+@import '../../assets/css/mixin';
+
+.chatForm {
+    position: sticky;
+    height: 50px;
+    background-color: #fff;
+    border: 1px solid $gray;
+    margin: 1em calc(40px + 2em);
+    border-radius: .7em;
+    overflow: hidden;
+
+    textarea {
+        width: 100%;
+        height: 100%;
+        resize: none;
+        padding: 1em;
+        padding-right: 80px;
+        border: none;
+        font-family: 'Montserrat', sans-serif;
+
+        &:focus {
+            border-radius: .7em;
+            outline: none;
+            border: 2px solid $primary-color;
+        }
+
+        &::-webkit-scrollbar {
+            width: 5px;
+        }
+    }
+
+    @include maxWitdh(768px) {
+        bottom: 160px;
+        margin: 0 1em;
+    }
+}
+
+
+.sendBtn {
+    position: absolute;
+    right: 7px;
+    top: 7px;
+    background-color: $primary-color;
+    width: 35px;
+    height: 35px;
+    border-radius: .6em;
+    cursor: pointer;
+    @include center;
+
+    svg {
+        font-size: 2rem;
+        color: #fff;
+    }
+}
+
+.emote {
+    position: absolute;
+    right: 47px;
+    top: 7px;
+    width: 35px;
+    height: 35px;
+    border-radius: .6em;
+    cursor: pointer;
+    @include center;
+
+    svg {
+        font-size: 1rem;
+    }
+}
+
+.chatForm.dark {
+    color: #fff;
+
+    textarea {
+        background-color: $dark-lv4;
+        color: #fff;
+
+        &:focus {
+            border-radius: .7em;
+            border: 2px solid $primary-color;
+        }
+    }
+}

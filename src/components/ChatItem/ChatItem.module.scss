@@ -12,6 +12,7 @@
         font-size: 0.9rem;
         line-height: 1.6;
         width: 100%;
+        word-break: break-all;
         width: auto;
     }
 
@@ -70,6 +71,10 @@
 
         small {
             color: #fff;
+        }
+
+        &>p {
+            color: $light-lv1;
         }
     }
 }

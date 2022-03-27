@@ -1,21 +1,24 @@
+@import '../../assets/css/variable';
 @import '../../assets/css/mixin';
 
-.NotFound {
+.notHaveChat {
     width: 100%;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    height: 450px;
+    height: 100vh;
     padding: 1em;
 
     img {
-        margin-top: 100px;
-        max-width: 500px;
+        max-width: 300px;
         animation-name: run;
         animation-duration: 0.5s;
     }
 
+    @include maxWitdh(768px) {
+        display: none;
+    }
 
     @keyframes run {
         0% {
@@ -43,5 +46,10 @@
         h1 {
             text-align: center;
         }
+    }
+
+    &.dark {
+        background-color: $dark-lv3;
+        color: #fff;
     }
 }

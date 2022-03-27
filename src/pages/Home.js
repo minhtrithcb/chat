@@ -1,12 +1,12 @@
 import React from 'react'
-import Contact from '../components/Contact/Contact'
-import Messages from '../components/Messages/Messages'
+import Chats from '../components/Chats/Chats'
+import Conversation from '../components/Conversation/Conversation'
 
 const Home = () => {
   return (
     <div className="d-flex">
-      <Contact/>
-      <Messages />
+      <Conversation />
+      <Chats />
     </div>
   )
 }

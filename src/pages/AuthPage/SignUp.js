@@ -16,31 +16,31 @@ const SignUp = () => {
 
     const inputInit = {
       fullname : {
-        label: "FullName", 
+        label: "Họ và Tên", 
         type: "text", 
         name: "fullname", 
-        placeholder: "Type your Fullname",
+        placeholder: "Nhập họ và tên",
         err: errors.fullname
       },
       email: {
-        label: "Email", 
+        label: "Địa chỉ email", 
         type: "email", 
         name: "email", 
-        placeholder: "Type your Email",
+        placeholder: "Nhập địa chỉ email",
         err: errors.email
       },
       password: {
-        label: "Password", 
+        label: "Mật khẩu", 
         type: "password", 
         name: "password", 
-        placeholder: "Type your Password",
+        placeholder: "Nhập mật khẩu",
         err: errors.password
       },
       rePassword: {
-        label: "Retype password", 
+        label: "Nhập lại mật khẩu", 
         type: "password", 
         name: "rePassword", 
-        placeholder: "Type your Password again",
+        placeholder: "Nhập lại mật khẩu",
         err: errors.rePassword
       }
     }
@@ -56,7 +56,7 @@ const SignUp = () => {
         minLength: 6,
         pattern: {
           value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
-          message: "is not an email"
+          message: 'Email không hợp lệ'
         }
       },
       password: {
@@ -68,7 +68,7 @@ const SignUp = () => {
         minLength: 6,
         validate: value => {
           if (watch('password') !== value) {
-            return "Your passwords do no match";
+            return "Mật khẩu nhập lại không khớp";
           }
         }
       },
@@ -81,7 +81,9 @@ const SignUp = () => {
         if(data?.success) {
           toast.success(`${data?.msg}`)
           setTimeout(()=> {
-            navigate("/login")
+            navigate('/login', {state: {
+              email: watch('email'),
+            }})
             setLoading(false)
           },3000)
         } else {
@@ -93,6 +95,7 @@ const SignUp = () => {
         toast.error(`${error}`)
       }
     }
+    
     return (
       <div className={styles.LoginContainer}>
         <div className={styles.LoginImg}>
@@ -100,22 +103,22 @@ const SignUp = () => {
         </div>
         <div className={styles.LoginSide}>
           <div className={styles.LoginForm}>
-            <h2>Sign Up</h2>
+            <h2>Đăng ký</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
               <Input  {...register("fullname", inpValid.fullname)}      {...inputInit.fullname} />
               <Input  {...register("email", inpValid.email)}            {...inputInit.email} />
               <Input  {...register("password", inpValid.password)}      {...inputInit.password} />
               <Input  {...register("rePassword", inpValid.rePassword)}  {...inputInit.rePassword} />
-              <Button disabled={loading} type="submit" primary size="lg" fluid style={{marginTop : "1em"}}> Sign Up 
+              <Button disabled={loading} type="submit" primary size="lg" fluid style={{marginTop : "1em"}}> 
+                Đăng ký
                 {loading && <Icon />}
               </Button>
             </form>
             <div className={styles.LoginHr}>
               <hr />
-              <p>Or try with</p>
+              <p>Hoặc thử với</p>
             </div>
-              
-            <Link to="/login">Have an account ! Sign In</Link>
+            <Link to="/login">Có tài khoản ! Đăng nhập</Link>
           </div>
         </div>
       </div>

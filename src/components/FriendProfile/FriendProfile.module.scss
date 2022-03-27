@@ -36,6 +36,10 @@
             }
         }
     }
+
+    @include maxWitdh(768px) {
+        display: none;
+    }
 }
 
 .avatar {
@@ -73,17 +77,16 @@ h4 {
 
 .frinedInfo {
     margin-top: 2em;
-    padding: 1em 0;
     border-top: 1px solid $gray-light;
 
     .frinedInfoItem {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        // justify-content: space-between;
         margin: 1em 0;
 
         span {
-
+            min-width: 100px;
             display: flex;
             align-items: center;
             margin-right: 1em;
@@ -95,6 +98,7 @@ h4 {
 
         small {
             color: $black;
+            word-break: break-all;
         }
 
     }

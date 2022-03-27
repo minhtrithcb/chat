@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './Auth.module.scss'
 import ImageLight from '../../assets/images/illu/s.png'
 import Button from '../../components/Button/Button'
@@ -15,6 +15,7 @@ import useAuth from '../../hooks/useAuth'
 const Login = () => {
   const { register,  formState: { errors }, handleSubmit } = useForm();
   const [loading, setLoading, Icon] = useLoading()
+  const [emailFromSignIn, setEmailFromSignIn] = useState("")
   const navigate = useNavigate();
   const location = useLocation()
   const {setAuth} = useAuth();
@@ -22,20 +23,18 @@ const Login = () => {
   
   const inputInit = {
     email: {
-      label: "Email", 
+      label: "Địa chỉ email", 
       type: "email", 
       name: "email", 
-      placeholder: "Type your Email",
+      placeholder: "Nhập địa chỉ email",
       err: errors.email,
-      value: "minhtrithcb@gmail.com"
     },
     password: {
-      label: "Password", 
+      label: "Mật khẩu", 
       type: "password", 
       name: "password", 
-      placeholder: "Type your Password",
+      placeholder: "Nhập mật khẩu",
       err: errors.password,
-      value: "123456"
     }
   }
 
@@ -45,7 +44,7 @@ const Login = () => {
       minLength: 6,
       pattern: {
         value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
-        message: "is not an email"
+        message: "không hợp lệ" 
       }
     },
     password: {
@@ -53,6 +52,13 @@ const Login = () => {
       minLength: 6,
     }
   }
+
+  // Effect when user sign up & redirect to login
+  useEffect(() => {
+    if (location.state?.email)
+      setEmailFromSignIn(location.state.email)
+  }, [location])
+  
 
   const onSubmit = async ({email, password}) => {
     try {
@@ -80,18 +86,17 @@ const Login = () => {
       </div>
       <div className={styles.LoginSide}>
         <div className={styles.LoginForm}>
-          <h2>Login</h2>
+          <h2>Đăng nhập</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Input  {...register("email", inpValid.email)} {...inputInit.email} />
+            <Input  {...register("email", inpValid.email)} defaultValue={emailFromSignIn ?? ""}  {...inputInit.email}  />
             <Input  {...register("password", inpValid.password)} {...inputInit.password} />
             <Button disabled={loading} type="submit" primary size="lg" fluid style={{marginTop : "1em"}}> 
-              Login {loading && <Icon />}
+              Đăng nhập {loading && <Icon />}
             </Button>
           </form>
-
           <div className={styles.LoginHr}>
             <hr />
-            <p>Or Log in with</p>
+            <p>Hoặc đăng phận với</p>
           </div>
 
           <div className={styles.LoginSocial}>
@@ -103,8 +108,8 @@ const Login = () => {
             </span>
           </div>
 
-          <Link to="/sign-up">Don't have an account yet? Sign Up</Link>
-          <Link to="/forgot-password">Forgot your password ?</Link>
+          <Link to="/sign-up">Không có tài khoản? đăng ký ngay.</Link>
+          <Link to="/forgot-password">Quên mật khẩu?</Link>
 
         </div>
       </div>

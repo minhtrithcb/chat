@@ -42,28 +42,28 @@ const FriendProfile = () => {
           <div className={styles.frinedInfoItem}>
             <span>
               <BsBriefcaseFill /> 
-              Company :
+              Company:
             </span>
             <small>Googller</small>
           </div>
           <div className={styles.frinedInfoItem}>
             <span>
               <BsFillPersonFill /> 
-              Role :
+              Role:
             </span>
             <small>CEO</small>
           </div>
           <div className={styles.frinedInfoItem}>
             <span>
               <BsFillTelephoneFill /> 
-              Phone :
+              Phone:
             </span>
             <small>0123577998</small>
           </div>
           <div className={styles.frinedInfoItem}>
             <span>
               <BsFillEnvelopeFill /> 
-              Email :
+              Email:
             </span>
             <small>{friend.email}</small>
           </div>

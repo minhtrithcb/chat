@@ -19,62 +19,71 @@
   border-bottom: 1px solid #585c76;
 }
 
-.conversation.dark .chatForm {
-  background-color: #2f334d;
-  border-top: 1px solid #585c76;
+.conversation.dark .mobileViewCover {
+  background-color: #292c43;
+  color: #fff;
 }
 
-.conversation.dark .chatForm textarea {
-  background-color: #2f334d;
-  border: 1px solid #585c76;
+@media screen and (max-width: 768px) {
+  .conversation {
+    position: fixed;
+    top: 70px;
+    width: 100%;
+  }
 }
 
 .chatContainer {
   width: 100%;
-  height: calc(100vh - 170px);
+  height: calc(100vh - 150px);
   overflow-y: auto;
 }
 
 .chatContainer::-webkit-scrollbar {
+  width: 5px;
+}
+
+@media screen and (max-width: 768px) {
+  .chatContainer {
+    padding-bottom: 100px;
+  }
+}
+
+.mobileViewCover {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .mobileViewCover {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: 50px;
+    width: 100%;
+    background-color: #fff;
+    border-bottom: 1px solid #d1d1d1;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    cursor: pointer;
+  }
+}
+
+.mobileViewCover .goBackBtn,
+.mobileViewCover div:last-of-type {
   width: 50px;
-}
-
-.chatForm {
-  position: -webkit-sticky;
-  position: sticky;
-  bottom: 0;
-  width: 100%;
-  height: 100px;
-  background-color: #fff;
-  border-top: 1px solid #d1d1d1;
-  padding: 1em calc(40px + 2em);
-}
-
-.chatForm textarea {
-  width: 100%;
-  resize: none;
-  padding: 1em;
-  border-radius: 7px;
-  font-family: sans-serif;
-  border: 1px solid #d1d1d1;
-  padding-bottom: 2em;
-  position: relative;
-}
-
-.chatForm textarea:focus {
-  outline: 2px solid #a29bfe;
-}
-
-.sendBtn {
-  position: absolute;
-  right: 5em;
-  bottom: 1em;
-  cursor: pointer;
-}
-
-.sendBtn svg {
-  font-size: 3rem;
-  color: #a29bfe;
+  height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .friendCover {
@@ -147,4 +156,10 @@
   -o-object-fit: cover;
      object-fit: cover;
 }
-/*# sourceMappingURL=Messages.module.css.map */
+
+@media screen and (max-width: 768px) {
+  .friendCover {
+    display: none;
+  }
+}
+/*# sourceMappingURL=Chats.module.css.map */

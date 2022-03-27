@@ -1,68 +1,76 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect,  useState } from 'react'
 import styles from './Conversation.module.scss'
-import avatar from '../../assets/images/user.png'
 import clsx from 'clsx'
-import useTheme from '../../hooks/useTheme'
-import userApi from '../../api/userApi'
+import useTheme  from '../../hooks/useTheme'
+import converApi from '../../api/converApi'
+import useDecodeJwt from '../../hooks/useDecodeJwt'
 import { ChatContext } from '../../context/ChatContext'
+import ConversationItem from '../ConversationItem/ConversationItem'
+import { SocketContext } from '../../context/SocketContext'
 
-const Conversation = ({activeChat , conversation, currentUserId, usersOnline}) => {
-
+const Conversation = () => {
+    const [conversations, setConversations] = useState([])
+    const [currentUser] = useDecodeJwt()
+    const {currentChat, setCurrentChat, friend} = useContext(ChatContext)
     const {theme} = useTheme()
-    const [friendState, setFriendState] = useState({})
-    const {setFriend} = useContext(ChatContext)
-    const [onlineFriend, setOnlineFriend] = useState(false)
-    const classesDarkMode = clsx(styles.messagesItem,{ 
-        [styles.dark]: theme === "dark",
-        [styles.active]: activeChat
+    const classesDarkMode = clsx(styles.contact,{ 
+        [styles.dark]: theme === "dark"
     })
+    const classesDarkMode2 = clsx(styles.messages,{ 
+        [styles.dark]: theme === "dark"
+    })
+    const [usersOnline, setUsersOnline] = useState(null)
+    const {socket} = useContext(SocketContext)
 
-    const friendId = conversation.members.find(u => u !== currentUserId)
-
+    // Get all users online
     useEffect(() => {
-        const getFriend = async () => {
+        let isMounted = true;    
+
+        socket.on("getUser", usersOnline => {
+            if (isMounted) setUsersOnline(usersOnline) // Array users online
+        })
+
+        return () => { isMounted = false };
+    }, [friend, socket])    
+
+    // Feach all conversations of current user
+    useEffect(() => {
+        let isMounted = true;    
+        const  getAllconvertation = async () => {
             try {
-                const {data} = await userApi.getByUserId(friendId)
-                setFriendState(data);
-                if(activeChat) setFriend(data);
+                const {data} = await converApi.getByUserId(currentUser.id)
+                // console.log(data);
+                if (isMounted) setConversations(data);
             } catch (error) {
                 console.log(error);
             }
         }
-        getFriend()
-    }, [activeChat, friendId, setFriend])
-    
-    useEffect(() => {
-        if(usersOnline !== undefined) 
-        {
-            let res = usersOnline?.find(u => u.uid === friendState._id)
-            if(res !== undefined) setOnlineFriend(true)
-        }
-
-        return () => {
-            setOnlineFriend(false)
-        }
-
-    },[usersOnline, friendState])
+        getAllconvertation()
+        return () => { isMounted = false };
+    }, [currentUser.id])
     
     return (
-         <div className={classesDarkMode}>
-            {friendState && 
-            <>
-                <div className={styles.avatar}>
-                    <img src={avatar} alt="friend" />
-                    {onlineFriend && <span className={styles.isOnline}></span>}
-                </div>
-                <span>
-                    <b>{friendState.fullname}</b>
-                    <p>Gank team nà</p>
-                </span>
-                <span>
-                    <small>2:20 PM</small>
-                    <p>2</p>
-                </span>
-            </>}
-        </div> 
+        <div className={classesDarkMode}>
+            <div className={styles.heading}>
+                <p>Tin nhắn</p>
+                <input type="text" placeholder='Tìm kiếm ...' />
+            </div>
+
+            <div className={classesDarkMode2}>                
+                {/* ///// All messages  */}
+                <small>Tất cả tin nhắn</small>
+                {conversations && conversations.map((conver) => (
+                    <div onClick={() => setCurrentChat(conver)} key={conver._id}>
+                        <ConversationItem 
+                            usersOnline={usersOnline}
+                            conversation={conver} 
+                            currentUserId={currentUser.id} 
+                            activeChat={currentChat && currentChat?._id === conver._id}
+                        />
+                    </div>
+                ))}
+            </div>
+        </div>
     )
 }
 

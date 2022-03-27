@@ -32,6 +32,12 @@ a {
   width: 100%;
 }
 
+@media screen and (max-width: 768px) {
+  .container {
+    margin-left: 0;
+  }
+}
+
 .active {
   color: #6c5ce7 !important;
 }

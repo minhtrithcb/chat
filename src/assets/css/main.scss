@@ -1,3 +1,5 @@
+@import './mixin';
+
 * {
     box-sizing: border-box;
 }
@@ -25,7 +27,13 @@ a {
 .container {
     margin-left: 70px;
     width: 100%;
+
+    @include maxWitdh(768px) {
+        margin-left: 0;
+    }
 }
+
+
 
 .active {
     color: #6c5ce7 !important;

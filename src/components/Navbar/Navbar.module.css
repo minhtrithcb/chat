@@ -12,6 +12,7 @@
   height: 100vh;
   position: fixed;
   padding: 1em 0;
+  padding-top: 100px;
   z-index: 999;
   background-color: #fff;
   border-right: 1px solid #d1d1d1;
@@ -57,7 +58,7 @@
           box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   position: absolute;
   border-radius: 00.4em;
-  right: -60px;
+  right: -100px;
   top: -10px;
 }
 
@@ -88,6 +89,16 @@
   background-color: #2f334d;
 }
 
+@media screen and (max-width: 768px) {
+  .navBar.dark .mobileView {
+    background-color: #2f334d;
+    color: #fff;
+  }
+  .navBar.dark .mobileView p {
+    color: #fff;
+  }
+}
+
 .navBar.dark a {
   color: #585c76;
 }
@@ -100,24 +111,154 @@
   background-color: #585c76;
 }
 
-.navBar.dark .btn_plus svg {
-  color: #585c76;
+.navBar.dark .user {
+  background-color: #2f334d;
+  color: #fff;
 }
 
-.avatar {
-  padding: 1em;
+.navBar.dark .user:hover {
+  background-color: #a29bfe;
+}
+
+@media screen and (max-width: 768px) {
+  .navBar {
+    width: 100%;
+    height: 70px;
+    background-color: #fff;
+    bottom: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 0;
+    border-top: 1px solid #d1d1d1;
+    border-right: none;
+  }
+  .navBar p {
+    display: none;
+  }
+  .navBar .hr,
+  .navBar .user,
+  .navBar .btn_logout,
+  .navBar .checkBox {
+    display: none;
+  }
+}
+
+.mobileView {
+  display: none;
+}
+
+.mobileView > .avatar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.mobileView > .avatar p {
+  margin-right: 1em;
+}
+
+@media screen and (max-width: 768px) {
+  .mobileView {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    height: 70px;
+    width: 100%;
+    background-color: #fff;
+    position: fixed;
+    padding: 0 1em;
+    top: 0;
+    border-bottom: 1px solid #d1d1d1;
+  }
+}
+
+.user {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  top: 1em;
+  width: 69px;
+  height: 70px;
+  left: 0em;
+  -webkit-transition: .3s ease-out;
+  transition: .3s ease-out;
+  border-radius: .7em;
   cursor: pointer;
-  margin-bottom: 70px;
-  width: 70px;
+  background-color: #fff;
 }
 
-.avatar img {
-  border: 1px solid #d1d1d1;
+.user span {
+  width: 200px;
+  opacity: 0;
+}
+
+.user:hover {
+  width: 200px;
+  height: 80px;
+  left: 0.5em;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+          box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.user:hover::before {
+  content: "";
+  position: absolute;
+  width: .5em;
+  left: -.5em;
+  background-color: transparent;
+  height: 80px;
+}
+
+.user:hover span {
+  opacity: 1;
+  position: absolute;
+  left: 5em;
+}
+
+.user .avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border: 1px solid #f1f1f1;
+  margin-right: 1em;
   border-radius: 50%;
-  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+  margin-right: 0;
+  margin-left: 1em;
+  position: absolute;
 }
 
-.btn_plus {
+.user .avatar img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.btn_logout {
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -132,17 +273,32 @@
           align-items: center;
   cursor: pointer;
   margin: 2em 1.2em;
-  -webkit-transition: opacity .5s;
-  transition: opacity .5s;
+  -webkit-transition: .5s;
+  transition: .5s;
   background-color: #a29bfe;
-}
-
-.btn_plus:hover {
-  opacity: .9;
-}
-
-.btn_plus svg {
+  position: absolute;
   color: #fff;
+}
+
+.btn_logout span {
+  display: none;
+  opacity: 0;
+  -webkit-transition: 1s ease-in-out;
+  transition: 1s ease-in-out;
+  margin-left: 0.4rem;
+  font-size: .9rem;
+}
+
+.btn_logout:hover {
+  width: 80px;
+  border-radius: 0.7em;
+  opacity: .9;
+  background-color: #ff7675;
+}
+
+.btn_logout:hover span {
+  display: block;
+  opacity: 1;
 }
 
 .checkBox {

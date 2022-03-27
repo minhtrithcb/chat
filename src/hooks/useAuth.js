@@ -7,7 +7,6 @@ const useAuth = () => {
 
     useEffect(() => {
         async function getAccessToken() {
-            console.log("call api get accessToken");
             let {data} = await authApi.accessToken()
             setAuth(data)
         }

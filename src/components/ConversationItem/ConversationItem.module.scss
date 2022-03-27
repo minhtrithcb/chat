@@ -1,0 +1,87 @@
+@import '../../assets/css/variable';
+@import '../../assets/css/mixin';
+
+.messagesItem {
+    height: 70px;
+    padding: 0 1em;
+    display: flex;
+    align-items: center;
+    margin: 0.5em 0;
+    cursor: pointer;
+    transition: .5s;
+    border-left: 2px solid transparent;
+
+    &.active,
+    &:hover {
+        background-color: $light;
+        border-left: 2px solid $primary-color;
+    }
+
+    .avatar {
+        @include avatar(40px);
+
+        position: relative;
+
+        .isOnline {
+            position: absolute;
+            right: -2px;
+            bottom: 0px;
+            width: 10px;
+            height: 10px;
+            border: 2px solid white;
+            border-radius: 50%;
+            background-color: $green;
+        }
+    }
+
+    p {
+        margin: 0.5em 0;
+        font-size: 0.9rem;
+    }
+
+    span:last-of-type {
+        margin-left: auto;
+        position: relative;
+
+        small {
+            font-size: 0.7rem;
+            color: gray;
+        }
+
+        // chip
+        p {
+            font-size: 0.7rem;
+            width: 15px;
+            height: 15px;
+            color: #fff;
+            border-radius: 50%;
+            @include center;
+            background-color: $red-light;
+            margin-left: auto;
+        }
+    }
+}
+
+.dark.messagesItem {
+    padding: 0.5em;
+    margin: 0.5em;
+    border-radius: 1em;
+
+    p:not(:last-child) {
+        color: $light-lv1;
+    }
+
+    &.active,
+    &:hover {
+        small {
+            color: white;
+        }
+
+        p {
+            color: $light;
+        }
+
+        background-color: $primary-color;
+        border-left: 2px solid transparent;
+    }
+}

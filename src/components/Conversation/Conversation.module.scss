@@ -1,6 +1,94 @@
 @import '../../assets/css/variable';
 @import '../../assets/css/mixin';
 
+.contact {
+    width: 300px;
+    height: 100vh;
+    background-color: #fff;
+    border-right: 1px solid $gray;
+
+    &.dark {
+        background-color: $dark-lv4;
+        border-right: 1px solid $light-lv1;
+
+        .heading {
+            background-color: $dark-lv4;
+            color: white;
+            border-right: 1px solid $light-lv1;
+
+            input {
+                background-color: $dark-lv3;
+
+                &:focus {
+                    outline: 2px solid $light-lv1;
+                }
+            }
+        }
+
+        .messages {
+            &::-webkit-scrollbar {
+                width: 0px;
+            }
+        }
+    }
+
+    @include maxWitdh(768px) {
+        padding-top: 50px;
+        height: 100%;
+        width: 100%;
+        border-right: none;
+    }
+}
+
+
+.heading {
+    background-color: #fff;
+    left: 70px;
+    top: 0;
+    width: 300px;
+    height: 120px;
+    padding: 1em;
+    position: sticky;
+    border-right: 1px solid $gray;
+
+    p {
+        font-weight: bold;
+    }
+
+    input {
+        border-radius: 0.4em;
+        min-width: 100%;
+        padding: 0.7em;
+        outline: none;
+        border: none;
+        background-color: #f1f1f1;
+    }
+
+    @include maxWitdh(768px) {
+        width: 100%;
+        border-right: none;
+
+    }
+
+}
+
+.messages {
+    width: 100%;
+    height: 80vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+    background-color: #fff;
+
+
+    &>small {
+        display: block;
+        padding: 1em;
+    }
+
+    @include scrollBarDefault();
+
+}
+
 .messagesItem {
     height: 70px;
     padding: 0 1em;
@@ -11,6 +99,7 @@
     transition: .5s;
     border-left: 2px solid transparent;
 
+
     &.active,
     &:hover {
         background-color: $light;
@@ -19,19 +108,6 @@
 
     .avatar {
         @include avatar(40px);
-
-        position: relative;
-
-        .isOnline {
-            position: absolute;
-            right: -2px;
-            bottom: 0px;
-            width: 10px;
-            height: 10px;
-            border: 2px solid white;
-            border-radius: 50%;
-            background-color: $green;
-        }
     }
 
     p {
@@ -62,26 +138,8 @@
     }
 }
 
-.dark.messagesItem {
-    padding: 0.5em;
-    margin: 0.5em;
-    border-radius: 1em;
 
-    p:not(:last-child) {
-        color: $light-lv1;
-    }
-
-    &.active,
-    &:hover {
-        small {
-            color: white;
-        }
-
-        p {
-            color: $light;
-        }
-
-        background-color: $primary-color;
-        border-left: 2px solid transparent;
-    }
+.messages.dark {
+    background-color: $dark-lv4;
+    color: white;
 }

@@ -1,4 +1,4 @@
-.NotFound {
+.notHaveChat {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -13,17 +13,22 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  height: 450px;
+  height: 100vh;
   padding: 1em;
 }
 
-.NotFound img {
-  margin-top: 100px;
-  max-width: 500px;
+.notHaveChat img {
+  max-width: 300px;
   -webkit-animation-name: run;
           animation-name: run;
   -webkit-animation-duration: 0.5s;
           animation-duration: 0.5s;
+}
+
+@media screen and (max-width: 768px) {
+  .notHaveChat {
+    display: none;
+  }
 }
 
 @-webkit-keyframes run {
@@ -44,7 +49,7 @@
   }
 }
 
-.NotFound .pageDes {
+.notHaveChat .pageDes {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -61,11 +66,16 @@
 }
 
 @media screen and (max-width: 768px) {
-  .NotFound img {
+  .notHaveChat img {
     width: 100%;
   }
-  .NotFound h1 {
+  .notHaveChat h1 {
     text-align: center;
   }
 }
-/*# sourceMappingURL=NotFount.module.css.map */
+
+.notHaveChat.dark {
+  background-color: #2f334d;
+  color: #fff;
+}
+/*# sourceMappingURL=NotHaveChat.module.css.map */

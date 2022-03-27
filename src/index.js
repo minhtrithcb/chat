@@ -7,9 +7,11 @@ import ThemeProvider from './context/ThemeContext';
 import reportWebVitals from './reportWebVitals';
 import { ToastContainer } from 'react-toastify';
 import ChatProvider from './context/ChatContext';
+import SocketProvider from './context/SocketContext';
 
 ReactDOM.render(
   <AuthProvider>
+    <SocketProvider>
     <ChatProvider>
       <ThemeProvider>
         <BrowserRouter>
@@ -25,7 +27,9 @@ ReactDOM.render(
         </BrowserRouter>
       </ThemeProvider>
     </ChatProvider>
-  </AuthProvider>,
+  </SocketProvider>
+  </AuthProvider>
+  ,
   document.getElementById('root')
 );
 

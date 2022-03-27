@@ -1,0 +1,100 @@
+.chatForm {
+  position: -webkit-sticky;
+  position: sticky;
+  height: 50px;
+  background-color: #fff;
+  border: 1px solid #d1d1d1;
+  margin: 1em calc(40px + 2em);
+  border-radius: .7em;
+  overflow: hidden;
+}
+
+.chatForm textarea {
+  width: 100%;
+  height: 100%;
+  resize: none;
+  padding: 1em;
+  padding-right: 80px;
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.chatForm textarea:focus {
+  border-radius: .7em;
+  outline: none;
+  border: 2px solid #a29bfe;
+}
+
+.chatForm textarea::-webkit-scrollbar {
+  width: 5px;
+}
+
+@media screen and (max-width: 768px) {
+  .chatForm {
+    bottom: 160px;
+    margin: 0 1em;
+  }
+}
+
+.sendBtn {
+  position: absolute;
+  right: 7px;
+  top: 7px;
+  background-color: #a29bfe;
+  width: 35px;
+  height: 35px;
+  border-radius: .6em;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sendBtn svg {
+  font-size: 2rem;
+  color: #fff;
+}
+
+.emote {
+  position: absolute;
+  right: 47px;
+  top: 7px;
+  width: 35px;
+  height: 35px;
+  border-radius: .6em;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.emote svg {
+  font-size: 1rem;
+}
+
+.chatForm.dark {
+  color: #fff;
+}
+
+.chatForm.dark textarea {
+  background-color: #292c43;
+  color: #fff;
+}
+
+.chatForm.dark textarea:focus {
+  border-radius: .7em;
+  border: 2px solid #a29bfe;
+}
+/*# sourceMappingURL=ChatForm.module.css.map */

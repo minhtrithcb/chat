@@ -1,16 +1,15 @@
 import clsx from 'clsx'
 import moment from 'moment'
+import 'moment/locale/vi'
 import React, { useContext } from 'react'
 import avatar from '../../assets/images/user.png'
 import { ChatContext } from '../../context/ChatContext'
 import useTheme  from '../../hooks/useTheme'
-import styles from "./Chat.module.scss"
+import styles from "./ChatItem.module.scss"
 
-const Chat = ({self, data}) => {
-
+const ChatItem = ({self, data}) => {
     const {theme} = useTheme()
     const {friend} = useContext(ChatContext)
-
     const clsAvatar = clsx(styles.avatar, styles.avatar2)
 
     const classesDarkMode = clsx(styles.chatUser,{ 
@@ -36,7 +35,7 @@ const Chat = ({self, data}) => {
             // Friend
             :<div className={classesDarkMode}>
                 <small>{friend && friend.fullname}</small>
-                <div className={styles.friendMess }>
+                <div className={styles.friendMess}>
                     <span></span>
                     <p>{data.text}</p>
                     <div className={clsAvatar}>
@@ -49,4 +48,4 @@ const Chat = ({self, data}) => {
     )
 }
 
-export default Chat
+export default ChatItem
