@@ -23,8 +23,6 @@ const Chats = () => {
     const {currentChat, friend, setCurrentChat} = useContext(ChatContext)
     const {socket} = useContext(SocketContext)
     const [currentUser] = useDecodeJwt()
-    const [offset, setOffset] = useState(-10)
-    const loadMoreRef = useRef()
 
     const classesDarkMode = clsx(styles.conversation,{ 
         [styles.dark]: theme === "dark"
@@ -34,6 +32,7 @@ const Chats = () => {
     useEffect(() => {        
         socket.on("getMessage", data => {
             setChats(prevChat => [...prevChat, data]);
+            bottomRef.current.scrollIntoView({behavior: "smooth"})
         })
     }, [socket])
     
@@ -50,58 +49,26 @@ const Chats = () => {
             bottomRef.current.scrollIntoView()
         }
     }
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(entries => {
-            let entry = entries[0];
-            if(entry.isIntersecting){
-                setOffset(prev => prev + 10 )                
-            }
-        },{
-            root: null,
-            threshold: 0,
-            rootMargin: "0px"
-        });
-        
-        const currTarget = loadMoreRef.current
-        if(currTarget) observer.observe(currTarget);
-        
-        return () => {
-            setOffset(-10)
-            setChats([])
-            if(currTarget) {
-                observer.unobserve(currTarget);
-            }
-        }
-    },[currentChat])
-
+    
     // Fetch all chat by id conversation
     useEffect(() => {
         let isMounted = true;   
         const getChats = async () => {
-            if (offset !== -10) {
-                try {
-                    const {data} = await chatApi.getChatByRoomId(`${currentChat?._id}?offset=${offset}`)
-                    if (offset === 0) {
-                        setChats(data.reverse());
-                        toTheBottom();
-                    } else if (isMounted) {
-                        setChats(prevChat => [...data.reverse(), ...prevChat]);  
-                        
-                    }
-                } catch (error) {
-                    console.log(error);
-                }
+            try {
+                const {data} = await chatApi.getChatByRoomId(`${currentChat?._id}`)
+                if (isMounted) 
+                    setChats(data.reverse()); 
+                    toTheBottom()
+            } catch (error) {
+                console.log(error);
             }
+            
         }
         getChats()
         return () => { 
             isMounted = false 
         };
-    }, [currentChat, offset])
-
-    
-    
+    }, [currentChat])
 
     return (
         <>
@@ -138,7 +105,6 @@ const Chats = () => {
 
                 {/* // Render all chat  */}
                 <div className={styles.chatContainer} >
-                    <div ref={loadMoreRef}></div>
                     {chats && chats.map(chat => (
                         <ChatItem
                             key={chat._id} 

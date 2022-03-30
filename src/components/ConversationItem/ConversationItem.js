@@ -76,7 +76,7 @@ const ConversationItem = ({activeChat , conversation, currentUserId, usersOnline
 
     return (
          <div className={classesDarkMode}>
-            {friendState && lastMsg &&
+            {friendState && 
             <>
                 <div className={styles.avatar}>
                     <img src={avatar} alt="friend" />
@@ -84,11 +84,11 @@ const ConversationItem = ({activeChat , conversation, currentUserId, usersOnline
                 </div>
                 <span>
                     <b>{friendState.fullname}</b>
-                    <p>{lastMsg.text.length > 10 ? `${lastMsg.text.slice(0, 10)} ...`:  lastMsg.text}  </p>
+                    {lastMsg && <p>{lastMsg.text.length > 10 ? `${lastMsg.text.slice(0, 10)} ...`: lastMsg.text}  </p>}
                 </span>
                 <span>
-                    <small>{moment(lastMsg.createdAt).fromNow()}</small>
-                    <p>2</p>
+                    <small>{lastMsg && moment(lastMsg.createdAt).fromNow()}</small>
+                    {/* <p>2</p> */}
                 </span>
             </>}
         </div> 
