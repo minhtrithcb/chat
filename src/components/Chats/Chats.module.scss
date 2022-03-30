@@ -43,6 +43,21 @@
         width: 5px;
     }
 
+    &:hover::-webkit-scrollbar {
+        border-radius: 0.8em;
+        width: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: transparent;
+        border-radius: 0.5em;
+        transition: all 0.5s;
+    }
+
+    &:hover::-webkit-scrollbar-thumb {
+        background: #cfcfcf;
+    }
+
     @include maxWitdh(768px) {
         padding-bottom: 100px;
     }

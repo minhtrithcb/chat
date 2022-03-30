@@ -35,7 +35,7 @@ const Conversation = () => {
 
     // Feach all conversations of current user
     useEffect(() => {
-        let isMounted = true;    
+        let isMounted = true;   
         const  getAllconvertation = async () => {
             try {
                 const {data} = await converApi.getByUserId(currentUser.id)
@@ -48,7 +48,7 @@ const Conversation = () => {
         getAllconvertation()
         return () => { isMounted = false };
     }, [currentUser.id])
-    
+
     return (
         <div className={classesDarkMode}>
             <div className={styles.heading}>

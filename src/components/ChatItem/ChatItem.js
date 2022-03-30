@@ -1,13 +1,13 @@
 import clsx from 'clsx'
 import moment from 'moment'
 import 'moment/locale/vi'
-import React, { useContext } from 'react'
+import React, {  useContext } from 'react'
 import avatar from '../../assets/images/user.png'
 import { ChatContext } from '../../context/ChatContext'
 import useTheme  from '../../hooks/useTheme'
 import styles from "./ChatItem.module.scss"
 
-const ChatItem = ({self, data}) => {
+const ChatItem = ({self, data }) => {
     const {theme} = useTheme()
     const {friend} = useContext(ChatContext)
     const clsAvatar = clsx(styles.avatar, styles.avatar2)
@@ -18,22 +18,22 @@ const ChatItem = ({self, data}) => {
 
     return (
         <>
-            {self ? 
+            {
+            self ? 
             // Self 
             <div className={classesDarkMode}>
                 <div className={styles.userMess }>
                     <div className={styles.avatar}>
                         <img src={avatar} alt="userChat" />
                     </div>
-                    <p>
-                        {data.text}
-                    </p>                    
+                    <p>{data.text}</p>                    
                     <span></span>
                 </div>
                 <p>{moment(data.createdAt).fromNow()}</p>
             </div>
+            : // or
             // Friend
-            :<div className={classesDarkMode}>
+            <div className={classesDarkMode}>
                 <small>{friend && friend.fullname}</small>
                 <div className={styles.friendMess}>
                     <span></span>
@@ -43,7 +43,8 @@ const ChatItem = ({self, data}) => {
                     </div>
                 </div>
                 <p>{moment(data.createdAt).fromNow()}</p>
-            </div>}
+            </div>
+            }
         </>
     )
 }

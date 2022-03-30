@@ -10,7 +10,7 @@ const SocketProvider = ({children}) => {
     const {auth} = useContext(AuthContext)
  
     useEffect(() => {
-        // Frist time auth accessToken is null 
+        // Frist time auth accessToken is undife 
         if (auth.accessToken) {
             let currentUser = jwtDecode(auth.accessToken)
             socket.emit("join server", currentUser.id)

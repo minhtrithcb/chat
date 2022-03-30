@@ -1,15 +1,21 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, {  useContext, useEffect, useState } from 'react'
 import styles from './ConversationItem.module.scss'
 import avatar from '../../assets/images/user.png'
 import clsx from 'clsx'
 import useTheme from '../../hooks/useTheme'
 import userApi from '../../api/userApi'
 import { ChatContext } from '../../context/ChatContext'
+import converApi from '../../api/converApi'
+import moment from 'moment'
+import 'moment/locale/vi'
+import { SocketContext } from '../../context/SocketContext'
 
 const ConversationItem = ({activeChat , conversation, currentUserId, usersOnline}) => {
-
+    const {socket} = useContext(SocketContext)
+    
     const {theme} = useTheme()
     const [friendState, setFriendState] = useState({})
+    const [lastMsg, setLastMsg] = useState(null)
     const {setFriend} = useContext(ChatContext)
     const [onlineFriend, setOnlineFriend] = useState(false)
     const classesDarkMode = clsx(styles.messagesItem,{ 
@@ -17,8 +23,19 @@ const ConversationItem = ({activeChat , conversation, currentUserId, usersOnline
         [styles.active]: activeChat
     })
 
+    // Get new message & display
+    useEffect(() => {        
+        socket.on("getSomeOneMessage", data => {
+            if (data.roomId === conversation._id) {
+                setLastMsg(data);
+            }
+        })
+    }, [socket, conversation])
+    
+    // loop to find userId not current user
     const friendId = conversation.members.find(u => u !== currentUserId)
 
+    // Fetch Friend by members id
     useEffect(() => {
         const getFriend = async () => {
             try {
@@ -32,22 +49,34 @@ const ConversationItem = ({activeChat , conversation, currentUserId, usersOnline
         getFriend()
     }, [activeChat, friendId, setFriend])
     
+    // set state users online
     useEffect(() => {
-        if(usersOnline !== undefined) 
-        {
-            let res = usersOnline?.find(u => u.uid === friendState._id)
+        if(usersOnline !== undefined) {
+            let res = usersOnline?.find(u => u.uid === friendId)
             if(res !== undefined) setOnlineFriend(true)
         }
 
         return () => {
             setOnlineFriend(false)
         }
-
-    },[usersOnline, friendState])
+    },[usersOnline, friendId])
     
+    // Get a new msg
+    useEffect(() => {
+        const  getLastMessage = async () => {
+            try {
+                const {data} = await converApi.getLastMessage(conversation._id)
+                setLastMsg(data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getLastMessage()
+    }, [conversation])
+
     return (
          <div className={classesDarkMode}>
-            {friendState && 
+            {friendState && lastMsg &&
             <>
                 <div className={styles.avatar}>
                     <img src={avatar} alt="friend" />
@@ -55,10 +84,10 @@ const ConversationItem = ({activeChat , conversation, currentUserId, usersOnline
                 </div>
                 <span>
                     <b>{friendState.fullname}</b>
-                    <p>Gank team nà</p>
+                    <p>{lastMsg.text.length > 10 ? `${lastMsg.text.slice(0, 10)} ...`:  lastMsg.text}  </p>
                 </span>
                 <span>
-                    <small>2:20 PM</small>
+                    <small>{moment(lastMsg.createdAt).fromNow()}</small>
                     <p>2</p>
                 </span>
             </>}
@@ -66,4 +95,4 @@ const ConversationItem = ({activeChat , conversation, currentUserId, usersOnline
     )
 }
 
-export default ConversationItem
+export default ConversationItem 

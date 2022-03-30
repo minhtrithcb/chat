@@ -19,6 +19,7 @@ const ChatForm = () => {
     const classesDarkMode = clsx(styles.chatForm,{ 
         [styles.dark]: theme === "dark"
     })
+    const friendId = currentChat.members.find(u => u !== currentUser.id)
 
     // Submit send message
     const handleSubmit = async () => {
@@ -29,8 +30,10 @@ const ChatForm = () => {
                     sender: currentUser.id,
                     text:   inputChat,
                 })
-                // Send to socket server
+                // Send to socket room
                 socket.emit("send-msg", data)
+                // Send to socket id
+                socket.emit("sendToFriendOnline", { friendId , ...data})
                 setInputChat("")
             } catch (error) {
                 console.log(error);

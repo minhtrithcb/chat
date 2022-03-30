@@ -52,13 +52,18 @@
   opacity: 0;
   -webkit-transition: .2s linear;
   transition: .2s linear;
-  background-color: #fff;
+  background-color: #a29bfe;
+  color: #fff;
   padding: 0.4em 0.6em;
-  -webkit-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-          box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
   position: absolute;
-  border-radius: 00.4em;
-  right: -100px;
+  border-radius: 0.4em;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  height: auto;
+  left: 60px;
   top: -10px;
 }
 
