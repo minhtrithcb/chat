@@ -20,10 +20,6 @@
   background-color: #2f334d;
 }
 
-.contact.dark .heading input:focus {
-  outline: 2px solid #585c76;
-}
-
 .contact.dark .messages::-webkit-scrollbar {
   width: 0px;
 }
@@ -32,38 +28,6 @@
   .contact {
     padding-top: 50px;
     height: 100%;
-    width: 100%;
-    border-right: none;
-  }
-}
-
-.heading {
-  background-color: #fff;
-  left: 70px;
-  top: 0;
-  width: 300px;
-  height: 120px;
-  padding: 1em;
-  position: -webkit-sticky;
-  position: sticky;
-  border-right: 1px solid #d1d1d1;
-}
-
-.heading p {
-  font-weight: bold;
-}
-
-.heading input {
-  border-radius: 0.4em;
-  min-width: 100%;
-  padding: 0.7em;
-  outline: none;
-  border: none;
-  background-color: #f1f1f1;
-}
-
-@media screen and (max-width: 768px) {
-  .heading {
     width: 100%;
     border-right: none;
   }

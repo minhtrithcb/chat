@@ -1,6 +1,5 @@
 import React from "react";
 import {Route, Routes } from "react-router-dom";
-import Admin from "./pages/Admin";
 import Home from "./pages/Home";
 import Login from "./pages/AuthPage/Login";
 import "./assets/css/main.scss"
@@ -10,6 +9,7 @@ import SignUp from "./pages/AuthPage/SignUp";
 import PrivateRoute from "./components/PrivateRoute";
 import 'react-toastify/dist/ReactToastify.css';
 import PrevPrivateRoute from "./components/PrevPrivateRoute";
+import Contact from "./pages/Contact/Contact";
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
             <Route path="/" element={<MainLayout />} >
               <Route index element={<Home />} />
               <Route path="home" element={<Home />} />
-              <Route path="admin" element={<Admin />} />
+              <Route path="contact" element={<Contact />} />
             </Route>
           </Route>
           {/* Visible Route when they not login*/}

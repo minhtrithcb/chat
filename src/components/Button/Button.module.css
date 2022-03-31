@@ -44,6 +44,11 @@
   color: #fff;
 }
 
+.btnDanger {
+  background-color: #ff7675;
+  color: #fff;
+}
+
 .fluid {
   width: 100%;
   text-align: center;

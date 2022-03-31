@@ -1,0 +1,116 @@
+.contactContainer {
+  width: 100%;
+  height: 100vh;
+  overflow-y: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.friendReqs {
+  width: 100%;
+}
+
+.friendReqs .heading {
+  height: 70px;
+  padding: 1em;
+  background-color: #fff;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  border-bottom: 1px solid #d1d1d1;
+}
+
+.friendReqs .main {
+  background-color: #f6f7fb;
+  padding: 1em;
+  height: calc(100vh - 70px);
+  overflow-y: scroll;
+}
+
+.friendReqs .main::-webkit-scrollbar {
+  width: 5px;
+}
+
+.friendReqs .main:hover::-webkit-scrollbar {
+  border-radius: 0.8em;
+  width: 5px;
+}
+
+.friendReqs .main::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 0.5em;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.friendReqs .main:hover::-webkit-scrollbar-thumb {
+  background: #f1f1f1;
+}
+
+.cardContainer {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.cardContainer .card {
+  border-radius: .7em;
+  background-color: #fff;
+  width: 24%;
+  margin: 0.5%;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  padding: 1em;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.cardContainer .card:hover {
+  -webkit-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+          box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.cardContainer .card small {
+  display: block;
+  margin: 1em 0;
+}
+
+.cardContainer .card a {
+  color: #a29bfe;
+}
+
+.cardContainer .card button {
+  margin-top: 0.5em;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border: 1px solid #f1f1f1;
+  margin-right: 1em;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+  margin-bottom: 1em;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+/*# sourceMappingURL=Contact.module.css.map */

@@ -7,6 +7,7 @@ import useDecodeJwt from '../../hooks/useDecodeJwt'
 import { ChatContext } from '../../context/ChatContext'
 import ConversationItem from '../ConversationItem/ConversationItem'
 import { SocketContext } from '../../context/SocketContext'
+import SearchBox from '../SearchBox/SearchBox'
 
 const Conversation = () => {
     const [conversations, setConversations] = useState([])
@@ -51,11 +52,7 @@ const Conversation = () => {
 
     return (
         <div className={classesDarkMode}>
-            <div className={styles.heading}>
-                <p>Tin nhắn</p>
-                <input type="text" placeholder='Tìm kiếm ...' />
-            </div>
-
+            <SearchBox />
             <div className={classesDarkMode2}>                
                 {/* ///// All messages  */}
                 <small>Tất cả tin nhắn</small>

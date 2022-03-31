@@ -42,6 +42,22 @@
   width: 5px;
 }
 
+.chatContainer:hover::-webkit-scrollbar {
+  border-radius: 0.8em;
+  width: 5px;
+}
+
+.chatContainer::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 0.5em;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.chatContainer:hover::-webkit-scrollbar-thumb {
+  background: #cfcfcf;
+}
+
 @media screen and (max-width: 768px) {
   .chatContainer {
     padding-bottom: 100px;

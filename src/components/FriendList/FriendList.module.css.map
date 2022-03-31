@@ -1,0 +1,11 @@
+{
+    "version": 3,
+    "mappings": "AAGA,AAAA,oBAAoB,CAAC;EACjB,SAAS,EAAE,KAAK;EAChB,MAAM,EAAE,KAAK;EACb,YAAY,EAAE,GAAG,CAAC,KAAK,CEFpB,OAAO;EFGV,OAAO,EAAE,GAAG;CACf",
+    "sources": [
+        "FriendList.module.scss",
+        "../../assets/css/_mixin.scss",
+        "../../assets/css/_variable.scss"
+    ],
+    "names": [],
+    "file": "FriendList.module.css"
+}

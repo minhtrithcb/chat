@@ -25,9 +25,9 @@ const Navbar = () => {
       title: "Trang chủ"
     },
     {
-      path: "/login",
+      path: "/contact",
       icon: <BsPeople />,
-      title: "Login"
+      title: "Danh bạ"
     },
     {
       path: "/admin",
