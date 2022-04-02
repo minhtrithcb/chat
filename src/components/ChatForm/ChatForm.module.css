@@ -6,7 +6,16 @@
   border: 1px solid #d1d1d1;
   margin: 1em calc(40px + 2em);
   border-radius: .7em;
-  overflow: hidden;
+}
+
+.chatForm small {
+  left: 0;
+  top: 0px;
+  position: absolute;
+  padding: 0.5em;
+  background-color: #fff;
+  -webkit-box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+          box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .chatForm textarea {
@@ -15,14 +24,19 @@
   resize: none;
   padding: 1em;
   padding-right: 80px;
-  border: none;
   font-family: 'Montserrat', sans-serif;
+  border: 2px solid transparent;
+  border-radius: .7em;
 }
 
 .chatForm textarea:focus {
   border-radius: .7em;
   outline: none;
   border: 2px solid #a29bfe;
+}
+
+.chatForm textarea:focus + small {
+  opacity: 1;
 }
 
 .chatForm textarea::-webkit-scrollbar {
@@ -81,7 +95,7 @@
 }
 
 .emote svg {
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 
 .chatForm.dark {

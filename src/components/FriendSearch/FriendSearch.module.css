@@ -1,0 +1,27 @@
+.inputSearch {
+  background-color: #fff;
+  left: 70px;
+  top: 0;
+  width: 300px;
+  padding: 1em;
+  position: -webkit-sticky;
+  position: sticky;
+  border-right: 1px solid #d1d1d1;
+  z-index: 1;
+}
+
+.inputSearch input {
+  border-radius: 0.4em;
+  min-width: 100%;
+  padding: 0.7em;
+  outline: none;
+  border: none;
+  background-color: #f1f1f1;
+  padding-right: 2.5em;
+  border: 2px solid transparent;
+}
+
+.inputSearch input:focus {
+  border: 2px solid #a29bfe;
+}
+/*# sourceMappingURL=FriendSearch.module.css.map */

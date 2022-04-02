@@ -8,26 +8,29 @@ import reportWebVitals from './reportWebVitals';
 import { ToastContainer } from 'react-toastify';
 import ChatProvider from './context/ChatContext';
 import SocketProvider from './context/SocketContext';
+import FriendProvider from './context/FriendContext';
 
 ReactDOM.render(
   <AuthProvider>
-    <SocketProvider>
-    <ChatProvider>
-      <ThemeProvider>
-        <BrowserRouter>
-          <React.StrictMode>
-            <ToastContainer 
-              pauseOnHover={false} 
-              limit={3} 
-              pauseOnFocusLoss={false} 
-              autoClose={2000} 
-            />
-            <App />
-          </React.StrictMode>
-        </BrowserRouter>
-      </ThemeProvider>
-    </ChatProvider>
-  </SocketProvider>
+    <FriendProvider>
+      <SocketProvider>
+        <ChatProvider>
+          <ThemeProvider>
+            <BrowserRouter>
+              <React.StrictMode>
+                <ToastContainer 
+                  pauseOnHover={false} 
+                  limit={3} 
+                  pauseOnFocusLoss={false} 
+                  autoClose={2000} 
+                  />
+                <App />
+              </React.StrictMode>
+            </BrowserRouter>
+          </ThemeProvider>
+        </ChatProvider>
+      </SocketProvider>
+    </FriendProvider>
   </AuthProvider>
   ,
   document.getElementById('root')

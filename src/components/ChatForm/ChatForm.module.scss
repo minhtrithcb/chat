@@ -8,7 +8,22 @@
     border: 1px solid $gray;
     margin: 1em calc(40px + 2em);
     border-radius: .7em;
-    overflow: hidden;
+
+    small {
+        left: 0;
+        top: -20px;
+        position: absolute;
+        padding: 0.5em;
+        background-color: #fff;
+        box-shadow: $box-shadow1;
+        transition: 0.3s ease-in;
+        opacity: 0;
+    }
+
+    aside {
+        position: absolute;
+        bottom: 380px;
+    }
 
     textarea {
         width: 100%;
@@ -16,13 +31,19 @@
         resize: none;
         padding: 1em;
         padding-right: 80px;
-        border: none;
         font-family: 'Montserrat', sans-serif;
+        border: 2px solid transparent;
+        border-radius: .7em;
 
         &:focus {
             border-radius: .7em;
             outline: none;
             border: 2px solid $primary-color;
+        }
+
+        &:focus + small{
+            opacity: 1;
+            top: -40px;
         }
 
         &::-webkit-scrollbar {
@@ -65,7 +86,7 @@
     @include center;
 
     svg {
-        font-size: 1rem;
+        font-size: 1.2rem;
     }
 }
 

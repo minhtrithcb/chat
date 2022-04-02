@@ -27,6 +27,7 @@
         border: none;
         background-color: #f1f1f1;
         padding-right: 2.5em;
+        border: 2px solid transparent;
 
         &:focus {
             border: 2px solid $primary-color;

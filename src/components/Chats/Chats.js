@@ -30,11 +30,19 @@ const Chats = () => {
 
     // Get new message & display
     useEffect(() => {        
+        let isMounted = true;   
+
         socket.on("getMessage", data => {
-            setChats(prevChat => [...prevChat, data]);
-            bottomRef.current.scrollIntoView({behavior: "smooth"})
+            if (data) {
+                if(isMounted) setChats(prevChat => [...prevChat, data]);
+                bottomRef?.current?.scrollIntoView({behavior: "smooth"})
+            }
         })
-    }, [socket])
+
+        return () => { 
+            isMounted = false 
+        };
+    }, [socket,bottomRef])
     
     // Join room when user chose friend to chat
     useEffect(() => {
@@ -55,10 +63,12 @@ const Chats = () => {
         let isMounted = true;   
         const getChats = async () => {
             try {
-                const {data} = await chatApi.getChatByRoomId(`${currentChat?._id}`)
-                if (isMounted) 
-                    setChats(data.reverse()); 
-                    toTheBottom()
+                if (currentChat) {
+                    const {data} = await chatApi.getChatByRoomId(`${currentChat?._id}`)
+                    if (isMounted) 
+                        setChats(data.reverse()); 
+                        toTheBottom()
+                }
             } catch (error) {
                 console.log(error);
             }

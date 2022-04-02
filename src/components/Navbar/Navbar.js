@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect} from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import styles from './Navbar.module.scss'
 import avatar from '../../assets/images/user.png'
@@ -11,52 +11,27 @@ import authApi from '../../api/authApi';
 import { AuthContext } from '../../context/AuthContext';
 import useDecodeJwt from '../../hooks/useDecodeJwt';
 import { toast } from 'react-toastify';
+import { FriendContext } from '../../context/FriendContext';
+import { SocketContext } from '../../context/SocketContext';
 
 const Navbar = () => {
   const {theme, toggle} = useTheme()
   const navigate = useNavigate()
   const {setAuth} = useContext(AuthContext)
+  const {frLength, setFrLength} = useContext(FriendContext)
   const [currentUser] = useDecodeJwt()
-
-  const linkRoutePrim = [
-    {
-      path: "/",
-      icon: <BsChatSquareDots />,
-      title: "Trang chủ"
-    },
-    {
-      path: "/contact",
-      icon: <BsPeople />,
-      title: "Danh bạ"
-    },
-    {
-      path: "/admin",
-      icon: <BsTelephone />,
-      title: "Admin"
-    }
-  ]
-
-  const linkRouteSec = [
-    {
-      path: "/s",
-      icon: <BsStar />,
-      title: "Home"
-    },
-    {
-      path: "/logins",
-      icon: <BsBookmarkPlus />,
-      title: "Login"
-    },
-    {
-      path: "/admins",
-      icon: <BsGear />,
-      title: "Admin"
-    }
-  ]
+  const {socket} = useContext(SocketContext)
 
   const classesDarkMode = clsx(styles.navBar,{ 
     [styles.dark]: theme === "dark"
   })
+
+  useEffect(() => {        
+    socket.on("getAddFriend", data => {
+      console.log(data);
+      setFrLength(prev => prev + 1);
+    })
+  }, [socket])
 
   // funtion Log out 
   const handleLogout = () => {
@@ -97,21 +72,35 @@ const Navbar = () => {
             <b>{currentUser?.username}</b>
           </span>
         </div>
-        {linkRoutePrim.map((route, i) => (
-          <NavLink to={route.path} key={i}>
-            {route.icon}
-            <p>{route.title}</p>
-            {/* <span>19</span> */}
-          </NavLink>
-        ))}
+        <NavLink to={`/`}>
+          <BsChatSquareDots />
+          <p>Trang chủ</p>
+        </NavLink>
+        <NavLink to={`/contact`}>
+          <BsPeople />
+          <p>Danh bạ</p>
+          {frLength > 0 ? <span>{frLength}</span> : null}
+        </NavLink>
+        <NavLink to={`/admin`}>
+          <BsTelephone />
+          <p>admin</p>
+        </NavLink>
+
         <div className={styles.hr} />
-        {linkRouteSec.map((route, i) => (
-          <NavLink to={route.path} key={i}>
-            {route.icon}
-            <p>{route.title}</p>
-            {/* <span>19</span> */}
-          </NavLink>
-        ))}
+
+        <NavLink to={`/`}>
+          <BsStar />
+          <p>Trang chủ</p>
+        </NavLink>
+        <NavLink to={`/contact`}>
+          <BsBookmarkPlus />
+          <p>Danh bạ</p>
+        </NavLink>
+        <NavLink to={`/admin`}>
+          <BsGear />
+          <p>admin</p>
+        </NavLink>
+
         <div className={styles.hr} />
         <div className={styles.btn_logout} onClick={handleLogout}>
           <AiOutlinePoweroff />

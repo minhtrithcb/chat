@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import React, { useState} from 'react'
+import React, { useContext, useRef, useState} from 'react'
 import useTheme from '../../hooks/useTheme'
 import styles from './SearchBox.module.scss'
 import avatar from '../../assets/images/user.png'
@@ -9,6 +9,7 @@ import useToggle from '../../hooks/useToggle'
 import userApi from '../../api/userApi'
 import useDecodeJwt from '../../hooks/useDecodeJwt'
 import friendReqApi from '../../api/friendReqApi'
+import { SocketContext } from '../../context/SocketContext'
 const SearchBox = () => {
     const {theme} = useTheme()
     const [input, setInput] = useState("")
@@ -17,16 +18,23 @@ const SearchBox = () => {
     const [userFriend, setUserFriend] = useState([])
     const [friendReqs, setFriendReqs] = useState([])
     const [currentUser] = useDecodeJwt()
+    const inputRef = useRef()
+    const {socket} = useContext(SocketContext)
+
     const classesDarkMode = clsx(styles.heading,{ 
         [styles.dark]: theme === "dark"
     })
 
 
-    // Submit searching ...
-    const handleChage = async (e) => {
+    // Change keyword searching ...
+    const handleChage = (e) => {
         const value = e.target.value.trim()
         setInput(value)
+        fetchResult(value)
+    }
 
+    // Submit searching ...
+    const fetchResult = async (value) => {
         if (value.length >= 3 && value !== "" ) {
             try {
                 const {data} = await userApi.search(value, currentUser.id)
@@ -37,13 +45,19 @@ const SearchBox = () => {
                 console.log(error);
             }
             toggleF(true)            
-        } else { 
-            toggleF(false)
         }
+    } 
 
-    }
-    // Delete and close Search box
+    // Delete Search box
     const handleDelete = () => {
+        let newKeyWord = input.substring(0, input.length - 1)
+        setInput(newKeyWord)
+        fetchResult(newKeyWord)
+        inputRef.current.focus();
+    }
+
+    // Close Search box
+    const handleClose = () => {
         setInput("")
         toggleF(false)
     }
@@ -51,9 +65,11 @@ const SearchBox = () => {
     // Sent Friend request
     const handleSendFriendRes = async (reciverId) => {
         const {data} = await friendReqApi.sendFriendReq(currentUser.id, reciverId)
+        socket.emit("sendAddFriend", {reciverId: data.reciver , ...data})
         setFriendReqs(prev => [...prev, data])
     }
 
+    // UnSend add Friend quest
     const handleUnsendFriendRes = async (value) => {
         await friendReqApi.unSendFriendReq(value._id)
         const remove = friendReqs.filter(fr => fr._id !== value._id)
@@ -63,9 +79,10 @@ const SearchBox = () => {
 
     return (
         <div className={classesDarkMode}>
-            <p>Tìm kiếm {toggle && <Button onClick={handleDelete}>Đóng</Button> }</p>
+            <p>Tìm kiếm {toggle && <Button onClick={handleClose}>Đóng</Button> }</p>
             <div className={styles.inputChat}>
                 <input type="text" placeholder='Tìm kiếm ...'
+                    ref={inputRef}
                     value={input}
                     onChange={handleChage} 
                 />

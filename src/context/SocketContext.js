@@ -14,7 +14,10 @@ const SocketProvider = ({children}) => {
         if (auth.accessToken) {
             let currentUser = jwtDecode(auth.accessToken)
             socket.emit("join server", currentUser.id)
+            // console.log("running");
         }
+
+        return () => socket.disconnect()
     }, [auth, socket])
 
     return (
