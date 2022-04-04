@@ -10,12 +10,20 @@
 
 .chatForm small {
   left: 0;
-  top: 0px;
+  top: -20px;
   position: absolute;
   padding: 0.5em;
   background-color: #fff;
   -webkit-box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
           box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  -webkit-transition: 0.3s ease-in;
+  transition: 0.3s ease-in;
+  opacity: 0;
+}
+
+.chatForm aside {
+  position: absolute;
+  bottom: 380px;
 }
 
 .chatForm textarea {
@@ -37,6 +45,7 @@
 
 .chatForm textarea:focus + small {
   opacity: 1;
+  top: -40px;
 }
 
 .chatForm textarea::-webkit-scrollbar {

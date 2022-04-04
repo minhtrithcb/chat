@@ -1,5 +1,5 @@
 import React, { useContext, useEffect} from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import styles from './Navbar.module.scss'
 import avatar from '../../assets/images/user.png'
 import {  BsChatSquareDots, BsPeople, BsTelephone,BsGear , BsBookmarkPlus , BsStar} from "react-icons/bs";
@@ -28,10 +28,9 @@ const Navbar = () => {
 
   useEffect(() => {        
     socket.on("getAddFriend", data => {
-      console.log(data);
-      setFrLength(prev => prev + 1);
+      if(data) setFrLength(prev => prev + 1);
     })
-  }, [socket])
+  }, [socket, setFrLength])
 
   // funtion Log out 
   const handleLogout = () => {
@@ -69,7 +68,7 @@ const Navbar = () => {
           </div>
           <span>
             <small className="activity">Online</small><br/>
-            <b>{currentUser?.username}</b>
+            <Link to={`/profile/${currentUser?.id}`}>{currentUser?.username}</Link>
           </span>
         </div>
         <NavLink to={`/`}>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styles from './Auth.module.scss'
 import ImageLight from '../../assets/images/illu/s.png'
 import Button from '../../components/Button/Button'
@@ -10,7 +10,7 @@ import authApi from '../../api/authApi'
 import { useForm } from 'react-hook-form'
 import useLoading from '../../hooks/useLoading'
 import { toast } from 'react-toastify'
-import useAuth from '../../hooks/useAuth'
+import { AuthContext } from '../../context/AuthContext'
 
 const Login = () => {
   const { register,  formState: { errors }, handleSubmit } = useForm();
@@ -18,7 +18,7 @@ const Login = () => {
   const [emailFromSignIn, setEmailFromSignIn] = useState("")
   const navigate = useNavigate();
   const location = useLocation()
-  const {setAuth} = useAuth();
+  const {setAuth} = useContext(AuthContext)
   const from = location.state?.from?.pathname || "/"
   
   const inputInit = {
@@ -67,7 +67,7 @@ const Login = () => {
       if(data?.success) {
         toast.success(`Đăng nhập thành công`)
         setLoading(false)
-        setAuth({isLogin: true, accessToken:  data.accessToken})
+        setAuth({isLogin: true, accessToken:  data.accessToken, loading: false})
         navigate(from, {replace: true})
       } else {
         toast.error(`${data?.msg}`)

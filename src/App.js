@@ -10,6 +10,8 @@ import PrivateRoute from "./components/PrivateRoute";
 import 'react-toastify/dist/ReactToastify.css';
 import PrevPrivateRoute from "./components/PrevPrivateRoute";
 import Contact from "./pages/Contact/Contact";
+import Profile from "./pages/Profile/Profile";
+import Admin from "./pages/Admin";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
               <Route index element={<Home />} />
               <Route path="home" element={<Home />} />
               <Route path="contact" element={<Contact />} />
+              <Route path="profile/:id" element={<Profile />} />
+              <Route path="admin" element={<Admin />} />
             </Route>
           </Route>
           {/* Visible Route when they not login*/}

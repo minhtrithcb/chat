@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { BsEmojiSmile } from "react-icons/bs";
 import { TiLocationArrow } from "react-icons/ti";
 import chatApi from '../../api/chatApi';
@@ -9,6 +9,7 @@ import useDecodeJwt from '../../hooks/useDecodeJwt';
 import useTheme from '../../hooks/useTheme';
 import styles from './ChatForm.module.scss'
 import Picker from 'emoji-picker-react';
+import useOutside from '../../hooks/useOutside';
 
 const ChatForm = () => {
     const [inputChat, setInputChat] = useState("")
@@ -17,15 +18,26 @@ const ChatForm = () => {
     const [toggle, setToggle] = useState(false)
     const {theme} = useTheme()
     const {socket} = useContext(SocketContext)
-    const [chosenEmoji, setChosenEmoji] = useState(null);
     const classesDarkMode = clsx(styles.chatForm,{ 
         [styles.dark]: theme === "dark"
     })
     const friendId = currentChat.members.find(u => u !== currentUser.id)
+    
+    // Click outside to close
+    const emojiDiv = useRef(null)
+    useOutside(emojiDiv, () => {
+        setToggle(false)
+    })
 
+    // Reset input
+    useEffect(() => {
+     setToggle(false)
+     setInputChat('')
+    }, [currentChat])
+
+    // Handle chose emoji
     const onEmojiClick = (event, emojiObject) => {
-        setChosenEmoji(emojiObject);
-        console.log(event, emojiObject);
+        setInputChat(input => `${input} ${emojiObject.emoji}`)
     };
 
     // Submit send message
@@ -64,20 +76,31 @@ const ChatForm = () => {
                 onChange={(e) => setInputChat(e.target.value)}
             ></textarea>
             <small>Bấm Ctrl + Enter để gửi</small>
-            <div className={styles.emote} >
+            <div className={styles.emote} onClick={() => setToggle(prev => !prev)}>
                 <BsEmojiSmile/>
             </div>
             <div className={styles.sendBtn} onClick={handleSubmit}>
                 <TiLocationArrow/>
             </div>
-            <Picker 
-                disableSearchBar={true}
-                onEmojiClick={onEmojiClick} 
-                pickerStyle={{marginLeft: 'auto'}} 
-                groupVisibility={{
-                    recently_used: false,
-                }}
-            />
+            {toggle && 
+                <div ref={emojiDiv}>
+                    <Picker 
+                    disableSearchBar={true}
+                    onEmojiClick={onEmojiClick} 
+                    pickerStyle={{marginLeft: 'auto'}} 
+                    groupVisibility={{
+                        recently_used: false,
+                        animals_nature: false,
+                        food_drink: false,
+                        travel_places: false,
+                        activities: false,
+                        objects: false,
+                        symbols: false,
+                        flags: false
+                    }}
+                    />
+                </div>
+            }
         </div> 
     )
 }

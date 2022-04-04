@@ -25,14 +25,14 @@ const Conversation = () => {
 
     // Get all users online
     useEffect(() => {
-        let isMounted = true;    
+        let isMounted = true;            
 
         socket.on("getUser", usersOnline => {
-            if (isMounted) setUsersOnline(usersOnline) // Array users online
+            if (isMounted) setUsersOnline(usersOnline) // Array users online 
         })
 
         return () => { isMounted = false };
-    }, [friend, socket])    
+    }, [friend, socket, currentChat])    
 
     // Feach all conversations of current user
     useEffect(() => {
@@ -41,7 +41,10 @@ const Conversation = () => {
             try {
                 const {data} = await converApi.getByUserId(currentUser.id)
                 // console.log(data);
-                if (isMounted) setConversations(data);
+                if (isMounted) {
+                    setConversations(data);
+                    socket.emit('join conversation')
+                }
             } catch (error) {
                 console.log(error);
             }

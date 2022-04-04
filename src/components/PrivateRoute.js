@@ -6,9 +6,13 @@ const PrivateRoute = () => {
     let location = useLocation();
     const {auth} = useContext(AuthContext)
     
+    // console.log('private route');
+
     if (auth.isLogin) {
         return <Outlet />;
-    } else {
+    }
+
+    if(!auth.isLogin) {
         return <Navigate to="/login" state={{ from: location }} replace />;
     }
 

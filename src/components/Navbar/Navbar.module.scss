@@ -21,7 +21,7 @@
     border-right: 1px solid $gray;
 
     // active class write in globle.css
-    a {
+    &>a {
         padding: 1em 0;
         position: relative;
         width: 100%;
@@ -176,7 +176,11 @@
     span {
         width: 200px;
         opacity: 0;
+        &>a {
+            color: $primary-color;
+        }
     }
+
 
     &:hover {
         width: 200px;
@@ -199,13 +203,13 @@
         position: absolute;
         left: 5em;
     }
+}
 
-    .avatar {
-        @include avatar(40px);
-        margin-right: 0;
-        margin-left: 1em;
-        position: absolute;
-    }
+.avatar {
+    @include avatar(40px);
+    margin-right: 0;
+    margin-left: 1em;
+    position: absolute;
 }
 
 
