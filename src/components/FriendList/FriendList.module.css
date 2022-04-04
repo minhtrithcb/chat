@@ -12,6 +12,10 @@
   padding: 0 1em;
 }
 
+.FriendListContainer > p {
+  margin-left: 1em;
+}
+
 .FriendListContainer::-webkit-scrollbar {
   width: 5px;
 }

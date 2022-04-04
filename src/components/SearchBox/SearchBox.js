@@ -25,7 +25,6 @@ const SearchBox = () => {
         [styles.dark]: theme === "dark"
     })
 
-
     // Change keyword searching ...
     const handleChage = (e) => {
         const value = e.target.value.trim()
@@ -63,9 +62,10 @@ const SearchBox = () => {
     }
 
     // Sent Friend request
-    const handleSendFriendRes = async (reciverId) => {
-        const {data} = await friendReqApi.sendFriendReq(currentUser.id, reciverId)
-        socket.emit("sendAddFriend", {reciverId: data.reciver , ...data})
+    const handleSendFriendRes = async (reciver) => {
+        const user =  await userApi.getByUserId(currentUser.id)
+        const {data} = await friendReqApi.createFriendReq(user.data, reciver)
+        socket.emit("sendAddFriend", {reciverId: data.reciver._id , ...data})
         setFriendReqs(prev => [...prev, data])
     }
 
@@ -121,15 +121,15 @@ const SearchBox = () => {
                                     Đã kết bạn
                                 </Button>
                                 : 
-                                // or user has friendfriend in friend request
-                                friendReqs.find(s => s.reciver === res._id)?
+                                // or user has friend in friend request
+                                friendReqs.find(s => s.reciver._id === res._id)?
                                 <Button onClick={() => 
-                                    handleUnsendFriendRes(friendReqs.find(s => s.reciver === res._id))
+                                    handleUnsendFriendRes(friendReqs.find(s => s.reciver._id === res._id))
                                 }>
                                     Đã chờ duyệt
                                 </Button>
                                 :
-                                <Button primary onClick={() => handleSendFriendRes(res._id)}>
+                                <Button primary onClick={() => handleSendFriendRes(res)}>
                                     Kết bạn
                                 </Button>
                             }

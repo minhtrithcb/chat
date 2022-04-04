@@ -13,7 +13,6 @@ import useDecodeJwt from '../../hooks/useDecodeJwt';
 import { toast } from 'react-toastify';
 import { FriendContext } from '../../context/FriendContext';
 import { SocketContext } from '../../context/SocketContext';
-
 const Navbar = () => {
   const {theme, toggle} = useTheme()
   const navigate = useNavigate()

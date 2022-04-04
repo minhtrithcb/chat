@@ -10,8 +10,8 @@ const friendReqApi = {
     getAcceptFriendReq(reciver) {
         return api.get(`friendReq/accept-friend-request/${reciver}`)
     },
-    sendFriendReq(sender, reciver) {
-        return api.post(`friendReq/send-friend-request`,{sender, reciver})
+    createFriendReq(sender, reciver) {
+        return api.post(`friendReq/create-friend-request`,{sender, reciver})
     },
     unSendFriendReq(reqId) {
         return api.post(`friendReq/unsend-friend-request`,{reqId})

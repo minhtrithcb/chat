@@ -13,6 +13,10 @@
         padding: 0 1em;
     }
 
+    &>p {
+        margin-left: 1em
+    }
+
     @include scrollBarDefault;
 }
 

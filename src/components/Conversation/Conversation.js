@@ -50,8 +50,11 @@ const Conversation = () => {
             }
         }
         getAllconvertation()
-        return () => { isMounted = false };
-    }, [currentUser.id])
+        return () => { 
+            isMounted = false 
+            setCurrentChat(null)
+        };
+    }, [socket, currentUser.id, setCurrentChat])
 
     return (
         <div className={classesDarkMode}>

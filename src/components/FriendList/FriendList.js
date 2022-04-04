@@ -1,6 +1,8 @@
 import React, {useContext, useEffect} from 'react'
+import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import Swal from 'sweetalert2'
+import converApi from '../../api/converApi'
 import userApi from '../../api/userApi'
 import avatar from '../../assets/images/user.png'
 import { FriendContext } from '../../context/FriendContext'
@@ -36,7 +38,8 @@ const FriendList = () => {
         denyButtonText: `Không`,
       }).then(async (result) => {
         if (result.isConfirmed) {
-          await userApi.unFriend(currentUser.id, id)
+          await converApi.deleteByFriendId(currentUser.id, id)
+          await userApi.unFriend(currentUser.id, id);
           const remove = friendList.filter(fr => fr._id !== id)
           setFriendList(remove)
           toast.success("Xóa kết bạn thành công");
@@ -54,7 +57,7 @@ const FriendList = () => {
               <img src={avatar} alt="friend" />
           </div>
          <div>
-            <a href={`/#`}>{f.fullname}</a>
+            <Link to={`/profile/${f._id}`}>{f.fullname}</Link>
             <small>online</small>
          </div>
           <Button danger onClick={() => handleUnFriend(f._id)}>Xóa bạn</Button>

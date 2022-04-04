@@ -8,13 +8,18 @@ import useDecodeJwt from '../../hooks/useDecodeJwt'
 import Swal from 'sweetalert2'
 import { toast } from 'react-toastify'
 import { FriendContext } from '../../context/FriendContext'
+import converApi from '../../api/converApi'
+import { SocketContext } from '../../context/SocketContext'
+import { Link } from 'react-router-dom'
 
 const Contact = () => {
   const [friendReqs, setfriendReqs] = useState([])
   const [acceptFriendReqs, setAcceptFriendReqs] = useState([])
   const [currentUser] = useDecodeJwt()
   const {setFriendList, setFrLength} = useContext(FriendContext)
+  const {socket} = useContext(SocketContext)
 
+  // Fetch Data first 
   useEffect(() => {
     let isMounted = true;   
     const getFriendReqs = async () => {
@@ -25,7 +30,6 @@ const Contact = () => {
 
       if (isMounted) {
         Promise.all([dataFr, dataAcceptFr]).then(([dataFr, dataAcceptFr]) => {
-          // console.log(dataFr.data);
           setfriendReqs(dataFr.data)
           setFrLength(dataAcceptFr.data.length)
           setAcceptFriendReqs(dataAcceptFr.data)
@@ -36,6 +40,16 @@ const Contact = () => {
     getFriendReqs()
     return () => { isMounted = false };
   }, [currentUser.id, setFrLength])
+
+  useEffect(() => {        
+    let isMounted = true;   
+    socket.on("getAddFriend", data => {
+      if (isMounted && data) 
+          setAcceptFriendReqs(prev =>  [...prev, data])
+    })
+
+    return () => { isMounted = false };
+  }, [socket])
   
   // Current user accept Fr
   const handleAcceptFriendReq = async (id, sender) => {
@@ -46,6 +60,7 @@ const Contact = () => {
       setAcceptFriendReqs(remove)
       setFrLength(remove.length)
       setFriendList(prev => [...prev, sender])
+      await converApi.createFriendConver(sender._id, currentUser.id)
     }
   }
 
@@ -90,7 +105,7 @@ const Contact = () => {
                 <div className={styles.avatar}>
                     <img src={avatar} alt="friend" />
                 </div>
-                <a href="/#">{fr.reciver.fullname}</a>
+                <Link to={`/profile/${fr.reciver._id}`}>{fr.reciver.fullname}</Link>
                 <small title={fr.reciver.email}>
                   {
                     fr.reciver.email.length > 15 ?
@@ -107,12 +122,12 @@ const Contact = () => {
           </div>
           <h4>Danh sách người gửi tin kết bạn</h4>
           <div className={styles.cardContainer}>
-          {acceptFriendReqs.length > 0 ? acceptFriendReqs.map(fr => (
+          {acceptFriendReqs && acceptFriendReqs.length > 0 ? acceptFriendReqs.map(fr => (
             <div className={styles.card} key={fr._id}>
                 <div className={styles.avatar}>
                     <img src={avatar} alt="friend" />
                 </div>
-                <a href="/#">{fr.sender.fullname}</a>
+                <Link to={`/profile/${fr.sender._id}`}>{fr.sender.fullname}</Link>
                 <small>
                   {
                     fr.sender.email.length > 15 ?
