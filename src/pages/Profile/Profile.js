@@ -8,28 +8,31 @@ import { MdWorkOutline } from "react-icons/md";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import userApi from '../../api/userApi';
 import { useParams } from 'react-router-dom';
+import useTheme from '../../hooks/useTheme'
+import clsx from 'clsx';
 
 const Profile = () => {
-
+  const {theme} = useTheme()
   const [user, setUser] = useState(null)
   const params = useParams()
-  
+  const classesDarkMode = clsx(styles.profileContainer,{ 
+    [styles.dark]: theme === "dark"
+  })
+
+  // Fetch user by id
   useEffect(() => {
     let isMounted = true;   
-
     const getUser = async () => {
       const {data} = await userApi.getByUserId(params.id)
       if (isMounted) setUser(data);
     }
-
     getUser()
-
     return () => { isMounted = false };
   }, [params])
   
 
   return (
-  <div className={styles.profileContainer}>
+  <div className={classesDarkMode}>
       <div className={styles.main}>
         <div className={styles.heading}>
           <div className={styles.profileBackground}></div>
@@ -62,11 +65,11 @@ const Profile = () => {
             <li>Sự kiện</li>
         </ul>
 
+        <div className={styles.asideHeading}>
+          <h4>Tóm lược</h4>
+          <Button primary>Chỉnh sửa</Button>
+        </div>
         <section className={styles.summary}>
-          <div className={styles.asideHeading}>
-            <h4>Tóm lược</h4>
-            <Button primary>Chỉnh sửa</Button>
-          </div>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, nam aliquam quasi pariatur facilis, fuga nesciunt iure enim quae cumque ut eius unde fugiat totam voluptatibus quam aspernatur laborum quas vitae molestias aperiam ipsum dicta deserunt! Ipsam eius doloremque ab? Accusantium iure dignissimos fugit veritatis dolore deserunt ducimus consequatur totam.
           </p>
@@ -92,7 +95,7 @@ const Profile = () => {
 
         <div>
           <div className={styles.asideHeading}>
-            <h4>Thông tin thêm</h4>
+            <h4>Thông tin</h4>
             <Button primary>Chỉnh sửa</Button>
           </div>
 

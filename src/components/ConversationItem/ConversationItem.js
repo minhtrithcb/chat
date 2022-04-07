@@ -53,7 +53,7 @@ const ConversationItem = ({activeChat , conversation, currentUserId, usersOnline
     useEffect(() => {
         if(usersOnline !== undefined) {
             let res = usersOnline?.find(u => u.uid === friendId)
-            if(res !== undefined) setOnlineFriend(true)
+            if(res !== undefined) setOnlineFriend(true) 
         }
 
         return () => {
@@ -78,10 +78,12 @@ const ConversationItem = ({activeChat , conversation, currentUserId, usersOnline
          <div className={classesDarkMode}>
             {friendState && 
             <>
-                <div className={styles.avatar}>
-                    <img src={avatar} alt="friend" />
+                <span className={styles.avatarConatiner}>
+                    <div className={styles.avatar}>
+                        <img src={avatar} alt="friend" />
+                    </div>
                     {onlineFriend && <span className={styles.isOnline}></span>}
-                </div>
+                </span>
                 <span>
                     <b>{friendState.fullname}</b>
                     {lastMsg && <p>{lastMsg.text.length > 10 ? `${lastMsg.text.slice(0, 10)} ...`: lastMsg.text}  </p>}

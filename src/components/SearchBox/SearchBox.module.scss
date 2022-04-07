@@ -3,21 +3,24 @@
 
 .heading {
     background-color: #fff;
-    left: 70px;
     top: 0;
-    width: 300px;
+    width: 100%;
     height: 120px;
     padding: 1em;
     position: sticky;
-    border-right: 1px solid $gray;
     z-index: 1;
 
-    p {
-        font-weight: bold;
+    div:first-child {
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
+
+    p {
+        font-weight: bold;
+        display: inline-block;
+    }
+
 
     input {
         border-radius: 0.4em;
@@ -34,23 +37,15 @@
         }
     }
 
-    @include maxWitdh(768px) {
-        width: 100%;
-        border-right: none;
-    }
-
-    &.dark {
-        background-color: $dark-lv4;
-        color: white;
-        border-right: 1px solid $light-lv1;
-
-        input {
-            background-color: $dark-lv3;
+    @include maxWitdh(1230px) {
+        height: auto;
+        div:first-child {
+            p {
+                display: none;
+            }
         }
     }
 }
-
-
 
 .chatBox {
     background-color: #fff;
@@ -59,16 +54,24 @@
     top: 120px;
     width: 100%;
     height: calc(100vh - 120px);
+
+    @include maxWitdh(768px) {
+        top : auto;
+    }
 }
 
 .inputChat {
     position: relative;
-
+    
     svg {
         position: absolute;
         right: 0.7em;
         top: 0.7em;
         cursor: pointer;
+    }
+
+    @include maxWitdh(1230px) {
+        margin-top: 1em;
     }
 }
 
@@ -78,6 +81,8 @@
     border-radius: .7em;
     background-color: #f1f1f1;
     float: right;
+
+   
 }
 
 
@@ -120,13 +125,10 @@
     .resultItem {
         display: flex;
         align-items: center;
-        // justify-content: space-between;
         padding: 1em;
 
         div:nth-child(2) {
-            // width: 120px;
-
-            b {
+            a {
                 font-size: .9rem;
             }
 
@@ -139,6 +141,7 @@
         }
 
         button {
+            min-width: 90px;
             margin-left: auto;
         }
     }
@@ -147,7 +150,7 @@
 .avatar {
     @include avatar(35px);
     position: relative;
-    margin-left: 0;
+    margin-left: 1em;
 
     .isOnline {
         position: absolute;
@@ -158,5 +161,37 @@
         border: 2px solid white;
         border-radius: 50%;
         background-color: $green;
+    }
+}
+
+.dark {
+    background-color: $dark-lv4;
+    color: white;
+    border-right: none;
+    border-bottom: 1px solid $dark-lv3;
+
+    input {
+        background-color: $dark-lv3;
+        color: #fff;
+    }     
+
+    .result, .chatBox {
+        background-color: $dark-lv3;
+    }
+    .resultItem {
+        a {color: #fff};
+    }
+
+    .filter {
+        border-bottom: 1px solid transparent;
+
+        small {
+            background-color: $dark-lv4;
+        }
+    }
+
+    button {
+        background-color: $primary-color;
+        color: #fff;
     }
 }

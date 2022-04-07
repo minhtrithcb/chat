@@ -9,6 +9,7 @@
     align-items: center;
     height: 100vh;
     padding: 1em;
+    border-left: 1px solid $gray;
 
     img {
         max-width: 300px;
@@ -48,8 +49,12 @@
         }
     }
 
-    &.dark {
-        background-color: $dark-lv3;
-        color: #fff;
-    }
+}
+
+.dark {
+    background-color: $dark-lv3;
+    color: #fff;
+
+    border-left: 1px solid $dark-lv3;
+
 }

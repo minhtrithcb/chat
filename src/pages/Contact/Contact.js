@@ -1,150 +1,79 @@
-import React, { useContext, useEffect, useState } from 'react'
-import FriendList from '../../components/FriendList/FriendList'
+import React, {  useContext, useState } from 'react'
 import styles from './Contact.module.scss'
-import avatar from '../../assets/images/user.png'
-import Button from '../../components/Button/Button'
-import friendReqApi from '../../api/friendReqApi'
-import useDecodeJwt from '../../hooks/useDecodeJwt'
-import Swal from 'sweetalert2'
-import { toast } from 'react-toastify'
+import FriendRequest from '../../components/ContactComponent/FriendRequest'
+import ReciveFriendRequest from '../../components/ContactComponent/ReciveFriendRequest'
+import FriendListContact from '../../components/ContactComponent/FriendListContact'
 import { FriendContext } from '../../context/FriendContext'
-import converApi from '../../api/converApi'
-import { SocketContext } from '../../context/SocketContext'
-import { Link } from 'react-router-dom'
+import SearchBox from '../../components/SearchBox/SearchBox'
+import clsx from 'clsx'
+import useTheme from '../../hooks/useTheme'
+import noSearch from '../../assets/images/illu/undraw_searching_re_3ra9.svg'
+import Select from 'react-select';
 
 const Contact = () => {
-  const [friendReqs, setfriendReqs] = useState([])
-  const [acceptFriendReqs, setAcceptFriendReqs] = useState([])
-  const [currentUser] = useDecodeJwt()
-  const {setFriendList, setFrLength} = useContext(FriendContext)
-  const {socket} = useContext(SocketContext)
+  const {theme} = useTheme()
+  const [choseTabs, setchoseTabs] = useState(1)
+  const {frLength} = useContext(FriendContext)
 
-  // Fetch Data first 
-  useEffect(() => {
-    let isMounted = true;   
-    const getFriendReqs = async () => {
-      // Get all FR when current user send Fr
-      const dataFr = friendReqApi.getFriendReq(currentUser.id)
-       // Get all FR when current user have Someone sent a Fr
-      const dataAcceptFr = friendReqApi.getAcceptFriendReq(currentUser.id)
+  const classesDarkMode = clsx(styles.contactContainer,{ 
+    [styles.dark]: theme === "dark"
+  })
 
-      if (isMounted) {
-        Promise.all([dataFr, dataAcceptFr]).then(([dataFr, dataAcceptFr]) => {
-          setfriendReqs(dataFr.data)
-          setFrLength(dataAcceptFr.data.length)
-          setAcceptFriendReqs(dataAcceptFr.data)
-        })
-      }
-    }
+  const options = [
+    { value: 1, label: 'Danh sách bạn bè' },
+    { value: 2, label: 'Danh sách chờ kết bạn' },
+    { value: 3, label: 'Danh sách tin kết bạn' },
+  ];
 
-    getFriendReqs()
-    return () => { isMounted = false };
-  }, [currentUser.id, setFrLength])
-
-  useEffect(() => {        
-    let isMounted = true;   
-    socket.on("getAddFriend", data => {
-      if (isMounted && data) 
-          setAcceptFriendReqs(prev =>  [...prev, data])
-    })
-
-    return () => { isMounted = false };
-  }, [socket])
-  
-  // Current user accept Fr
-  const handleAcceptFriendReq = async (id, sender) => {
-    const {data} = await friendReqApi.acceptFriendReq(id, sender, currentUser.id)
-    if (data.success) {
-      toast.success("Kết bạn thành công");
-      const remove = acceptFriendReqs.filter(fr => fr._id !== id)
-      setAcceptFriendReqs(remove)
-      setFrLength(remove.length)
-      setFriendList(prev => [...prev, sender])
-      await converApi.createFriendConver(sender._id, currentUser.id)
-    }
-  }
-
-  // UnSend Friend Reqs(flag true)  or denie Friend Reqs(flag false)
-  const handleUnsendFriendRes = (id, flag = true) => {
-    Swal.fire({
-      title: 'Bạn có muốn xóa lời kết bạn không?',
-      showDenyButton: true,
-      confirmButtonText: 'Có',
-      icon: 'warning',
-      denyButtonText: `Không`,
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        await friendReqApi.unSendFriendReq(id)
-        if (flag) {
-          const remove = friendReqs.filter(fr => fr._id !== id)
-          setfriendReqs(remove)
-        } else {
-          const remove = acceptFriendReqs.filter(fr => fr._id !== id)
-          setAcceptFriendReqs(remove)
-          setFrLength(remove.length)
-        }
-        toast.success("Xóa kết bạn thành công");
-      } 
-    })
+  const handleChange = (params) => {
+    setchoseTabs(params.value)
   }
 
   return (
-    <div className={styles.contactContainer}>
+    <div className={classesDarkMode}>
       {/* left side  */}
-      <FriendList />
+      <div className={styles.sideBar}>
+        <SearchBox />
+        <img src={noSearch} alt="noSearch" />
+        <p>Hãy tìm thêm bạn mới nào !</p>
+      </div>
       {/* Right side  */}
-      <div className={styles.friendReqs}>
+      <div className={styles.contact}>
         <div className={styles.heading}>
-          <h3>Danh sách kết bạn</h3>
+          <h3>Liên hệ</h3>
         </div>
         <div className={styles.main}>
-          {friendReqs.length > 0 && <h4>Danh sách chờ kết bạn</h4>}
-          <div className={styles.cardContainer}>
-            {friendReqs && friendReqs.map((fr => 
-              <div className={styles.card} key={fr._id}>
-                <div className={styles.avatar}>
-                    <img src={avatar} alt="friend" />
-                </div>
-                <Link to={`/profile/${fr.reciver._id}`}>{fr.reciver.fullname}</Link>
-                <small title={fr.reciver.email}>
-                  {
-                    fr.reciver.email.length > 15 ?
-                    `${fr.reciver.email.slice(0, 15)} ...` :
-                    fr.reciver.email
-                  }
-                </small>
-                <Button fluid 
-                  onClick={() => handleUnsendFriendRes(fr._id)}>
-                    Đang chờ
-                </Button>
-              </div>
-              ))}
-          </div>
-          <h4>Danh sách người gửi tin kết bạn</h4>
-          <div className={styles.cardContainer}>
-          {acceptFriendReqs && acceptFriendReqs.length > 0 ? acceptFriendReqs.map(fr => (
-            <div className={styles.card} key={fr._id}>
-                <div className={styles.avatar}>
-                    <img src={avatar} alt="friend" />
-                </div>
-                <Link to={`/profile/${fr.sender._id}`}>{fr.sender.fullname}</Link>
-                <small>
-                  {
-                    fr.sender.email.length > 15 ?
-                    `${fr.sender.email.slice(0, 15)} ...` :
-                    fr.sender.email
-                  }
-                </small>
-                <Button primary fluid
-                onClick={() => handleAcceptFriendReq(fr._id, fr.sender)}
-                >Chấp nhận</Button>
-                <Button danger fluid
-                onClick={() => handleUnsendFriendRes(fr._id, false)}>Từ chối</Button>
-            </div>
-          )):
-          <p>Bạn chưa ai gửi lời kết bạn đến bạn.</p>
-          }
-          </div>
+
+          <ul className={styles.tabs}>
+            <li 
+              className={choseTabs === 1 ? styles.active: null} 
+              onClick={() => setchoseTabs(1)}>
+                Danh sách bạn bè
+            </li>
+            <li 
+              className={choseTabs === 2 ? styles.active: null} 
+              onClick={() => setchoseTabs(2)}
+            >
+              Danh sách chờ kết bạn
+            </li>
+            <li 
+              className={choseTabs === 3 ? styles.active: null} 
+              onClick={() => setchoseTabs(3)}
+              >
+                Danh sách tin kết bạn
+               {frLength > 0 ? <span>{frLength}</span> : null}
+            </li>
+          </ul>
+          <Select
+            defaultValue={options[0]}
+            onChange={handleChange}
+            options={options}
+            className={styles.select}
+          />
+
+          {choseTabs === 1 && <FriendListContact />}
+          {choseTabs === 2 && <FriendRequest />}
+          {choseTabs === 3 && <ReciveFriendRequest />}
         </div>
       </div>
     </div>

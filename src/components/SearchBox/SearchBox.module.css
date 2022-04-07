@@ -1,18 +1,15 @@
 .heading {
   background-color: #fff;
-  left: 70px;
   top: 0;
-  width: 300px;
+  width: 100%;
   height: 120px;
   padding: 1em;
   position: -webkit-sticky;
   position: sticky;
-  border-right: 1px solid #d1d1d1;
   z-index: 1;
 }
 
-.heading p {
-  font-weight: bold;
+.heading div:first-child {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -22,6 +19,11 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.heading p {
+  font-weight: bold;
+  display: inline-block;
 }
 
 .heading input {
@@ -39,21 +41,13 @@
   border: 2px solid #a29bfe;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1230px) {
   .heading {
-    width: 100%;
-    border-right: none;
+    height: auto;
   }
-}
-
-.heading.dark {
-  background-color: #292c43;
-  color: white;
-  border-right: 1px solid #585c76;
-}
-
-.heading.dark input {
-  background-color: #2f334d;
+  .heading div:first-child p {
+    display: none;
+  }
 }
 
 .chatBox {
@@ -65,6 +59,12 @@
   height: calc(100vh - 120px);
 }
 
+@media screen and (max-width: 768px) {
+  .chatBox {
+    top: auto;
+  }
+}
+
 .inputChat {
   position: relative;
 }
@@ -74,6 +74,12 @@
   right: 0.7em;
   top: 0.7em;
   cursor: pointer;
+}
+
+@media screen and (max-width: 1230px) {
+  .inputChat {
+    margin-top: 1em;
+  }
 }
 
 .btnClose {
@@ -134,7 +140,7 @@
   padding: 1em;
 }
 
-.result .resultItem div:nth-child(2) b {
+.result .resultItem div:nth-child(2) a {
   font-size: .9rem;
 }
 
@@ -146,6 +152,7 @@
 }
 
 .result .resultItem button {
+  min-width: 90px;
   margin-left: auto;
 }
 
@@ -167,7 +174,7 @@
           align-items: center;
   cursor: pointer;
   position: relative;
-  margin-left: 0;
+  margin-left: 1em;
 }
 
 .avatar img {
@@ -186,5 +193,38 @@
   border: 2px solid white;
   border-radius: 50%;
   background-color: #2ecc71;
+}
+
+.dark {
+  background-color: #292c43;
+  color: white;
+  border-right: none;
+  border-bottom: 1px solid #2f334d;
+}
+
+.dark input {
+  background-color: #2f334d;
+  color: #fff;
+}
+
+.dark .result, .dark .chatBox {
+  background-color: #2f334d;
+}
+
+.dark .resultItem a {
+  color: #fff;
+}
+
+.dark .filter {
+  border-bottom: 1px solid transparent;
+}
+
+.dark .filter small {
+  background-color: #292c43;
+}
+
+.dark button {
+  background-color: #a29bfe;
+  color: #fff;
 }
 /*# sourceMappingURL=SearchBox.module.css.map */

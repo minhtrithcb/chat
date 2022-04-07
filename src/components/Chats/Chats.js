@@ -14,6 +14,7 @@ import NotHaveChat from '../NotHaveChat/NotHaveChat';
 import ChatItem from '../ChatItem/ChatItem';
 import ChatForm from '../ChatForm/ChatForm';
 import { SocketContext } from '../../context/SocketContext';
+import { Link } from 'react-router-dom';
 
 const Chats = () => {
     const [toggle, setToggle] = useToggle(false)
@@ -107,7 +108,7 @@ const Chats = () => {
                         <MdOutlineArrowBackIos />
                     </div>
 
-                    {friend && <b>{friend.fullname}</b> }
+                    {friend && <Link to={`/profile/${friend._id}`} >{friend.fullname}</Link> }
                     
                     {/* // Fake div  */}
                     <div></div>

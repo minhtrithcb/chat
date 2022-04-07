@@ -1,9 +1,10 @@
 import React, { useContext, useEffect} from 'react'
-import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import styles from './Navbar.module.scss'
 import avatar from '../../assets/images/user.png'
 import {  BsChatSquareDots, BsPeople, BsTelephone,BsGear , BsBookmarkPlus , BsStar} from "react-icons/bs";
 import { AiOutlinePoweroff } from "react-icons/ai";
+import { FiUser } from "react-icons/fi";
 import clsx from 'clsx';
 import useTheme  from '../../hooks/useTheme'
 import Swal from 'sweetalert2';
@@ -13,6 +14,7 @@ import useDecodeJwt from '../../hooks/useDecodeJwt';
 import { toast } from 'react-toastify';
 import { FriendContext } from '../../context/FriendContext';
 import { SocketContext } from '../../context/SocketContext';
+
 const Navbar = () => {
   const {theme, toggle} = useTheme()
   const navigate = useNavigate()
@@ -20,11 +22,50 @@ const Navbar = () => {
   const {frLength, setFrLength} = useContext(FriendContext)
   const [currentUser] = useDecodeJwt()
   const {socket} = useContext(SocketContext)
+  const {pathname} = useLocation();
+
+  const listLink1 = [
+    {
+      icon: <BsChatSquareDots />,
+      text: 'Trang chủ',
+      path: "/"
+    },
+    {
+      icon: <BsPeople />,
+      text: 'Danh bạ',
+      path: "/Contact",
+      fr: true
+    },
+    {
+      icon: <BsTelephone />,
+      text: 'Admin',
+      path: "/admin"
+    },
+  ]
+
+  const listLink2 = [
+    {
+      icon: <BsStar />,
+      text: 'Bài viết',
+      path: "/posts"
+    },
+    {
+      icon: <BsBookmarkPlus />,
+      text: 'Dấu trang',
+      path: "/bookmark"
+    },
+    {
+      icon: <BsGear />,
+      text: 'Cài đặt',
+      path: "/setting"
+    },
+  ]
 
   const classesDarkMode = clsx(styles.navBar,{ 
     [styles.dark]: theme === "dark"
   })
 
+  // Notifi Add frined
   useEffect(() => {        
     socket.on("getAddFriend", data => {
       if(data) setFrLength(prev => prev + 1);
@@ -52,54 +93,40 @@ const Navbar = () => {
 
   return (
     <div className={classesDarkMode}>
-        {/* // Mobile  */}
-        <div className={styles.mobileView}>
-            <b>React Chat</b>
-            <div className={styles.avatar}>
-              <p>{currentUser?.username}</p>
-              <img src={avatar} alt="currunt_user" />
-            </div>
-        </div>
-        {/* // Desktop  */}
         <div className={styles.user}>
           <div className={styles.avatar}>
             <img src={avatar} alt="currunt_user" />
           </div>
           <span>
-            <small className="activity">Online</small><br/>
+            <small className="activity">Online</small>
             <Link to={`/profile/${currentUser?.id}`}>{currentUser?.username}</Link>
           </span>
         </div>
-        <NavLink to={`/`}>
-          <BsChatSquareDots />
-          <p>Trang chủ</p>
-        </NavLink>
-        <NavLink to={`/contact`}>
-          <BsPeople />
-          <p>Danh bạ</p>
-          {frLength > 0 ? <span>{frLength}</span> : null}
-        </NavLink>
-        <NavLink to={`/admin`}>
-          <BsTelephone />
-          <p>admin</p>
-        </NavLink>
+        {listLink1 && listLink1.map((item, index) =>(
+          <NavLink to={`${item.path}`} key={index} 
+            className={pathname === item.path ? [styles.active] : " "}>
+            {item.icon}
+            <p>{item.text}</p>
+            {frLength > 0 && item.fr ? <span>{frLength}</span> : null}
+          </NavLink>))}
 
         <div className={styles.hr} />
 
-        <NavLink to={`/`}>
-          <BsStar />
-          <p>Trang chủ</p>
-        </NavLink>
-        <NavLink to={`/contact`}>
-          <BsBookmarkPlus />
-          <p>Danh bạ</p>
-        </NavLink>
-        <NavLink to={`/admin`}>
-          <BsGear />
-          <p>admin</p>
-        </NavLink>
-
+        {listLink2 && listLink2.map((item, index) =>(
+          <NavLink to={`${item.path}`} key={index}>
+            {item.icon}
+            <p>{item.text}</p>
+          </NavLink>))}
         <div className={styles.hr} />
+        {/* // User tab only mobile  */}
+        <NavLink to={`/profile/${currentUser?.id}`} 
+            className={
+              pathname.includes('profile') ? 
+              `${styles.userMobile} ${styles.active}`: styles.userMobile
+            }>
+            <FiUser />
+            <p></p>
+        </NavLink>
         <div className={styles.btn_logout} onClick={handleLogout}>
           <AiOutlinePoweroff />
           <span>Thoát</span>

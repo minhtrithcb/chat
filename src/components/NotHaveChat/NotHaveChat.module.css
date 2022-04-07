@@ -15,6 +15,7 @@
           align-items: center;
   height: 100vh;
   padding: 1em;
+  border-left: 1px solid #d1d1d1;
 }
 
 .notHaveChat img {
@@ -74,8 +75,9 @@
   }
 }
 
-.notHaveChat.dark {
+.dark {
   background-color: #2f334d;
   color: #fff;
+  border-left: 1px solid #2f334d;
 }
 /*# sourceMappingURL=NotHaveChat.module.css.map */

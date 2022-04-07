@@ -19,6 +19,7 @@
   -webkit-transition: 0.3s ease-in;
   transition: 0.3s ease-in;
   opacity: 0;
+  color: #000;
 }
 
 .chatForm aside {
@@ -54,7 +55,6 @@
 
 @media screen and (max-width: 768px) {
   .chatForm {
-    bottom: 160px;
     margin: 0 1em;
   }
 }
@@ -107,17 +107,21 @@
   font-size: 1.2rem;
 }
 
-.chatForm.dark {
+.dark {
   color: #fff;
 }
 
-.chatForm.dark textarea {
+.dark textarea {
   background-color: #292c43;
   color: #fff;
 }
 
-.chatForm.dark textarea:focus {
+.dark textarea:focus {
   border-radius: .7em;
   border: 2px solid #a29bfe;
+}
+
+.dark textarea small {
+  color: red;
 }
 /*# sourceMappingURL=ChatForm.module.css.map */

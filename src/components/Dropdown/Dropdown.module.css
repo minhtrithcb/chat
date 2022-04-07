@@ -1,0 +1,65 @@
+.Dropdown {
+  position: relative;
+}
+
+.DropdownBtn {
+  width: 30px;
+  height: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.DropdownBtn.right {
+  margin-left: auto;
+}
+
+.DropdownUl {
+  position: absolute;
+  background-color: #fff;
+  top: 2em;
+  right: 0;
+  list-style: none;
+  padding: 0.5em;
+  margin: 0;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  border-radius: .7em;
+}
+
+.DropdownItem {
+  white-space: nowrap;
+  padding: 0.5em;
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
+  border-radius: .3em;
+  text-align: left;
+  font-size: .9rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.DropdownItem svg {
+  margin-right: 0.5em;
+}
+
+.DropdownItem:hover {
+  background-color: #f6f7fb;
+}
+
+.dark svg {
+  color: #fff;
+}
+/*# sourceMappingURL=Dropdown.module.css.map */

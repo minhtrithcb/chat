@@ -1,12 +1,3 @@
-.hr {
-  width: 40%;
-  margin-left: 30%;
-  margin-top: 1em;
-  margin-bottom: 1em;
-  height: 1px;
-  background-color: #d1d1d1;
-}
-
 .navBar {
   min-width: 70px;
   height: 100vh;
@@ -16,6 +7,10 @@
   z-index: 999;
   background-color: #fff;
   border-right: 1px solid #d1d1d1;
+}
+
+.navBar a.active {
+  color: #a29bfe;
 }
 
 .navBar > a {
@@ -82,47 +77,15 @@
   right: 10px;
   text-align: center;
   color: white;
-  font-size: 0.7rem;
-  min-width: 20px;
-  height: 20px;
+  font-size: 0.6rem;
+  width: 17px;
+  height: 17px;
   background-color: #ff7675;
   position: absolute;
 }
 
-.navBar.dark {
-  border-right: 1px solid transparent;
-  background-color: #2f334d;
-}
-
-@media screen and (max-width: 768px) {
-  .navBar.dark .mobileView {
-    background-color: #2f334d;
-    color: #fff;
-  }
-  .navBar.dark .mobileView p {
-    color: #fff;
-  }
-}
-
-.navBar.dark a {
-  color: #585c76;
-}
-
-.navBar.dark p {
-  color: #000;
-}
-
-.navBar.dark .hr {
-  background-color: #585c76;
-}
-
-.navBar.dark .user {
-  background-color: #2f334d;
-  color: #fff;
-}
-
-.navBar.dark .user:hover {
-  background-color: #a29bfe;
+.navBar .userMobile {
+  display: none;
 }
 
 @media screen and (max-width: 768px) {
@@ -135,7 +98,7 @@
     display: -ms-flexbox;
     display: flex;
     padding: 0;
-    border-top: 1px solid #d1d1d1;
+    border-top: 1px solid #f1f1f1;
     border-right: none;
   }
   .navBar p {
@@ -147,43 +110,17 @@
   .navBar .checkBox {
     display: none;
   }
-}
-
-.mobileView {
-  display: none;
-}
-
-.mobileView > .avatar {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.mobileView > .avatar p {
-  margin-right: 1em;
-}
-
-@media screen and (max-width: 768px) {
-  .mobileView {
+  .navBar a.active {
+    background-color: #a29bfe;
+    color: #fff;
+  }
+  .navBar a.active:hover svg {
+    color: #fff;
+  }
+  .navBar .userMobile {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
-    height: 70px;
-    width: 100%;
-    background-color: #fff;
-    position: fixed;
-    padding: 0 1em;
-    top: 0;
-    border-bottom: 1px solid #d1d1d1;
   }
 }
 
@@ -199,8 +136,10 @@
   width: 69px;
   height: 70px;
   left: 0em;
-  -webkit-transition: .3s ease-out;
-  transition: .3s ease-out;
+  -webkit-transition: all .3s ease-out;
+  transition: all .3s ease-out;
+  -webkit-transition-property: opacity, width,height, left;
+  transition-property: opacity, width,height, left;
   border-radius: .7em;
   cursor: pointer;
   background-color: #fff;
@@ -209,6 +148,11 @@
 .user span {
   width: 200px;
   opacity: 0;
+}
+
+.user span small {
+  margin-bottom: 0.5em;
+  display: block;
 }
 
 .user span > a {
@@ -349,6 +293,50 @@
 
 .checkBox:checked::before {
   left: 27px;
+  background-color: #a29bfe;
+}
+
+.hr {
+  width: 40%;
+  margin-left: 30%;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  height: 1px;
+  background-color: #d1d1d1;
+}
+
+.dark {
+  border-right: 1px solid transparent;
+  background-color: #2f334d;
+  border-top: 1px solid #585c76;
+}
+
+.dark a {
+  color: #585c76;
+}
+
+.dark p {
+  color: #000;
+}
+
+.dark .hr {
+  background-color: #585c76;
+}
+
+.dark a.active:hover svg {
+  color: #fff;
+}
+
+.dark .user {
+  background-color: #2f334d;
+  color: #fff;
+}
+
+.dark .user span > a {
+  color: #fff;
+}
+
+.dark .user:hover {
   background-color: #a29bfe;
 }
 /*# sourceMappingURL=Navbar.module.css.map */

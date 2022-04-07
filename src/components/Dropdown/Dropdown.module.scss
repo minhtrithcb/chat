@@ -1,0 +1,53 @@
+@import '../../assets/css/mixin';
+@import '../../assets/css/variable';
+
+.Dropdown {
+    position: relative;
+}
+
+.DropdownBtn {
+    width: 30px;
+    height: 30px;
+    @include center ;
+    cursor: pointer;
+    position: relative; 
+    &.right {
+        margin-left: auto;
+    }
+}
+
+.DropdownUl {
+    position: absolute;
+    background-color: #fff;
+    top: 2em;
+    right: 0;
+    list-style: none;
+    padding: 0.5em;
+    margin: 0;
+    box-shadow:  $box-shadow3;
+    border-radius: .7em;
+}
+
+.DropdownItem {
+    white-space: nowrap;
+    padding: 0.5em;
+    transition: .3s ease;
+    border-radius: .3em;
+    text-align: left;
+    font-size: .9rem;
+    display: flex;
+    align-items: center;
+    svg {
+        margin-right: 0.5em;
+    }
+
+    &:hover {
+        background-color: $light;
+    }
+}
+
+.dark {
+    svg {
+        color: #fff;
+    }
+}

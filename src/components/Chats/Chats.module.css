@@ -3,31 +3,16 @@
   height: 100vh;
   background-color: #f6f7fb;
   overflow: hidden;
+  border-left: 1px solid #d1d1d1;
 }
 
 .conversation::-webkit-scrollbar {
   width: 5px;
 }
 
-.conversation.dark {
-  background-color: #292c43;
-}
-
-.conversation.dark .friendCover {
-  background-color: #2f334d;
-  color: #fff;
-  border-bottom: 1px solid #585c76;
-}
-
-.conversation.dark .mobileViewCover {
-  background-color: #292c43;
-  color: #fff;
-}
-
 @media screen and (max-width: 768px) {
   .conversation {
     position: fixed;
-    top: 70px;
     width: 100%;
   }
 }
@@ -60,7 +45,7 @@
 
 @media screen and (max-width: 768px) {
   .chatContainer {
-    padding-bottom: 100px;
+    padding-top: 150px;
   }
 }
 
@@ -68,15 +53,20 @@
   display: none;
 }
 
+.mobileViewCover a {
+  color: #a29bfe;
+}
+
 @media screen and (max-width: 768px) {
   .mobileViewCover {
+    position: fixed;
+    top: 80px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     height: 50px;
     width: 100%;
     background-color: #fff;
-    border-bottom: 1px solid #d1d1d1;
     -webkit-box-pack: justify;
         -ms-flex-pack: justify;
             justify-content: space-between;
@@ -177,5 +167,21 @@
   .friendCover {
     display: none;
   }
+}
+
+.dark {
+  background-color: #292c43;
+  border-left: 1px solid #585c76;
+}
+
+.dark .friendCover {
+  background-color: #2f334d;
+  color: #fff;
+  border-bottom: 1px solid #585c76;
+}
+
+.dark .mobileViewCover {
+  background-color: #292c43;
+  color: #fff;
 }
 /*# sourceMappingURL=Chats.module.css.map */

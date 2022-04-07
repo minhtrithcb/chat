@@ -1,32 +1,11 @@
 .contact {
-  width: 300px;
+  min-width: 300px;
   height: 100vh;
   background-color: #fff;
-  border-right: 1px solid #d1d1d1;
-}
-
-.contact.dark {
-  background-color: #292c43;
-  border-right: 1px solid #585c76;
-}
-
-.contact.dark .heading {
-  background-color: #292c43;
-  color: white;
-  border-right: 1px solid #585c76;
-}
-
-.contact.dark .heading input {
-  background-color: #2f334d;
-}
-
-.contact.dark .messages::-webkit-scrollbar {
-  width: 0px;
 }
 
 @media screen and (max-width: 768px) {
   .contact {
-    padding-top: 50px;
     height: 100%;
     width: 100%;
     border-right: none;
@@ -45,6 +24,12 @@
 .messages > small {
   display: block;
   padding: 1em;
+}
+
+@media screen and (max-width: 768px) {
+  .messages {
+    height: 100vh;
+  }
 }
 
 .messages::-webkit-scrollbar {
@@ -148,8 +133,28 @@
   margin-left: auto;
 }
 
-.messages.dark {
+.dark {
+  background-color: #292c43;
+  border-right: none;
+}
+
+.dark .heading {
   background-color: #292c43;
   color: white;
+  border-right: none;
+}
+
+.dark .heading input {
+  background-color: #2f334d;
+}
+
+.dark .messages {
+  border-right: none;
+  background-color: #292c43;
+  color: white;
+}
+
+.dark .messages::-webkit-scrollbar {
+  width: 0px;
 }
 /*# sourceMappingURL=Conversation.module.css.map */

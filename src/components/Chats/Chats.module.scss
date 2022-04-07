@@ -6,29 +6,14 @@
     height: 100vh;
     background-color: $white-smok;
     overflow: hidden;
+    border-left: 1px solid $gray;
 
     &::-webkit-scrollbar {
         width: 5px;
     }
 
-    &.dark {
-        background-color: $dark-lv4;
-
-        .friendCover {
-            background-color: $dark-lv3;
-            color: #fff;
-            border-bottom: 1px solid $light-lv1;
-        }
-
-        .mobileViewCover {
-            background-color: $dark-lv4;
-            color: #fff;
-        }
-    }
-
     @include maxWitdh(768px) {
         position: fixed;
-        top: 70px;
         width: 100%;
     }
 
@@ -59,19 +44,24 @@
     }
 
     @include maxWitdh(768px) {
-        padding-bottom: 100px;
+        padding-top: 150px;
     }
+
 }
 
 .mobileViewCover {
     display: none;
+    a {
+        color: $primary-color;
+    }
 
     @include maxWitdh(768px) {
+        position: fixed;
+        top: 80px;
         display: flex;
         height: 50px;
         width: 100%;
         background-color: #fff;
-        border-bottom: 1px solid $gray;
         justify-content: space-between;
         align-items: center;
         cursor: pointer;
@@ -85,8 +75,6 @@
     }
 
 }
-
-
 
 .friendCover {
     border-bottom: 1px solid $gray;
@@ -124,5 +112,21 @@
 
     @include maxWitdh(768px) {
         display: none;
+    }
+}
+
+.dark {
+    background-color: $dark-lv4;
+    border-left: 1px solid $light-lv1;
+
+    .friendCover {
+        background-color: $dark-lv3;
+        color: #fff;
+        border-bottom: 1px solid $light-lv1;
+    }
+
+    .mobileViewCover {
+        background-color: $dark-lv4;
+        color: #fff;
     }
 }

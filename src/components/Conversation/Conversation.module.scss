@@ -2,34 +2,11 @@
 @import '../../assets/css/mixin';
 
 .contact {
-    width: 300px;
+    min-width: 300px;
     height: 100vh;
     background-color: #fff;
-    border-right: 1px solid $gray;
-
-    &.dark {
-        background-color: $dark-lv4;
-        border-right: 1px solid $light-lv1;
-
-        .heading {
-            background-color: $dark-lv4;
-            color: white;
-            border-right: 1px solid $light-lv1;
-
-            input {
-                background-color: $dark-lv3;
-            }
-        }
-
-        .messages {
-            &::-webkit-scrollbar {
-                width: 0px;
-            }
-        }
-    }
 
     @include maxWitdh(768px) {
-        padding-top: 50px;
         height: 100%;
         width: 100%;
         border-right: none;
@@ -48,6 +25,10 @@
         padding: 1em;
     }
 
+    @include maxWitdh(768px) {
+    height: 100vh;
+
+    }
     @include scrollBarDefault();
 
 }
@@ -102,7 +83,26 @@
 }
 
 
-.messages.dark {
+.dark {
     background-color: $dark-lv4;
-    color: white;
+    border-right: none;
+
+    .heading {
+        background-color: $dark-lv4;
+        color: white;
+        border-right: none;
+
+        input {
+            background-color: $dark-lv3;
+        }
+    }
+
+    .messages {
+        border-right: none;
+        background-color: $dark-lv4;
+        color: white;
+        &::-webkit-scrollbar {
+            width: 0px;
+        }
+    }
 }

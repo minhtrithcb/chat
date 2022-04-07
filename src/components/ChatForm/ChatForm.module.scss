@@ -18,6 +18,7 @@
         box-shadow: $box-shadow1;
         transition: 0.3s ease-in;
         opacity: 0;
+        color: #000;
     }
 
     aside {
@@ -52,7 +53,6 @@
     }
 
     @include maxWitdh(768px) {
-        bottom: 160px;
         margin: 0 1em;
     }
 }
@@ -90,7 +90,7 @@
     }
 }
 
-.chatForm.dark {
+.dark {
     color: #fff;
 
     textarea {
@@ -100,6 +100,10 @@
         &:focus {
             border-radius: .7em;
             border: 2px solid $primary-color;
+        }
+
+        small {
+            color: red;
         }
     }
 }

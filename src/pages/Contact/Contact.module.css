@@ -5,95 +5,126 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  background-color: #fff;
 }
 
-.friendReqs {
+@media screen and (max-width: 1230px) {
+  .contactContainer {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+.sideBar {
+  display: block;
+}
+
+.sideBar img {
+  width: 300px;
+}
+
+.sideBar p {
+  text-align: center;
+}
+
+@media screen and (max-width: 1230px) {
+  .sideBar img, .sideBar p {
+    display: none;
+  }
+}
+
+.contact {
   width: 100%;
 }
 
-.friendReqs .heading {
+.contact .heading {
   height: 70px;
   padding: 1em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   background-color: #fff;
   position: -webkit-sticky;
   position: sticky;
   top: 0;
   border-bottom: 1px solid #d1d1d1;
+  border-left: 1px solid #d1d1d1;
 }
 
-.friendReqs .main {
+.contact .heading h3 {
+  margin: 0;
+}
+
+.contact .main {
   background-color: #f6f7fb;
   padding: 1em;
   height: calc(100vh - 70px);
   overflow-y: scroll;
+  border-left: 1px solid #d1d1d1;
 }
 
-.friendReqs .main::-webkit-scrollbar {
+.contact .main::-webkit-scrollbar {
   width: 5px;
 }
 
-.friendReqs .main:hover::-webkit-scrollbar {
+.contact .main:hover::-webkit-scrollbar {
   border-radius: 0.8em;
   width: 5px;
 }
 
-.friendReqs .main::-webkit-scrollbar-thumb {
+.contact .main::-webkit-scrollbar-thumb {
   background: transparent;
   border-radius: 0.5em;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
 }
 
-.friendReqs .main:hover::-webkit-scrollbar-thumb {
+.contact .main:hover::-webkit-scrollbar-thumb {
   background: #f1f1f1;
 }
 
-.cardContainer {
-  width: 100%;
+@media screen and (max-width: 1230px) {
+  .contact .main, .contact .heading {
+    border-left: none;
+  }
+  .contact .heading {
+    display: none;
+  }
+}
+
+.tabs {
+  list-style: none;
+  padding-left: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  padding-bottom: 1em;
+  border-bottom: 1px solid #d1d1d1;
 }
 
-.cardContainer .card {
-  border-radius: .7em;
-  background-color: #fff;
-  width: 24%;
-  margin: 0.5%;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-          box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-  padding: 1em;
+.tabs li {
   cursor: pointer;
-  overflow: hidden;
-}
-
-.cardContainer .card:hover {
-  -webkit-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-          box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-}
-
-.cardContainer .card small {
-  display: block;
-  margin: 1em 0;
-}
-
-.cardContainer .card a {
-  color: #a29bfe;
-}
-
-.cardContainer .card button {
-  margin-top: 0.5em;
-}
-
-.avatar {
-  width: 40px;
-  height: 40px;
-  background-color: #fff;
-  border: 1px solid #f1f1f1;
   margin-right: 1em;
-  border-radius: 50%;
+  padding: 0.5em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  font-size: 0.9rem;
+}
+
+.tabs li span {
+  font-size: 0.8rem;
+  background-color: #ff7675;
+  color: #fff;
+  width: 20px;
+  height: 20px;
+  margin-left: 1em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -103,14 +134,64 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  cursor: pointer;
-  margin-bottom: 1em;
 }
 
-.avatar img {
+.tabs li.active {
+  color: #a29bfe;
+}
+
+.tabs li.active::after {
+  content: '';
+  position: absolute;
   width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  height: 3px;
+  background-color: #a29bfe;
+  bottom: calc( -1em - 2px);
+  left: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .tabs {
+    display: none;
+  }
+}
+
+.select {
+  margin-bottom: 1em;
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .select {
+    display: block;
+  }
+}
+
+.dark {
+  background-color: #292c43;
+}
+
+.dark .sideBar {
+  color: #a29bfe;
+}
+
+.dark .heading {
+  border-left: 1px solid #292c43;
+  border-bottom: 1px solid #585c76;
+  background-color: #292c43;
+  color: #fff;
+}
+
+.dark .tabs li {
+  color: #fff;
+}
+
+.dark .tabs li.active {
+  color: #a29bfe;
+}
+
+.dark .main {
+  border-left: 1px solid #292c43;
+  background-color: #2f334d;
 }
 /*# sourceMappingURL=Contact.module.css.map */

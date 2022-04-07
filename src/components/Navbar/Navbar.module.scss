@@ -1,15 +1,6 @@
 @import '../../assets/css/variable';
 @import '../../assets/css/mixin';
 
-.hr {
-    width: 40%;
-    margin-left: 30%;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    height: 1px;
-    background-color: $gray;
-}
-
 .navBar {
     min-width: 70px;
     height: 100vh;
@@ -20,7 +11,11 @@
     background-color: #fff;
     border-right: 1px solid $gray;
 
-    // active class write in globle.css
+    a.active {
+        color: $primary-color;
+    }
+
+    // active class 
     &>a {
         padding: 1em 0;
         position: relative;
@@ -40,11 +35,11 @@
             visibility: visible;
         }
 
+        // Title of navication
         p {
             visibility: hidden;
             opacity: 0;
             transition: .2s linear;
-            // background-color: #fff;
             background-color: $primary-color;
             color: #fff;
             padding: 0.4em 0.6em;
@@ -53,12 +48,11 @@
             border-radius: 0.4em;
             width: max-content;
             height: auto;
-            // word-break: keep-all;
             left: 60px;
             top: -10px;
         }
 
-        // Chip
+        // Notification
         span {
             @include center;
             top: 0;
@@ -66,50 +60,18 @@
             right: 10px;
             text-align: center;
             color: white;
-            font-size: 0.7rem;
-            min-width: 20px;
-            height: 20px;
+            font-size: 0.6rem;
+            width: 17px;
+            height: 17px;
             background-color: $red-light;
             position: absolute;
         }
     }
 
-    &.dark {
-        border-right: 1px solid transparent;
-        background-color: $dark-lv3;
-
-        @include maxWitdh(768px) {
-            .mobileView {
-                background-color: $dark-lv3;
-                color: #fff;
-
-                p {
-                    color: #fff;
-                }
-            }
-        }
-
-        a {
-            color: $light-lv1;
-        }
-
-        p {
-            color: #000;
-        }
-
-        .hr {
-            background-color: $light-lv1;
-        }
-
-        .user {
-            background-color: $dark-lv3;
-            color: #fff;
-
-            &:hover {
-                background-color: $primary-color;
-            }
-        }
+    .userMobile {
+        display: none;
     }
+    
 
     @include maxWitdh(768px) {
         width: 100%;
@@ -118,7 +80,7 @@
         bottom: 0;
         display: flex;
         padding: 0;
-        border-top: 1px solid $gray;
+        border-top: 1px solid $gray-light;
         border-right: none;
 
         p {
@@ -131,35 +93,24 @@
         .checkBox {
             display: none;
         }
-    }
-}
 
-.mobileView {
-    display: none;
+        a.active {
+            background-color: $primary-color;
+            color: #fff;
+            &:hover svg {
+                color: #fff;
+            }
+        }
 
-    &>.avatar {
-        display: flex;
-        align-items: center;
-
-        p {
-            margin-right: 1em;
+        .userMobile {
+            display: flex;
         }
     }
-
-    @include maxWitdh(768px) {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        height: 70px;
-        width: 100%;
-        background-color: #fff;
-        position: fixed;
-        padding: 0 1em;
-        top: 0;
-        border-bottom: 1px solid $gray;
-    }
 }
 
+
+
+// User div
 .user {
     display: flex;
     align-items: center;
@@ -168,7 +119,8 @@
     width: 69px;
     height: 70px;
     left: 0em;
-    transition: .3s ease-out;
+    transition: all .3s ease-out;
+    transition-property: opacity, width,height, left;
     border-radius: .7em;
     cursor: pointer;
     background-color: #fff;
@@ -176,6 +128,10 @@
     span {
         width: 200px;
         opacity: 0;
+        small{
+            margin-bottom: 0.5em;
+            display: block;
+        }
         &>a {
             color: $primary-color;
         }
@@ -205,6 +161,8 @@
     }
 }
 
+// user avatar
+
 .avatar {
     @include avatar(40px);
     margin-right: 0;
@@ -212,7 +170,7 @@
     position: absolute;
 }
 
-
+// Logout btn
 .btn_logout {
     width: 30px;
     height: 30px;
@@ -247,6 +205,7 @@
 
 }
 
+// Toggle theme Btn
 .checkBox {
     margin-top: 100px;
     width: 45px;
@@ -282,4 +241,52 @@
         background-color: $primary-color;
     }
 
+}
+
+.hr {
+    width: 40%;
+    margin-left: 30%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    height: 1px;
+    background-color: $gray;
+}
+
+// Dark mode 
+.dark {
+    border-right: 1px solid transparent;
+    background-color: $dark-lv3;
+
+    border-top: 1px solid $light-lv1;
+
+    a {
+        color: $light-lv1;
+    }
+
+    p {
+        color: #000;
+    }
+
+    .hr {
+        background-color: $light-lv1;
+    }
+
+    a.active {
+        &:hover svg {
+            color: #fff;
+        }
+    }
+
+    .user {
+        background-color: $dark-lv3;
+        color: #fff;
+
+        span>a {
+            color: #fff;
+        }
+
+        &:hover {
+            background-color: $primary-color;
+        }
+    }
 }

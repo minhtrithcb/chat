@@ -4,35 +4,6 @@
   padding: 1em;
 }
 
-.friendProfile.dark {
-  background-color: #2f334d;
-  border-left: 1px solid #585c76;
-}
-
-.friendProfile.dark h4 {
-  color: #f1f1f1;
-}
-
-.friendProfile.dark .frinedInfo {
-  border-top: 1px solid #585c76;
-}
-
-.friendProfile.dark .friendBtnConatiner span {
-  background-color: #a29bfe;
-}
-
-.friendProfile.dark .friendBtnConatiner span svg {
-  color: #fff;
-}
-
-.friendProfile.dark .frinedInfoItem {
-  color: #f1f1f1;
-}
-
-.friendProfile.dark .frinedInfoItem small {
-  color: #f1f1f1;
-}
-
 @media screen and (max-width: 768px) {
   .friendProfile {
     display: none;
@@ -139,5 +110,34 @@ h4 {
 .frinedInfo .frinedInfoItem small {
   color: #313443;
   word-break: break-all;
+}
+
+.dark {
+  background-color: #2f334d;
+  border-left: 1px solid #585c76;
+}
+
+.dark h4 {
+  color: #f1f1f1;
+}
+
+.dark .frinedInfo {
+  border-top: 1px solid #585c76;
+}
+
+.dark .friendBtnConatiner span {
+  background-color: #a29bfe;
+}
+
+.dark .friendBtnConatiner span svg {
+  color: #fff;
+}
+
+.dark .frinedInfoItem {
+  color: #f1f1f1;
+}
+
+.dark .frinedInfoItem small {
+  color: #f1f1f1;
 }
 /*# sourceMappingURL=FriendProfile.module.css.map */

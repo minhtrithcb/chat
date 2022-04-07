@@ -1,18 +1,19 @@
 import clsx from 'clsx'
-import React, { useContext, useRef, useState} from 'react'
+import React, { useCallback, useContext, useRef, useState} from 'react'
 import useTheme from '../../hooks/useTheme'
 import styles from './SearchBox.module.scss'
 import avatar from '../../assets/images/user.png'
-import { FiDelete } from "react-icons/fi";
 import Button from '../Button/Button'
 import useToggle from '../../hooks/useToggle'
+import {FiDelete} from "react-icons/fi";
 import userApi from '../../api/userApi'
 import useDecodeJwt from '../../hooks/useDecodeJwt'
 import friendReqApi from '../../api/friendReqApi'
 import { SocketContext } from '../../context/SocketContext'
+import { Link } from 'react-router-dom'
+
 const SearchBox = () => {
     const {theme} = useTheme()
-    const [input, setInput] = useState("")
     const [toggle, toggleF] = useToggle(false)
     const [results, setResults] = useState([])
     const [userFriend, setUserFriend] = useState([])
@@ -20,23 +21,17 @@ const SearchBox = () => {
     const [currentUser] = useDecodeJwt()
     const inputRef = useRef()
     const {socket} = useContext(SocketContext)
-
+    const [value, setValue] = useState('')
     const classesDarkMode = clsx(styles.heading,{ 
         [styles.dark]: theme === "dark"
     })
-
-    // Change keyword searching ...
-    const handleChage = (e) => {
-        const value = e.target.value.trim()
-        setInput(value)
-        fetchResult(value)
-    }
 
     // Submit searching ...
     const fetchResult = async (value) => {
         if (value.length >= 3 && value !== "" ) {
             try {
                 const {data} = await userApi.search(value, currentUser.id)
+                // console.log(data);
                 setResults(data[0]);
                 setUserFriend(data[1].friend);
                 setFriendReqs(data[2]);
@@ -47,18 +42,39 @@ const SearchBox = () => {
         }
     } 
 
-    // Delete Search box
-    const handleDelete = () => {
-        let newKeyWord = input.substring(0, input.length - 1)
-        setInput(newKeyWord)
-        fetchResult(newKeyWord)
-        inputRef.current.focus();
+    // debounce
+    const debounce = (cb, delay = 1000) => {
+        let timeout
+        return (...args) => {
+            clearTimeout(timeout)
+            timeout = setTimeout(() => {
+                cb(...args)
+            },delay)
+        }
+    }
+
+    const debounceFn = useCallback(debounce(fetchResult), []); // eslint-disable-line react-hooks/exhaustive-deps
+
+    function handleChange(event) {
+        setValue(event.target.value);
+        debounceFn(event.target.value);
     }
 
     // Close Search box
     const handleClose = () => {
-        setInput("")
         toggleF(false)
+        setValue("")
+    }
+
+    // Close value in Search box
+    const handleDelete = () => {
+        let newKw = value.substring(0, value.length - 1);
+        setValue(newKw)
+        if (newKw.length < 3) {
+            handleClose()
+        } else {
+            debounceFn(newKw);
+        }
     }
 
     // Sent Friend request
@@ -79,14 +95,17 @@ const SearchBox = () => {
 
     return (
         <div className={classesDarkMode}>
-            <p>Tìm kiếm {toggle && <Button onClick={handleClose}>Đóng</Button> }</p>
+            <div>
+                <p>Tìm kiếm </p>
+                {toggle && <Button onClick={handleClose}>Đóng</Button> }
+            </div>
             <div className={styles.inputChat}>
                 <input type="text" placeholder='Tìm kiếm ...'
                     ref={inputRef}
-                    value={input}
-                    onChange={handleChage} 
+                    value={value}
+                    onChange={handleChange} 
                 />
-                {toggle &&  <FiDelete onClick={handleDelete} />}
+                {toggle && <FiDelete onClick={handleDelete} /> }
             </div>
             {toggle && <div className={styles.chatBox}>
                 <ul className={styles.filter}>
@@ -111,8 +130,7 @@ const SearchBox = () => {
                                 <span className={styles.isOnline}></span>
                             </div>
                             <div>
-                                <b>{res.fullname}</b>
-                                <p>online</p>
+                                <Link to={`/profile/${res._id}`}>{res.fullname}</Link>
                             </div>
                             {
                                 // If user has result in friendList
@@ -126,7 +144,7 @@ const SearchBox = () => {
                                 <Button onClick={() => 
                                     handleUnsendFriendRes(friendReqs.find(s => s.reciver._id === res._id))
                                 }>
-                                    Đã chờ duyệt
+                                    Đang chờ
                                 </Button>
                                 :
                                 <Button primary onClick={() => handleSendFriendRes(res)}>

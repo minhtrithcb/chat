@@ -4,8 +4,40 @@
 .profileContainer {
     width: 100%;
     height: 100vh;
-    overflow: hidden;
     display: flex;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    &:hover::-webkit-scrollbar {
+        border-radius: 0.8em;
+        width: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: transparent;
+        border-radius: 0.5em;
+        transition: all 0.5s;
+    }
+
+    &:hover::-webkit-scrollbar-thumb {
+        background: #cfcfcf;
+    }
+
+    @include maxWitdh(768px) {
+        flex-direction: column;
+        padding-bottom: 100px;
+
+        .main {
+            width: 100%;
+        }
+
+        .aside {
+            width: 100%;
+        }
+    }
 }
 
 .main {
@@ -17,9 +49,6 @@
     &>div {
         margin: 1em;
         margin-left: 0;
-        border-radius: 1em;
-        box-shadow: $box-shadow4 ;
-
     }
 }
 
@@ -41,22 +70,49 @@
     height: 100px;
     background-color: #fff;
     position: relative;
-    display: flex;
     padding: 1em;
+    @include maxWitdh(610px) {
+        min-height: 150px;
+    }
 }
 
+.avatar {
+    @include avatar(60px);
+    position: absolute;
+    left: 1em;
+    bottom: 1em;
+    
+    @include maxWitdh(610px) {
+        bottom: 4em;
+    }
+}
+
+
 .cardInfo {
+    position: absolute;
+    left: 100px;
+    bottom: 1em;
     h3 {
         margin: 0.5em 0;
+    }
+    @include maxWitdh(610px) {
+        bottom: 4em;
     }
 }
 
 .cardOption {
-    margin-left: auto;
     display: flex;
     align-items: center;
+    position: absolute;
+    right: 1em;
+    bottom: 1em;
+
     button {
         margin-left: 0.5em;
+    }
+
+    @include maxWitdh(610px) {
+        left: 1em;
     }
 }
 
@@ -68,6 +124,7 @@
     h4 {
         margin: 0;
     }
+    
     button {
         margin-left: auto;
     }
@@ -106,7 +163,7 @@
     span {
         color:#fff; 
         background-color: $primary-color;
-        padding: 0.5em 1em;
+        padding: 0.3em 0.5em;
         font-size: 0.8rem;
         margin-right: 0.5em;
         margin-bottom: 0.5em;
@@ -117,21 +174,18 @@
 
 .summary {
     margin: 1em;
-    border-radius: 1em;
-    box-shadow: $box-shadow4 ;
-    p {
-        padding: 1em ;
-        margin-top: 0;
-    }
 }
 
 .navBar {
     list-style: none;
     display: flex;
-    padding-left: 0.2em;
     background-color: $gray-light;
-    margin: 0 1em;
     border-radius: .4em;
+    margin: 0 1em;
+    overflow: hidden;
+    padding: 0 1em;
+    overflow-x: scroll;
+
 
     li {
         margin-right: 1em;
@@ -141,6 +195,7 @@
         padding: 0.5em;
         color: $black;
         cursor: pointer;
+        white-space: nowrap;
     }
 
     li.active {
@@ -149,6 +204,35 @@
     }
 }
 
-.avatar {
-    @include avatar(60px);
+.dark {
+    background-color: $dark-lv4;
+    color: $gray-light;
+
+    .cardHolder {
+        background: #4e54c8;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to left, #8f94fb, #4e54c8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+
+    .navBar {
+        background-color: transparent;
+        margin: 0;
+        
+        li {
+            color: #fff;
+        }
+
+        li.active {
+            background-color: $primary-colorDark;
+            color: #fff;
+        }
+    }
+
+    .asideTags {
+        span {
+            background-color: $primary-colorDark;
+        }
+    }
+
+    
 }

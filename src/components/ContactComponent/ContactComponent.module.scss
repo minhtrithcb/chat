@@ -1,0 +1,126 @@
+@import '../../assets/css/mixin';
+@import '../../assets/css/variable';
+
+.cardContainer {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+
+    .card {
+        border-radius: .7em;
+        background-color: #fff;
+        width: 19%;
+        margin: 0.5%;
+        box-shadow: $box-shadow3;
+        padding: 1em;
+        cursor: pointer;
+        text-align: center;
+
+        &:hover {
+            box-shadow: $box-shadow2;
+        }
+
+        small {
+            display: block;
+            margin: 1em 0;
+            word-wrap: break-word;
+            height: 50px;
+        }
+
+        a {
+            color: $primary-color;
+        }
+    }
+
+    @include maxWitdh(1280px) {
+        padding-bottom: 5em;
+        
+        .card {
+            width: 24%;
+        }
+
+    }
+
+    @include maxWitdh(567px) {
+        .card {
+            width: 32%;
+        }
+    }
+
+    @include maxWitdh(450px) {
+        .card {
+            width: 100%;
+            margin-bottom: 1em;
+        }
+    }
+}
+
+.cardBellBtn {
+    width: 35px;
+    height: 35px;
+    @include center;
+    color: $green;
+
+    &.unnotified {
+        color: $red-light;
+    }
+}
+
+.btnTopContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btnContainer {
+    display: flex;
+
+    button:first-child {
+        margin-right: 0.5em;
+        a {
+            color: #fff;
+        }
+    }
+    svg {
+        font-size: 1.2rem;
+        display: none;
+    }
+
+    @include maxWitdh(1024px) {
+        svg {
+            display: block;
+        }
+
+        span {
+            display: none;
+        }
+
+        a {
+            display: none
+        }
+    }
+}
+
+.avatar {
+    @include avatar(50px);
+    margin: 0 auto;
+    margin-bottom: 1em;
+}
+
+.dark {
+    p {
+        color: #fff;
+    }
+
+    .card {
+        background-color: $dark-lv4;
+
+        small {
+            color: #fff;
+        }
+
+        &:hover {
+            box-shadow: none;
+        }
+    }
+}

@@ -19,3 +19,10 @@ npm install
 npm start
 ```
 
+### Shit list (feature not implemented yet)
+* Tìm user online / offline
+* Đăng nhập đa nền tảng, gửi mail
+* User online theo thời gần nhất (lần cuối online)
+* User da ...
+* Send Msg 
+

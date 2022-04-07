@@ -6,37 +6,6 @@
     border-left: 1px solid $gray;
     padding: 1em;
 
-    &.dark {
-        background-color: $dark-lv3;
-        border-left: 1px solid $light-lv1;
-
-        h4 {
-            color: $gray-light;
-        }
-
-        .frinedInfo {
-            border-top: 1px solid $light-lv1;
-        }
-
-        .friendBtnConatiner {
-            span {
-                background-color: $primary-color;
-
-                svg {
-                    color: #fff;
-                }
-            }
-        }
-
-        .frinedInfoItem {
-            color: $gray-light;
-
-            small {
-                color: $gray-light;
-            }
-        }
-    }
-
     @include maxWitdh(768px) {
         display: none;
     }
@@ -101,5 +70,36 @@ h4 {
             word-break: break-all;
         }
 
+    }
+}
+
+.dark {
+    background-color: $dark-lv3;
+    border-left: 1px solid $light-lv1;
+
+    h4 {
+        color: $gray-light;
+    }
+
+    .frinedInfo {
+        border-top: 1px solid $light-lv1;
+    }
+
+    .friendBtnConatiner {
+        span {
+            background-color: $primary-color;
+
+            svg {
+                color: #fff;
+            }
+        }
+    }
+
+    .frinedInfoItem {
+        color: $gray-light;
+
+        small {
+            color: $gray-light;
+        }
     }
 }

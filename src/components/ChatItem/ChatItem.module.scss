@@ -61,22 +61,7 @@
         margin-bottom: 2em;
     }
 
-    &.dark {
-        .userMess {
-            p {
-                color: #fff;
-                background-color: $dark-lv3;
-            }
-        }
-
-        small {
-            color: #fff;
-        }
-
-        &>p {
-            color: $light-lv1;
-        }
-    }
+    
 }
 
 .avatar {
@@ -104,4 +89,21 @@
     padding: 0.5em;
     margin-right: calc(40px + 1em);
     box-shadow: none;
+}
+
+.dark {
+    .userMess {
+        p {
+            color: #fff;
+            background-color: $dark-lv3;
+        }
+    }
+
+    small {
+        color: #fff;
+    }
+
+    &>p {
+        color: $light-lv1;
+    }
 }
