@@ -33,11 +33,13 @@ api.interceptors.response.use(function (response) {
     const {data} = await authApi.refreshToken()
 
     if (data?.isLogin) {
+      // Waring Using window location got "glitch" when navigation
       window.location = "/"
-    }
+    } 
   } 
   // If status 403 mean you dont have cookies accessTk and RefreshTk push back to login
   if (error && error.response?.status === 403) {
+      // Waring Using window location got "glitch" when navigation
     window.location = "/login"
   }
 

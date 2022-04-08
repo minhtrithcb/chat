@@ -13,7 +13,7 @@ import useOutside from '../../hooks/useOutside';
 
 const ChatForm = () => {
     const [inputChat, setInputChat] = useState("")
-    const {currentChat} = useContext(ChatContext)
+    const {currentChat, friend} = useContext(ChatContext)
     const [currentUser] = useDecodeJwt()
     const [toggle, setToggle] = useState(false)
     const {theme} = useTheme()
@@ -21,8 +21,7 @@ const ChatForm = () => {
     const classesDarkMode = clsx(styles.chatForm,{ 
         [styles.dark]: theme === "dark"
     })
-    const friendId = currentChat.members.find(u => u !== currentUser.id)
-    
+
     // Click outside to close
     const emojiDiv = useRef(null)
     useOutside(emojiDiv, () => {
@@ -52,7 +51,7 @@ const ChatForm = () => {
                 // Send to socket room
                 socket.emit("send-msg", data)
                 // Send to socket id
-                socket.emit("sendToFriendOnline", { friendId , ...data})
+                socket.emit("sendToFriendOnline", { friendId: friend._id , ...data})
                 setInputChat("")
             } catch (error) {
                 console.log(error);

@@ -12,7 +12,7 @@ import SearchBox from '../SearchBox/SearchBox'
 const Conversation = () => {
     const [conversations, setConversations] = useState([])
     const [currentUser] = useDecodeJwt()
-    const {currentChat, setCurrentChat, friend} = useContext(ChatContext)
+    const {currentChat, setCurrentChat, friend, setFriend} = useContext(ChatContext)
     const {theme} = useTheme()
     const classesDarkMode = clsx(styles.contact,{ 
         [styles.dark]: theme === "dark"
@@ -26,11 +26,9 @@ const Conversation = () => {
     // Get all users online
     useEffect(() => {
         let isMounted = true;            
-
         socket.on("getUser", usersOnline => {
             if (isMounted) setUsersOnline(usersOnline) // Array users online 
         })
-
         return () => { isMounted = false };
     }, [friend, socket, currentChat])    
 
@@ -40,7 +38,6 @@ const Conversation = () => {
         const  getAllconvertation = async () => {
             try {
                 const {data} = await converApi.getByUserId(currentUser.id)
-                // console.log(data);
                 if (isMounted) {
                     setConversations(data);
                     socket.emit('join conversation')
@@ -56,6 +53,13 @@ const Conversation = () => {
         };
     }, [socket, currentUser.id, setCurrentChat])
 
+    // User chose Chat setCurrentChat & setFriend (for sending msg)
+    const handleChoseChat = (conversation) => {
+        setCurrentChat(conversation)
+        const friend = conversation.members.filter(u => u._id !== currentUser.id)
+        setFriend(friend[0]);        
+    }
+
     return (
         <div className={classesDarkMode}>
             <SearchBox />
@@ -63,11 +67,11 @@ const Conversation = () => {
                 {/* ///// All messages  */}
                 <small>Tất cả tin nhắn</small>
                 {conversations && conversations.map((conver) => (
-                    <div onClick={() => setCurrentChat(conver)} key={conver._id}>
+                    <div onClick={() => handleChoseChat(conver)} key={conver._id}>
                         <ConversationItem 
                             usersOnline={usersOnline}
                             conversation={conver} 
-                            currentUserId={currentUser.id} 
+                            friends={conver.members.filter(u => u._id !== currentUser.id)}
                             activeChat={currentChat && currentChat?._id === conver._id}
                         />
                     </div>
