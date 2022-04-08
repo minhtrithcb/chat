@@ -1,5 +1,5 @@
 import React, { useContext, useEffect} from 'react'
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import styles from './Navbar.module.scss'
 import avatar from '../../assets/images/user.png'
 import {  BsChatSquareDots, BsPeople, BsTelephone,BsGear , BsBookmarkPlus , BsStar} from "react-icons/bs";
@@ -9,7 +9,6 @@ import clsx from 'clsx';
 import useTheme  from '../../hooks/useTheme'
 import Swal from 'sweetalert2';
 import authApi from '../../api/authApi';
-import { AuthContext } from '../../context/AuthContext';
 import useDecodeJwt from '../../hooks/useDecodeJwt';
 import { toast } from 'react-toastify';
 import { FriendContext } from '../../context/FriendContext';
@@ -17,8 +16,6 @@ import { SocketContext } from '../../context/SocketContext';
 
 const Navbar = () => {
   const {theme, toggle} = useTheme()
-  const navigate = useNavigate()
-  const {setAuth} = useContext(AuthContext)
   const {frLength, setFrLength} = useContext(FriendContext)
   const [currentUser] = useDecodeJwt()
   const {socket} = useContext(SocketContext)
@@ -85,9 +82,8 @@ const Navbar = () => {
         toast.success(`Đăng xuất thành công`)
       }})
       .then(async () => {
-        await authApi.logout(currentUser.id);
-        setAuth({isLogin: false})
-        navigate('/login', {replace: true})
+        await authApi.logout();
+        window.location = "/login"
       })
   }
 

@@ -1,6 +1,7 @@
 import axios from "axios";
 import authApi from "./authApi";
 
+
 const api = axios.create({
   baseURL: 'http://localhost:2077/api/',
   timeout: 5000,
@@ -18,19 +19,28 @@ api.interceptors.request.use(function (config) {
 
 // Add a response interceptor
 api.interceptors.response.use(function (response) {
+  
   // Any status code that lie within the range of 2xx cause this function to trigger
   // Do something with response data
   return response;
 }, async function (error) {
+
   // Any status codes that falls outside the range of 2xx cause this function to trigger
   // Do something with response error
+
+  // If status 401 call api get new accessTk by refreshTk
   if (error && error.response?.status === 401) {
     const {data} = await authApi.refreshToken()
 
     if (data?.isLogin) {
       window.location = "/"
     }
+  } 
+  // If status 403 mean you dont have cookies accessTk and RefreshTk push back to login
+  if (error && error.response?.status === 403) {
+    window.location = "/login"
   }
+
   return Promise.reject(error);
 });
 

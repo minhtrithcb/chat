@@ -66,6 +66,7 @@ const ConversationItem = ({activeChat , conversation, currentUserId, usersOnline
         const  getLastMessage = async () => {
             try {
                 const {data} = await converApi.getLastMessage(conversation._id)
+                console.log(data);
                 setLastMsg(data);
             } catch (error) {
                 console.log(error);

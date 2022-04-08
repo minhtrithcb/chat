@@ -20,6 +20,20 @@ const SocketProvider = ({children}) => {
         return () => socket.disconnect()
     }, [auth, socket])
 
+    // // Get all users online
+    // useEffect(() => {
+    //     let isMounted = true;            
+
+    //     socket.on("getUser", usersOnline => {
+    //         if(isMounted) console.log(usersOnline);
+    //     })
+
+    //     return () => { 
+    //         isMounted = false 
+    //         socket.disconnect()
+    //     };
+    // }, [socket])    
+
     return (
         <SocketContext.Provider value={{socket}}>
             {children}

@@ -10,7 +10,6 @@ const AuthProvider = ({children}) => {
     useEffect(() => {
         async function getAccessToken() {
             // console.log("call api provider");
-
             let {data} = await authApi.accessToken()
             // Set loading to false and taht will skip condition
             // and render provider

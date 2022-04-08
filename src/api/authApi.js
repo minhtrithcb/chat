@@ -5,8 +5,8 @@ const authApi = {
         return api.post(`auth/login`,{ email, password })
     },
 
-    logout(id) {
-        return api.post(`auth/logout`,{id})
+    logout() {
+        return api.post(`auth/logout`)
     },
 
     signup(fullname, email, password) {
