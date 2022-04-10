@@ -5,12 +5,15 @@ export const ChatContext = createContext();
 const ChatProvider = ({children}) => {
     const [currentChat, setCurrentChat] = useState(null)
     const [friend, setFriend] = useState(null)
-
+    const [currentChatItem, setCurrentChatItem] = useState([])
+    
     const value = {
         currentChat,
         setCurrentChat,
         friend,
-        setFriend
+        setFriend,
+        currentChatItem,
+        setCurrentChatItem
     }        
 
     return (

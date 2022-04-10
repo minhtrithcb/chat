@@ -21,7 +21,7 @@ const Chats = () => {
     const [chats, setChats] = useState([])
     const {theme} = useTheme()
     const bottomRef = useRef()
-    const {currentChat, friend, setCurrentChat} = useContext(ChatContext)
+    const {currentChat, friend, setCurrentChat, currentChatItem} = useContext(ChatContext)
     const {socket} = useContext(SocketContext)
     const [currentUser] = useDecodeJwt()
 
@@ -66,9 +66,11 @@ const Chats = () => {
             try {
                 if (currentChat) {
                     const {data} = await chatApi.getChatByRoomId(`${currentChat?._id}`)
-                    if (isMounted) 
+                    if (isMounted) {
                         setChats(data.reverse()); 
-                        toTheBottom()
+                        console.log(currentChatItem);
+                        currentChatItem.length === 0 &&  toTheBottom()
+                    }
                 }
             } catch (error) {
                 console.log(error);
@@ -79,7 +81,7 @@ const Chats = () => {
         return () => { 
             isMounted = false 
         };
-    }, [currentChat])
+    }, [currentChat, currentChatItem])
 
     return (
         <>
@@ -121,6 +123,7 @@ const Chats = () => {
                             key={chat._id} 
                             self={chat.sender === currentUser.id} 
                             data={chat} 
+                            setChats={setChats}
                         />
                     ))}
                     <div ref={bottomRef}></div>

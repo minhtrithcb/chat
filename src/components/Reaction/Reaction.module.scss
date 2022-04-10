@@ -1,0 +1,89 @@
+@import '../../assets/css/variable';
+@import '../../assets/css/mixin'; 
+
+.reaction {
+    position: relative;
+    display: flex;
+    // justify-content: flex-end;
+}
+
+.reactBtn {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 0;
+    color: #000;
+    @include center;
+}
+
+.reacts {
+    position: absolute;
+    width: 200px;
+    height: 30px;
+    box-shadow: $box-shadow3;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: .7em;
+    // bottom: -3.5em;
+    z-index: 2;
+
+    &.floatRight {
+        right: 2.2em;
+    }
+
+    &.floatLeft {
+        left: 2.2em;
+    }
+
+    span {
+        @include center;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
+
+    img {
+        min-width: 100%;
+    }
+ 
+    &::after {
+        content: '';
+        position: absolute;
+        height: 1em;
+        width: 100%;
+        background-color: transparent;
+        right: 0;
+        top: -.7em;
+    }
+    
+}
+
+// .reactionRender {
+//     width: 50px;
+//     height: 30px;
+//     background-color: #fff;
+//     box-shadow: $box-shadow4;
+//     border-radius: .7em;
+//     margin-right: 1em;
+//     display: flex;
+//     align-items: center;
+//     padding-left: 0.5em;
+// }
+
+.showReaction {
+    // width: 20px;
+    // height: 20px;
+    display: flex;
+    align-items: center;
+    // justify-content: space-between;
+
+    img {
+        max-width: 15px;
+    }
+
+    small {
+        padding: 0 0.5em;
+    }
+}

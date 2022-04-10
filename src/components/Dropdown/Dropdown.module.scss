@@ -11,6 +11,8 @@
     @include center ;
     cursor: pointer;
     position: relative; 
+    z-index: 3;
+
     &.right {
         margin-left: auto;
     }
@@ -20,23 +22,32 @@
     position: absolute;
     background-color: #fff;
     top: 2em;
-    right: 0;
     list-style: none;
     padding: 0.5em;
     margin: 0;
     box-shadow:  $box-shadow3;
     border-radius: .7em;
+    z-index: 4;
+
+    &.right {
+        left: 0;
+    }
+    &.left {
+        right:  0;
+    }
+
 }
 
 .DropdownItem {
     white-space: nowrap;
     padding: 0.5em;
-    transition: .3s ease;
+    transition: background .3s ease;
     border-radius: .3em;
     text-align: left;
     font-size: .9rem;
     display: flex;
     align-items: center;
+
     svg {
         margin-right: 0.5em;
     }

@@ -1,109 +1,199 @@
 @import '../../assets/css/variable';
 @import '../../assets/css/mixin';
 
-.chatUser {
+.chatItem {
     padding: 1em;
+    display: flex;
 
-    p {
-        margin: 0;
-        padding: 1em;
-        border-radius: 1em;
+    &:hover .chatEmoji ,
+    &:hover .chatOption {
+        display: block;
+    }
+
+    .chatAvatar {
+        max-width: 40px;
+    }
+
+    .chatDes {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        position: relative;
+    }
+
+    .chatInfo {
+        display: flex;
+        align-items: center;
+        
+        b {
+            font-size: 0.9rem;
+        }
+
+        small {
+            margin-left: 1em;
+            font-size: 0.7rem
+        }
+    }
+
+    .chatText {
+        margin-top: 0.5em;
+        width: fit-content;
+        background-color: #fff;
+        padding: 0.5em 0.7em;
+        border-radius: 0.4em;
+        border-top-left-radius: 0;
         box-shadow: $box-shadow3;
-        font-size: 0.9rem;
-        line-height: 1.6;
-        width: 100%;
-        word-break: break-all;
-        width: auto;
-    }
+        cursor: pointer;
+        margin-right: 40px;
+        position: relative;
 
-    .userMess {
-        display: flex;
+        &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -1.5em;
+            width: 100%;
+            height: 2em;
+            z-index: 1;
+        }
 
         p {
-            background-color: #fff;
-            margin-right: calc(40px + 1em);
-            margin-right: auto;
+            margin: 0;
+            font-size: 0.9rem;
         }
 
-        span {
-            min-width: calc(40px + 1em);
+        .chatEmoji {
+            left: 0;
         }
-
-    }
-
-    .friendMess {
-        display: flex;
-
-        p {
-
-            background-color: $primary-color;
-            color: #fff;
-            margin-left: calc(40px + 1em);
-            margin-left: auto;
-
-
-        }
-
-        span {
-            min-width: calc(40px + 1em);
+        
+        .chatOption {
+            top: 0.5em;
+            left: -2.5em;
         }
     }
+}
 
-    &>small {
+.chatItem2 {
+    padding: 1em;
+    display: flex;
+    justify-content: flex-end;
+
+    &:hover .chatEmoji ,
+    &:hover .chatOption {
+        display: block;
+    }
+
+    .chatAvatar {
+        max-width: 40px;
+
+        .avatar {
+            margin-right: 0;
+            margin-left: 1em;
+        }
+    }
+
+    .chatDes {
         display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        position: relative;
+    }
+
+    .chatInfo {
+        display: flex;
+        align-items: center;
         justify-content: flex-end;
-        padding: 1em 0;
-        margin-right: 4em;
-        color: $black;
+
+        b {
+            font-size: 0.9rem;
+        }
+
+        small {
+            margin-right: 1em;
+            font-size: 0.7rem
+        }
     }
 
-    &:last-child {
-        margin-bottom: 2em;
+    .chatText {
+        margin-top: 0.5em;
+        width: fit-content;
+        background-color: $primary-color;
+        padding: 0.5em 0.7em;
+        border-radius: 0.4em;
+        border-top-right-radius: 0;
+        box-shadow: $box-shadow3;
+        cursor: pointer;
+        margin-left: 40px;
+        color: #fff;
+        position: relative;
+
+        &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -1.5em;
+            width: 100%;
+            height: 2em;
+        }
+
+        p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .chatEmoji {
+            right: 0;
+        }
+
+        .chatOption {
+            right: -2.8em;
+            top: 0.5em;
+        }
     }
 
-    
+}
+
+.chatEmoji {
+    background-color: #fff;
+    position: absolute;
+    bottom: -1.5em;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    box-shadow: $box-shadow3;
+    display: none;
+    z-index: 2;
+}
+
+.chatOption {
+    position: absolute;
+    color: #000;
+    display: none
 }
 
 .avatar {
-    @include avatar(40px);
+    @include avatar(30px);
+}
+
+.reactionWraper {
     display: flex;
-    flex-shrink: 0;
+    padding-top: 0.8em;
 }
 
-.avatar2 {
-    margin-right: 0;
-    margin-left: 1em;
-}
 
-.userMess~p:last-child {
-    font-size: 0.8rem;
-    padding: 0.5em;
-    margin-left: calc(40px + 1em);
-    box-shadow: none;
-}
+// .dark {
+//     .userMess {
+//         p {
+//             color: #fff;
+//             background-color: $dark-lv3;
+//         }
+//     }
 
-.friendMess~p:last-child {
-    display: flex;
-    justify-content: flex-end;
-    font-size: 0.8rem;
-    padding: 0.5em;
-    margin-right: calc(40px + 1em);
-    box-shadow: none;
-}
+//     small {
+//         color: #fff;
+//     }
 
-.dark {
-    .userMess {
-        p {
-            color: #fff;
-            background-color: $dark-lv3;
-        }
-    }
-
-    small {
-        color: #fff;
-    }
-
-    &>p {
-        color: $light-lv1;
-    }
-}
+//     &>p {
+//         color: $light-lv1;
+//     }
+// }

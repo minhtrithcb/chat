@@ -13,12 +13,14 @@
   width: 100%;
   word-break: break-all;
   width: auto;
+  position: relative;
 }
 
 .chatUser .userMess {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  position: relative;
 }
 
 .chatUser .userMess p {
@@ -27,14 +29,21 @@
   margin-right: auto;
 }
 
-.chatUser .userMess span {
+.chatUser .userMess > span {
   min-width: calc(40px + 1em);
+}
+
+.chatUser .userMess > div:last-of-type {
+  position: absolute;
+  left: calc(40px + 1em);
+  bottom: -1em;
 }
 
 .chatUser .friendMess {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  position: relative;
 }
 
 .chatUser .friendMess p {
@@ -44,8 +53,14 @@
   margin-left: auto;
 }
 
-.chatUser .friendMess span {
+.chatUser .friendMess > span {
   min-width: calc(40px + 1em);
+}
+
+.chatUser .friendMess > div:last-child {
+  position: absolute;
+  right: calc(40px + 1em);
+  bottom: -1em;
 }
 
 .chatUser > small {
@@ -104,6 +119,7 @@
   margin-left: calc(40px + 1em);
   -webkit-box-shadow: none;
           box-shadow: none;
+  margin-top: 1em;
 }
 
 .friendMess ~ p:last-child {
@@ -118,6 +134,7 @@
   margin-right: calc(40px + 1em);
   -webkit-box-shadow: none;
           box-shadow: none;
+  margin-top: 1em;
 }
 
 .dark .userMess p {

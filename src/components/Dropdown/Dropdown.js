@@ -13,7 +13,7 @@ export const DropdownItem = ({children, icon: Icon, ...rest}) => {
   )
 }
 
-const Dropdown = ({children, icon: Icon, position}) => {
+const Dropdown = ({children, icon: Icon, position, positionUl = "left"}) => {
     const {theme} = useTheme()
     const [isOpen, setisOpen] = useState(false)
 
@@ -24,7 +24,13 @@ const Dropdown = ({children, icon: Icon, position}) => {
 
     const classes = clsx(styles.DropdownBtn,{ 
         [styles.right]: position === "right",
+        [styles.right]: positionUl === "right",
         [styles.dark]: theme === "dark",
+    })
+
+    const classes2 = clsx(styles.DropdownUl,{ 
+        [styles.right]: positionUl === "right",
+        [styles.left]: positionUl === "left",
     })
 
     return (
@@ -33,7 +39,7 @@ const Dropdown = ({children, icon: Icon, position}) => {
                 {Icon ? <Icon /> : <BsThreeDotsVertical />}
             </div>
 
-            {isOpen && <ul className={styles.DropdownUl} ref={dropDownRef}>
+            {isOpen && <ul className={classes2} ref={dropDownRef}>
                 {children}
             </ul>}
         </div>

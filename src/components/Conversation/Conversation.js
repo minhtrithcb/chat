@@ -12,7 +12,7 @@ import SearchBox from '../SearchBox/SearchBox'
 const Conversation = () => {
     const [conversations, setConversations] = useState([])
     const [currentUser] = useDecodeJwt()
-    const {currentChat, setCurrentChat, friend, setFriend} = useContext(ChatContext)
+    const {currentChat, setCurrentChat, friend, setFriend, setCurrentChatItem} = useContext(ChatContext)
     const {theme} = useTheme()
     const classesDarkMode = clsx(styles.contact,{ 
         [styles.dark]: theme === "dark"
@@ -51,13 +51,15 @@ const Conversation = () => {
             isMounted = false 
             setCurrentChat(null)
         };
-    }, [socket, currentUser.id, setCurrentChat])
+    }, [socket, currentUser.id, setCurrentChat])   
+
 
     // User chose Chat setCurrentChat & setFriend (for sending msg)
     const handleChoseChat = (conversation) => {
         setCurrentChat(conversation)
         const friend = conversation.members.filter(u => u._id !== currentUser.id)
-        setFriend(friend[0]);        
+        setFriend(friend[0]);       
+        setCurrentChatItem([]) 
     }
 
     return (
