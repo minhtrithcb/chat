@@ -11,7 +11,7 @@ import clsx from 'clsx'
 import useOutside from '../../hooks/useOutside'
 import { BsEmojiSmile} from "react-icons/bs";
   
-export const ReactionRender = ({type, number}) => {
+export const ReactionRender = ({type, number, users}) => {
     const reaction = [
         {   
             title: 'like',
@@ -46,11 +46,16 @@ export const ReactionRender = ({type, number}) => {
         <span className={styles.showReaction}>
             {/* {type ===  && <img src={like} alt={type} /> } */}
             {
-                reaction.map(r => (
+                number > 0 && reaction.map(r => (
                     r.title === type && <img src={r.src} alt={r.title} key={r.title} />
                 ))
             }
-            <small>{number}</small>
+            {number > 0 && <small>{number}</small>}
+            {users.length > 0 && <ul className={styles.ulReaction} >
+            {users.map((u,i) => (
+                <li key={i}>{u.username}</li>
+                ))}
+            </ul>}
         </span>
     )
 }

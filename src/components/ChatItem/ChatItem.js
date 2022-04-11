@@ -1,7 +1,7 @@
 // import clsx from 'clsx'
 import moment from 'moment'
 import 'moment/locale/vi'
-import React, {  useContext, useEffect, useState } from 'react'
+import React, {  useContext } from 'react'
 import avatar from '../../assets/images/user.png'
 import { ChatContext } from '../../context/ChatContext'
 // import useTheme  from '../../hooks/useTheme'
@@ -19,34 +19,22 @@ const ChatItem = ({self, data}) => {
     // const classesDarkMode = clsx(styles.chatItem,{ 
     //     [styles.dark]: theme === "dark"
     // })
-    const { setCurrentChatItem } = useContext(ChatContext)
+    const { setChatReaction } = useContext(ChatContext)
     const [currentUser] = useDecodeJwt()
-    const [count, setCount] = useState([])
 
     const onChose = async (e) => {
-        let res = await chatApi.postReaction(data._id, currentUser, e)
-        // setCurrentChatItem(prev => [...prev, res.data.found])
-        setCurrentChatItem(res.data.found)
+        let res = await chatApi.postReaction({
+            chatId :data._id,
+            user: { 
+                username: currentUser.username, 
+                id: currentUser.id
+            }, 
+            type: e
+        })
+
+        // console.log(res.data);
+        setChatReaction(res.data.result)
     }
-    
-
-    useEffect(() => {
-        if(data.reacts.length > 0) {
-            const counts = {};
-            const arr = [];
-            // return new arr ex["like", "like", "wow"]
-            data.reacts.map(r => r.type).forEach(r => { 
-               counts[r] = (counts[r] || 0) + 1 
-            });
-
-            for (const key in counts) {
-                arr.push({type: key, number: counts[key]});
-            }
-
-            setCount(arr)
-        }
-    }, [data.reacts])
-    
 
     return (
         <>
@@ -69,8 +57,12 @@ const ChatItem = ({self, data}) => {
                             <p>{data.text}</p>
                             { data.reacts.length > 0  && 
                             <div className={styles.reactionWraper}>
-                                {count && count.map((react, i) => (
-                                    <ReactionRender type={react.type} number={react.number} key={i} />
+                                {data.reacts.map((react, i) => (
+                                    <ReactionRender 
+                                        type={react.type} 
+                                        number={react.user.length} 
+                                        users={react.user} 
+                                        key={i} />
                                 ))}
                             </div>}
                         </div>
@@ -99,8 +91,12 @@ const ChatItem = ({self, data}) => {
                             <p>{data.text}</p>
                             { data.reacts.length > 0  && 
                             <div className={styles.reactionWraper}>
-                                {count && count.map((react, i) => (
-                                    <ReactionRender type={react.type} number={react.number} key={i} />
+                                {data.reacts.map((react, i) => (
+                                    <ReactionRender 
+                                        type={react.type} 
+                                        number={react.user.length} 
+                                        users={react.user} 
+                                        key={i} />
                                 ))}
                             </div>}
                         </div>

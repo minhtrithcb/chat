@@ -60,30 +60,44 @@
     
 }
 
-// .reactionRender {
-//     width: 50px;
-//     height: 30px;
-//     background-color: #fff;
-//     box-shadow: $box-shadow4;
-//     border-radius: .7em;
-//     margin-right: 1em;
-//     display: flex;
-//     align-items: center;
-//     padding-left: 0.5em;
-// }
-
 .showReaction {
     // width: 20px;
     // height: 20px;
     display: flex;
     align-items: center;
     // justify-content: space-between;
+    position: relative;
 
     img {
         max-width: 15px;
+   
+        &:hover ~ .ulReaction {
+            display: block;
+        }
     }
 
     small {
         padding: 0 0.5em;
+        &:hover ~ .ulReaction {
+            display: block;
+        }
+    }
+
+}
+
+.ulReaction {
+    list-style: none;
+    background-color: #fff;
+    position: absolute;
+    padding-left: 0;
+    width: max-content;
+    padding: 0.5em;
+    top: 0.5em;
+    z-index: 3;
+    display: none;
+    color: #000;
+    font-size: 0.8rem;
+    li {
+        margin: 0.25em 0;
     }
 }
