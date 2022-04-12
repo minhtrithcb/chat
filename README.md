@@ -2,12 +2,6 @@
 
 Đây là phần Frontend của ứng dụng [React chat]("http://localhost:3000/"). Phần Frontend được viết bằng reactjs, socket.io.
 
-### Chức năng Frontend
-
-* Giao diện ứng dụng, Đăng nhập, đăng ký , trang chủ, profile, cài đặt,...
-* Auth JWT, xác thực sử dụng socket.
-* Gửi tin nhắn, kết bạn, tìm kiếm bạn bè...
-* Giao diện mobile riêng. Theme cho ứng dụng.
 
 ### Cài đặt
 * Clone git repo về chạy
@@ -19,7 +13,22 @@ npm install
 npm start
 ```
 
-### Shit list (feature not implemented yet)
+### Chức năng Frontend Đã hoàn thiện
+
+* Giao diện, Đăng nhập, đăng ký, trang chủ, profile, trang 404...
+* Logic Đăng nhập, đăng ký, đăng xuất, kiểm lỗi form, protective Route. 
+* kết bạn nhận tin kết bạn (realtime), Gửi tin nhắn (realtime)
+* Người dùng tìm kiếm bạn bè (thêm thành công tạo hộp thoại)
+* Người dùng thêm, sửa Reaction (realtime).
+* Người sửa Chat (realtime).
+
+
+#### Chức năng đang làm
+ trích lời, hide msg, 
+
+
+### Chức năng Frontend sẻ có ...
+* xác thực sử dụng socket.
 * Tìm user online / offline
 * Ghim hộp thọai,
 * User gửi otp đăng nhập
@@ -27,18 +36,16 @@ npm start
 * User online theo thời gần nhất (lần cuối online)
 * User tạo nhóm thêm thành viên
 * User gửi theo dõi, nhắn tin khi ko kết bạn theo setting
-* User post bài viết (mxh)
 * User gọi & facetime
 * User typing hiện đang gõ  
 * User chat có file & gif ảnh 
 * User upload avatar 
 * User edit profile
-* User send Reaction, edit msg, repost, hide msg, report msg, 
 * User tạo bình chọn
 * User Tìm bạn theo tag ... 
 * Notification msg read or not
 * Setting (chặn tin từ người lại, hiện email, hiện thông báo)
-
+* Giao diện mobile riêng. Theme cho ứng dụng.
 
 ### Model
 *   UserModel {

@@ -9,6 +9,9 @@ const chatApi = {
     },
     postReaction({chatId, user, type}) {
         return api.post(`chat/reaction`, {chatId, user, type})
+    },
+    patchChat({chatId, sender, text}) {
+        return api.patch(`chat/`, {chatId, sender, text})
     }
 }
 

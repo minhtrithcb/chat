@@ -10,6 +10,7 @@ import wow from '../../assets/images/emoji/wow.png'
 import clsx from 'clsx'
 import useOutside from '../../hooks/useOutside'
 import { BsEmojiSmile} from "react-icons/bs";
+import useTheme from '../../hooks/useTheme'
   
 export const ReactionRender = ({type, number, users}) => {
     const reaction = [
@@ -44,7 +45,6 @@ export const ReactionRender = ({type, number, users}) => {
     ]
     return (
         <span className={styles.showReaction}>
-            {/* {type ===  && <img src={like} alt={type} /> } */}
             {
                 number > 0 && reaction.map(r => (
                     r.title === type && <img src={r.src} alt={r.title} key={r.title} />
@@ -54,7 +54,7 @@ export const ReactionRender = ({type, number, users}) => {
             {users.length > 0 && <ul className={styles.ulReaction} >
             {users.map((u,i) => (
                 <li key={i}>{u.username}</li>
-                ))}
+            ))}
             </ul>}
         </span>
     )
@@ -62,11 +62,17 @@ export const ReactionRender = ({type, number, users}) => {
 
 
 const Reaction = ({float, handleClickReaction}) => {
+    const {theme} = useTheme()
 
-    const classesDarkMode = clsx(styles.reacts,{ 
+    const classes = clsx(styles.reacts,{ 
         [styles.floatRight]: float === "floatRight",
         [styles.floatLeft]: float === "floatLeft",
     })
+
+    const classesDarkMode = clsx(styles.reaction,{ 
+        [styles.dark]: theme === "dark"
+    })
+
     const [toggle, setToggle] = useState(false)
 
     const reactionRef = useRef(null)
@@ -106,12 +112,12 @@ const Reaction = ({float, handleClickReaction}) => {
     ]
 
     return (
-            <div className={styles.reaction} ref={reactionRef}>
+            <div className={classesDarkMode} ref={reactionRef}>
                 <span className={styles.reactBtn} onClick={() => setToggle(prev => !prev)}>
                     <BsEmojiSmile />
                 </span>
 
-                {toggle && <div className={classesDarkMode} ref={reactionRef}>
+                {toggle && <div className={classes} ref={reactionRef}>
                     {reaction.map((e,i) => (
                         <span key={i} onClick={() => handleClickReaction(e.title)}>
                             <img src={e.src} alt={e.title}  />

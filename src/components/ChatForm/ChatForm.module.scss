@@ -8,6 +8,7 @@
     border: 1px solid $gray;
     margin: 1em calc(40px + 1em);
     border-radius: .7em;
+    z-index: 2;
 
     small {
         left: 0;
@@ -49,6 +50,14 @@
 
         &::-webkit-scrollbar {
             width: 5px;
+        }
+    }
+
+    &.isEdit {
+        Button {
+            position: absolute;
+            right: 0;
+            top: -3em;
         }
     }
 

@@ -63,13 +63,17 @@
         }
 
         .chatEmoji {
-            left: 0;
+            left: 0.5em;
         }
         
         .chatOption {
             top: 0.5em;
             left: -2.5em;
         }
+    }
+
+    &.isEdit {
+        .chatText {border: 2px solid $primary-color;}
     }
 }
 
@@ -142,7 +146,7 @@
         }
 
         .chatEmoji {
-            right: 0;
+            right: 0.5em;
         }
 
         .chatOption {
@@ -157,7 +161,7 @@
     background-color: #fff;
     position: absolute;
     bottom: -1.5em;
-    border-radius: 50%;
+    border-radius: .7em;
     width: 30px;
     height: 30px;
     box-shadow: $box-shadow3;
@@ -181,19 +185,26 @@
 }
 
 
-// .dark {
-//     .userMess {
-//         p {
-//             color: #fff;
-//             background-color: $dark-lv3;
-//         }
-//     }
+.dark {
+    &.chatItem {
+        b, small {
+            color: $light-lv2;
+        }
 
-//     small {
-//         color: #fff;
-//     }
+        .chatText {
+            background-color: $dark-lv3;
+            color: $light-lv2;
+        }
+    }
 
-//     &>p {
-//         color: $light-lv1;
-//     }
-// }
+    &.chatItem2 {
+        b, small {
+            color: $light-lv2;
+        }
+    }
+
+    .chatEmoji {
+        background-color: transparent;
+        box-shadow: none;
+    }
+}

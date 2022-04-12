@@ -4,7 +4,6 @@
 .reaction {
     position: relative;
     display: flex;
-    // justify-content: flex-end;
 }
 
 .reactBtn {
@@ -14,6 +13,8 @@
     right: 0;
     color: #000;
     @include center;
+    background-color: #fff;
+    border-radius: .7em;
 }
 
 .reacts {
@@ -26,7 +27,6 @@
     justify-content: space-around;
     align-items: center;
     border-radius: .7em;
-    // bottom: -3.5em;
     z-index: 2;
 
     &.floatRight {
@@ -61,25 +61,22 @@
 }
 
 .showReaction {
-    // width: 20px;
-    // height: 20px;
     display: flex;
     align-items: center;
-    // justify-content: space-between;
     position: relative;
-
+    transition: visibility .8s ease;
     img {
         max-width: 15px;
    
         &:hover ~ .ulReaction {
-            display: block;
+            visibility: visible;
         }
     }
 
     small {
         padding: 0 0.5em;
         &:hover ~ .ulReaction {
-            display: block;
+            visibility: visible;
         }
     }
 
@@ -94,10 +91,20 @@
     padding: 0.5em;
     top: 0.5em;
     z-index: 3;
-    display: none;
     color: #000;
-    font-size: 0.8rem;
+    display: block;
+    box-shadow: $box-shadow3;
+    visibility: hidden;
+
     li {
-        margin: 0.25em 0;
+        font-size: 0.8rem;
+        margin: 0.5em 0;
+    }
+}
+
+.dark {
+    .reactBtn, .reacts {
+        background-color: $primary-color;
+        color: $dark-lv3;
     }
 }

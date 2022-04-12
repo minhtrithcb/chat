@@ -21,7 +21,7 @@ const Chats = () => {
     const [chats, setChats] = useState([])
     const {theme} = useTheme()
     const bottomRef = useRef()
-    const {currentChat, friend, setCurrentChat, chatReaction} = useContext(ChatContext)
+    const {currentChat, friend, setCurrentChat} = useContext(ChatContext)
     const {socket} = useContext(SocketContext)
     const [currentUser] = useDecodeJwt()
 
@@ -29,21 +29,33 @@ const Chats = () => {
         [styles.dark]: theme === "dark"
     })
 
-    // Get new message & display
+    // Listening even from socket
     useEffect(() => {        
         let isMounted = true;   
 
         socket.on("getMessage", data => {
-            if (data) {
-                if(isMounted) setChats(prevChat => [...prevChat, data]);
+            if (isMounted && data) {
+                setChats(prevChat => [...prevChat, data]);
                 bottomRef?.current?.scrollIntoView({behavior: "smooth"})
+            }
+        })
+
+        socket.on("getReaction", data => {
+            if (isMounted && data) {
+                setChats(prevChat => prevChat.map(chat => chat._id === data._id ? data : chat ));
+            }
+        })
+
+        socket.on("getEditMessage", data => {
+            if (isMounted && data) {
+                setChats(prevChat => prevChat.map(chat => chat._id === data._id ? data : chat ));
             }
         })
 
         return () => { 
             isMounted = false 
         };
-    }, [socket,bottomRef])
+    }, [socket, bottomRef])
     
     // Join room when user chose friend to chat
     useEffect(() => {
@@ -68,7 +80,7 @@ const Chats = () => {
                     const {data} = await chatApi.getChatByRoomId(`${currentChat?._id}`)
                     if (isMounted) {
                         setChats(data.reverse()); 
-                        chatReaction !== null  && toTheBottom()
+                        toTheBottom();
                     }
                 }
             } catch (error) {
@@ -80,7 +92,7 @@ const Chats = () => {
         return () => { 
             isMounted = false 
         };
-    }, [currentChat, chatReaction])
+    }, [currentChat])
 
     return (
         <>
