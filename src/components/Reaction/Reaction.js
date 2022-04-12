@@ -44,19 +44,20 @@ export const ReactionRender = ({type, number, users}) => {
         }, 
     ]
     return (
-        <span className={styles.showReaction}>
-            {
-                number > 0 && reaction.map(r => (
-                    r.title === type && <img src={r.src} alt={r.title} key={r.title} />
-                ))
-            }
-            {number > 0 && <small>{number}</small>}
-            {users.length > 0 && <ul className={styles.ulReaction} >
-            {users.map((u,i) => (
-                <li key={i}>{u.username}</li>
-            ))}
-            </ul>}
-        </span>
+            <>
+                {number > 0 && <span className={styles.showReaction}>
+                    {reaction.map(r => (
+                        r.title === type && <img src={r.src} alt={r.title} key={r.title} />
+                    ))}
+                    {<small>{number}</small>}
+                    {users.length > 0 && 
+                    <ul className={styles.ulReaction} >
+                        {users.map((u,i) => (
+                            <li key={i}>{u.username}</li>
+                        ))}
+                    </ul>}
+                </span> }
+            </>
     )
 }
 

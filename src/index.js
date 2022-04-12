@@ -9,6 +9,7 @@ import { ToastContainer } from 'react-toastify';
 import ChatProvider from './context/ChatContext';
 import SocketProvider from './context/SocketContext';
 import FriendProvider from './context/FriendContext';
+import { AxiosInterceptor } from './api/api.config';
 
 ReactDOM.render(
   <AuthProvider>
@@ -24,7 +25,9 @@ ReactDOM.render(
                   pauseOnFocusLoss={false} 
                   autoClose={2000} 
                   />
-                <App />
+                  <AxiosInterceptor >
+                    <App />
+                  </AxiosInterceptor>
               </React.StrictMode>
             </BrowserRouter>
           </ThemeProvider>

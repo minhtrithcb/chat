@@ -20,14 +20,16 @@ npm start
 * kết bạn nhận tin kết bạn (realtime), Gửi tin nhắn (realtime)
 * Người dùng tìm kiếm bạn bè (thêm thành công tạo hộp thoại)
 * Người dùng thêm, sửa Reaction (realtime).
-* Người sửa Chat (realtime).
+* Người sửa, thu hồi Chat (realtime).
 
 
 #### Chức năng đang làm
- trích lời, hide msg, 
+ trích lời (reply),
 
 
 ### Chức năng Frontend sẻ có ...
+
+* Ngày trên chat
 * xác thực sử dụng socket.
 * Tìm user online / offline
 * Ghim hộp thọai,

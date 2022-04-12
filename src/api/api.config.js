@@ -1,4 +1,7 @@
 import axios from "axios";
+import { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 import authApi from "./authApi";
 
 
@@ -8,42 +11,44 @@ const api = axios.create({
   withCredentials: true,
 });
 
-api.interceptors.request.use(function (config) {
-  // Do something before request is sent
-  return config;
-}, function (error) {
-  // Do something with request error
-  return Promise.reject(error);
-});
+const AxiosInterceptor = ({ children }) => {
+  const navigate = useNavigate();
+  // const location = useLocation();
+  // const from = location?.pathname || "/"
+  const {setAuth} = useContext(AuthContext)
+  useEffect(() => {
+
+      const resInterceptor = response => {
+          return response;
+      }
+
+      const errInterceptor = async error => {
+          if (error && error.response?.status === 401) {
+            const {data} = await authApi.refreshToken()
+            if (data.isLogin) {
+              setAuth({isLogin: true, accessToken:  data.accessToken, loading: false})
+              // navigate('/', {replace: true})
+              // navigate(from, {replace: true})
+            } 
+          } 
+          // If status 403 mean you dont have cookies accessTk and RefreshTk push back to login
+          if (error && error.response?.status === 403) {
+              navigate("/login", {replace: true})
+          }
+          return Promise.reject(error);
+      }
 
 
-// Add a response interceptor
-api.interceptors.response.use(function (response) {
-  
-  // Any status code that lie within the range of 2xx cause this function to trigger
-  // Do something with response data
-  return response;
-}, async function (error) {
+      const interceptor = api.interceptors.response.use(resInterceptor, errInterceptor);
 
-  // Any status codes that falls outside the range of 2xx cause this function to trigger
-  // Do something with response error
+      return () => api.interceptors.response.eject(interceptor);
 
-  // If status 401 call api get new accessTk by refreshTk
-  if (error && error.response?.status === 401) {
-    const {data} = await authApi.refreshToken()
+      // Somtime if this now work remove this
+      // eslint-disable-next-line
+  }, []) 
+  return children;
+}
 
-    if (data?.isLogin) {
-      // Waring Using window location got "glitch" when navigation
-      window.location = "/"
-    } 
-  } 
-  // If status 403 mean you dont have cookies accessTk and RefreshTk push back to login
-  if (error && error.response?.status === 403) {
-      // Waring Using window location got "glitch" when navigation
-    window.location = "/login"
-  }
-
-  return Promise.reject(error);
-});
+export { AxiosInterceptor }
 
 export default api

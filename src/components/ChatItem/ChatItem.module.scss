@@ -19,6 +19,12 @@
         flex-direction: column;
         align-items: flex-start;
         position: relative;
+
+        &>small {
+            margin-top: 0.5em;
+            padding-left: 0.2em;
+            font-size: 0.7rem;
+        }
     }
 
     .chatInfo {
@@ -46,6 +52,10 @@
         cursor: pointer;
         margin-right: 40px;
         position: relative;
+
+        i {
+            font-size: 0.9rem;
+        }
 
         &::after {
             content: '';
@@ -101,6 +111,12 @@
         flex-direction: column;
         align-items: flex-end;
         position: relative;
+
+        &>small {
+            margin-top: 0.5em;
+            padding-left: 0.2em;
+            font-size: 0.7rem;
+        }
     }
 
     .chatInfo {
@@ -130,6 +146,10 @@
         margin-left: 40px;
         color: #fff;
         position: relative;
+
+        i {
+            font-size: 0.9rem;
+        }
 
         &::after {
             content: '';
@@ -181,7 +201,6 @@
 
 .reactionWraper {
     display: flex;
-    padding-top: 0.8em;
 }
 
 

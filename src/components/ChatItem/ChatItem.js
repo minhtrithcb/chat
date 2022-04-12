@@ -45,9 +45,28 @@ const ChatItem = ({self, data}) => {
         setChatEdit(chat);
     }
 
+    //User edit own chat 
+    const handleReply = (chat) => {
+        console.log(chat);
+    }
+
+    //User reCall own chat 
+    const handleReCallChat = async (chat) => {
+        let res = await chatApi.reCallChat({
+            chatId : chat._id,
+            sender: currentUser.id
+        })
+
+        //Handle last msg
+        socket.emit("send-reCall", res.data)
+    }
+
+
+
     return (
         <>
-            { self ? 
+            {
+            self ? 
             // Self 
             <div className={classesDarkMode}>
                 <div className={styles.chatAvatar}>
@@ -63,29 +82,31 @@ const ChatItem = ({self, data}) => {
                     </div>
                     <div className={styles.chatText}>
                         <div>
-                            <p>{data.text}</p>
-                            { data.reacts.length > 0  && 
+                            <p>{!data.reCall ? data.text : <i>Tin nhắn đã bị thu hồi</i> }</p>
+                            {!data.reCall && data.reacts.length > 0  && 
                             <div className={styles.reactionWraper}>
                                 {data.reacts.map((react, i) => (
                                     <ReactionRender 
                                         type={react.type} 
                                         number={react.user.length} 
                                         users={react.user} 
-                                        key={i} />
+                                        key={i} 
+                                    />
                                 ))}
                             </div>}
                         </div>
-                        <span className={styles.chatEmoji} >
+                        {!data.reCall && <span className={styles.chatEmoji} >
                             <Reaction float="floatLeft" handleClickReaction={onChose} />
-                        </span>
-                        <span className={styles.chatOption}>
+                        </span> }
+                       {!data.reCall && <span className={styles.chatOption}>
                             <Dropdown positionUl="right">
-                                <DropdownItem>Trích lời</DropdownItem>
+                                <DropdownItem onClick={() => handleReply(data)}>Trích lời</DropdownItem>
                                 <DropdownItem onClick={() => handleEditChat(data)}>Chỉnh sửa</DropdownItem>
-                                <DropdownItem>Ẩn tin</DropdownItem>
+                                <DropdownItem onClick={() => handleReCallChat(data)}>Thu hồi</DropdownItem>
                             </Dropdown>
-                        </span>
+                        </span>}
                     </div>
+                    { data.isEdit && <small>Đã chỉnh sửa</small>}
                 </div>
             </div>:  
             // Friend
@@ -97,7 +118,7 @@ const ChatItem = ({self, data}) => {
                     </div>
                     <div className={styles.chatText}>
                         <div>
-                            <p>{data.text}</p>
+                            <p>{!data.reCall ? data.text : <i>Tin nhắn đã bị thu hồi</i> }</p>
                             { data.reacts.length > 0  && 
                             <div className={styles.reactionWraper}>
                                 {data.reacts.map((react, i) => (
@@ -105,7 +126,8 @@ const ChatItem = ({self, data}) => {
                                         type={react.type} 
                                         number={react.user.length} 
                                         users={react.user} 
-                                        key={i} />
+                                        key={i} 
+                                    />
                                 ))}
                             </div>}
                         </div>
@@ -114,12 +136,11 @@ const ChatItem = ({self, data}) => {
                         </span>
                         <span className={styles.chatOption}>
                             <Dropdown >
-                                <DropdownItem>Trích lời</DropdownItem>
-                                {/* <DropdownItem>Chia sẻ</DropdownItem> */}
-                                <DropdownItem>Ẩn tin</DropdownItem>
+                                <DropdownItem onClick={() => handleReply(data)}>Trích lời</DropdownItem>
                             </Dropdown>
                         </span>
                     </div>
+                    { data.isEdit && <small>Đã chỉnh sửa</small>}
                 </div>
                 <div className={styles.chatAvatar}>
                     <div className={styles.avatar}>

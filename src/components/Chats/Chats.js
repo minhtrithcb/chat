@@ -52,6 +52,12 @@ const Chats = () => {
             }
         })
 
+        socket.on("getReCallMessage", data => {
+            if (isMounted && data) {
+                setChats(prevChat => prevChat.map(chat => chat._id === data._id ? data : chat ));
+            }
+        })
+
         return () => { 
             isMounted = false 
         };
