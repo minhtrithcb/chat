@@ -20,10 +20,17 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
 
     // Get new message & display
     useEffect(() => {        
+        // Get and display new msg
         socket.on("getSomeOneMessage", data => {
             if (data.roomId === conversation._id) {
                 setLastMsg(data);
-                console.log(data);
+            }
+        })
+        // Get and display new update last msg ex: recall last msg > display "Tin nhắn đã bị thu hồi"
+        socket.on("getLastActivity", ({result, room}) => {
+            if (result?.roomId === conversation._id && 
+                room?._id === result?.roomId) {
+                    setLastMsg(result);
             }
         })
     }, [socket, conversation])
@@ -51,7 +58,7 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
                 <b>{friends[0].fullname}</b>
                 {lastMsg && !lastMsg.reCall ? 
                     <p>{lastMsg.text.length > 10 ? `${lastMsg.text.substring(0, 10)} ...`: lastMsg.text}  </p>:
-                    <p>{"Tin nhắn đã bị thu hồi".substring(0, 10)} ...</p>
+                    <p className={styles.italic}>{"Tin nhắn đã bị thu hồi".substring(0, 10)} ...</p>
                 }
             </span>
             <span>

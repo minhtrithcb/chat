@@ -13,8 +13,8 @@ const chatApi = {
     reCallChat({roomId, chatId, sender}) {
         return api.post(`chat/reCall`, {roomId, chatId, sender})
     },
-    patchChat({chatId, sender, text}) {
-        return api.patch(`chat/`, {chatId, sender, text})
+    patchChat({roomId, chatId, sender, text}) {
+        return api.patch(`chat/`, {roomId, chatId, sender, text})
     }
 }
 

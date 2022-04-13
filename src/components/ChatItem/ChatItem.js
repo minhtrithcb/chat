@@ -37,7 +37,8 @@ const ChatItem = ({self, data}) => {
             }, 
             type: e
         })
-        socket.emit("send-reaction", res.data.result)
+        //send into room
+        socket.emit("sendChangeChat", res.data.result)
     }
 
     //User edit own chat 
@@ -58,10 +59,10 @@ const ChatItem = ({self, data}) => {
             sender: currentUser.id
         })
 
-        //Handle last msg
-        socket.emit("send-reCall", res.data)
-
-        // socket.emit("sendToFriendOnline", { friendId: friend._id , ...res.data})
+        //send into room
+        socket.emit("sendChangeChat", res.data.result)
+        //send backto change lastmsg if this is lastmsg
+        socket.emit("sendLastActivity", { friendId: friend._id , ...res.data})
     }
 
 

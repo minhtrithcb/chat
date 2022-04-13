@@ -83,19 +83,20 @@ const ChatForm = () => {
                 } else {
 
                     const {data} = await chatApi.patchChat({
+                        roomId: currentChat._id,
                         chatId: chatEdit._id,
                         sender: currentUser.id,
                         text:   inputChat,
                     })
 
+                    // Send into room
+                    socket.emit("sendChangeChat", data.result)
+                    //send backto change lastmsg if this is lastmsg
+                    socket.emit("sendLastActivity", { friendId: friend._id , ...data})
+
                     setisEditChat(false)
                     setChatEdit(null)
                     setInputChat("")
-
-                    // Send to socket room
-                    socket.emit("send-edit", data)
-                    // Send to socket id
-                    socket.emit("sendToFriendOnline", { friendId: friend._id , ...data})
                 }
             } catch (error) {
                 console.log(error);

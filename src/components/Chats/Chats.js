@@ -32,27 +32,15 @@ const Chats = () => {
     // Listening even from socket
     useEffect(() => {        
         let isMounted = true;   
-
+        // Get new msg in room
         socket.on("getMessage", data => {
             if (isMounted && data) {
                 setChats(prevChat => [...prevChat, data]);
                 bottomRef?.current?.scrollIntoView({behavior: "smooth"})
             }
         })
-
-        socket.on("getReaction", data => {
-            if (isMounted && data) {
-                setChats(prevChat => prevChat.map(chat => chat._id === data._id ? data : chat ));
-            }
-        })
-
-        socket.on("getEditMessage", data => {
-            if (isMounted && data) {
-                setChats(prevChat => prevChat.map(chat => chat._id === data._id ? data : chat ));
-            }
-        })
-
-        socket.on("getReCallMessage", data => {
+        // Get new update msg in room
+        socket.on("getChangeChat", data => {
             if (isMounted && data) {
                 setChats(prevChat => prevChat.map(chat => chat._id === data._id ? data : chat ));
             }
