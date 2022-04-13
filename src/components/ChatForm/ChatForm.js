@@ -8,14 +8,15 @@ import { SocketContext } from '../../context/SocketContext';
 import useDecodeJwt from '../../hooks/useDecodeJwt';
 import useTheme from '../../hooks/useTheme';
 import styles from './ChatForm.module.scss'
-import Picker from 'emoji-picker-react';
+// import Picker from 'emoji-picker-react';
 import useOutside from '../../hooks/useOutside';
-import Button from '../Button/Button'
+
+import { Picker } from 'emoji-mart'
 
 const ChatForm = () => {
     const {currentChat, friend, chatEdit, setChatEdit} = useContext(ChatContext)
     const [inputChat, setInputChat] = useState('')
-    const [isEdit, setIsEdit] = useState(false)
+    const [isEditChat, setisEditChat] = useState(false)
     const [currentUser] = useDecodeJwt()
     const [toggle, setToggle] = useState(false)
     const {theme} = useTheme()
@@ -24,7 +25,7 @@ const ChatForm = () => {
 
     const classesDarkMode = clsx(styles.chatForm,{ 
         [styles.dark]: theme === "dark",
-        [styles.isEdit]: isEdit
+        [styles.isEditChat]: isEditChat === true
     })
 
     // When User chose edit chat
@@ -33,13 +34,13 @@ const ChatForm = () => {
             // Set input field = edit text
             setInputChat(chatEdit.text)
             // enble edit text area
-            setIsEdit(true)
+            setisEditChat(true)
             // Focus that area
             editFormRef.current.focus()
         }
         return () => {
             setInputChat('')
-            setIsEdit(false)
+            setisEditChat(false)
         }
     }, [chatEdit])
     
@@ -57,8 +58,8 @@ const ChatForm = () => {
     }, [currentChat])
 
     // Handle chose emoji
-    const onEmojiClick = (event, emojiObject) => {
-        setInputChat(input => `${input} ${emojiObject.emoji}`)
+    const onEmojiClick = (emojiObject) => {
+        setInputChat(input => `${input} ${emojiObject.native}`)
     };
 
     // Submit send message
@@ -66,7 +67,7 @@ const ChatForm = () => {
         if (inputChat !== "") {
             try {
                 // If user not edit post new chat
-                if (!isEdit) {
+                if (!isEditChat) {
                     const {data} = await chatApi.postNewChat({
                         roomId: currentChat._id,
                         sender: currentUser.id,
@@ -87,7 +88,7 @@ const ChatForm = () => {
                         text:   inputChat,
                     })
 
-                    setIsEdit(false)
+                    setisEditChat(false)
                     setChatEdit(null)
                     setInputChat("")
 
@@ -111,61 +112,39 @@ const ChatForm = () => {
 
     // Stop editing
     const handleStopEdit = e => {
-        setIsEdit(false)
+        setisEditChat(false)
         setChatEdit(null)
     }
 
     return (
         <div className={classesDarkMode} >
-            {!isEdit ? 
-            <>
-                <textarea 
-                    placeholder='Hãy nhập gì đó ...'
-                    value={inputChat} 
-                    onKeyDown={handleCtrlEnter}
-                    onChange={(e) => setInputChat(e.target.value)}
-                    ref={editFormRef}
-                ></textarea> 
-                <small>Bấm Ctrl + Enter để gửi</small>
-            </>
-            : 
-            <>
-                <textarea 
-                    placeholder='Sửa gì đó ...'
-                    value={inputChat} 
-                    onKeyDown={handleCtrlEnter}
-                    onChange={(e) => setInputChat(e.target.value)}
-                    ref={editFormRef}
-                ></textarea>
+            <textarea 
+                placeholder={!isEditChat ? `Hãy nhập gì đó ...` : `Sửa lại chat ...`}
+                value={inputChat} 
+                onKeyDown={handleCtrlEnter}
+                onChange={(e) => setInputChat(e.target.value)}
+                ref={editFormRef}
+            ></textarea>
+            {!isEditChat && <small>Bấm Ctrl + Enter để gửi</small>}
+            {isEditChat && <>
                 <small>Bạn đang chỉnh sửa (Bấm Ctrl + Enter để gửi)</small>
-                <Button danger onClick={handleStopEdit}>Bỏ chỉnh sửa</Button>
-            </>
-            }
-            <div className={styles.emote} onClick={() => setToggle(prev => !prev)}>
+                <button className={styles.btnClose} onClick={handleStopEdit}>Bỏ chỉnh sửa</button>
+            </>}
+            <div className={styles.emote} onClick={() => {setToggle(prev => !prev)}}>
                 <BsEmojiSmile/>
             </div>
             <div className={styles.sendBtn} onClick={handleSubmit}>
                 <TiLocationArrow/>
             </div>
-            {toggle && 
-                <div ref={emojiDiv}>
-                    <Picker 
-                    disableSearchBar={true}
-                    onEmojiClick={onEmojiClick} 
-                    pickerStyle={{marginLeft: 'auto'}} 
-                    groupVisibility={{
-                        recently_used: false,
-                        animals_nature: false,
-                        food_drink: false,
-                        travel_places: false,
-                        activities: false,
-                        objects: false,
-                        symbols: false,
-                        flags: false
-                    }}
-                    />
-                </div>
-            }
+            <div ref={emojiDiv} className={styles.renderPiker}>
+                {toggle && <Picker 
+                    set='apple' 
+                    color="#a29bfe"
+                    onSelect={onEmojiClick} 
+                    showPreview={false}
+                    showSkinTones={false}
+                />}
+            </div>
         </div> 
     )
 }

@@ -12,12 +12,12 @@ import FriendProvider from './context/FriendContext';
 import { AxiosInterceptor } from './api/api.config';
 
 ReactDOM.render(
+  <BrowserRouter>
   <AuthProvider>
     <FriendProvider>
       <SocketProvider>
         <ChatProvider>
           <ThemeProvider>
-            <BrowserRouter>
               <React.StrictMode>
                 <ToastContainer 
                   pauseOnHover={false} 
@@ -29,12 +29,12 @@ ReactDOM.render(
                     <App />
                   </AxiosInterceptor>
               </React.StrictMode>
-            </BrowserRouter>
           </ThemeProvider>
         </ChatProvider>
       </SocketProvider>
     </FriendProvider>
   </AuthProvider>
+  </BrowserRouter>
   ,
   document.getElementById('root')
 );

@@ -14,7 +14,7 @@ import { SocketContext } from '../../context/SocketContext'
 
 const ChatItem = ({self, data}) => {
     const {theme} = useTheme()
-    const {friend, setChatEdit, chatEdit} = useContext(ChatContext)
+    const {friend, setChatEdit, chatEdit, currentChat} = useContext(ChatContext)
     const {socket} = useContext(SocketContext)
     const [currentUser] = useDecodeJwt()
     const classesDarkMode = clsx(styles.chatItem,{ 
@@ -45,7 +45,7 @@ const ChatItem = ({self, data}) => {
         setChatEdit(chat);
     }
 
-    //User edit own chat 
+    //User reply own chat 
     const handleReply = (chat) => {
         console.log(chat);
     }
@@ -53,12 +53,15 @@ const ChatItem = ({self, data}) => {
     //User reCall own chat 
     const handleReCallChat = async (chat) => {
         let res = await chatApi.reCallChat({
+            roomId: currentChat._id,
             chatId : chat._id,
             sender: currentUser.id
         })
 
         //Handle last msg
         socket.emit("send-reCall", res.data)
+
+        // socket.emit("sendToFriendOnline", { friendId: friend._id , ...res.data})
     }
 
 
@@ -82,7 +85,9 @@ const ChatItem = ({self, data}) => {
                     </div>
                     <div className={styles.chatText}>
                         <div>
-                            <p>{!data.reCall ? data.text : <i>Tin nhắn đã bị thu hồi</i> }</p>
+                            <p>
+                                {!data.reCall ? data.text : <i>Tin nhắn đã bị thu hồi</i>}
+                            </p>
                             {!data.reCall && data.reacts.length > 0  && 
                             <div className={styles.reactionWraper}>
                                 {data.reacts.map((react, i) => (

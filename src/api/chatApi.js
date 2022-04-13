@@ -10,8 +10,8 @@ const chatApi = {
     postReaction({chatId, user, type}) {
         return api.post(`chat/reaction`, {chatId, user, type})
     },
-    reCallChat({chatId, sender}) {
-        return api.post(`chat/reCall`, {chatId, sender})
+    reCallChat({roomId, chatId, sender}) {
+        return api.post(`chat/reCall`, {roomId, chatId, sender})
     },
     patchChat({chatId, sender, text}) {
         return api.patch(`chat/`, {chatId, sender, text})

@@ -8,6 +8,7 @@ import NotFound from "./pages/NotFound/NotFound";
 import SignUp from "./pages/AuthPage/SignUp";
 import PrivateRoute from "./components/PrivateRoute";
 import 'react-toastify/dist/ReactToastify.css';
+import 'emoji-mart/css/emoji-mart.css'
 import PrevPrivateRoute from "./components/PrevPrivateRoute";
 import Contact from "./pages/Contact/Contact";
 import Profile from "./pages/Profile/Profile";

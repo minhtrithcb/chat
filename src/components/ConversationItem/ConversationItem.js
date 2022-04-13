@@ -23,6 +23,7 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
         socket.on("getSomeOneMessage", data => {
             if (data.roomId === conversation._id) {
                 setLastMsg(data);
+                console.log(data);
             }
         })
     }, [socket, conversation])
@@ -48,7 +49,10 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
             </span>
             <span>
                 <b>{friends[0].fullname}</b>
-                {lastMsg && <p>{lastMsg.text.length > 10 ? `${lastMsg.text.substring(0, 10)} ...`: lastMsg.text}  </p>}
+                {lastMsg && !lastMsg.reCall ? 
+                    <p>{lastMsg.text.length > 10 ? `${lastMsg.text.substring(0, 10)} ...`: lastMsg.text}  </p>:
+                    <p>{"Tin nhắn đã bị thu hồi".substring(0, 10)} ...</p>
+                }
             </span>
             <span>
                 <small>{lastMsg && moment(lastMsg.createdAt).fromNow()}</small>

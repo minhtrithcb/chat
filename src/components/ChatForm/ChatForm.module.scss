@@ -22,11 +22,6 @@
         color: #000;
     }
 
-    aside {
-        position: absolute;
-        bottom: 380px;
-    }
-
     textarea {
         width: 100%;
         height: 100%;
@@ -53,17 +48,36 @@
         }
     }
 
-    &.isEdit {
-        Button {
+    &.isEditChat {
+        .btnClose {
             position: absolute;
             right: 0;
             top: -3em;
+            padding: 0.4em 1em;
+            border-radius: 0.4em;
+            cursor: pointer;
+            transition: 0.6s;
+            border: none;
+            outline: none;
+            @include center;
+            background-color: $red-light;
+            color: #fff;
+        
+            &:hover {
+                opacity: 0.9;
+            }
         }
     }
 
     @include maxWitdh(768px) {
         margin: 0 1em;
     }
+}
+
+.renderPiker {
+    position: absolute;
+    bottom: 5em;
+    right: 0;
 }
 
 

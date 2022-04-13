@@ -6,47 +6,51 @@ import authApi from "./authApi";
 
 
 const api = axios.create({
-  baseURL: 'http://localhost:2077/api/',
-  timeout: 5000,
-  withCredentials: true,
+    baseURL: 'http://localhost:2077/api/',
+    timeout: 5000,
+    withCredentials: true,
 });
 
 const AxiosInterceptor = ({ children }) => {
-  const navigate = useNavigate();
-  // const location = useLocation();
-  // const from = location?.pathname || "/"
-  const {setAuth} = useContext(AuthContext)
-  useEffect(() => {
+    const navigate = useNavigate();
+    // const location = useLocation();
+    // const from = location?.pathname || "/"
+    const {setAuth} = useContext(AuthContext)
 
-      const resInterceptor = response => {
-          return response;
-      }
+    useEffect(() => {
+        const resInterceptor = response => {
+            return response;
+        }
+        const errInterceptor = async error => {
+            const prevReq = error?.config
+              if (error?.response?.status === 401 && !prevReq?.sent) {
+                prevReq.sent = true
+                const {data} = await authApi.refreshToken()
+                if (data.isLogin) {
+                  // console.log('get new accesTk ny RT');
+                  setAuth({isLogin: true, accessToken:  data.accessToken, loading: false})
+                  // navigate('/', {replace: true})
+                  // navigate(from, {replace: true})
+                } 
 
-      const errInterceptor = async error => {
-          if (error && error.response?.status === 401) {
-            const {data} = await authApi.refreshToken()
-            if (data.isLogin) {
-              setAuth({isLogin: true, accessToken:  data.accessToken, loading: false})
-              // navigate('/', {replace: true})
-              // navigate(from, {replace: true})
-            } 
-          } 
-          // If status 403 mean you dont have cookies accessTk and RefreshTk push back to login
-          if (error && error.response?.status === 403) {
-              navigate("/login", {replace: true})
-          }
-          return Promise.reject(error);
-      }
+                return api(prevReq)
+              } 
+              // If status 403 mean you dont have cookies accessTk and RefreshTk push back to login
+              if (error.response?.status === 403) {
+                  navigate("/login", {replace: true})
+              }
+              return Promise.reject(error);
+        }
 
 
-      const interceptor = api.interceptors.response.use(resInterceptor, errInterceptor);
+        const interceptor = api.interceptors.response.use(resInterceptor, errInterceptor);
 
-      return () => api.interceptors.response.eject(interceptor);
+        return () => api.interceptors.response.eject(interceptor);
 
-      // Somtime if this now work remove this
-      // eslint-disable-next-line
-  }, []) 
-  return children;
+        // Somtime if this now work remove this
+        // eslint-disable-next-line
+    }, []) 
+    return children;
 }
 
 export { AxiosInterceptor }
