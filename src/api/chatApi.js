@@ -7,6 +7,9 @@ const chatApi = {
     postNewChat({roomId, sender, text}) {
         return api.post(`chat`, {roomId, sender, text})
     },
+    postReplyChat({roomId, sender, text, replyMsg}) {
+        return api.post(`chat/reply`, {roomId, sender, text, replyMsg})
+    },
     postReaction({chatId, user, type}) {
         return api.post(`chat/reaction`, {chatId, user, type})
     },

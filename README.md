@@ -20,16 +20,18 @@ npm start
 * kết bạn nhận tin kết bạn (realtime), Gửi tin nhắn (realtime)
 * Người dùng tìm kiếm bạn bè (thêm thành công tạo hộp thoại)
 * Người dùng thêm, sửa Reaction (realtime).
-* Người sửa, thu hồi Chat (realtime).
+* Người dùng sửa, thu hồi Chat (realtime).
+* Người dùng trích lời (reply),
 
 
 #### Chức năng đang làm
- trích lời (reply),
 
 
 ### Chức năng Frontend sẻ có ...
 
 * Ngày trên chat
+* Activiti page
+* wellcome khi login lần đầu
 * xác thực sử dụng socket.
 * Tìm user online / offline
 * Ghim hộp thọai,
@@ -38,7 +40,6 @@ npm start
 * User online theo thời gần nhất (lần cuối online)
 * User tạo nhóm thêm thành viên
 * User gửi theo dõi, nhắn tin khi ko kết bạn theo setting
-* User gọi & facetime
 * User typing hiện đang gõ  
 * User chat có file & gif ảnh 
 * User upload avatar 

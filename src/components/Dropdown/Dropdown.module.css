@@ -16,6 +16,7 @@
           align-items: center;
   cursor: pointer;
   position: relative;
+  z-index: 3;
 }
 
 .DropdownBtn.right {
@@ -26,20 +27,28 @@
   position: absolute;
   background-color: #fff;
   top: 2em;
-  right: 0;
   list-style: none;
   padding: 0.5em;
   margin: 0;
   -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
           box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
   border-radius: .7em;
+  z-index: 4;
+}
+
+.DropdownUl.right {
+  left: 0;
+}
+
+.DropdownUl.left {
+  right: 0;
 }
 
 .DropdownItem {
   white-space: nowrap;
   padding: 0.5em;
-  -webkit-transition: .3s ease;
-  transition: .3s ease;
+  -webkit-transition: background .3s ease;
+  transition: background .3s ease;
   border-radius: .3em;
   text-align: left;
   font-size: .9rem;

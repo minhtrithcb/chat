@@ -21,6 +21,7 @@
   width: 100%;
   height: calc(100vh - 150px);
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .chatContainer::-webkit-scrollbar {
@@ -74,6 +75,7 @@
         -ms-flex-align: center;
             align-items: center;
     cursor: pointer;
+    z-index: 2;
   }
 }
 
@@ -106,6 +108,7 @@
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding: 0 1em;
+  z-index: 6;
 }
 
 .friendCover div {

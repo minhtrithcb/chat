@@ -4,13 +4,63 @@
 .chatForm {
     position: sticky;
     height: 50px;
-    background-color: #fff;
-    border: 1px solid $gray;
     margin: 1em calc(40px + 1em);
-    border-radius: .7em;
     z-index: 2;
 
-    small {
+    &.isReplyChat {
+        height: 100px;
+        bottom: 1em;
+
+        .replyChat {
+            position: absolute;
+            background-color: $white-smok;
+            width: 100%;
+            height: 40px;
+            
+            div {
+                font-size: 0.8rem;
+                padding: 1em;
+                background-color: $primary-color;
+                border-radius: .3em;
+                color: #fff;
+                width: 100%;
+                position: absolute;
+                bottom: 0;
+
+                b {
+                    display: block;
+                }
+
+                p {
+                    line-height: 2;
+                    margin: 1em;
+                    padding-left: 1em;
+                    margin-left: 0.5em;
+                    border-left: 2px solid #fff;
+                }
+
+                &>button {
+                    right: 0em;
+                    top: -2.5em;
+                    position: absolute;
+                }
+            }
+
+
+        }
+        
+
+        textarea {
+            height: 50%;
+            margin-top: 50px;
+        }
+
+        .sendBtn, .emote {
+            margin-top: 50px;
+        }
+    }
+
+    &>small {
         left: 0;
         top: -20px;
         position: absolute;
@@ -29,13 +79,14 @@
         padding: 1em;
         padding-right: 80px;
         font-family: 'Montserrat', sans-serif;
-        border: 2px solid transparent;
         border-radius: .7em;
+        border: 1px solid $gray;
+        padding-top: 1.2em;
 
         &:focus {
             border-radius: .7em;
             outline: none;
-            border: 2px solid $primary-color;
+            border: 1px solid $primary-color;
         }
 
         &:focus + small{
@@ -122,11 +173,15 @@
 
         &:focus {
             border-radius: .7em;
-            border: 2px solid $primary-color;
+            border: 1px solid $primary-color;
         }
 
         small {
             color: red;
         }
+    }
+
+    &.replyChat {
+        background-color: $dark-lv4 !important;
     }
 }

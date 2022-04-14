@@ -14,7 +14,7 @@ import { SocketContext } from '../../context/SocketContext'
 
 const ChatItem = ({self, data}) => {
     const {theme} = useTheme()
-    const {friend, setChatEdit, chatEdit, currentChat} = useContext(ChatContext)
+    const {friend, setChatEdit, chatEdit, currentChat, setChatReply} = useContext(ChatContext)
     const {socket} = useContext(SocketContext)
     const [currentUser] = useDecodeJwt()
     const classesDarkMode = clsx(styles.chatItem,{ 
@@ -48,7 +48,7 @@ const ChatItem = ({self, data}) => {
 
     //User reply own chat 
     const handleReply = (chat) => {
-        console.log(chat);
+        setChatReply(chat)
     }
 
     //User reCall own chat 
@@ -64,8 +64,6 @@ const ChatItem = ({self, data}) => {
         //send backto change lastmsg if this is lastmsg
         socket.emit("sendLastActivity", { friendId: friend._id , ...res.data})
     }
-
-
 
     return (
         <>
@@ -86,6 +84,13 @@ const ChatItem = ({self, data}) => {
                     </div>
                     <div className={styles.chatText}>
                         <div>
+                            {data.replyMsg && <div className={styles.chatTextReply}>
+                                <b>{data.replyMsg.sender !== currentUser.id ?
+                                    friend.fullname : "Bạn"
+                                }</b>
+                                <small>{moment(data.replyMsg.createdAt).fromNow()}</small>
+                                <p>{data.replyMsg.text}</p>
+                            </div>}
                             <p>
                                 {!data.reCall ? data.text : <i>Tin nhắn đã bị thu hồi</i>}
                             </p>
@@ -124,6 +129,13 @@ const ChatItem = ({self, data}) => {
                     </div>
                     <div className={styles.chatText}>
                         <div>
+                            {data.replyMsg && <div className={styles.chatTextReply}>
+                                <b>{data.replyMsg.sender !== currentUser.id ?
+                                    friend.fullname : "Bạn"
+                                }</b>
+                                <small>{moment(data.replyMsg.createdAt).fromNow()}</small>
+                                <p>{data.replyMsg.text}</p>
+                            </div>}
                             <p>{!data.reCall ? data.text : <i>Tin nhắn đã bị thu hồi</i> }</p>
                             { data.reacts.length > 0  && 
                             <div className={styles.reactionWraper}>
@@ -137,14 +149,14 @@ const ChatItem = ({self, data}) => {
                                 ))}
                             </div>}
                         </div>
-                        <span className={styles.chatEmoji} >
+                        {!data.reCall &&  <span className={styles.chatEmoji} >
                             <Reaction float="floatRight"  handleClickReaction={onChose} />
-                        </span>
-                        <span className={styles.chatOption}>
+                        </span> }
+                        {!data.reCall && <span className={styles.chatOption}>
                             <Dropdown >
                                 <DropdownItem onClick={() => handleReply(data)}>Trích lời</DropdownItem>
                             </Dropdown>
-                        </span>
+                        </span>}
                     </div>
                     { data.isEdit && <small>Đã chỉnh sửa</small>}
                 </div>

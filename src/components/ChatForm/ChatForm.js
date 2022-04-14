@@ -8,15 +8,17 @@ import { SocketContext } from '../../context/SocketContext';
 import useDecodeJwt from '../../hooks/useDecodeJwt';
 import useTheme from '../../hooks/useTheme';
 import styles from './ChatForm.module.scss'
-// import Picker from 'emoji-picker-react';
 import useOutside from '../../hooks/useOutside';
+import Button from '../Button/Button'
 
 import { Picker } from 'emoji-mart'
 
 const ChatForm = () => {
-    const {currentChat, friend, chatEdit, setChatEdit} = useContext(ChatContext)
+    const {currentChat, friend, chatEdit, setChatEdit, chatReply, setChatReply} = useContext(ChatContext)
     const [inputChat, setInputChat] = useState('')
-    const [isEditChat, setisEditChat] = useState(false)
+    const [textReply, setTextReply] = useState('')
+    const [isEditChat, setIsEditChat] = useState(false)
+    const [isReplyChat, setIsReplyChat] = useState(false)
     const [currentUser] = useDecodeJwt()
     const [toggle, setToggle] = useState(false)
     const {theme} = useTheme()
@@ -25,7 +27,12 @@ const ChatForm = () => {
 
     const classesDarkMode = clsx(styles.chatForm,{ 
         [styles.dark]: theme === "dark",
-        [styles.isEditChat]: isEditChat === true
+        [styles.isEditChat]: isEditChat === true,
+        [styles.isReplyChat]: isReplyChat === true,
+    })
+
+    const classes2DarkMode = clsx(styles.replyChat, { 
+        [styles.dark]: theme === "dark",
     })
 
     // When User chose edit chat
@@ -34,15 +41,33 @@ const ChatForm = () => {
             // Set input field = edit text
             setInputChat(chatEdit.text)
             // enble edit text area
-            setisEditChat(true)
+            setIsEditChat(true)
             // Focus that area
             editFormRef.current.focus()
         }
         return () => {
             setInputChat('')
-            setisEditChat(false)
+            setIsEditChat(false)
         }
     }, [chatEdit])
+
+    // When User chose reply chat
+    useEffect(() => {
+        if (chatReply !== null) {
+            // enble reply text area
+            setIsReplyChat(true)
+
+            // set text reply
+            setTextReply(chatReply.text)
+
+            // Focus that area
+            editFormRef.current.focus()
+        }
+        return () => {
+            setInputChat('')
+            setIsReplyChat(false)
+        }
+    }, [chatReply])
     
 
     // Click outside to close
@@ -66,8 +91,8 @@ const ChatForm = () => {
     const handleSubmit = async () => {
         if (inputChat !== "") {
             try {
-                // If user not edit post new chat
-                if (!isEditChat) {
+                // If user not edit or not reply => post new chat
+                if (!isEditChat && !isReplyChat) {
                     const {data} = await chatApi.postNewChat({
                         roomId: currentChat._id,
                         sender: currentUser.id,
@@ -77,10 +102,31 @@ const ChatForm = () => {
                     socket.emit("send-msg", data)
                     // Send to socket id
                     socket.emit("sendToFriendOnline", { friendId: friend._id , ...data})
+                    // reset
                     setInputChat("")
+                    console.log("post");
 
-                // If user edit patch that chat
+                // If user reply chat
+                } else if (isReplyChat) {
+                    console.log("reply");
+                    const {data} = await chatApi.postReplyChat({
+                        roomId: currentChat._id,
+                        sender: currentUser.id,
+                        text:   inputChat,
+                        replyMsg: chatReply
+                    })
+                    // Send to socket room
+                    socket.emit("send-msg", data)
+                    // Send to socket id
+                    socket.emit("sendToFriendOnline", { friendId: friend._id , ...data})
+                    // reset
+                    setInputChat("")
+                    setIsReplyChat(false)
+                    setChatReply(null)
+
+                // else user edit patch that chat
                 } else {
+                    console.log("edit");
 
                     const {data} = await chatApi.patchChat({
                         roomId: currentChat._id,
@@ -93,8 +139,8 @@ const ChatForm = () => {
                     socket.emit("sendChangeChat", data.result)
                     //send backto change lastmsg if this is lastmsg
                     socket.emit("sendLastActivity", { friendId: friend._id , ...data})
-
-                    setisEditChat(false)
+                    // reset
+                    setIsEditChat(false)
                     setChatEdit(null)
                     setInputChat("")
                 }
@@ -113,12 +159,20 @@ const ChatForm = () => {
 
     // Stop editing
     const handleStopEdit = e => {
-        setisEditChat(false)
+        setIsEditChat(false)
         setChatEdit(null)
+    }
+
+    // Stop reply
+    const handleStopReply = e => {
+        setIsReplyChat(false)
+        setChatReply(null)
     }
 
     return (
         <div className={classesDarkMode} >
+            {/* Edit & post new chat  */}
+            {!isReplyChat && <>
             <textarea 
                 placeholder={!isEditChat ? `Hãy nhập gì đó ...` : `Sửa lại chat ...`}
                 value={inputChat} 
@@ -145,7 +199,45 @@ const ChatForm = () => {
                     showPreview={false}
                     showSkinTones={false}
                 />}
+            </div></>}
+
+            {/* reply chat  */}
+            {isReplyChat && chatReply && <>
+           <div className={classes2DarkMode}>
+                <div>
+                    <b>{chatReply.sender !== currentUser.id ?
+                        friend.fullname : "Bạn"
+                    }</b>
+                    <Button size={'md'} danger onClick={handleStopReply}>Bỏ trả lời</Button>
+                    <p>{textReply}</p>
+                </div>
+           </div>
+            <textarea 
+                className={styles.replyTextArea}
+                placeholder={`Trả lời ...`}
+                value={inputChat} 
+                onKeyDown={handleCtrlEnter}
+                onChange={(e) => setInputChat(e.target.value)}
+                ref={editFormRef}
+            ></textarea>
+            {/* <small>Bấm Ctrl + Enter để gửi</small> */}
+            <div className={styles.emote} onClick={() => {setToggle(prev => !prev)}}>
+                <BsEmojiSmile/>
             </div>
+            <div className={styles.sendBtn} onClick={handleSubmit}>
+                <TiLocationArrow/>
+            </div>
+            <div ref={emojiDiv} className={styles.renderPiker}>
+                {toggle && <Picker 
+                    set='apple' 
+                    color="#a29bfe"
+                    onSelect={onEmojiClick} 
+                    showPreview={false}
+                    showSkinTones={false}
+                />}
+            </div>
+            </>
+            }
         </div> 
     )
 }

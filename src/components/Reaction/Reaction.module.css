@@ -3,17 +3,14 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-  z-index: 1;
 }
 
-.btnReaction {
+.reactBtn {
   width: 30px;
   height: 30px;
-  background-color: #fff;
-  cursor: pointer;
+  position: absolute;
+  right: 0;
+  color: #000;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -23,21 +20,12 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  border-radius: 50%;
-  font-size: 1.1rem;
-  border: 1px solid #d1d1d1;
-  position: relative;
-}
-
-.btnReaction:hover .reacts {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  background-color: #fff;
+  border-radius: .7em;
 }
 
 .reacts {
   position: absolute;
-  bottom: -2em;
   width: 200px;
   height: 30px;
   -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
@@ -52,15 +40,15 @@
       -ms-flex-align: center;
           align-items: center;
   border-radius: .7em;
-  display: none;
+  z-index: 2;
 }
 
 .reacts.floatRight {
-  right: 0;
+  right: 2.2em;
 }
 
 .reacts.floatLeft {
-  left: 0;
+  left: 2.2em;
 }
 
 .reacts span {
@@ -92,42 +80,60 @@
   top: -.7em;
 }
 
-.reactionRender {
-  width: 50px;
-  height: 30px;
-  background-color: #fff;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-          box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-  border-radius: .7em;
-  margin-right: 1em;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding-left: 0.5em;
-}
-
 .showReaction {
-  width: 20px;
-  height: 20px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  position: relative;
+  -webkit-transition: visibility .8s ease;
+  transition: visibility .8s ease;
+  padding-top: 0.8em;
 }
 
 .showReaction img {
-  max-width: 20px;
+  max-width: 15px;
+}
+
+.showReaction img:hover ~ .ulReaction {
+  visibility: visible;
 }
 
 .showReaction small {
-  padding-left: 0.5em;
+  padding: 0 0.5em;
+}
+
+.showReaction small:hover ~ .ulReaction {
+  visibility: visible;
+}
+
+.ulReaction {
+  list-style: none;
+  background-color: #fff;
+  position: absolute;
+  padding-left: 0;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  padding: 0.5em;
+  top: 0.5em;
+  z-index: 3;
+  color: #000;
+  display: block;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  visibility: hidden;
+}
+
+.ulReaction li {
+  font-size: 0.8rem;
+  margin: 0.5em 0;
+}
+
+.dark .reactBtn, .dark .reacts {
+  background-color: #a29bfe;
+  color: #2f334d;
 }
 /*# sourceMappingURL=Reaction.module.css.map */
