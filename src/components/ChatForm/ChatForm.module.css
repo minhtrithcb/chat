@@ -13,30 +13,38 @@
 
 .chatForm.isReplyChat .replyChat {
   position: absolute;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   background-color: #f6f7fb;
   width: 100%;
   height: 40px;
-  margin-top: 10px;
 }
 
-.chatForm.isReplyChat .replyChat p {
-  font-size: 0.9rem;
-  padding: 0.5em 1em;
+.chatForm.isReplyChat .replyChat div {
+  font-size: 0.8rem;
+  padding: 1em;
   background-color: #a29bfe;
   border-radius: .3em;
   color: #fff;
-  margin-right: 1em;
-  margin-left: 1em;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
 }
 
-.chatForm.isReplyChat .replyChat > button {
-  padding: 0.7em 1em;
+.chatForm.isReplyChat .replyChat div b {
+  display: block;
+}
+
+.chatForm.isReplyChat .replyChat div p {
+  line-height: 2;
+  margin: 1em;
+  padding-left: 1em;
+  margin-left: 0.5em;
+  border-left: 2px solid #fff;
+}
+
+.chatForm.isReplyChat .replyChat div > button {
+  right: 0em;
+  top: -2.5em;
+  position: absolute;
 }
 
 .chatForm.isReplyChat textarea {
@@ -193,5 +201,9 @@
 
 .dark textarea small {
   color: red;
+}
+
+.dark.replyChat {
+  background-color: #292c43 !important;
 }
 /*# sourceMappingURL=ChatForm.module.css.map */

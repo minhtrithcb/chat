@@ -1,0 +1,33 @@
+.chatLoading {
+  padding: 1em calc(40px + 1em);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 70px;
+  font-size: 0.8rem;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.chatLoading2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 0.8rem;
+}
+
+.chatLoading2 img {
+  width: 40px;
+}
+
+.img {
+  width: 50px;
+}
+/*# sourceMappingURL=ChatLoading.module.css.map */

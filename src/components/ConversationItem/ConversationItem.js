@@ -6,10 +6,13 @@ import useTheme from '../../hooks/useTheme'
 import moment from 'moment'
 import 'moment/locale/vi'
 import { SocketContext } from '../../context/SocketContext'
+import {ConversationItemLoading} from '../ChatLoading/ChatLoading'
+import useDecodeJwt from '../../hooks/useDecodeJwt'
 
 const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => {
     const {socket} = useContext(SocketContext)
-    
+    const [currentUser] = useDecodeJwt()
+    const [pendingChat, setPendingChat] = useState(false)
     const {theme} = useTheme()
     const [lastMsg, setLastMsg] = useState(conversation.lastMsg)
     const [onlineFriend, setOnlineFriend] = useState(false)
@@ -20,6 +23,8 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
 
     // Get new message & display
     useEffect(() => {        
+        let isMounted = true;            
+
         // Get and display new msg
         socket.on("getSomeOneMessage", data => {
             if (data.roomId === conversation._id) {
@@ -33,7 +38,25 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
                     setLastMsg(result);
             }
         })
-    }, [socket, conversation])
+
+        // // Event pending
+        socket.on("getPendingByFriend", ({roomId, reciverId}) => {
+            if (isMounted && roomId === conversation?._id &&
+                reciverId === currentUser.id
+                ) {
+                setPendingChat(true)
+            }
+        })
+        // // // Event stop pending
+        socket.on("stopPendingByFriend", data => {
+            if (isMounted && data) {
+                setPendingChat(false)
+            }
+        })
+
+        return () => { isMounted = false };
+
+    }, [socket, conversation, currentUser.id])
 
     // set state users online
     useEffect(() => {
@@ -62,8 +85,8 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
                 }
             </span>
             <span>
+                {pendingChat && <ConversationItemLoading />}
                 <small>{lastMsg && moment(lastMsg.createdAt).fromNow()}</small>
-                {/* <p>2</p> */}
             </span>
         </div> 
     )

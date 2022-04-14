@@ -15,9 +15,11 @@ import ChatItem from '../ChatItem/ChatItem';
 import ChatForm from '../ChatForm/ChatForm';
 import { SocketContext } from '../../context/SocketContext';
 import { Link } from 'react-router-dom';
+import ChatLoading from '../ChatLoading/ChatLoading';
 
 const Chats = () => {
     const [toggle, setToggle] = useToggle(false)
+    const [pendingChat, setPendingChat] = useToggle(false)
     const [chats, setChats] = useState([])
     const {theme} = useTheme()
     const bottomRef = useRef()
@@ -45,11 +47,26 @@ const Chats = () => {
                 setChats(prevChat => prevChat.map(chat => chat._id === data._id ? data : chat ));
             }
         })
+        // Event pending
+        socket.on("getPendingByFriend", ({roomId, reciverId}) => {
+            if (isMounted && roomId === currentChat?._id &&
+                reciverId === currentUser.id
+                ) {
+                setPendingChat(true)
+                bottomRef?.current?.scrollIntoView({behavior: "smooth"})
+            }
+        })
+        // // Event stop pending
+        socket.on("stopPendingByFriend", data => {
+            if (isMounted && data) {
+                setPendingChat(false)
+            }
+        })
 
         return () => { 
             isMounted = false 
         };
-    }, [socket, bottomRef])
+    }, [socket, bottomRef, currentUser, setPendingChat, currentChat])
     
     // Join room when user chose friend to chat
     useEffect(() => {
@@ -136,6 +153,7 @@ const Chats = () => {
                             dup={dup}
                         />
                     })}
+                    {pendingChat && <ChatLoading username={friend.fullname} />}
                     <div ref={bottomRef}></div>
                 </div>
                 {/* // From Chat  */}

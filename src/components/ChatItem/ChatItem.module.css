@@ -1,5 +1,6 @@
 .chatItem {
   padding: 1em;
+  padding-bottom: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -45,10 +46,10 @@
 
 .chatItem .chatInfo b {
   font-size: 0.9rem;
+  margin-right: 1em;
 }
 
 .chatItem .chatInfo small {
-  margin-left: 1em;
   font-size: 0.7rem;
 }
 
@@ -83,8 +84,13 @@
 }
 
 .chatItem .chatText p {
+  line-height: 2;
   margin: 0;
   font-size: 0.9rem;
+}
+
+.chatItem .chatText p small {
+  display: block;
 }
 
 .chatItem .chatText .chatEmoji {
@@ -100,8 +106,13 @@
   border: 2px solid #a29bfe;
 }
 
+.chatItem.dup {
+  padding: 0 1em;
+}
+
 .chatItem2 {
   padding: 1em;
+  padding-bottom: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -197,7 +208,12 @@
 
 .chatItem2 .chatText p {
   margin: 0;
+  line-height: 2;
   font-size: 0.9rem;
+}
+
+.chatItem2 .chatText p small {
+  display: block;
 }
 
 .chatItem2 .chatText .chatEmoji {
@@ -207,6 +223,23 @@
 .chatItem2 .chatText .chatOption {
   right: -2.8em;
   top: 0.5em;
+}
+
+.chatItem2 .chatTextReply {
+  background-color: rgba(255, 255, 255, 0.136);
+  border-left: 2px solid #fff;
+}
+
+.chatItem2 .chatTextReply b, .chatItem2 .chatTextReply small {
+  color: #000;
+}
+
+.chatItem2 .chatTextReply p {
+  color: #fff;
+}
+
+.chatItem2.dup {
+  padding: 0 1em;
 }
 
 .chatEmoji {
@@ -245,6 +278,8 @@
       -ms-flex-align: center;
           align-items: center;
   cursor: pointer;
+  border: none;
+  background-color: transparent;
 }
 
 .avatar img {
@@ -260,6 +295,28 @@
   display: flex;
 }
 
+.chatTextReply {
+  margin-bottom: 0.5em;
+  background-color: #c0bcff15;
+  border-left: 2px solid #a29bfe;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.chatTextReply b {
+  margin: 0.7em 0;
+  display: inline-block;
+  margin-right: 0.5em;
+  font-size: 00.8rem;
+}
+
+.chatTextReply p {
+  line-height: 2;
+  margin: 0;
+  font-size: 0.8rem;
+  color: #6c5ce7;
+}
+
 .dark.chatItem b, .dark.chatItem small {
   color: #cfcfcf;
 }
@@ -267,6 +324,10 @@
 .dark.chatItem .chatText {
   background-color: #2f334d;
   color: #cfcfcf;
+}
+
+.dark.chatItem .chatTextReply p {
+  color: #a29bfe;
 }
 
 .dark.chatItem2 b, .dark.chatItem2 small {

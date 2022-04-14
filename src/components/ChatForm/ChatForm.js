@@ -19,6 +19,7 @@ const ChatForm = () => {
     const [textReply, setTextReply] = useState('')
     const [isEditChat, setIsEditChat] = useState(false)
     const [isReplyChat, setIsReplyChat] = useState(false)
+    const [flag, setFlag] = useState(true)
     const [currentUser] = useDecodeJwt()
     const [toggle, setToggle] = useState(false)
     const {theme} = useTheme()
@@ -69,6 +70,26 @@ const ChatForm = () => {
         }
     }, [chatReply])
     
+    // User OnChange Display loading
+    const handleOnChangeInput = (e) => {
+        setInputChat(e.target.value)
+        // send to order user if flag true or have value
+        if (flag && e.target.value !== "" && e.target.value.length >= 3) {
+            socket.emit("send-PendingChat", { 
+                roomId: currentChat._id,
+                reciverId: friend._id , 
+            })
+
+            setFlag(false)
+        // Send stop even if the input have less than 3
+        } else if (e.target.value === "" && e.target.value.length <= 3) {
+            socket.emit("stop-pendingChat", {
+                roomId: currentChat._id, 
+                reciverId: friend._id , 
+            })
+            setFlag(true)
+        }
+    }
 
     // Click outside to close
     const emojiDiv = useRef(null)
@@ -91,6 +112,11 @@ const ChatForm = () => {
     const handleSubmit = async () => {
         if (inputChat !== "") {
             try {
+                // Sent event to stop pending when on submit
+                socket.emit("stop-pendingChat", {roomId: currentChat._id})
+                setFlag(true)
+                setInputChat("")
+
                 // If user not edit or not reply => post new chat
                 if (!isEditChat && !isReplyChat) {
                     const {data} = await chatApi.postNewChat({
@@ -102,13 +128,10 @@ const ChatForm = () => {
                     socket.emit("send-msg", data)
                     // Send to socket id
                     socket.emit("sendToFriendOnline", { friendId: friend._id , ...data})
-                    // reset
-                    setInputChat("")
-                    console.log("post");
 
                 // If user reply chat
                 } else if (isReplyChat) {
-                    console.log("reply");
+                    // console.log("reply");
                     const {data} = await chatApi.postReplyChat({
                         roomId: currentChat._id,
                         sender: currentUser.id,
@@ -120,13 +143,12 @@ const ChatForm = () => {
                     // Send to socket id
                     socket.emit("sendToFriendOnline", { friendId: friend._id , ...data})
                     // reset
-                    setInputChat("")
                     setIsReplyChat(false)
                     setChatReply(null)
 
                 // else user edit patch that chat
                 } else {
-                    console.log("edit");
+                    // console.log("edit");
 
                     const {data} = await chatApi.patchChat({
                         roomId: currentChat._id,
@@ -142,7 +164,6 @@ const ChatForm = () => {
                     // reset
                     setIsEditChat(false)
                     setChatEdit(null)
-                    setInputChat("")
                 }
             } catch (error) {
                 console.log(error);
@@ -177,7 +198,7 @@ const ChatForm = () => {
                 placeholder={!isEditChat ? `Hãy nhập gì đó ...` : `Sửa lại chat ...`}
                 value={inputChat} 
                 onKeyDown={handleCtrlEnter}
-                onChange={(e) => setInputChat(e.target.value)}
+                onChange={handleOnChangeInput}
                 ref={editFormRef}
             ></textarea>
             {!isEditChat && <small>Bấm Ctrl + Enter để gửi</small>}
@@ -217,7 +238,7 @@ const ChatForm = () => {
                 placeholder={`Trả lời ...`}
                 value={inputChat} 
                 onKeyDown={handleCtrlEnter}
-                onChange={(e) => setInputChat(e.target.value)}
+                onChange={handleOnChangeInput}
                 ref={editFormRef}
             ></textarea>
             {/* <small>Bấm Ctrl + Enter để gửi</small> */}

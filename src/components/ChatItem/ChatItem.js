@@ -142,7 +142,7 @@ const ChatItem = ({self, data, dup}) => {
                                 {dup && <small>{moment(data.createdAt).fromNow()}</small>}
                                 {!data.reCall ? data.text : <i>Tin nhắn đã bị thu hồi</i> }
                             </p>
-                            { data.reacts.length > 0  && 
+                            { !data.reCall && data.reacts.length > 0  && 
                             <div className={styles.reactionWraper}>
                                 {data.reacts.map((react, i) => (
                                     <ReactionRender 

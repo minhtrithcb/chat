@@ -1,0 +1,23 @@
+
+.chatLoading {
+    padding: 1em calc(40px + 1em);
+    display: flex;
+    align-items: center;
+    height: 70px;
+    font-size: 0.8rem;
+    justify-content: flex-end;
+}
+
+.chatLoading2 {
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+
+    img {
+        width: 40px;
+    }
+}
+
+.img {
+    width: 50px;
+}

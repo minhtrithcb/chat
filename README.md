@@ -23,6 +23,7 @@ npm start
 * Người dùng sửa, thu hồi Chat (realtime).
 * Người dùng trích lời (reply)
 * Chat nối với nhau nếu 1 người chat liên tục
+* User typing hiện đang gõ  
 
 #### Chức năng đang làm
 
@@ -40,7 +41,6 @@ npm start
 * User online theo thời gần nhất (lần cuối online)
 * User tạo nhóm thêm thành viên
 * User gửi theo dõi, nhắn tin khi ko kết bạn theo setting
-* User typing hiện đang gõ  
 * User chat có file & gif ảnh 
 * User upload avatar 
 * User edit profile
