@@ -21,8 +21,8 @@ npm start
 * Người dùng tìm kiếm bạn bè (thêm thành công tạo hộp thoại)
 * Người dùng thêm, sửa Reaction (realtime).
 * Người dùng sửa, thu hồi Chat (realtime).
-* Người dùng trích lời (reply),
-
+* Người dùng trích lời (reply)
+* Chat nối với nhau nếu 1 người chat liên tục
 
 #### Chức năng đang làm
 

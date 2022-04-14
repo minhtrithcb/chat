@@ -12,20 +12,23 @@ import useDecodeJwt from '../../hooks/useDecodeJwt';
 import chatApi from '../../api/chatApi'
 import { SocketContext } from '../../context/SocketContext'
 
-const ChatItem = ({self, data}) => {
+const ChatItem = ({self, data, dup}) => {
     const {theme} = useTheme()
     const {friend, setChatEdit, chatEdit, currentChat, setChatReply} = useContext(ChatContext)
     const {socket} = useContext(SocketContext)
     const [currentUser] = useDecodeJwt()
     const classesDarkMode = clsx(styles.chatItem,{ 
         [styles.dark]: theme === "dark",
-        [styles.isEdit]: chatEdit !== null && chatEdit._id === data._id
+        [styles.isEdit]: chatEdit !== null && chatEdit._id === data._id,
+        [styles.dup]: dup
     })
 
     const classes2DarkMode = clsx(styles.chatItem2,{ 
         [styles.dark]: theme === "dark",
+        [styles.dup]: dup
     })
     
+    console.log(dup);
 
     //User send reaction
     const onChose = async (e) => {
@@ -73,15 +76,15 @@ const ChatItem = ({self, data}) => {
             <div className={classesDarkMode}>
                 <div className={styles.chatAvatar}>
                     <div className={styles.avatar}>
-                        <img src={avatar} alt="avatar" />
-                    </div>
+                    {!dup && <img src={avatar} alt="avatar" />}
+                    </div> 
                 </div>
                 
                 <div className={styles.chatDes}>
-                    <div className={styles.chatInfo}>
-                        <b>Bạn</b>
+                    {!dup && <div className={styles.chatInfo}>
+                        <b>Bạn</b> 
                         <small>{moment(data.createdAt).fromNow()}</small>
-                    </div>
+                    </div>}
                     <div className={styles.chatText}>
                         <div>
                             {data.replyMsg && <div className={styles.chatTextReply}>
@@ -92,6 +95,10 @@ const ChatItem = ({self, data}) => {
                                 <p>{data.replyMsg.text}</p>
                             </div>}
                             <p>
+                                {dup && <div className={styles.chatInfo}>
+                                    <b>Bạn</b> 
+                                    <small>{moment(data.createdAt).fromNow()}</small>
+                                </div>}
                                 {!data.reCall ? data.text : <i>Tin nhắn đã bị thu hồi</i>}
                             </p>
                             {!data.reCall && data.reacts.length > 0  && 
@@ -123,10 +130,10 @@ const ChatItem = ({self, data}) => {
             // Friend
             <div className={classes2DarkMode}>                
                 <div className={styles.chatDes}>
-                    <div className={styles.chatInfo}>
+                    {!dup && <div className={styles.chatInfo}>
                         <small>{moment(data.createdAt).fromNow()}</small>
                         <b>{friend.fullname}</b>
-                    </div>
+                    </div> }
                     <div className={styles.chatText}>
                         <div>
                             {data.replyMsg && <div className={styles.chatTextReply}>
@@ -136,7 +143,13 @@ const ChatItem = ({self, data}) => {
                                 <small>{moment(data.replyMsg.createdAt).fromNow()}</small>
                                 <p>{data.replyMsg.text}</p>
                             </div>}
-                            <p>{!data.reCall ? data.text : <i>Tin nhắn đã bị thu hồi</i> }</p>
+                            <p>
+                                {dup && <div className={styles.chatInfo}>
+                                    <small>{moment(data.createdAt).fromNow()}</small>
+                                    <b>{friend.fullname}</b>
+                                </div>}
+                                {!data.reCall ? data.text : <i>Tin nhắn đã bị thu hồi</i> }
+                            </p>
                             { data.reacts.length > 0  && 
                             <div className={styles.reactionWraper}>
                                 {data.reacts.map((react, i) => (
@@ -162,8 +175,8 @@ const ChatItem = ({self, data}) => {
                 </div>
                 <div className={styles.chatAvatar}>
                     <div className={styles.avatar}>
-                        <img src={avatar} alt="avatar" />
-                    </div>
+                        {!dup && <img src={avatar} alt="avatar" /> }
+                    </div> 
                 </div>
             </div>
             }

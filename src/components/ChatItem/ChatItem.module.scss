@@ -3,6 +3,7 @@
 
 .chatItem {
     padding: 1em;
+    padding-bottom: 0;
     display: flex;
 
     &:hover .chatEmoji ,
@@ -87,11 +88,15 @@
         .chatText {border: 2px solid $primary-color;}
     }
 
+    &.dup {
+        padding: 0 1em;
+    }
     
 }
 
 .chatItem2 {
     padding: 1em;
+    padding-bottom: 0;
     display: flex;
     justify-content: flex-end;
 
@@ -190,6 +195,10 @@
         }
     }
 
+    &.dup {
+        padding: 0 1em;
+    }
+
 }
 
 .chatEmoji {
@@ -212,6 +221,8 @@
 
 .avatar {
     @include avatar(30px);
+    border: none;
+    background-color: transparent;
 }
 
 .reactionWraper {

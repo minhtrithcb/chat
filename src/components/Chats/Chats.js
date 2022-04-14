@@ -123,14 +123,19 @@ const Chats = () => {
 
                 {/* // Render all chat  */}
                 <div className={styles.chatContainer} >
-                    {chats && chats.map(chat => (
-                        <ChatItem
-                            key={chat._id} 
-                            self={chat.sender === currentUser.id} 
-                            data={chat} 
+                    {chats && chats.map((currChat, index, chat) => {
+                        let dup = false
+                        if (index > 0 && chat[index - 1].sender === currChat.sender) {
+                            dup = true
+                        }
+                        return <ChatItem
+                            key={currChat._id} 
+                            self={currChat.sender === currentUser.id} 
+                            data={currChat} 
                             setChats={setChats}
+                            dup={dup}
                         />
-                    ))}
+                    })}
                     <div ref={bottomRef}></div>
                 </div>
                 {/* // From Chat  */}
