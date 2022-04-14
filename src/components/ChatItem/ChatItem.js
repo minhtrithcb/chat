@@ -27,8 +27,6 @@ const ChatItem = ({self, data, dup}) => {
         [styles.dark]: theme === "dark",
         [styles.dup]: dup
     })
-    
-    console.log(dup);
 
     //User send reaction
     const onChose = async (e) => {
@@ -88,18 +86,15 @@ const ChatItem = ({self, data, dup}) => {
                     <div className={styles.chatText}>
                         <div>
                             {data.replyMsg && <div className={styles.chatTextReply}>
-                                <b>{data.replyMsg.sender !== currentUser.id ?
+                                <b><i>{data.replyMsg.sender !== currentUser.id ?
                                     friend.fullname : "Bạn"
-                                }</b>
-                                <small>{moment(data.replyMsg.createdAt).fromNow()}</small>
-                                <p>{data.replyMsg.text}</p>
+                                }</i></b>
+                                <small><i>{moment(data.replyMsg.createdAt).fromNow()}</i></small>
+                                <p><i>{data.replyMsg.text}</i></p>
                             </div>}
                             <p>
-                                {dup && <div className={styles.chatInfo}>
-                                    <b>Bạn</b> 
-                                    <small>{moment(data.createdAt).fromNow()}</small>
-                                </div>}
                                 {!data.reCall ? data.text : <i>Tin nhắn đã bị thu hồi</i>}
+                                {dup && <small>{moment(data.createdAt).fromNow()}</small>}
                             </p>
                             {!data.reCall && data.reacts.length > 0  && 
                             <div className={styles.reactionWraper}>
@@ -137,17 +132,14 @@ const ChatItem = ({self, data, dup}) => {
                     <div className={styles.chatText}>
                         <div>
                             {data.replyMsg && <div className={styles.chatTextReply}>
-                                <b>{data.replyMsg.sender !== currentUser.id ?
+                                <b><i>{data.replyMsg.sender !== currentUser.id ?
                                     friend.fullname : "Bạn"
-                                }</b>
-                                <small>{moment(data.replyMsg.createdAt).fromNow()}</small>
-                                <p>{data.replyMsg.text}</p>
+                                }</i></b>
+                                <small><i>{moment(data.replyMsg.createdAt).fromNow()} </i></small>
+                                <p><i>{data.replyMsg.text}</i></p>
                             </div>}
                             <p>
-                                {dup && <div className={styles.chatInfo}>
-                                    <small>{moment(data.createdAt).fromNow()}</small>
-                                    <b>{friend.fullname}</b>
-                                </div>}
+                                {dup && <small>{moment(data.createdAt).fromNow()}</small>}
                                 {!data.reCall ? data.text : <i>Tin nhắn đã bị thu hồi</i> }
                             </p>
                             { data.reacts.length > 0  && 

@@ -34,10 +34,10 @@
         
         b {
             font-size: 0.9rem;
+            margin-right: 1em;
         }
 
         small {
-            margin-left: 1em;
             font-size: 0.7rem
         }
     }
@@ -72,6 +72,10 @@
             line-height: 2;
             margin: 0;
             font-size: 0.9rem;
+
+            small {
+                display: block;
+            }
         }
 
         .chatEmoji {
@@ -172,6 +176,10 @@
             margin: 0;
             line-height: 2;
             font-size: 0.9rem;
+
+            small {
+                display: block;
+            }
         }
 
         .chatEmoji {
@@ -185,13 +193,15 @@
     }
 
     .chatTextReply {
+        background-color: rgba(255, 255, 255, 0.136);
+        border-left: 2px solid #fff;
         b,small {
             color: #000;
         }
 
         p {
             color: #fff;
-            border-left: 2px solid #fff;
+
         }
     }
 
@@ -230,22 +240,23 @@
 }
 
 .chatTextReply {
-    margin-left: 0.5em;
     margin-bottom: 0.5em;
-
+    background-color: #c0bcff15;
+    border-left: 2px solid $primary-color;
+    padding-left: 1em;
+    padding-right: 1em;
 
     b {
         margin: 0.7em 0;
         display: inline-block;
         margin-right: 0.5em;
+        font-size: 00.8rem;
     }
 
     p {
         line-height: 2;
         margin: 0;
         font-size: 0.8rem;
-        border-left: 2px solid $primary-color;
-        padding-left: 1em;
         color: $primary-colorDark;
     }
 }
