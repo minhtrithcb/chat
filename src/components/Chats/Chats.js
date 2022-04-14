@@ -66,7 +66,7 @@ const Chats = () => {
         return () => { 
             isMounted = false 
         };
-    }, [socket, bottomRef, currentUser, setPendingChat, currentChat])
+    }, [socket, bottomRef, currentUser.id, setPendingChat, currentChat])
     
     // Join room when user chose friend to chat
     useEffect(() => {

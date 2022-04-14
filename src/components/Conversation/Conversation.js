@@ -49,7 +49,6 @@ const Conversation = () => {
         getAllconvertation()
         return () => { 
             isMounted = false 
-            setCurrentChat(null)
         };
     }, [socket, currentUser.id, setCurrentChat])   
 

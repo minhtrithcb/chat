@@ -14,25 +14,10 @@ const SocketProvider = ({children}) => {
         if (auth.accessToken) {
             let currentUser = jwtDecode(auth.accessToken)
             socket.emit("join server", currentUser.id)
-            // console.log("running");
         }
 
         return () => socket.disconnect()
     }, [auth, socket])
-
-    // // Get all users online
-    // useEffect(() => {
-    //     let isMounted = true;            
-
-    //     socket.on("getUser", usersOnline => {
-    //         if(isMounted) console.log(usersOnline);
-    //     })
-
-    //     return () => { 
-    //         isMounted = false 
-    //         socket.disconnect()
-    //     };
-    // }, [socket])    
 
     return (
         <SocketContext.Provider value={{socket}}>
