@@ -1,7 +1,7 @@
 import React, {useEffect, useState } from 'react'
 import styles from './Profile.module.scss'
 import avatar from '../../assets/images/user.png'
-import Button from '../../components/Button/Button'
+import Button from '../../components/Common/Button/Button'
 import { BsBookmarkCheck, BsChatLeftDots ,BsGlobe, BsGenderAmbiguous, BsCalendar2Date } from "react-icons/bs";
 import { FiMail } from "react-icons/fi";
 import { MdWorkOutline } from "react-icons/md";

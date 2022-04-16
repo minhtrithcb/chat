@@ -7,12 +7,12 @@ import userApi from '../../api/userApi'
 import Swal from 'sweetalert2'
 import converApi from '../../api/converApi'
 import { toast } from 'react-toastify'
-import Button from '../Button/Button'
+import Button from '../Common/Button/Button'
 import { AiOutlineUser } from "react-icons/ai";
 import { BsChatSquareDots } from "react-icons/bs";
 import { Link } from 'react-router-dom'
 import { BsBell, BsBellSlash } from "react-icons/bs";
-import Dropdown, { DropdownItem } from '../Dropdown/Dropdown'
+import Dropdown, { DropdownItem } from '../Common/Dropdown/Dropdown'
 import useTheme from '../../hooks/useTheme'
 import clsx from 'clsx'
 

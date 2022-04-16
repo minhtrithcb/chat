@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import friendReqApi from '../../api/friendReqApi';
 import useDecodeJwt from '../../hooks/useDecodeJwt';
-import Button from '../Button/Button';
+import Button from '../Common/Button/Button'
 import styles from './ContactComponent.module.scss'
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
 import CardItem from './CardItem';
-import Dropdown, { DropdownItem } from '../Dropdown/Dropdown';
+import Dropdown, { DropdownItem } from '../Common/Dropdown/Dropdown';
 import clsx from 'clsx';
 import useTheme from '../../hooks/useTheme';
 

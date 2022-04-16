@@ -8,6 +8,7 @@ import { ChatContext } from '../../context/ChatContext'
 import ConversationItem from '../ConversationItem/ConversationItem'
 import { SocketContext } from '../../context/SocketContext'
 import SearchBox from '../SearchBox/SearchBox'
+import ConversationOption from '../ConversationOption/ConversationOption'
 
 const Conversation = () => {
     const [conversations, setConversations] = useState([])
@@ -65,9 +66,23 @@ const Conversation = () => {
     return (
         <div className={classesDarkMode}>
             <SearchBox />
+
+            <ConversationOption />
+            
             <div className={classesDarkMode2}>                
                 {/* ///// All messages  */}
-                <small>Tất cả tin nhắn</small>
+                {/* <small>Tin nhắn nhóm</small>
+                {conversations && conversations.map((conver) => (
+                    <div onClick={() => handleChoseChat(conver)} key={conver._id}>
+                        <ConversationItem 
+                            usersOnline={usersOnline}
+                            conversation={conver} 
+                            friends={conver.members.filter(u => u._id !== currentUser.id)}
+                            activeChat={currentChat && currentChat?._id === conver._id}
+                        />
+                    </div>
+                ))} */}
+                {/* <small>Tin nhắn bạn bè</small> */}
                 {conversations && conversations.map((conver) => (
                     <div onClick={() => handleChoseChat(conver)} key={conver._id}>
                         <ConversationItem 

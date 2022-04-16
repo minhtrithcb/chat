@@ -3,7 +3,7 @@ import React, { useCallback, useContext, useRef, useState} from 'react'
 import useTheme from '../../hooks/useTheme'
 import styles from './SearchBox.module.scss'
 import avatar from '../../assets/images/user.png'
-import Button from '../Button/Button'
+import Button from '../Common/Button/Button'
 import useToggle from '../../hooks/useToggle'
 import {FiDelete} from "react-icons/fi";
 import userApi from '../../api/userApi'

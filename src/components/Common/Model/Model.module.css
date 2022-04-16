@@ -1,0 +1,113 @@
+.modelBox {
+  position: fixed;
+  z-index: 1001;
+  width: 700px;
+  height: auto;
+  background-color: white;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  border-radius: .5em;
+  -webkit-box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+          box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+@media screen and (max-width: 768px) {
+  .modelBox {
+    max-width: 95%;
+  }
+}
+
+.modelBox .backdrop {
+  display: none;
+}
+
+.modelBox .modelBox {
+  top: 65%;
+  width: 800px;
+}
+
+.modelContainer {
+  padding: 1em;
+  height: auto;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.382);
+  z-index: 1000;
+}
+
+.modelHeading {
+  padding: 0.5em 1em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-bottom: 1px solid #d1d1d1;
+}
+
+.modelHeading .closeBtn {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5em;
+  padding: 0.3em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-left: auto;
+}
+
+.modelHeading p {
+  display: inline-block;
+  font-weight: bold;
+}
+
+.enter {
+  opacity: 0;
+  -webkit-transform: translate(-50%, -30%);
+          transform: translate(-50%, -30%);
+}
+
+.enterActive {
+  opacity: 1;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  -webkit-transition: opacity 200ms ease-in-out, -webkit-transform 200ms ease;
+  transition: opacity 200ms ease-in-out, -webkit-transform 200ms ease;
+  transition: opacity 200ms ease-in-out, transform 200ms ease;
+  transition: opacity 200ms ease-in-out, transform 200ms ease, -webkit-transform 200ms ease;
+}
+
+.exit {
+  opacity: 1;
+}
+
+.exitActive {
+  opacity: 0;
+  -webkit-transform: translate(-50%, -30%);
+          transform: translate(-50%, -30%);
+  -webkit-transition: opacity 300ms, -webkit-transform 300ms;
+  transition: opacity 300ms, -webkit-transform 300ms;
+  transition: opacity 300ms, transform 300ms;
+  transition: opacity 300ms, transform 300ms, -webkit-transform 300ms;
+}
+/*# sourceMappingURL=Model.module.css.map */

@@ -1,9 +1,9 @@
 import clsx from 'clsx'
 import React, { useRef, useState } from 'react'
 import styles from './Dropdown.module.scss'
-import useOutside from '../../hooks/useOutside'
+import useOutside from '../../../hooks/useOutside'
 import { BsThreeDotsVertical } from "react-icons/bs";
-import useTheme from '../../hooks/useTheme';
+import useTheme from '../../../hooks/useTheme';
 
 export const DropdownItem = ({children, icon: Icon, ...rest}) => {
   return (

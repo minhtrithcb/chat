@@ -9,7 +9,7 @@ import useDecodeJwt from '../../hooks/useDecodeJwt';
 import useTheme from '../../hooks/useTheme';
 import styles from './ChatForm.module.scss'
 import useOutside from '../../hooks/useOutside';
-import Button from '../Button/Button'
+import Button from '../Common/Button/Button'
 
 import { Picker } from 'emoji-mart'
 
@@ -113,7 +113,10 @@ const ChatForm = () => {
         if (inputChat !== "") {
             try {
                 // Sent event to stop pending when on submit
-                socket.emit("stop-pendingChat", {roomId: currentChat._id})
+                socket.emit("stop-pendingChat", {
+                    roomId: currentChat._id, 
+                    reciverId: friend._id
+                })
                 setFlag(true)
                 setInputChat("")
 

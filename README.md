@@ -17,7 +17,7 @@ npm start
 
 * Giao diện, Đăng nhập, đăng ký, trang chủ, profile, trang 404...
 * Logic Đăng nhập, đăng ký, đăng xuất, kiểm lỗi form, protective Route. 
-* kết bạn nhận tin kết bạn (realtime), Gửi tin nhắn (realtime)
+* kết bạn nhận tin kết bạn (realtime), Gửi tin nhắn 1 - 1 (realtime) 
 * Người dùng tìm kiếm bạn bè (thêm thành công tạo hộp thoại)
 * Người dùng thêm, sửa Reaction (realtime).
 * Người dùng sửa, thu hồi Chat (realtime).
@@ -26,6 +26,7 @@ npm start
 * User typing hiện đang gõ  
 
 #### Chức năng đang làm
+* User tạo nhóm thêm thành viên, chat nhóm
 
 
 ### Chức năng Frontend sẻ có ...
@@ -39,8 +40,7 @@ npm start
 * User gửi otp đăng nhập
 * Đăng nhập đa nền tảng, gửi mail
 * User online theo thời gần nhất (lần cuối online)
-* User tạo nhóm thêm thành viên
-* User gửi theo dõi, nhắn tin khi ko kết bạn theo setting
+* User nhắn tin khi ko kết bạn theo setting
 * User chat có file & gif ảnh 
 * User upload avatar 
 * User edit profile

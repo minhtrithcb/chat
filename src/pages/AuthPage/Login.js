@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import styles from './Auth.module.scss'
 import ImageLight from '../../assets/images/illu/s.png'
-import Button from '../../components/Button/Button'
-import Input from '../../components/Form/Input'
+import Button from '../../components/Common/Button/Button'
+import Input from '../../components/Common/Form/Input'
 import { FcGoogle } from "react-icons/fc";
 import { BsGithub } from "react-icons/bs";
 import { Link, useLocation, useNavigate } from 'react-router-dom'

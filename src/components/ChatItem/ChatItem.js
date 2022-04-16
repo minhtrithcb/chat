@@ -7,7 +7,7 @@ import { ChatContext } from '../../context/ChatContext'
 import useTheme  from '../../hooks/useTheme'
 import styles from "./ChatItem.module.scss"
 import Reaction, { ReactionRender } from '../Reaction/Reaction'
-import Dropdown, { DropdownItem } from '../Dropdown/Dropdown'
+import Dropdown, { DropdownItem } from '../Common/Dropdown/Dropdown'
 import useDecodeJwt from '../../hooks/useDecodeJwt';
 import chatApi from '../../api/chatApi'
 import { SocketContext } from '../../context/SocketContext'

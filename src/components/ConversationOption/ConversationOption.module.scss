@@ -1,0 +1,82 @@
+@import '../../assets/css/mixin';
+@import '../../assets/css/variable';
+
+
+.optionContainer {
+    padding: 0 1em;
+
+    label {
+        display: block;
+        padding: 0.5em 0;
+    }
+}
+
+.footer {
+    width: 100%;
+    padding: 1em 0;
+    margin: 1em 0;
+    display: flex;
+    justify-content: flex-end;
+
+    button:first-child {
+        margin-right: 1em;
+    }
+}
+
+.optionAddPeople {
+    width: 35px;
+    height: 35px;
+    display: inline-block;
+    @include center;
+    cursor: pointer;
+    border: 1px dashed $gray;
+}
+
+.optionBox {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &>div {
+        width: 100%;
+        font-size: 0.8rem;
+
+        span {background-color: transparent;}
+    }
+
+    &>span {
+        cursor: pointer;
+        padding: 0.5em;
+        font-size: 1.2rem;
+        @include center;
+        background-color: $primary-color;
+        margin-left: 0.5em;
+        border-radius: 0.3em;
+        color: #fff;
+    } 
+}
+
+.friendList {
+    max-height: 300px;
+    overflow-y: auto;
+    @include scrollBarDefault;
+}
+
+.userItem {
+    display: flex;
+    padding: 1em 0;
+    height: 60px;
+    align-items: center;
+
+    a {
+        color: $primary-color
+    }
+
+    button {
+        margin-left: auto
+    }
+}
+
+.avatar {
+    @include avatar(30px);
+}
