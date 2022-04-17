@@ -7,6 +7,7 @@ const ChatProvider = ({children}) => {
     const [friend, setFriend] = useState(null)
     const [chatEdit, setChatEdit] = useState(null)
     const [chatReply, setChatReply] = useState(null)
+    const [chatsOption, setChatsOption] = useState('All')
     
     const value = {
         currentChat,
@@ -16,7 +17,9 @@ const ChatProvider = ({children}) => {
         chatEdit,
         setChatEdit,
         chatReply,
-        setChatReply
+        setChatReply,
+        chatsOption,
+        setChatsOption
     }        
 
     return (

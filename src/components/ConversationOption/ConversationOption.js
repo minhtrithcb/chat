@@ -11,21 +11,26 @@ import useDecodeJwt from '../../hooks/useDecodeJwt';
 import Button from '../Common/Button/Button'
 import FriendItem from './FriendItem';
 import Alert from '../Common/Alert/Alert';
+import converApi from '../../api/converApi';
+import { toast } from 'react-toastify';
+import { ChatContext } from '../../context/ChatContext';
 
 
 const ConversationOption = () => {
     const options = [
-      { value: '1', label: 'Tất cả tin nhắn' },
-      { value: '2', label: 'Tin nhắn nhóm' },
-      { value: '3', label: 'Tin nhắn bạn bè' }
+      { value: 'All', label: 'Tất cả tin nhắn' },
+      { value: 'Group', label: 'Tin nhắn nhóm' },
+      { value: 'Friend', label: 'Tin nhắn bạn bè' }
     ]
-    const [addFriend, setaAddFriend] = useState([])
+    const [addFriend, setAddFriend] = useState([])
     const [isOpen, setIsOpen] = useState(false) // main model
     const [isOpen2, setIsOpen2] = useState(false) // chose friend model
     const [isOpen3, setIsOpen3] = useState(false) // prev quit model
     const { register,  formState: { errors }, reset, handleSubmit } = useForm();
-    const [currentUser] = useDecodeJwt()
     const {friendList, setFriendList} = useContext(FriendContext)
+    const {chatsOption, setChatsOption} = useContext(ChatContext)
+    const [currentUser] = useDecodeJwt()
+    const [sender, setSender] = useState(null)
 
     const inputInit = {
         nameGroup: {
@@ -44,12 +49,15 @@ const ConversationOption = () => {
         }
     }
 
-    // Fetch friendList 
+    // Fetch friendList & sender user obj
     useEffect(() => {
         let isMounted = true
         const getFriendList = async () => {
             const {data} = await userApi.getFriendUser(currentUser.id)
-            if (isMounted) setFriendList(data)
+            const res = await userApi.getByUserId(currentUser.id)
+            if (isMounted) 
+                setSender(res.data)
+                setFriendList(data)
         }
 
         getFriendList()
@@ -60,17 +68,30 @@ const ConversationOption = () => {
     const handleClick = (friend) => {
         const found = addFriend.find(user => friend._id === user._id)
         if (!found) {
-            setaAddFriend(prev => [...prev, friend])
+            setAddFriend(prev => [...prev, friend])
         } else {
-            setaAddFriend(prev => prev.filter(u => u._id !== friend._id))
+            setAddFriend(prev => prev.filter(u => u._id !== friend._id))
         }
     }
 
     // Submit form
-    const onSubmit = data => {
-        console.log(data);
+    const onSubmit = async data => {
+        if (addFriend.length > 0) {
+            try {
+                const res = await converApi.createGroptConver({
+                    members: [...addFriend, sender],
+                    nameGroup: data.nameGroup,
+                    owner: sender._id
+                })
+                if (res.data?.success) {
+                    toast.success(`Tạo nhóm thành công`)
+                    prevQuit(true)
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
     }
-
 
     // Prev form not save
     const prevQuit = (chose) => {
@@ -78,16 +99,26 @@ const ConversationOption = () => {
             reset()
             setIsOpen(false)
             setIsOpen3(false)
-            setaAddFriend([])
+            setAddFriend([])
         } else {
             setIsOpen3(false)
         }
     }
 
+    // Render default option
+    const renderDefOption = () => {
+        return options.filter(o => o.value === chatsOption)
+    }
+
+    // Change option
+    const handleChangeOption = (e) => {
+        setChatsOption(e.value);
+    }
+
     return (
         <div className={styles.optionContainer}>
             <div className={styles.optionBox}>
-                <Select options={options} defaultValue={options[0]} />
+                <Select options={options} onChange={handleChangeOption} defaultValue={renderDefOption} />
                 <span onClick={() => setIsOpen(true) }>
                     <AiOutlinePlus />
                 </span>
@@ -104,39 +135,39 @@ const ConversationOption = () => {
                     <Input  {...register("nameGroup", inpValid.nameGroup)} {...inputInit.nameGroup} />
                     <label>Thêm thành viên</label>
                     <div className={styles.friendList}>
-                        {addFriend.map(f => (
+                        {addFriend.length > 0 ? addFriend.map(f => (
                             <FriendItem 
                                 key={f._id} 
                                 friend={f} 
                                 inAddFriend={addFriend.some(u => u._id === f._id)}
                                 onClick={handleClick} 
                             />
-                        ))}
+                        )) : <p>Hãy thêm thành viên nào</p> }
                     </div>
                     <span className={styles.optionAddPeople} onClick={() => setIsOpen2(true) }>
                         <AiOutlinePlus />
                     </span>
-                    {/* Chose friend model */}
-                    <Model 
-                        isOpen={isOpen2} 
-                        handleClick={setIsOpen2} 
-                        heading="Thêm thành viên"
-                    > 
-                        {friendList && friendList.map(f => (
-                            <FriendItem 
-                                key={f._id} 
-                                friend={f} 
-                                inAddFriend={addFriend.some(u => u._id === f._id)}
-                                onClick={handleClick} 
-                            />
-                        ))}
-                    </Model>
 
                     <div className={styles.footer}>
                         <Button size={'lg'} onClick={() => setIsOpen3(true)}>Thoát</Button>
                         <Button type="submit" primary size={'lg'}>Tạo nhóm</Button>
                     </div>
                 </form>
+                {/* Chose friend model */}
+                <Model 
+                    isOpen={isOpen2} 
+                    handleClick={setIsOpen2} 
+                    heading="Thêm thành viên"
+                > 
+                    {friendList && friendList.map(f => (
+                        <FriendItem 
+                            key={f._id} 
+                            friend={f} 
+                            inAddFriend={addFriend.some(u => u._id === f._id)}
+                            onClick={handleClick} 
+                        />
+                    ))}
+                </Model>
             </Model>
             {/* Prev quit model */}
             <Alert 

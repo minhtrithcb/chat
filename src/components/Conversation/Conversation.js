@@ -13,7 +13,7 @@ import ConversationOption from '../ConversationOption/ConversationOption'
 const Conversation = () => {
     const [conversations, setConversations] = useState([])
     const [currentUser] = useDecodeJwt()
-    const {currentChat, setCurrentChat, friend, setFriend, setChatEdit, setChatReply} = useContext(ChatContext)
+    const {currentChat, setCurrentChat, friend, setFriend, setChatEdit, setChatReply, chatsOption} = useContext(ChatContext)
     const {theme} = useTheme()
     const classesDarkMode = clsx(styles.contact,{ 
         [styles.dark]: theme === "dark"
@@ -38,7 +38,10 @@ const Conversation = () => {
         let isMounted = true;   
         const  getAllconvertation = async () => {
             try {
-                const {data} = await converApi.getByUserId(currentUser.id)
+                const {data} = await converApi.getByUserId({
+                    userId: currentUser.id,
+                    type: chatsOption
+                })
                 if (isMounted) {
                     setConversations(data);
                     socket.emit('join conversation')
@@ -51,14 +54,15 @@ const Conversation = () => {
         return () => { 
             isMounted = false 
         };
-    }, [socket, currentUser.id, setCurrentChat])   
+    }, [socket, currentUser.id, setCurrentChat, chatsOption])   
 
 
     // User chose Chat setCurrentChat & setFriend (for sending msg)
     const handleChoseChat = (conversation) => {
         setCurrentChat(conversation)
-        const friend = conversation.members.filter(u => u._id !== currentUser.id)
-        setFriend(friend[0]);      
+        const friends = conversation.members.filter(u => u._id !== currentUser.id)
+        setFriend(friends);      
+        // setFriend(friend[0]);      
         setChatEdit(null)
         setChatReply(null)
     }
@@ -69,10 +73,11 @@ const Conversation = () => {
 
             <ConversationOption />
             
-            <div className={classesDarkMode2}>                
-                {/* ///// All messages  */}
-                {/* <small>Tin nhắn nhóm</small>
-                {conversations && conversations.map((conver) => (
+            <div className={classesDarkMode2}>        
+            {conversations && 
+                <>
+                <small>Tin nhắn {chatsOption}</small>
+                { conversations.map((conver) => (
                     <div onClick={() => handleChoseChat(conver)} key={conver._id}>
                         <ConversationItem 
                             usersOnline={usersOnline}
@@ -81,18 +86,8 @@ const Conversation = () => {
                             activeChat={currentChat && currentChat?._id === conver._id}
                         />
                     </div>
-                ))} */}
-                {/* <small>Tin nhắn bạn bè</small> */}
-                {conversations && conversations.map((conver) => (
-                    <div onClick={() => handleChoseChat(conver)} key={conver._id}>
-                        <ConversationItem 
-                            usersOnline={usersOnline}
-                            conversation={conver} 
-                            friends={conver.members.filter(u => u._id !== currentUser.id)}
-                            activeChat={currentChat && currentChat?._id === conver._id}
-                        />
-                    </div>
-                ))}
+                ))} 
+                </> }
             </div>
         </div>
     )

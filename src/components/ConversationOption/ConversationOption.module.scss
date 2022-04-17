@@ -4,6 +4,7 @@
 
 .optionContainer {
     padding: 0 1em;
+    margin-bottom: 0.5em;
 
     label {
         display: block;
@@ -13,8 +14,8 @@
 
 .footer {
     width: 100%;
-    padding: 1em 0;
-    margin: 1em 0;
+    // padding: 1em 0;
+    // margin: 1em 0;
     display: flex;
     justify-content: flex-end;
 

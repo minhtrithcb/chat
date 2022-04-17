@@ -63,7 +63,13 @@ const ChatItem = ({self, data, dup}) => {
         //send into room
         socket.emit("sendChangeChat", res.data.result)
         //send backto change lastmsg if this is lastmsg
-        socket.emit("sendLastActivity", { friendId: friend._id , ...res.data})
+        socket.emit("sendLastActivity", { recivers: friend , ...res.data})
+    }
+
+    // Render friend fullname
+    const renderFullname = () => {
+        return data.replyMsg.sender === currentUser.id ? "Bạn" :
+        friend.find(u => u._id === data.replyMsg.sender)?.fullname  
     }
 
     return (
@@ -86,9 +92,7 @@ const ChatItem = ({self, data, dup}) => {
                     <div className={styles.chatText}>
                         <div>
                             {data.replyMsg && <div className={styles.chatTextReply}>
-                                <b><i>{data.replyMsg.sender !== currentUser.id ?
-                                    friend.fullname : "Bạn"
-                                }</i></b>
+                                <b><i>{renderFullname()}</i></b>
                                 <small><i>{moment(data.replyMsg.createdAt).fromNow()}</i></small>
                                 <p><i>{data.replyMsg.text}</i></p>
                             </div>}
@@ -123,18 +127,16 @@ const ChatItem = ({self, data, dup}) => {
                 </div>
             </div>:  
             // Friend
-            <div className={classes2DarkMode}>                
+            <div className={classes2DarkMode} >                
                 <div className={styles.chatDes}>
                     {!dup && <div className={styles.chatInfo}>
                         <small>{moment(data.createdAt).fromNow()}</small>
-                        <b>{friend.fullname}</b>
+                        <b>{friend.find(u => u._id === data.sender)?.fullname }</b>
                     </div> }
                     <div className={styles.chatText}>
                         <div>
                             {data.replyMsg && <div className={styles.chatTextReply}>
-                                <b><i>{data.replyMsg.sender !== currentUser.id ?
-                                    friend.fullname : "Bạn"
-                                }</i></b>
+                                  <b><i>{renderFullname()}</i></b>
                                 <small><i>{moment(data.replyMsg.createdAt).fromNow()} </i></small>
                                 <p><i>{data.replyMsg.text}</i></p>
                             </div>}

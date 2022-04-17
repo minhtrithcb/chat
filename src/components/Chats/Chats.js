@@ -20,6 +20,7 @@ import ChatLoading from '../ChatLoading/ChatLoading';
 const Chats = () => {
     const [toggle, setToggle] = useToggle(false)
     const [pendingChat, setPendingChat] = useToggle(false)
+    const [sender, setSender] = useState('')
     const [chats, setChats] = useState([])
     const {theme} = useTheme()
     const bottomRef = useRef()
@@ -48,11 +49,12 @@ const Chats = () => {
             }
         })
         // Event pending
-        socket.on("getPendingByFriend", ({roomId, reciverId}) => {
+        socket.on("getPendingByFriend", ({roomId, reciverId, sender}) => {
             if (isMounted && roomId === currentChat?._id &&
                 reciverId === currentUser.id
                 ) {
                 setPendingChat(true)
+                setSender(sender)
                 bottomRef?.current?.scrollIntoView({behavior: "smooth"})
             }
         })
@@ -112,15 +114,24 @@ const Chats = () => {
             : <div className={classesDarkMode} >
                 {/* // Desktop view  */}
                 <div className={styles.friendCover}>
-                    {friend && <div>
+                    {currentChat.type === 'Friend' ? <div>
                         <div className={styles.avatar}>
                             <img src={avatar} alt="friend" />
                         </div>
                         <span className={styles.des}>
-                            <b>{friend.fullname}</b>
-                            <small>#{friend.email}</small>
+                            <b>{friend[0].fullname}</b>
+                            <small>#{friend[0].email}</small>
                         </span>
-                    </div> }
+                    </div> : 
+                    <div>
+                        <div className={styles.avatar}>
+                            <img src={avatar} alt="friend" />
+                        </div>
+                        <span className={styles.des}>
+                            <b>{currentChat.name}</b>
+                        </span>
+                    </div>
+                    }
 
                     <div onClick={setToggle}>
                         {toggle ? <FiAlignRight /> : <FiMenu />}
@@ -153,13 +164,13 @@ const Chats = () => {
                             dup={dup}
                         />
                     })}
-                    {pendingChat && <ChatLoading username={friend.fullname} />}
+                    {pendingChat && <ChatLoading username={friend.find(u => u._id === sender)?.fullname  } />}
                     <div ref={bottomRef}></div>
                 </div>
                 {/* // From Chat  */}
                 <ChatForm />
             </div>}
-            {toggle && <FriendProfile />}
+            {/* {toggle && <FriendProfile />} */}
         </>
     )
 }

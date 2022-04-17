@@ -5,7 +5,7 @@ import styles from './ChatLoading.module.scss'
 export const ConversationItemLoading = ({username}) => {    
     return (
       <div className={styles.chatLoading2}>
-        <small>{username} Đang nhập</small>
+        {username &&<small>{username} Đang nhập</small>}
         <img src={typing} alt="typing" className={styles.img} />
       </div>
     )

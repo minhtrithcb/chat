@@ -77,7 +77,8 @@ const ChatForm = () => {
         if (flag && e.target.value !== "" && e.target.value.length >= 3) {
             socket.emit("send-PendingChat", { 
                 roomId: currentChat._id,
-                reciverId: friend._id , 
+                recivers: friend, 
+                sender: currentUser.id
             })
 
             setFlag(false)
@@ -85,7 +86,7 @@ const ChatForm = () => {
         } else if (e.target.value === "" && e.target.value.length <= 3) {
             socket.emit("stop-pendingChat", {
                 roomId: currentChat._id, 
-                reciverId: friend._id , 
+                recivers: friend, 
             })
             setFlag(true)
         }
@@ -115,7 +116,7 @@ const ChatForm = () => {
                 // Sent event to stop pending when on submit
                 socket.emit("stop-pendingChat", {
                     roomId: currentChat._id, 
-                    reciverId: friend._id
+                    recivers: friend
                 })
                 setFlag(true)
                 setInputChat("")
@@ -130,7 +131,10 @@ const ChatForm = () => {
                     // Send to socket room
                     socket.emit("send-msg", data)
                     // Send to socket id
-                    socket.emit("sendToFriendOnline", { friendId: friend._id , ...data})
+                    socket.emit("sendToFriendOnline", { 
+                        recivers : friend, 
+                        ...data
+                    })
 
                 // If user reply chat
                 } else if (isReplyChat) {
@@ -144,7 +148,7 @@ const ChatForm = () => {
                     // Send to socket room
                     socket.emit("send-msg", data)
                     // Send to socket id
-                    socket.emit("sendToFriendOnline", { friendId: friend._id , ...data})
+                    socket.emit("sendToFriendOnline", { recivers: friend , ...data})
                     // reset
                     setIsReplyChat(false)
                     setChatReply(null)
@@ -163,7 +167,7 @@ const ChatForm = () => {
                     // Send into room
                     socket.emit("sendChangeChat", data.result)
                     //send backto change lastmsg if this is lastmsg
-                    socket.emit("sendLastActivity", { friendId: friend._id , ...data})
+                    socket.emit("sendLastActivity", { recivers: friend , ...data})
                     // reset
                     setIsEditChat(false)
                     setChatEdit(null)
@@ -229,8 +233,8 @@ const ChatForm = () => {
             {isReplyChat && chatReply && <>
            <div className={classes2DarkMode}>
                 <div>
-                    <b>{chatReply.sender !== currentUser.id ?
-                        friend.fullname : "Bạn"
+                    <b>{chatReply.sender === currentUser.id ? "Bạn" :
+                        friend.find(u => u._id === chatReply.sender)?.fullname  
                     }</b>
                     <Button size={'md'} danger onClick={handleStopReply}>Bỏ trả lời</Button>
                     <p>{textReply}</p>

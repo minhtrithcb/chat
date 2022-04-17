@@ -70,25 +70,46 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
     },[usersOnline, friends])    
 
     return (
-         <div className={classesDarkMode}>
-            <span className={styles.avatarConatiner}>
-                <div className={styles.avatar}>
-                    <img src={avatar} alt="friend" />
-                </div>
-                {onlineFriend && <span className={styles.isOnline}></span>}
-            </span>
-            <span>
-                <b>{friends[0].fullname}</b>
-                {lastMsg && !lastMsg.reCall ? 
-                    <p>{lastMsg.text.length > 10 ? `${lastMsg.text.substring(0, 10)} ...`: lastMsg.text}  </p>:
-                    lastMsg?.reCall && <p className={styles.italic}>{"Tin nhắn đã bị thu hồi".substring(0, 11)} ...</p>
-                }
-            </span>
-            <span>
-                {pendingChat && <ConversationItemLoading />}
-                <small>{lastMsg && moment(lastMsg.createdAt).fromNow()}</small>
-            </span>
-        </div> 
+        <>
+            {conversation.type === 'Friend' ? <div className={classesDarkMode}>
+                <span className={styles.avatarConatiner}>
+                    <div className={styles.avatar}>
+                        <img src={avatar} alt="friend" />
+                    </div>
+                    {onlineFriend && <span className={styles.isOnline}></span>}
+                </span>
+                <span>
+                    <b>{friends[0].fullname}</b>
+                    {lastMsg && !lastMsg.reCall ? 
+                        <p>{lastMsg.text.length > 10 ? `${lastMsg.text.substring(0, 10)} ...`: lastMsg.text}  </p>:
+                        lastMsg?.reCall && <p className={styles.italic}>{"Tin nhắn đã bị thu hồi".substring(0, 11)} ...</p>
+                    }
+                </span>
+                <span>
+                    {pendingChat && <ConversationItemLoading />}
+                    <small>{lastMsg && moment(lastMsg.createdAt).fromNow()}</small>
+                </span>
+            </div> :
+            <div className={classesDarkMode}>
+                <span className={styles.avatarConatiner}>
+                    <div className={styles.avatar}>
+                        <img src={avatar} alt="friend" />
+                    </div>
+                    {onlineFriend && <span className={styles.isOnline}></span>}
+                </span>
+                <span>
+                    <b>{conversation.name}</b>
+                    {lastMsg && !lastMsg.reCall ? 
+                        <p>{lastMsg.text.length > 10 ? `${lastMsg.text.substring(0, 10)} ...`: lastMsg.text}  </p>:
+                        lastMsg?.reCall && <p className={styles.italic}>{"Tin nhắn đã bị thu hồi".substring(0, 11)} ...</p>
+                    }
+                </span>
+                <span>
+                    {pendingChat && <ConversationItemLoading />}
+                    <small>{lastMsg && moment(lastMsg.createdAt).fromNow()}</small>
+                </span>
+            </div> }
+        </>
     )
 }
 
