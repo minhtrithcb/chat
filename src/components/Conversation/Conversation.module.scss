@@ -5,11 +5,16 @@
     min-width: 300px;
     height: 100vh;
     background-color: #fff;
+    padding-top: 1em;
 
     @include maxWitdh(768px) {
         height: 100%;
         width: 100%;
         border-right: none;
+    }
+
+    h3 {
+        padding: 0 1em;
     }
 }
 
@@ -19,73 +24,24 @@
     overflow-y: auto;
     box-sizing: border-box;
     background-color: #fff;
+    padding-bottom: 2em;
 
     &>small {
         display: block;
-        padding: 1em;
-    }
-
-    @include maxWitdh(768px) {
-    height: 100vh;
-
+        padding: 1em 1.2em;
     }
     @include scrollBarDefault();
 
-}
-
-.messagesItem {
-    height: 70px;
-    padding: 0 1em;
-    display: flex;
-    align-items: center;
-    margin: 0.5em 0;
-    cursor: pointer;
-    transition: .5s;
-    border-left: 2px solid transparent;
-
-
-    &.active,
-    &:hover {
-        background-color: $light;
-        border-left: 2px solid $primary-color;
-    }
-
-    .avatar {
-        @include avatar(40px);
-    }
-
-    p {
-        margin: 0.5em 0;
-        font-size: 0.9rem;
-    }
-
-    span:last-of-type {
-        margin-left: auto;
-        position: relative;
-
-        small {
-            font-size: 0.7rem;
-            color: gray;
-        }
-
-        // chip
-        p {
-            font-size: 0.7rem;
-            width: 15px;
-            height: 15px;
-            color: #fff;
-            border-radius: 50%;
-            @include center;
-            background-color: $red-light;
-            margin-left: auto;
-        }
-    }
 }
 
 
 .dark {
     background-color: $dark-lv4;
     border-right: none;
+
+    h3 {
+        color: #fff;
+    }
 
     .heading {
         background-color: $dark-lv4;

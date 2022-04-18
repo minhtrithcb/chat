@@ -14,7 +14,8 @@ import Alert from '../Common/Alert/Alert';
 import converApi from '../../api/converApi';
 import { toast } from 'react-toastify';
 import { ChatContext } from '../../context/ChatContext';
-
+import clsx from 'clsx';
+import useTheme from '../../hooks/useTheme'
 
 const ConversationOption = () => {
     const options = [
@@ -31,7 +32,11 @@ const ConversationOption = () => {
     const {chatsOption, setChatsOption} = useContext(ChatContext)
     const [currentUser] = useDecodeJwt()
     const [sender, setSender] = useState(null)
-
+    const [errorNoMember, setErrorNoMember] = useState(false)
+    const {theme} = useTheme()
+    const classesDarkMode = clsx(styles.optionContainer,{ 
+        [styles.dark]: theme === "dark",
+    })
     const inputInit = {
         nameGroup: {
           label: "Tên nhóm", 
@@ -72,11 +77,14 @@ const ConversationOption = () => {
         } else {
             setAddFriend(prev => prev.filter(u => u._id !== friend._id))
         }
+        setErrorNoMember(false)
+
     }
 
     // Submit form
     const onSubmit = async data => {
-        if (addFriend.length > 0) {
+        if (addFriend.length >= 2) {
+            setErrorNoMember(false)
             try {
                 const res = await converApi.createGroptConver({
                     members: [...addFriend, sender],
@@ -86,10 +94,13 @@ const ConversationOption = () => {
                 if (res.data?.success) {
                     toast.success(`Tạo nhóm thành công`)
                     prevQuit(true)
+                    setChatsOption({type:  'All', title: 'Tất cả tin nhắn'})
                 }
             } catch (error) {
                 console.log(error);
             }
+        } else {
+            setErrorNoMember(true)
         }
     }
 
@@ -98,27 +109,30 @@ const ConversationOption = () => {
         if (chose) {
             reset()
             setIsOpen(false)
-            setIsOpen3(false)
             setAddFriend([])
-        } else {
-            setIsOpen3(false)
-        }
+        } 
+        setErrorNoMember(false)
+        setIsOpen3(false)
     }
 
     // Render default option
     const renderDefOption = () => {
-        return options.filter(o => o.value === chatsOption)
+        return options.filter(o => o.value === chatsOption.type)
     }
 
     // Change option
     const handleChangeOption = (e) => {
-        setChatsOption(e.value);
+        setChatsOption({type: e.value, title: e.label});
     }
 
     return (
-        <div className={styles.optionContainer}>
+        <div className={classesDarkMode}>
             <div className={styles.optionBox}>
-                <Select options={options} onChange={handleChangeOption} defaultValue={renderDefOption} />
+                <Select  
+                    options={options} 
+                    onChange={handleChangeOption}
+                    defaultValue={renderDefOption} 
+                />
                 <span onClick={() => setIsOpen(true) }>
                     <AiOutlinePlus />
                 </span>
@@ -135,22 +149,30 @@ const ConversationOption = () => {
                     <Input  {...register("nameGroup", inpValid.nameGroup)} {...inputInit.nameGroup} />
                     <label>Thêm thành viên</label>
                     <div className={styles.friendList}>
-                        {addFriend.length > 0 ? addFriend.map(f => (
+                        {addFriend.map(f => (
                             <FriendItem 
                                 key={f._id} 
                                 friend={f} 
                                 inAddFriend={addFriend.some(u => u._id === f._id)}
                                 onClick={handleClick} 
                             />
-                        )) : <p>Hãy thêm thành viên nào</p> }
+                        ))}
                     </div>
+                    {/* // Button Add Friend */}
                     <span className={styles.optionAddPeople} onClick={() => setIsOpen2(true) }>
                         <AiOutlinePlus />
                     </span>
-
+                    {errorNoMember && <small className={styles.errorText}>Hãy thêm ít nhất 2 thành viên</small>}
+                    {/* // Footer Button  */}
                     <div className={styles.footer}>
                         <Button size={'lg'} onClick={() => setIsOpen3(true)}>Thoát</Button>
-                        <Button type="submit" primary size={'lg'}>Tạo nhóm</Button>
+                        <Button 
+                            type="submit" 
+                            primary 
+                            size={'lg'}
+                        >
+                            Tạo nhóm
+                        </Button>
                     </div>
                 </form>
                 {/* Chose friend model */}

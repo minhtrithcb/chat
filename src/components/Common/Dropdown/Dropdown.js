@@ -31,6 +31,7 @@ const Dropdown = ({children, icon: Icon, position, positionUl = "left"}) => {
     const classes2 = clsx(styles.DropdownUl,{ 
         [styles.right]: positionUl === "right",
         [styles.left]: positionUl === "left",
+        [styles.dark]: theme === "dark",
     })
 
     return (

@@ -3,11 +3,10 @@ import styles from './ConversationItem.module.scss'
 import avatar from '../../assets/images/user.png'
 import clsx from 'clsx'
 import useTheme from '../../hooks/useTheme'
-import moment from 'moment'
-import 'moment/locale/vi'
 import { SocketContext } from '../../context/SocketContext'
 import {ConversationItemLoading} from '../ChatLoading/ChatLoading'
 import useDecodeJwt from '../../hooks/useDecodeJwt'
+import renderSubString, { renderTimeDiff } from '../../helper/renderSubString'
 
 const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => {
     const {socket} = useContext(SocketContext)
@@ -71,6 +70,7 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
 
     return (
         <>
+        {/* // Friend conversation */}
             {conversation.type === 'Friend' ? <div className={classesDarkMode}>
                 <span className={styles.avatarConatiner}>
                     <div className={styles.avatar}>
@@ -81,32 +81,47 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
                 <span>
                     <b>{friends[0].fullname}</b>
                     {lastMsg && !lastMsg.reCall ? 
-                        <p>{lastMsg.text.length > 10 ? `${lastMsg.text.substring(0, 10)} ...`: lastMsg.text}  </p>:
-                        lastMsg?.reCall && <p className={styles.italic}>{"Tin nhắn đã bị thu hồi".substring(0, 11)} ...</p>
+                        <p>{renderSubString(lastMsg.text, 10)} </p>:
+                        lastMsg?.reCall && <p className={styles.italic}>{renderSubString("Tin nhắn đã bị thu hồi", 11)}</p>
                     }
                 </span>
                 <span>
                     {pendingChat && <ConversationItemLoading />}
-                    <small>{lastMsg && moment(lastMsg.createdAt).fromNow()}</small>
+                    <small>{lastMsg && renderTimeDiff(lastMsg.createdAt)}</small>
                 </span>
             </div> :
+            // Group conversation
             <div className={classesDarkMode}>
                 <span className={styles.avatarConatiner}>
-                    <div className={styles.avatar}>
-                        <img src={avatar} alt="friend" />
+                    <div className={styles.listAvatar}>
+                        {conversation.members && conversation.members.map((u, i) => (
+                            i === 3 ?
+                            <div className={styles.avatar2} key={u._id}>
+                                {conversation.members.length - 3}
+                            </div> :
+                             (i > 3 ? null: <div className={styles.avatar} key={u._id}>
+                                <img src={avatar} alt="friend" /> 
+                            </div>)
+                        ))}
                     </div>
-                    {onlineFriend && <span className={styles.isOnline}></span>}
                 </span>
                 <span>
                     <b>{conversation.name}</b>
                     {lastMsg && !lastMsg.reCall ? 
-                        <p>{lastMsg.text.length > 10 ? `${lastMsg.text.substring(0, 10)} ...`: lastMsg.text}  </p>:
-                        lastMsg?.reCall && <p className={styles.italic}>{"Tin nhắn đã bị thu hồi".substring(0, 11)} ...</p>
+                        <p> 
+                            {lastMsg.sender === currentUser.id ? "Bạn" :
+                            (friends.find(u => u._id === lastMsg.sender)?.fullname).slice(0,6) }
+                            {`: ${renderSubString(lastMsg.text, 7)}`} 
+                        </p>:
+                        lastMsg?.reCall && 
+                        <p className={styles.italic}>
+                            {renderSubString("Tin nhắn đã bị thu hồi", 11)}
+                        </p>
                     }
                 </span>
                 <span>
                     {pendingChat && <ConversationItemLoading />}
-                    <small>{lastMsg && moment(lastMsg.createdAt).fromNow()}</small>
+                    <small>{lastMsg && renderTimeDiff(lastMsg.createdAt)}</small>
                 </span>
             </div> }
         </>

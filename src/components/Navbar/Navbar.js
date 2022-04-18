@@ -127,7 +127,7 @@ const Navbar = () => {
           <AiOutlinePoweroff />
           <span>Thoát</span>
         </div>
-        <input type="checkbox" onClick={toggle} className={styles.checkBox} />
+        <input type="checkbox" onClick={toggle} className={styles.checkBox} defaultChecked={theme === "dark"} />
     </div>
   )
 }

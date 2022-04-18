@@ -61,4 +61,13 @@
     svg {
         color: #fff;
     }
+
+    &.DropdownUl {
+        background-color: $dark-lv3;
+        color: #fff;
+
+        .DropdownItem:hover {
+            background-color: $dark-lv4;
+        }
+    }
 }

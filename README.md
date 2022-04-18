@@ -24,10 +24,10 @@ npm start
 * Người dùng trích lời (reply)
 * Chat nối với nhau nếu 1 người chat liên tục
 * User typing hiện đang gõ  
-
-#### Chức năng đang làm
 * User tạo nhóm thêm thành viên, chat nhóm
 
+#### Chức năng đang làm
+* Chat option
 
 ### Chức năng Frontend sẻ có ...
 

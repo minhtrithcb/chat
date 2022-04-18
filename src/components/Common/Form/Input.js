@@ -1,11 +1,15 @@
+import clsx from 'clsx'
 import React, { forwardRef } from 'react'
+import useTheme from '../../../hooks/useTheme'
 import styles from './Form.module.scss'
 
-
 const Input = ({type, name, placeholder, label, err, ...rest}, ref) => {
-
+  const {theme} = useTheme()
+  const classesDarkMode = clsx(styles.FromInput,{ 
+      [styles.dark]: theme === "dark"
+  })
   return (
-    <div className={styles.FromInput}>
+    <div className={classesDarkMode}>
         <label htmlFor={name}>{label}</label>
         <input type={type} name={name} id={name} placeholder={placeholder} ref={ref} {...rest} />
         <small>

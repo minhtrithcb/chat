@@ -22,12 +22,11 @@ const Chats = () => {
     const [pendingChat, setPendingChat] = useToggle(false)
     const [sender, setSender] = useState('')
     const [chats, setChats] = useState([])
-    const {theme} = useTheme()
     const bottomRef = useRef()
     const {currentChat, friend, setCurrentChat} = useContext(ChatContext)
     const {socket} = useContext(SocketContext)
     const [currentUser] = useDecodeJwt()
-
+    const {theme} = useTheme()
     const classesDarkMode = clsx(styles.conversation,{ 
         [styles.dark]: theme === "dark"
     })
@@ -129,9 +128,9 @@ const Chats = () => {
                         </div>
                         <span className={styles.des}>
                             <b>{currentChat.name}</b>
+                            <small>{currentChat.members.length} Thành viên</small>
                         </span>
-                    </div>
-                    }
+                    </div>}
 
                     <div onClick={setToggle}>
                         {toggle ? <FiAlignRight /> : <FiMenu />}
@@ -143,8 +142,17 @@ const Chats = () => {
                         <MdOutlineArrowBackIos />
                     </div>
 
-                    {friend && <Link to={`/profile/${friend._id}`} >{friend.fullname}</Link> }
-                    
+                    {currentChat.type === 'Friend' ? <div>
+                        <span className={styles.des}>
+                            <Link to={`/profile/${friend[0]._id}`} >{friend[0].fullname}</Link>
+                        </span>
+                    </div> : 
+                    <div>
+                        <span className={styles.des}>
+                            <b>{currentChat.name}</b>
+                        </span> 
+                    </div>}
+
                     {/* // Fake div  */}
                     <div></div>
                 </div>

@@ -6,7 +6,6 @@
     z-index: 1001;
     width: 700px;
     height: auto;
-    // min-height: 500px;
     background-color: rgb(255, 255, 255);
     left: 50%;
     top: 50%;
@@ -88,4 +87,13 @@
     opacity: 0;
     transform: translate(-50%, -30%); 
     transition: opacity 300ms, transform 300ms;
+}
+
+.dark {
+    background-color: $dark-lv3;
+    color: #fff;
+
+    .closeBtn {
+        color: #fff;
+    }
 }

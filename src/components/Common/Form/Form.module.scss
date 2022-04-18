@@ -6,7 +6,7 @@
         padding: 1em;
         border-radius: 0.4em;
         border: 1px solid $gray;
-
+        font-size: 0.9rem;
         margin-bottom: 0.5em;
 
         &:focus {
@@ -21,8 +21,14 @@
     }
 
     >label {
-        // margin: 0.5em 0;
         padding: 0.5em 0;
         display: block;
+    }
+}
+
+.dark {
+    >input { 
+        background-color: $dark-lv4; 
+        color: #fff;
     }
 }

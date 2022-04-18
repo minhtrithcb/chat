@@ -10,17 +10,20 @@ import { toast } from 'react-toastify'
 import Button from '../Common/Button/Button'
 import { AiOutlineUser } from "react-icons/ai";
 import { BsChatSquareDots } from "react-icons/bs";
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { BsBell, BsBellSlash } from "react-icons/bs";
 import Dropdown, { DropdownItem } from '../Common/Dropdown/Dropdown'
 import useTheme from '../../hooks/useTheme'
 import clsx from 'clsx'
+import { ChatContext } from '../../context/ChatContext';
 
 const FriendListContact = () => {
     const [currentUser] = useDecodeJwt()
     const {friendList, setFriendList} = useContext(FriendContext)
+    const {setFriend, setCurrentChat, setChatsOption} = useContext(ChatContext)
+
     const {theme} = useTheme()
-    
+    const navigate = useNavigate();
     const classesDarkMode = clsx(styles.cardContainer,{ 
       [styles.dark]: theme === "dark"
     })
@@ -58,6 +61,15 @@ const FriendListContact = () => {
       })
     }
 
+    // Redirect to chat friend
+    const handleRedirectChat = async (friend) => {
+      setFriend([friend])
+      setChatsOption({type: 'Friend', title: "Tin nhắn bạn bè"})
+      const {data} = await converApi.getOneByUserId(currentUser.id, friend._id)
+      setCurrentChat(data)
+      navigate('/', {replace: true})
+    }
+
     return (
       <div className={classesDarkMode}>
           {friendList.length > 0 ? friendList.map(fr => (
@@ -74,7 +86,7 @@ const FriendListContact = () => {
                     <Link to={`/profile/${fr._id}`}>Hồ sơ</Link> 
                     <AiOutlineUser />
                 </Button>
-                <Button fluid key="botRight">
+                <Button fluid key="botRight" onClick={() => handleRedirectChat(fr)}>
                     <span>Nhắn tin</span>  <BsChatSquareDots />
                 </Button>
             </CardItem>

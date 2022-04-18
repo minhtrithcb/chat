@@ -84,3 +84,12 @@
     transform: translate(-50%, -30%); 
     transition: opacity 300ms, transform 300ms;
 }
+
+.dark {
+    background-color: $dark-lv3;
+    color: #fff;
+
+    .closeBtn {
+        color: #fff;
+    }
+}

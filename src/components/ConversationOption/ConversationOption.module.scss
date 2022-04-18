@@ -37,12 +37,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
+    
     &>div {
         width: 100%;
         font-size: 0.8rem;
-
-        span {background-color: transparent;}
+        span {
+            background-color: transparent;
+        }
     }
 
     &>span {
@@ -80,4 +81,23 @@
 
 .avatar {
     @include avatar(30px);
+}
+
+.errorText {
+    color: $red-light;
+    padding: 1em 0;
+    display: block;
+}
+
+.dark {
+    .optionBox {
+        div {
+            color: #fff;
+        }
+        &>div {
+            &>div {
+                background-color: $dark-lv3;
+            }
+        }
+    }
 }

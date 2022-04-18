@@ -11,6 +11,7 @@
 .chatLoading2 {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     font-size: 0.8rem;
 
     img {
@@ -20,4 +21,8 @@
 
 .img {
     width: 50px;
+}
+
+.dark {
+    color: #fff;
 }

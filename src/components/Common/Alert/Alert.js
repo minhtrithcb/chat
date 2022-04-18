@@ -2,10 +2,15 @@ import React, { useRef } from 'react'
 import styles from './Alert.module.scss'
 import { CSSTransition } from 'react-transition-group'
 import Button from '../Button/Button'
+import useTheme from '../../../hooks/useTheme'
+import clsx from 'clsx';
 
 const Alert = ({isOpen, heading, userComfirm, text}) => {
     const modelDiv = useRef(null)
-
+    const {theme} = useTheme()
+    const classesDarkMode = clsx(styles.modelBox,{ 
+        [styles.dark]: theme === "dark",
+    })
     return (
         <CSSTransition 
             in={isOpen} 
@@ -21,7 +26,7 @@ const Alert = ({isOpen, heading, userComfirm, text}) => {
         >   
             <>
                 <div className={styles.backdrop}></div>
-                <div className={styles.modelBox} ref={modelDiv}>
+                <div className={classesDarkMode} ref={modelDiv}>
                     <div className={styles.modelHeading}>
                       <p>{heading}</p>
                     </div>

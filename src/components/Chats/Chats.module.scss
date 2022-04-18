@@ -45,7 +45,7 @@
     }
 
     @include maxWitdh(768px) {
-        padding-top: 150px;
+        padding-top: 60px;
     }
 
 }
@@ -58,7 +58,7 @@
 
     @include maxWitdh(768px) {
         position: fixed;
-        top: 80px;
+        top: 0;
         display: flex;
         height: 50px;
         width: 100%;
@@ -129,7 +129,7 @@
     }
 
     .mobileViewCover {
-        background-color: $dark-lv4;
+        background-color: $dark-lv3;
         color: #fff;
     }
 }

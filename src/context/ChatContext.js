@@ -7,7 +7,7 @@ const ChatProvider = ({children}) => {
     const [friend, setFriend] = useState(null)
     const [chatEdit, setChatEdit] = useState(null)
     const [chatReply, setChatReply] = useState(null)
-    const [chatsOption, setChatsOption] = useState('All')
+    const [chatsOption, setChatsOption] = useState({type:  'All', title: 'Tất cả tin nhắn'})
     
     const value = {
         currentChat,

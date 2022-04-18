@@ -7,7 +7,6 @@ import useDecodeJwt from '../../hooks/useDecodeJwt'
 import { ChatContext } from '../../context/ChatContext'
 import ConversationItem from '../ConversationItem/ConversationItem'
 import { SocketContext } from '../../context/SocketContext'
-import SearchBox from '../SearchBox/SearchBox'
 import ConversationOption from '../ConversationOption/ConversationOption'
 
 const Conversation = () => {
@@ -40,7 +39,7 @@ const Conversation = () => {
             try {
                 const {data} = await converApi.getByUserId({
                     userId: currentUser.id,
-                    type: chatsOption
+                    type: chatsOption.type
                 })
                 if (isMounted) {
                     setConversations(data);
@@ -61,22 +60,20 @@ const Conversation = () => {
     const handleChoseChat = (conversation) => {
         setCurrentChat(conversation)
         const friends = conversation.members.filter(u => u._id !== currentUser.id)
-        setFriend(friends);      
-        // setFriend(friend[0]);      
+        setFriend(friends);        
         setChatEdit(null)
         setChatReply(null)
     }
 
     return (
         <div className={classesDarkMode}>
-            <SearchBox />
-
+            <h3>Tin nhắn</h3>
             <ConversationOption />
             
             <div className={classesDarkMode2}>        
             {conversations && 
                 <>
-                <small>Tin nhắn {chatsOption}</small>
+                <small>{chatsOption.title}</small>
                 { conversations.map((conver) => (
                     <div onClick={() => handleChoseChat(conver)} key={conver._id}>
                         <ConversationItem 

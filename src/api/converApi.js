@@ -6,6 +6,12 @@ const converApi = {
             userId, type
         })
     },
+    getOneByUserId(currentUserId, friendId) {
+        return api.post(`conversation/getOne`, {
+            currentUserId, 
+            friendId
+        })
+    },
     createFriendConver(senderId, receiverId) {
         return api.post(`conversation/postFriend`, {
             senderId, receiverId

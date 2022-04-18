@@ -75,6 +75,32 @@
         border-radius: 50%;
         background-color: $green;
     }
+
+    .listAvatar {
+        display: flex;
+        width: 60px;
+        justify-content: space-around;
+        flex-wrap: wrap;
+
+       .avatar {
+           position: relative;
+           width: 23px;
+           height: 23px;
+           border-radius: 50%;
+           margin-bottom: 2px;
+       } 
+
+       .avatar2 {
+           position: relative;
+           width: 23px;
+           height: 23px;
+           @include center;
+           background-color: $primary-color;
+           border-radius: 50%;
+           color: #fff;
+           font-size: 0.8rem;
+       } 
+    }
 }
 
 
@@ -100,4 +126,8 @@
         background-color: $primary-color;
         border-left: 2px solid transparent;
     }
+
+    .listAvatar .avatar2 {
+        background-color: $primary-colorDark;
+    } 
 }

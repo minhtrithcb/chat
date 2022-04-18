@@ -1,6 +1,4 @@
 import clsx from 'clsx'
-import moment from 'moment'
-import 'moment/locale/vi'
 import React, {  useContext } from 'react'
 import avatar from '../../assets/images/user.png'
 import { ChatContext } from '../../context/ChatContext'
@@ -11,6 +9,7 @@ import Dropdown, { DropdownItem } from '../Common/Dropdown/Dropdown'
 import useDecodeJwt from '../../hooks/useDecodeJwt';
 import chatApi from '../../api/chatApi'
 import { SocketContext } from '../../context/SocketContext'
+import { renderTimeDiff } from '../../helper/renderSubString'
 
 const ChatItem = ({self, data, dup}) => {
     const {theme} = useTheme()
@@ -87,18 +86,18 @@ const ChatItem = ({self, data, dup}) => {
                 <div className={styles.chatDes}>
                     {!dup && <div className={styles.chatInfo}>
                         <b>Bạn</b> 
-                        <small>{moment(data.createdAt).fromNow()}</small>
+                        <small>{renderTimeDiff(data.createdAt)}</small>
                     </div>}
                     <div className={styles.chatText}>
                         <div>
                             {data.replyMsg && <div className={styles.chatTextReply}>
                                 <b><i>{renderFullname()}</i></b>
-                                <small><i>{moment(data.replyMsg.createdAt).fromNow()}</i></small>
+                                <small><i>{renderTimeDiff(data.replyMsg.createdAt)}</i></small>
                                 <p><i>{data.replyMsg.text}</i></p>
                             </div>}
                             <p>
                                 {!data.reCall ? data.text : <i>Tin nhắn đã bị thu hồi</i>}
-                                {dup && <small>{moment(data.createdAt).fromNow()}</small>}
+                                {dup && <small>{renderTimeDiff(data.createdAt)}</small>}
                             </p>
                             {!data.reCall && data.reacts.length > 0  && 
                             <div className={styles.reactionWraper}>
@@ -130,18 +129,18 @@ const ChatItem = ({self, data, dup}) => {
             <div className={classes2DarkMode} >                
                 <div className={styles.chatDes}>
                     {!dup && <div className={styles.chatInfo}>
-                        <small>{moment(data.createdAt).fromNow()}</small>
+                        <small>{renderTimeDiff(data.createdAt)}</small>
                         <b>{friend.find(u => u._id === data.sender)?.fullname }</b>
                     </div> }
                     <div className={styles.chatText}>
                         <div>
                             {data.replyMsg && <div className={styles.chatTextReply}>
                                   <b><i>{renderFullname()}</i></b>
-                                <small><i>{moment(data.replyMsg.createdAt).fromNow()} </i></small>
+                                <small><i>{renderTimeDiff(data.replyMsg.createdAt)} </i></small>
                                 <p><i>{data.replyMsg.text}</i></p>
                             </div>}
                             <p>
-                                {dup && <small>{moment(data.createdAt).fromNow()}</small>}
+                                {dup && <small>{renderTimeDiff(data.createdAt)}</small>}
                                 {!data.reCall ? data.text : <i>Tin nhắn đã bị thu hồi</i> }
                             </p>
                             { !data.reCall && data.reacts.length > 0  && 

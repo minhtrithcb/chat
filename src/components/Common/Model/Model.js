@@ -3,8 +3,14 @@ import useOutside from '../../../hooks/useOutside'
 import styles from './Model.module.scss'
 import { CSSTransition } from 'react-transition-group'
 import { VscChromeClose } from "react-icons/vsc";
+import clsx from 'clsx';
+import useTheme from '../../../hooks/useTheme';
 
 const Model = ({isOpen, heading, handleClick, children, prevLostData}) => {
+    const {theme} = useTheme()
+    const classesDarkMode = clsx(styles.modelBox,{ 
+        [styles.dark]: theme === "dark",
+    })
     // Click outside to close
     const modelDiv = useRef(null)
     useOutside(modelDiv, () => {
@@ -13,6 +19,8 @@ const Model = ({isOpen, heading, handleClick, children, prevLostData}) => {
             handleClick(false)
         }
     })
+
+    
 
     return (
         <CSSTransition 
@@ -29,7 +37,7 @@ const Model = ({isOpen, heading, handleClick, children, prevLostData}) => {
         >   
             <>
                 <div className={styles.backdrop}></div>
-                <div className={styles.modelBox} ref={modelDiv}>
+                <div className={classesDarkMode} ref={modelDiv}>
                     <div className={styles.modelHeading}>
                         {heading && <p>{heading}</p>}
                         <button className={styles.closeBtn} 
