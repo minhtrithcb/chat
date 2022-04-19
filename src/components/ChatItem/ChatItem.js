@@ -91,9 +91,9 @@ const ChatItem = ({self, data, dup}) => {
                     <div className={styles.chatText}>
                         <div>
                             {data.replyMsg && <div className={styles.chatTextReply}>
-                                <b><i>{renderFullname()}</i></b>
-                                <small><i>{renderTimeDiff(data.replyMsg.createdAt)}</i></small>
-                                <p><i>{data.replyMsg.text}</i></p>
+                                <b>{renderFullname()}</b>
+                                <small>{renderTimeDiff(data.replyMsg.createdAt)}</small>
+                                <p>{data.replyMsg.text}</p>
                             </div>}
                             <p>
                                 {!data.reCall ? data.text : <i>Tin nhắn đã bị thu hồi</i>}
@@ -135,9 +135,9 @@ const ChatItem = ({self, data, dup}) => {
                     <div className={styles.chatText}>
                         <div>
                             {data.replyMsg && <div className={styles.chatTextReply}>
-                                  <b><i>{renderFullname()}</i></b>
-                                <small><i>{renderTimeDiff(data.replyMsg.createdAt)} </i></small>
-                                <p><i>{data.replyMsg.text}</i></p>
+                                <b>{renderFullname()}</b>
+                                <small>{renderTimeDiff(data.replyMsg.createdAt)}</small>
+                                <p>{data.replyMsg.text}</p>
                             </div>}
                             <p>
                                 {dup && <small>{renderTimeDiff(data.createdAt)}</small>}

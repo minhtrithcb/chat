@@ -44,7 +44,8 @@
 
     .chatText {
         margin-top: 0.5em;
-        width: fit-content;
+        // width: fit-content;
+        max-width: 90%;
         background-color: #fff;
         padding: 0.5em 0.7em;
         border-radius: 0.4em;
@@ -148,7 +149,8 @@
 
     .chatText {
         margin-top: 0.5em;
-        width: fit-content;
+        // width: fit-content;
+        max-width: 90%;
         background-color: $primary-color;
         padding: 0.5em 0.7em;
         border-radius: 0.4em;
@@ -246,17 +248,24 @@
     padding-left: 1em;
     padding-right: 1em;
 
+    small {
+        font-size: 0.7rem;
+        font-style: italic;
+    }
+
     b {
         margin: 0.7em 0;
         display: inline-block;
         margin-right: 0.5em;
         font-size: 00.8rem;
+        font-style: italic;
     }
 
     p {
         line-height: 2;
         margin: 0;
         font-size: 0.8rem;
+        font-style: italic;
         color: $primary-colorDark;
     }
 }

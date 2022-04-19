@@ -128,6 +128,7 @@ const ChatForm = () => {
                         sender: currentUser.id,
                         text:   inputChat,
                     })
+                    
                     // Send to socket room
                     socket.emit("send-msg", data)
                     // Send to socket id
@@ -135,7 +136,6 @@ const ChatForm = () => {
                         recivers : friend, 
                         ...data
                     })
-
                 // If user reply chat
                 } else if (isReplyChat) {
                     // console.log("reply");

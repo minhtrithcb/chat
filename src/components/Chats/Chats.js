@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import FriendProfile from '../FriendProfile/FriendProfile';
 import styles from "./Chats.module.scss"
 import avatar from '../../assets/images/user.png'
 import { FiAlignRight, FiMenu } from "react-icons/fi";
@@ -16,9 +15,14 @@ import ChatForm from '../ChatForm/ChatForm';
 import { SocketContext } from '../../context/SocketContext';
 import { Link } from 'react-router-dom';
 import ChatLoading from '../ChatLoading/ChatLoading';
+import FriendInfoTab from '../FriendInfoTab/FriendInfoTab';
+import GroupInfoTab from '../GroupInfoTab/GroupInfoTab';
+import Model from '../Common/Model/Model';
+import useWidth from '../../hooks/useWidth'
 
 const Chats = () => {
     const [toggle, setToggle] = useToggle(false)
+    const [isOpen, setIsOpen] = useToggle(false)
     const [pendingChat, setPendingChat] = useToggle(false)
     const [sender, setSender] = useState('')
     const [chats, setChats] = useState([])
@@ -106,11 +110,15 @@ const Chats = () => {
         };
     }, [currentChat])
 
+    // wid
+    let myRef = useRef(null)
+    const width = useWidth(myRef) 
+
     return (
         <>
             {!currentChat ? 
             <NotHaveChat />
-            : <div className={classesDarkMode} >
+            : <div className={classesDarkMode} ref={myRef} >
                 {/* // Desktop view  */}
                 <div className={styles.friendCover}>
                     {currentChat.type === 'Friend' ? <div>
@@ -127,14 +135,14 @@ const Chats = () => {
                             <img src={avatar} alt="friend" />
                         </div>
                         <span className={styles.des}>
-                            <b>{currentChat.name}</b>
+                            <b onClick={() => setIsOpen(true)}>{currentChat.name}</b>
                             <small>{currentChat.members.length} Thành viên</small>
                         </span>
                     </div>}
 
-                    <div onClick={setToggle}>
-                        {toggle ? <FiAlignRight /> : <FiMenu />}
-                    </div>
+                    {width > 769 && <div onClick={setToggle}>
+                         {toggle ? <FiAlignRight /> : <FiMenu />}
+                    </div>}
                 </div>
                 {/* // Mobile View  */}
                 <div className={styles.mobileViewCover}>
@@ -149,7 +157,9 @@ const Chats = () => {
                     </div> : 
                     <div>
                         <span className={styles.des}>
-                            <b>{currentChat.name}</b>
+                        {width < 769 ? 
+                            <b onClick={() => setIsOpen(true)}>{currentChat.name}</b>: 
+                            <b>{currentChat.name}</b>}
                         </span> 
                     </div>}
 
@@ -177,8 +187,15 @@ const Chats = () => {
                 </div>
                 {/* // From Chat  */}
                 <ChatForm />
+
+                <Model isOpen={isOpen} heading="Nhóm" handleClick={setIsOpen}>
+                    <GroupInfoTab />
+                </Model>
             </div>}
-            {/* {toggle && <FriendProfile />} */}
+            {currentChat && currentChat.type === 'Friend' ? 
+                toggle && <FriendInfoTab /> :
+                toggle && width > 769 ? <GroupInfoTab /> : null
+            }
         </>
     )
 }

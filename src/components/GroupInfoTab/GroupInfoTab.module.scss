@@ -1,0 +1,124 @@
+@import '../../assets/css/variable';
+@import '../../assets/css/mixin';
+
+.GroupInfoTab {
+    min-width: 300px;
+    position: relative;
+    overflow: hidden;
+    display: block;
+}
+
+.infoBackGround {
+    position: relative;
+    height: 150px;
+    width: 100%;
+    background: #4e54c8;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #8f94fb, #4e54c8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+    .avatar {
+        @include avatar(50px);
+        position: absolute;
+        bottom: -25px;
+        left: 1em;
+    }
+}
+
+.infoText {
+    margin: 0 1em;
+
+    h4 {
+        margin-top: 2.5em;
+        margin-bottom: 0;
+
+        a {
+            color: $primary-color;
+        }
+    }
+
+    p {
+        line-height: 25px;
+        max-width: 300px;
+    }
+
+    @include maxWitdh(1024px) {
+        p {max-width: fit-content;}
+    }
+}
+
+.infoUserList {
+    height: 200px;
+    overflow: hidden;
+    overflow-y: auto;
+    @include scrollBarDefault;
+    
+    .infoUserItem {
+        padding: 1em;
+        display: flex;
+        height: 50px;
+        align-items: center;
+        
+        .avatar {
+            margin-right: 0.5em;
+            @include avatar(30px);
+        }
+
+        span {
+            margin-left: auto;
+            cursor: pointer;
+            width: 25px;
+            border-radius: 50%;
+            height: 25px;
+            @include center ;
+        }
+    }
+}
+
+.infoAction {
+    margin-top: 1em;
+    span {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        cursor: pointer;
+        padding: 1em;
+        transition: 0.3s ease-in;
+
+        svg {
+            margin-right: 0.5em;
+            color: $primary-color;
+            transition: 0.3s ease-in;
+        }
+
+        &:hover {
+            color: #fff;
+            background-color: $primary-colorLight;
+            svg {
+                color: #fff;
+            }
+        }
+    }
+}
+
+.dark {
+    background-color: $dark-lv3;
+
+    h4 {
+        color: $gray-light;
+    }
+
+    .infoText, .infoAction, .infoUserList {
+        color: $gray;
+        a {
+            color: $gray;
+        }
+    }
+
+    .frinedInfoItem {
+        color: $gray;
+
+        small {
+            color: $gray;
+        }
+    }
+}

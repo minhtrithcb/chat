@@ -1,0 +1,130 @@
+@import '../../assets/css/variable';
+@import '../../assets/css/mixin';
+
+.friendProfile {
+    max-width: 300px;
+    overflow: hidden;
+    @include maxWitdh(768px) {
+        display: none;
+    }
+}
+
+.infoBackGround {
+    position: relative;
+    height: 150px;
+    width: 100%;
+    background: #4e54c8;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #8f94fb, #4e54c8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+    .avatar {
+        @include avatar(50px);
+        position: absolute;
+        bottom: -25px;
+        left: 1em;
+    }
+}
+
+.infoText {
+    margin: 0 1em;
+
+    h4 {
+        margin-top: 2.5em;
+        margin-bottom: 0;
+
+        a {
+            color: $primary-color;
+        }
+    }
+
+    p {
+        line-height: 25px;
+    }
+
+    small {
+        display: block;
+        margin: 1em 0;
+    }
+}
+
+.frinedInfo {
+    margin-top: 2em;
+    border-top: 1px solid $gray-light;
+    border-bottom: 1px solid $gray-light;
+    padding: 0 1em;
+
+    .frinedInfoItem {
+        display: flex;
+        align-items: center;
+        margin: 1em 0;
+
+        span {
+            min-width: 110px;
+            display: flex;
+            align-items: center;
+            margin-right: 1em;
+
+            svg {
+                margin-right: 0.5em;
+                color: $primary-color;
+            }
+        }
+
+        small {
+            color: $black;
+            word-break: break-all;
+        }
+
+    }
+}
+
+.infoAction {
+
+    span {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        cursor: pointer;
+        padding: 1em;
+        transition: 0.3s ease-in;
+
+        svg {
+            margin-right: 0.5em;
+            color: $primary-color;
+            transition: 0.3s ease-in;
+        }
+
+        &:hover {
+            color: #fff;
+            background-color: $primary-colorLight;
+            svg {
+                color: #fff;
+            }
+        }
+    }
+}
+
+.dark {
+    background-color: $dark-lv3;
+
+    h4 {
+        color: $gray-light;
+    }
+
+    .infoText, .infoAction {
+        color: $gray;
+    }
+
+    .frinedInfo {
+        border-top: 1px solid $light-lv1;
+        border-bottom: 1px solid $light-lv1;
+    }
+
+    .frinedInfoItem {
+        color: $gray;
+
+        small {
+            color: $gray;
+        }
+    }
+}

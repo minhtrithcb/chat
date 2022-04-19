@@ -14,8 +14,8 @@ import { AxiosInterceptor } from './api/api.config';
 ReactDOM.render(
   <BrowserRouter>
   <AuthProvider>
+    <SocketProvider>
     <FriendProvider>
-      <SocketProvider>
         <ChatProvider>
           <ThemeProvider>
               <React.StrictMode>
@@ -31,8 +31,8 @@ ReactDOM.render(
               </React.StrictMode>
           </ThemeProvider>
         </ChatProvider>
-      </SocketProvider>
     </FriendProvider>
+    </SocketProvider>
   </AuthProvider>
   </BrowserRouter>
   ,

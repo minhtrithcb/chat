@@ -3,6 +3,7 @@
   padding: 1em;
   border-radius: 0.4em;
   border: 1px solid #d1d1d1;
+  font-size: 0.9rem;
   margin-bottom: 0.5em;
 }
 
@@ -18,5 +19,10 @@
 .FromInput > label {
   padding: 0.5em 0;
   display: block;
+}
+
+.dark > input {
+  background-color: #292c43;
+  color: #fff;
 }
 /*# sourceMappingURL=Form.module.css.map */

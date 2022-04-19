@@ -7,6 +7,7 @@
     background-color: $white-smok;
     overflow: hidden;
     border-left: 1px solid $gray;
+    border-right: 1px solid $gray;
 
     &::-webkit-scrollbar {
         width: 5px;
@@ -67,6 +68,7 @@
         align-items: center;
         cursor: pointer;
         z-index: 2;
+        border-bottom: 1px solid $gray;
     }
 
     .goBackBtn,
@@ -121,6 +123,7 @@
 .dark {
     background-color: $dark-lv4;
     border-left: 1px solid $light-lv1;
+    border-right: 1px solid $light-lv1;
 
     .friendCover {
         background-color: $dark-lv3;
@@ -131,5 +134,6 @@
     .mobileViewCover {
         background-color: $dark-lv3;
         color: #fff;
+        border-bottom: 1px solid $light-lv1;
     }
 }

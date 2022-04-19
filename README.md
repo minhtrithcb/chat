@@ -25,14 +25,20 @@ npm start
 * Chat nối với nhau nếu 1 người chat liên tục
 * User typing hiện đang gõ  
 * User tạo nhóm thêm thành viên, chat nhóm
+* Giao diện mobile riêng. Theme cho ứng dụng.
+
+### issues
+* Rev Infinity scroll
+* Socket not work when user has new accessTK
 
 #### Chức năng đang làm
-* Chat option
+* Chat option, kick, out group, (tạo bình chọn), mute user
+* Activiti panel
 
 ### Chức năng Frontend sẻ có ...
-
+* Highlight chat @user 
+* custumize conversation item
 * Ngày trên chat
-* Activiti page
 * wellcome khi login lần đầu
 * xác thực sử dụng socket.
 * Tìm user online / offline
@@ -44,11 +50,10 @@ npm start
 * User chat có file & gif ảnh 
 * User upload avatar 
 * User edit profile
-* User tạo bình chọn
+* User 
 * User Tìm bạn theo tag ... 
 * Notification msg read or not
 * Setting (chặn tin từ người lại, hiện email, hiện thông báo)
-* Giao diện mobile riêng. Theme cho ứng dụng.
 
 ### Model
 *   UserModel {

@@ -16,8 +16,11 @@ const SocketProvider = ({children}) => {
             socket.emit("join server", currentUser.id)
         }
 
-        return () => socket.disconnect()
-    }, [auth, socket])
+        // Disabled will Fix bug when user chat if get new accesTk
+        // Abled will get bug: when user try to chat and accessTk expire => disconnet so not sending chat 
+        // eslint-disable-next-line
+        return () => socket.disconnect()    
+    }, [auth.accessToken, socket])
 
     return (
         <SocketContext.Provider value={{socket}}>

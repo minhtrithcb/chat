@@ -55,9 +55,7 @@
 
 .chatItem .chatText {
   margin-top: 0.5em;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
+  max-width: 90%;
   background-color: #fff;
   padding: 0.5em 0.7em;
   border-radius: 0.4em;
@@ -178,9 +176,7 @@
 
 .chatItem2 .chatText {
   margin-top: 0.5em;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
+  max-width: 90%;
   background-color: #a29bfe;
   padding: 0.5em 0.7em;
   border-radius: 0.4em;
@@ -303,17 +299,24 @@
   padding-right: 1em;
 }
 
+.chatTextReply small {
+  font-size: 0.7rem;
+  font-style: italic;
+}
+
 .chatTextReply b {
   margin: 0.7em 0;
   display: inline-block;
   margin-right: 0.5em;
   font-size: 00.8rem;
+  font-style: italic;
 }
 
 .chatTextReply p {
   line-height: 2;
   margin: 0;
   font-size: 0.8rem;
+  font-style: italic;
   color: #6c5ce7;
 }
 

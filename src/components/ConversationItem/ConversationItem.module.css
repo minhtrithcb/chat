@@ -91,6 +91,44 @@
   background-color: #2ecc71;
 }
 
+.avatarConatiner .listAvatar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 60px;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.avatarConatiner .listAvatar .avatar {
+  position: relative;
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  margin-bottom: 2px;
+}
+
+.avatarConatiner .listAvatar .avatar2 {
+  position: relative;
+  width: 23px;
+  height: 23px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #a29bfe;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 0.8rem;
+}
+
 .dark {
   padding: 0.5em;
   margin: 0.5em;
@@ -112,5 +150,9 @@
 
 .dark.active p, .dark:hover p {
   color: #f6f7fb;
+}
+
+.dark .listAvatar .avatar2 {
+  background-color: #6c5ce7;
 }
 /*# sourceMappingURL=ConversationItem.module.css.map */

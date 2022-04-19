@@ -5,7 +5,7 @@ import Button from '../Button/Button'
 import useTheme from '../../../hooks/useTheme'
 import clsx from 'clsx';
 
-const Alert = ({isOpen, heading, userComfirm, text}) => {
+const Alert = ({isOpen, heading, userComfirm, text, textComfirm, textDenie}) => {
     const modelDiv = useRef(null)
     const {theme} = useTheme()
     const classesDarkMode = clsx(styles.modelBox,{ 
@@ -35,8 +35,8 @@ const Alert = ({isOpen, heading, userComfirm, text}) => {
                     </div>
 
                     <div className={styles.footer}>
-                        <Button size={'lg'} onClick={() => userComfirm(true) }>Thoát</Button>
-                        <Button primary size={'lg'} onClick={() => userComfirm(false) }>Ở lại</Button>
+                        <Button size={'lg'} onClick={() => userComfirm(true) }>{textComfirm || "Có"}</Button>
+                        <Button primary size={'lg'} onClick={() => userComfirm(false) }>{textDenie || "Không"}</Button>
                     </div>
                 </div>
             </>

@@ -72,6 +72,11 @@
   text-align: center;
 }
 
+.LoginForm input {
+  background-color: #fff;
+  color: #000;
+}
+
 .LoginHr {
   margin-top: 2em;
   position: relative;

@@ -1,0 +1,213 @@
+.GroupInfoTab {
+  min-width: 300px;
+  position: relative;
+  overflow: hidden;
+  display: block;
+}
+
+.infoBackGround {
+  position: relative;
+  height: 150px;
+  width: 100%;
+  background: #4e54c8;
+  /* fallback for old browsers */
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-gradient(linear, right top, left top, from(#8f94fb), to(#4e54c8));
+  background: linear-gradient(to left, #8f94fb, #4e54c8);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.infoBackGround .avatar {
+  width: 50px;
+  height: 50px;
+  background-color: #fff;
+  border: 1px solid #f1f1f1;
+  margin-right: 1em;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+  position: absolute;
+  bottom: -25px;
+  left: 1em;
+}
+
+.infoBackGround .avatar img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.infoText {
+  margin: 0 1em;
+}
+
+.infoText h4 {
+  margin-top: 2.5em;
+  margin-bottom: 0;
+}
+
+.infoText h4 a {
+  color: #a29bfe;
+}
+
+.infoText p {
+  line-height: 25px;
+  max-width: 300px;
+}
+
+@media screen and (max-width: 1024px) {
+  .infoText p {
+    max-width: -webkit-fit-content;
+    max-width: -moz-fit-content;
+    max-width: fit-content;
+  }
+}
+
+.infoUserList {
+  height: 200px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.infoUserList::-webkit-scrollbar {
+  width: 5px;
+}
+
+.infoUserList:hover::-webkit-scrollbar {
+  border-radius: 0.8em;
+  width: 5px;
+}
+
+.infoUserList::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 0.5em;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.infoUserList:hover::-webkit-scrollbar-thumb {
+  background: #f1f1f1;
+}
+
+.infoUserList .infoUserItem {
+  padding: 1em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 50px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.infoUserList .infoUserItem .avatar {
+  margin-right: 0.5em;
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+  border: 1px solid #f1f1f1;
+  margin-right: 1em;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+}
+
+.infoUserList .infoUserItem .avatar img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.infoUserList .infoUserItem span {
+  margin-left: auto;
+  cursor: pointer;
+  width: 25px;
+  border-radius: 50%;
+  height: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.infoAction {
+  margin-top: 1em;
+}
+
+.infoAction span {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  cursor: pointer;
+  padding: 1em;
+  -webkit-transition: 0.3s ease-in;
+  transition: 0.3s ease-in;
+}
+
+.infoAction span svg {
+  margin-right: 0.5em;
+  color: #a29bfe;
+  -webkit-transition: 0.3s ease-in;
+  transition: 0.3s ease-in;
+}
+
+.infoAction span:hover {
+  color: #fff;
+  background-color: #bab6ff;
+}
+
+.infoAction span:hover svg {
+  color: #fff;
+}
+
+.dark {
+  background-color: #2f334d;
+}
+
+.dark h4 {
+  color: #f1f1f1;
+}
+
+.dark .infoText, .dark .infoAction, .dark .infoUserList {
+  color: #d1d1d1;
+}
+
+.dark .infoText a, .dark .infoAction a, .dark .infoUserList a {
+  color: #d1d1d1;
+}
+
+.dark .frinedInfoItem {
+  color: #d1d1d1;
+}
+
+.dark .frinedInfoItem small {
+  color: #d1d1d1;
+}
+/*# sourceMappingURL=GroupInfoTab.module.css.map */

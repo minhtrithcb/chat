@@ -81,7 +81,7 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
                 <span>
                     <b>{friends[0].fullname}</b>
                     {lastMsg && !lastMsg.reCall ? 
-                        <p>{renderSubString(lastMsg.text, 10)} </p>:
+                        <p>{friends[0]._id !== currentUser.id && "Bạn: "} {renderSubString(lastMsg.text, 7)} </p>:
                         lastMsg?.reCall && <p className={styles.italic}>{renderSubString("Tin nhắn đã bị thu hồi", 11)}</p>
                     }
                 </span>
@@ -93,20 +93,12 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
             // Group conversation
             <div className={classesDarkMode}>
                 <span className={styles.avatarConatiner}>
-                    <div className={styles.listAvatar}>
-                        {conversation.members && conversation.members.map((u, i) => (
-                            i === 3 ?
-                            <div className={styles.avatar2} key={u._id}>
-                                {conversation.members.length - 3}
-                            </div> :
-                             (i > 3 ? null: <div className={styles.avatar} key={u._id}>
-                                <img src={avatar} alt="friend" /> 
-                            </div>)
-                        ))}
-                    </div>
+                        <div className={styles.avatar}>
+                            <img src={avatar} alt="friend" /> 
+                        </div>
                 </span>
                 <span>
-                    <b>{conversation.name}</b>
+                    <b>{renderSubString(conversation.name, 9)}</b>
                     {lastMsg && !lastMsg.reCall ? 
                         <p> 
                             {lastMsg.sender === currentUser.id ? "Bạn" :

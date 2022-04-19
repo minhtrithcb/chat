@@ -27,10 +27,7 @@ const AxiosInterceptor = ({ children }) => {
                 prevReq.sent = true
                 const {data} = await authApi.refreshToken()
                 if (data.isLogin) {
-                  // console.log('get new accesTk ny RT');
                   setAuth({isLogin: true, accessToken:  data.accessToken, loading: false})
-                  // navigate('/', {replace: true})
-                  // navigate(from, {replace: true})
                 } 
 
                 return api(prevReq)

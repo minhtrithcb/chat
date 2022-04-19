@@ -71,4 +71,13 @@
 .dark svg {
   color: #fff;
 }
+
+.dark.DropdownUl {
+  background-color: #2f334d;
+  color: #fff;
+}
+
+.dark.DropdownUl .DropdownItem:hover {
+  background-color: #292c43;
+}
 /*# sourceMappingURL=Dropdown.module.css.map */
