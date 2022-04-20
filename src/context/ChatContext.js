@@ -8,6 +8,9 @@ const ChatProvider = ({children}) => {
     const [chatEdit, setChatEdit] = useState(null)
     const [chatReply, setChatReply] = useState(null)
     const [chatsOption, setChatsOption] = useState({type:  'All', title: 'Tất cả tin nhắn'})
+    const [userRead, setUserRead] = useState(false)
+    const [countUnRead, setCountUnRead] = useState(0)
+
     
     const value = {
         currentChat,
@@ -19,7 +22,11 @@ const ChatProvider = ({children}) => {
         chatReply,
         setChatReply,
         chatsOption,
-        setChatsOption
+        setChatsOption,
+        userRead,
+        setUserRead,
+        countUnRead, 
+        setCountUnRead
     }        
 
     return (

@@ -12,7 +12,7 @@ import ConversationOption from '../ConversationOption/ConversationOption'
 const Conversation = () => {
     const [conversations, setConversations] = useState([])
     const [currentUser] = useDecodeJwt()
-    const {currentChat, setCurrentChat, friend, setFriend, setChatEdit, setChatReply, chatsOption} = useContext(ChatContext)
+    const {currentChat, setCurrentChat, friend, setFriend, setChatEdit, setChatReply, chatsOption, setUserRead} = useContext(ChatContext)
     const {theme} = useTheme()
     const classesDarkMode = clsx(styles.contact,{ 
         [styles.dark]: theme === "dark"
@@ -55,14 +55,21 @@ const Conversation = () => {
         };
     }, [socket, currentUser.id, setCurrentChat, chatsOption])   
 
-
     // User chose Chat setCurrentChat & setFriend (for sending msg)
-    const handleChoseChat = (conversation) => {
+    const handleChoseChat = async (conversation) => {
         setCurrentChat(conversation)
         const friends = conversation.members.filter(u => u._id !== currentUser.id)
         setFriend(friends);        
         setChatEdit(null)
         setChatReply(null)
+        // trigger flag
+        setUserRead(prev => !prev)
+        // Post all user in list read
+        await converApi.postReadMsg({
+            roomId: conversation._id,
+            currentUserId: currentUser.id
+        })
+        
     }
 
     return (

@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { BsEmojiSmile } from "react-icons/bs";
 import { TiLocationArrow } from "react-icons/ti";
 import chatApi from '../../api/chatApi';
@@ -15,7 +15,7 @@ import Button from '../Common/Button/Button'
 import { Picker } from 'emoji-mart'
 
 const ChatForm = () => {
-    const {currentChat, friend, chatEdit, setChatEdit, chatReply, setChatReply} = useContext(ChatContext)
+    const {currentChat, friend, chatEdit, setChatEdit, chatReply, setChatReply, setUserRead} = useContext(ChatContext)
     const [inputChat, setInputChat] = useState('')
     const [textReply, setTextReply] = useState('')
     const [isEditChat, setIsEditChat] = useState(false)
@@ -110,29 +110,12 @@ const ChatForm = () => {
         setInputChat(input => `${input} ${emojiObject.native}`)
     };
 
-    // const [count, setCount] = useState(0)
-
-    // const calcCount = async () => {
-    //     // Check count 
-    //     let count = 0
-    //     const readBy = await converApi.getUnReadMsg(currentChat._id)
-        
-    //     console.log(readBy.data);
-    //     return count
-
-    //     let arr = []
-    //     currentChat.members.forEach(u => {
-    //         if (u._id === currentUser.id) {
-    //             arr.push({'_id': u._id, 'count' : 0})
-
-    //         } else {
-
-    //             arr.push({'_id': u._id, 'count' : count + 1})
-    //         }
-    //     })
-
-    //     return arr
-    // }
+    const mapUsersUnRead = useCallback(() => {
+        return currentChat.members.map(u => ({
+            '_id': u._id, 
+            'count' : u._id === currentUser.id ? 0 : 1 
+        }))
+    },[currentChat.members, currentUser.id])
 
     // Submit send message
     const handleSubmit = async () => {
@@ -146,16 +129,14 @@ const ChatForm = () => {
                 setFlag(true)
                 setInputChat("")
                 
-                // calcCount()
-                // update unread
-                const res = await converApi.countUserRead({
+                // Update unread to all users
+                // Recivers : {_id: 1, count : 0(if this is currenuser) || 1 (if otherwise) })
+                await converApi.postUnReadMsg({
                     roomId: currentChat._id,
                     senderId: currentUser.id,
-                    recivers: currentChat.members.map(u => ({'_id': u._id, 'count' : u._id === currentUser.id ? 0 : 1 }))
+                    recivers: mapUsersUnRead()
                 })
-                
-                console.log(res.data)
-
+    
                 // If user not edit or not reply => post new chat
                 if (!isEditChat && !isReplyChat) {
                     const {data} = await chatApi.postNewChat({
@@ -232,6 +213,17 @@ const ChatForm = () => {
         setChatReply(null)
     }
 
+    // Onfocus send read msg
+    const handleOnFocus = async (e) => {
+         setTimeout(async () => {
+            await converApi.postReadMsg({
+                roomId: currentChat._id,
+                currentUserId: currentUser.id
+            })
+            setUserRead(prev => !prev)
+        }, 2000);
+    }
+
     return (
         <div className={classesDarkMode} >
             {/* Edit & post new chat  */}
@@ -240,6 +232,7 @@ const ChatForm = () => {
                 placeholder={!isEditChat ? `Hãy nhập gì đó ...` : `Sửa lại chat ...`}
                 value={inputChat} 
                 onKeyDown={handleCtrlEnter}
+                onFocus={handleOnFocus}
                 onChange={handleOnChangeInput}
                 ref={editFormRef}
             ></textarea>
@@ -279,6 +272,7 @@ const ChatForm = () => {
                 className={styles.replyTextArea}
                 placeholder={`Trả lời ...`}
                 value={inputChat} 
+                onFocus={handleOnFocus}
                 onKeyDown={handleCtrlEnter}
                 onChange={handleOnChangeInput}
                 ref={editFormRef}

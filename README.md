@@ -26,6 +26,7 @@ npm start
 * User typing hiện đang gõ  
 * User tạo nhóm thêm thành viên, chat nhóm
 * Giao diện mobile riêng. Theme cho ứng dụng.
+* Hiện bagde read or not
 
 ### issues
 * Rev Infinity scroll
@@ -50,7 +51,6 @@ npm start
 * User edit profile
 * User 
 * User Tìm bạn theo tag ... 
-* Notification msg read or not
 * Setting (chặn tin từ người lại, hiện email, hiện thông báo)
 
 ### Model

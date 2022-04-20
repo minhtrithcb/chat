@@ -13,14 +13,16 @@ import useDecodeJwt from '../../hooks/useDecodeJwt';
 import { toast } from 'react-toastify';
 import { FriendContext } from '../../context/FriendContext';
 import { SocketContext } from '../../context/SocketContext';
+import { ChatContext } from '../../context/ChatContext';
 
 const Navbar = () => {
   const {theme, toggle} = useTheme()
-  const {frLength, setFrLength} = useContext(FriendContext)
+  const {frLength, setFrLength } = useContext(FriendContext)
+  const {countUnRead} = useContext(ChatContext)
   const [currentUser] = useDecodeJwt()
   const {socket} = useContext(SocketContext)
   const {pathname} = useLocation();
-
+  
   const listLink1 = [
     {
       icon: <BsChatSquareDots />,
@@ -104,6 +106,7 @@ const Navbar = () => {
             {item.icon}
             <p>{item.text}</p>
             {frLength > 0 && item.fr ? <span>{frLength}</span> : null}
+            {countUnRead !== 0 && item.path === "/" && <span>{countUnRead}</span> }
           </NavLink>))}
 
         <div className={styles.hr} />

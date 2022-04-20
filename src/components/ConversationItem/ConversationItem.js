@@ -7,9 +7,11 @@ import { SocketContext } from '../../context/SocketContext'
 import {ConversationItemLoading} from '../ChatLoading/ChatLoading'
 import useDecodeJwt from '../../hooks/useDecodeJwt'
 import renderSubString, { renderTimeDiff } from '../../helper/renderSubString'
+import { ChatContext } from '../../context/ChatContext'
 
 const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => {
     const {socket} = useContext(SocketContext)
+    const {userRead,currentChat, setCountUnRead} = useContext(ChatContext)
     const [currentUser] = useDecodeJwt()
     const [pendingChat, setPendingChat] = useState(false)
     const {theme} = useTheme()
@@ -19,7 +21,9 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
         [styles.dark]: theme === "dark",
         [styles.active]: activeChat
     })
-    // const [messageCount, setMessageCount] = useState(0);
+
+    const [unReadMsg, setUnReadMsg] = useState(0)
+
     // Get new message & display
     useEffect(() => {        
         let isMounted = true;            
@@ -28,8 +32,8 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
         socket.on("getSomeOneMessage", data => {
             if (data.roomId === conversation._id) {
                 setLastMsg(data);
-                // if (data.sender !== currentUser.id)
-                //     setMessageCount(prev => prev + 1)
+                // count by one if someone text
+                if (data.sender !== currentUser.id) setUnReadMsg(prev => prev + 1)
             }
         })
         // Get and display new update last msg ex: recall last msg > display "Tin nhắn đã bị thu hồi"
@@ -70,6 +74,19 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
         }
     },[usersOnline, friends])    
 
+    // Set unread or default 0 (read)
+    useEffect(() => {
+        const found = conversation?.readBy.find(u => u._id === currentUser.id) 
+        setUnReadMsg(found?.count ?? 0)
+        setCountUnRead(prev => prev + (found?.count ?? 0))
+        // userRead if a flag trigger whatever user chose conversationItem
+        if(userRead && conversation._id === currentChat._id) setUnReadMsg(0)
+        return () => {
+            setCountUnRead(0)
+        }
+    }, [conversation, currentUser.id, userRead, setCountUnRead])
+    
+
     return (
         <>
         {/* // Friend conversation */}
@@ -90,11 +107,7 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
                 <span>
                     {pendingChat && <ConversationItemLoading />}
                     <small>{lastMsg && renderTimeDiff(lastMsg.createdAt)}</small>
-                    {/* {messageCount > 0 && <p>{messageCount}</p>} */}
-                    
-                        {conversation.readBy.find(u => u._id === currentUser.id) 
-                        && <p> {conversation.readBy.find(u => u._id === currentUser.id).count}</p> }
-                    
+                    { unReadMsg !== 0 && <p>{unReadMsg}</p> }
                 </span>
             </div> :
             // Group conversation
@@ -121,8 +134,7 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
                 <span>
                     {pendingChat && <ConversationItemLoading />}
                     <small>{lastMsg && renderTimeDiff(lastMsg.createdAt)}</small>
-                    {conversation.readBy.find(u => u._id === currentUser.id) 
-                        && <p> {conversation.readBy.find(u => u._id === currentUser.id).count}</p> }
+                    { unReadMsg !== 0 && <p>{unReadMsg}</p> }
                 </span>
             </div> }
         </>

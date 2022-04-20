@@ -12,16 +12,17 @@ const converApi = {
             friendId
         })
     },
-    countUserRead({roomId,senderId, recivers}) {
-        return api.post(`conversation/countUserRead`, {
+    postUnReadMsg({roomId, senderId, recivers}) {
+        return api.post(`conversation/postUnReadMsg`, {
             roomId, 
             senderId,
             recivers
         })
     },
-    getUnReadMsg(roomId) {
-        return api.post(`conversation/getUnReadMsg`, {
-            roomId
+    postReadMsg({roomId, currentUserId}) {
+        return api.post(`conversation/postReadMsg`, {
+            roomId, 
+            currentUserId
         })
     },
     createFriendConver(senderId, receiverId) {
