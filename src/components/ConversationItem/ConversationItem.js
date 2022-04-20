@@ -19,7 +19,7 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
         [styles.dark]: theme === "dark",
         [styles.active]: activeChat
     })
-
+    // const [messageCount, setMessageCount] = useState(0);
     // Get new message & display
     useEffect(() => {        
         let isMounted = true;            
@@ -28,6 +28,8 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
         socket.on("getSomeOneMessage", data => {
             if (data.roomId === conversation._id) {
                 setLastMsg(data);
+                // if (data.sender !== currentUser.id)
+                //     setMessageCount(prev => prev + 1)
             }
         })
         // Get and display new update last msg ex: recall last msg > display "Tin nhắn đã bị thu hồi"
@@ -88,6 +90,11 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
                 <span>
                     {pendingChat && <ConversationItemLoading />}
                     <small>{lastMsg && renderTimeDiff(lastMsg.createdAt)}</small>
+                    {/* {messageCount > 0 && <p>{messageCount}</p>} */}
+                    
+                        {conversation.readBy.find(u => u._id === currentUser.id) 
+                        && <p> {conversation.readBy.find(u => u._id === currentUser.id).count}</p> }
+                    
                 </span>
             </div> :
             // Group conversation
@@ -114,6 +121,8 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
                 <span>
                     {pendingChat && <ConversationItemLoading />}
                     <small>{lastMsg && renderTimeDiff(lastMsg.createdAt)}</small>
+                    {conversation.readBy.find(u => u._id === currentUser.id) 
+                        && <p> {conversation.readBy.find(u => u._id === currentUser.id).count}</p> }
                 </span>
             </div> }
         </>

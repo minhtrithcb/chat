@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import { BsEmojiSmile } from "react-icons/bs";
 import { TiLocationArrow } from "react-icons/ti";
 import chatApi from '../../api/chatApi';
+import converApi from '../../api/converApi';
 import { ChatContext } from '../../context/ChatContext';
 import { SocketContext } from '../../context/SocketContext';
 import useDecodeJwt from '../../hooks/useDecodeJwt';
@@ -109,6 +110,30 @@ const ChatForm = () => {
         setInputChat(input => `${input} ${emojiObject.native}`)
     };
 
+    // const [count, setCount] = useState(0)
+
+    // const calcCount = async () => {
+    //     // Check count 
+    //     let count = 0
+    //     const readBy = await converApi.getUnReadMsg(currentChat._id)
+        
+    //     console.log(readBy.data);
+    //     return count
+
+    //     let arr = []
+    //     currentChat.members.forEach(u => {
+    //         if (u._id === currentUser.id) {
+    //             arr.push({'_id': u._id, 'count' : 0})
+
+    //         } else {
+
+    //             arr.push({'_id': u._id, 'count' : count + 1})
+    //         }
+    //     })
+
+    //     return arr
+    // }
+
     // Submit send message
     const handleSubmit = async () => {
         if (inputChat !== "") {
@@ -120,6 +145,16 @@ const ChatForm = () => {
                 })
                 setFlag(true)
                 setInputChat("")
+                
+                // calcCount()
+                // update unread
+                const res = await converApi.countUserRead({
+                    roomId: currentChat._id,
+                    senderId: currentUser.id,
+                    recivers: currentChat.members.map(u => ({'_id': u._id, 'count' : u._id === currentUser.id ? 0 : 1 }))
+                })
+                
+                console.log(res.data)
 
                 // If user not edit or not reply => post new chat
                 if (!isEditChat && !isReplyChat) {

@@ -29,14 +29,12 @@ npm start
 
 ### issues
 * Rev Infinity scroll
-* Socket not work when user has new accessTK
 
 #### Chức năng đang làm
 * Chat option, kick, out group, (tạo bình chọn), mute user
 * Activiti panel
 
-### Chức năng Frontend sẻ có ...
-* Highlight chat @user 
+### Chức năng Frontend sẽ có ...
 * custumize conversation item
 * Ngày trên chat
 * wellcome khi login lần đầu

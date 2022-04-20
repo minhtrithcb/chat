@@ -4,7 +4,8 @@ const useWidth = (myRef) => {
     const [width, setWidth] = useState(0)
     useEffect(() => {
         const handleResize = () => {
-          setWidth(myRef.current.offsetWidth)
+           if( myRef?.current )
+                setWidth(myRef.current.offsetWidth)
         }
     
         window.addEventListener('resize', handleResize)

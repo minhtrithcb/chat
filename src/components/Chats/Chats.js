@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import styles from "./Chats.module.scss"
 import avatar from '../../assets/images/user.png'
 import { FiAlignRight, FiMenu } from "react-icons/fi";
@@ -42,6 +42,7 @@ const Chats = () => {
         socket.on("getMessage", data => {
             if (isMounted && data) {
                 setChats(prevChat => [...prevChat, data]);
+                // setCount(prev => prev + 1)
                 bottomRef?.current?.scrollIntoView({behavior: "smooth"})
             }
         })
@@ -186,7 +187,7 @@ const Chats = () => {
                     <div ref={bottomRef}></div>
                 </div>
                 {/* // From Chat  */}
-                <ChatForm />
+                <ChatForm/>
 
                 <Model isOpen={isOpen} heading="Nhóm" handleClick={setIsOpen}>
                     <GroupInfoTab />
