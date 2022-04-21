@@ -26,8 +26,6 @@ const GroupInfoTab = () => {
         return (currentChat.members.find(u => u._id === currentChat.owner))?.fullname
     }
 
-   
-
     return (
         <>
           {currentChat && <div className={classesDarkMode}>

@@ -2,10 +2,10 @@
 @import '../../assets/css/mixin';
 
 .GroupInfoTab {
-    min-width: 300px;
     position: relative;
     overflow: hidden;
     display: block;
+    margin: -1em;
 }
 
 .infoBackGround {
@@ -38,16 +38,12 @@
 
     p {
         line-height: 25px;
-        max-width: 300px;
-    }
-
-    @include maxWitdh(1024px) {
-        p {max-width: fit-content;}
+        max-width: fit-content;
     }
 }
 
 .infoUserList {
-    height: 200px;
+    height: 150px;
     overflow: hidden;
     overflow-y: auto;
     @include scrollBarDefault;
@@ -76,6 +72,7 @@
 
 .infoAction {
     margin-top: 1em;
+    
     span {
         display: flex;
         align-items: center;

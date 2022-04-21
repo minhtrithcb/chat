@@ -13,7 +13,6 @@ const ChatProvider = ({children}) => {
     const [chatsOption, setChatsOption] = useState({type:  'All', title: 'Tất cả tin nhắn'})
     const [userReadConver, setUserReadConver] = useState(null)
     const [countUnRead, setCountUnRead] = useState(0)
-    const [newMsgAppert, setNewMsgAppert] = useState(false)
     const {auth} = useContext(AuthContext)
 
     
@@ -32,8 +31,6 @@ const ChatProvider = ({children}) => {
         setUserReadConver,
         countUnRead, 
         setCountUnRead,
-        newMsgAppert, 
-        setNewMsgAppert
     }        
 
     // Feach all get Count UnReadMsg
@@ -62,7 +59,7 @@ const ChatProvider = ({children}) => {
         return () => { 
             isMounted = false 
         };
-    }, [auth, userReadConver, newMsgAppert])   
+    }, [auth, userReadConver])   
 
     return (
         <ChatContext.Provider value={value}>

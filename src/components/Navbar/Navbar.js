@@ -18,7 +18,7 @@ import { ChatContext } from '../../context/ChatContext';
 const Navbar = () => {
   const {theme, toggle} = useTheme()
   const {frLength, setFrLength } = useContext(FriendContext)
-  const {countUnRead} = useContext(ChatContext)
+  const {countUnRead, setCountUnRead} = useContext(ChatContext)
   const [currentUser] = useDecodeJwt()
   const {socket} = useContext(SocketContext)
   const {pathname} = useLocation();
@@ -50,7 +50,13 @@ const Navbar = () => {
     socket.on("getAddFriend", data => {
       if(data) setFrLength(prev => prev + 1);
     })
-  }, [socket, setFrLength])
+
+    socket.on("getSomeOneMessage", data => {
+      if (data.sender !== currentUser.id) {
+        setCountUnRead(prev => prev + 1)
+      }
+    })
+  }, [socket, setFrLength, currentUser.id, setCountUnRead])
 
   // funtion Log out 
   const handleLogout = () => {

@@ -5,7 +5,8 @@
     position: fixed;
     z-index: 1001;
     width: 700px;
-    height: auto;
+    max-height: 80vh;
+    overflow: hidden;
     background-color: rgb(255, 255, 255);
     left: 50%;
     top: 50%;

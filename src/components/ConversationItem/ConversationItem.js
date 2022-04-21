@@ -11,7 +11,7 @@ import { ChatContext } from '../../context/ChatContext'
 
 const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => {
     const {socket} = useContext(SocketContext)
-    const {userReadConver, setNewMsgAppert} = useContext(ChatContext)
+    const {userReadConver} = useContext(ChatContext)
     const [currentUser] = useDecodeJwt()
     const [pendingChat, setPendingChat] = useState(false)
     const {theme} = useTheme()
@@ -34,7 +34,6 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
                 // count by one if someone text
                 if (data.sender !== currentUser.id) {
                     setUnReadMsg(prev => prev + 1)
-                    setNewMsgAppert(prev => !prev)
                 }
             }
         })
@@ -63,7 +62,7 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
 
         return () => { isMounted = false };
 
-    }, [socket, conversation, currentUser.id, setNewMsgAppert])
+    }, [socket, conversation, currentUser.id])
 
     // set state users online
     useEffect(() => {

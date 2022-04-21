@@ -2,11 +2,8 @@
 @import '../../assets/css/mixin';
 
 .friendProfile {
-    max-width: 300px;
     overflow: hidden;
-    @include maxWitdh(768px) {
-        display: none;
-    }
+    margin: -1em;
 }
 
 .infoBackGround {

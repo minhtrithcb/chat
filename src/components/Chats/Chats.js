@@ -1,7 +1,7 @@
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import styles from "./Chats.module.scss"
 import avatar from '../../assets/images/user.png'
-import { FiAlignRight, FiMenu } from "react-icons/fi";
+import { FiAlignRight } from "react-icons/fi";
 import { MdOutlineArrowBackIos } from "react-icons/md";
 import clsx from 'clsx';
 import useToggle from '../../hooks/useToggle';
@@ -18,10 +18,8 @@ import ChatLoading from '../ChatLoading/ChatLoading';
 import FriendInfoTab from '../FriendInfoTab/FriendInfoTab';
 import GroupInfoTab from '../GroupInfoTab/GroupInfoTab';
 import Model from '../Common/Model/Model';
-import useWidth from '../../hooks/useWidth'
 
 const Chats = () => {
-    const [toggle, setToggle] = useToggle(false)
     const [isOpen, setIsOpen] = useToggle(false)
     const [pendingChat, setPendingChat] = useToggle(false)
     const [sender, setSender] = useState('')
@@ -111,39 +109,40 @@ const Chats = () => {
         };
     }, [currentChat])
 
-    // wid
-    let myRef = useRef(null)
-    const width = useWidth(myRef) 
+    const checkIsFriend = () => {
+        return currentChat.type === 'Friend'
+    }
 
     return (
         <>
             {!currentChat ? 
             <NotHaveChat />
-            : <div className={classesDarkMode} ref={myRef} >
+            : <div className={classesDarkMode} >
                 {/* // Desktop view  */}
                 <div className={styles.friendCover}>
-                    {currentChat.type === 'Friend' ? <div>
+                    {checkIsFriend() ? <div>
                         <div className={styles.avatar}>
-                            <img src={avatar} alt="friend" />
+                            <img src={avatar} alt="friend_avatar" />
                         </div>
                         <span className={styles.des}>
-                            <b>{friend[0].fullname}</b>
+                            <b onClick={() => setIsOpen(true)}>{friend[0].fullname}</b>
                             <small>#{friend[0].email}</small>
                         </span>
                     </div> : 
                     <div>
                         <div className={styles.avatar}>
-                            <img src={avatar} alt="friend" />
+                            <img src={avatar} alt="group_avatar" />
                         </div>
                         <span className={styles.des}>
                             <b onClick={() => setIsOpen(true)}>{currentChat.name}</b>
                             <small>{currentChat.members.length} Thành viên</small>
                         </span>
                     </div>}
-
-                    {width > 769 && <div onClick={setToggle}>
-                         {toggle ? <FiAlignRight /> : <FiMenu />}
-                    </div>}
+                    
+                    {/* Open model  */}
+                    <div onClick={() => setIsOpen(true)}>
+                        <FiAlignRight /> 
+                    </div>
                 </div>
                 {/* // Mobile View  */}
                 <div className={styles.mobileViewCover}>
@@ -151,21 +150,21 @@ const Chats = () => {
                         <MdOutlineArrowBackIos />
                     </div>
 
-                    {currentChat.type === 'Friend' ? <div>
+                    {checkIsFriend() ? <div>
                         <span className={styles.des}>
                             <Link to={`/profile/${friend[0]._id}`} >{friend[0].fullname}</Link>
                         </span>
                     </div> : 
                     <div>
                         <span className={styles.des}>
-                        {width < 769 ? 
-                            <b onClick={() => setIsOpen(true)}>{currentChat.name}</b>: 
-                            <b>{currentChat.name}</b>}
+                            <b onClick={() => setIsOpen(true)}>{currentChat.name}</b>:
                         </span> 
                     </div>}
 
                     {/* // Fake div  */}
-                    <div></div>
+                    <div onClick={() => setIsOpen(true)}>
+                        <FiAlignRight /> 
+                    </div>
                 </div>
 
                 {/* // Render all chat  */}
@@ -189,14 +188,10 @@ const Chats = () => {
                 {/* // From Chat  */}
                 <ChatForm/>
 
-                <Model isOpen={isOpen} heading="Nhóm" handleClick={setIsOpen}>
-                    <GroupInfoTab />
+                <Model isOpen={isOpen} heading={checkIsFriend()? "Bạn bè": "Nhóm"} handleClick={setIsOpen}>
+                    {checkIsFriend() ? <FriendInfoTab />:  <GroupInfoTab />}
                 </Model>
             </div>}
-            {currentChat && currentChat.type === 'Friend' ? 
-                toggle && <FriendInfoTab /> :
-                toggle && width > 769 ? <GroupInfoTab /> : null
-            }
         </>
     )
 }
