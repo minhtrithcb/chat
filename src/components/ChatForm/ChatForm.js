@@ -15,7 +15,7 @@ import Button from '../Common/Button/Button'
 import { Picker } from 'emoji-mart'
 
 const ChatForm = () => {
-    const {currentChat, friend, chatEdit, setChatEdit, chatReply, setChatReply, setUserRead} = useContext(ChatContext)
+    const {currentChat, friend, chatEdit, setChatEdit, chatReply, setChatReply, setUserReadConver} = useContext(ChatContext)
     const [inputChat, setInputChat] = useState('')
     const [textReply, setTextReply] = useState('')
     const [isEditChat, setIsEditChat] = useState(false)
@@ -214,14 +214,12 @@ const ChatForm = () => {
     }
 
     // Onfocus send read msg
-    const handleOnFocus = async (e) => {
-         setTimeout(async () => {
-            await converApi.postReadMsg({
-                roomId: currentChat._id,
-                currentUserId: currentUser.id
-            })
-            setUserRead(prev => !prev)
-        }, 2000);
+    const handleOnFocus = async () => {
+        await converApi.postReadMsg({
+            roomId: currentChat._id,
+            currentUserId: currentUser.id
+        })
+        setUserReadConver({_id: currentChat._id, flag: true})
     }
 
     return (

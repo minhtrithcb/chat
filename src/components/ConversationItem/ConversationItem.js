@@ -11,18 +11,17 @@ import { ChatContext } from '../../context/ChatContext'
 
 const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => {
     const {socket} = useContext(SocketContext)
-    const {userRead,currentChat, setCountUnRead} = useContext(ChatContext)
+    const {userReadConver, setNewMsgAppert} = useContext(ChatContext)
     const [currentUser] = useDecodeJwt()
     const [pendingChat, setPendingChat] = useState(false)
     const {theme} = useTheme()
     const [lastMsg, setLastMsg] = useState(conversation.lastMsg)
     const [onlineFriend, setOnlineFriend] = useState(false)
+    const [unReadMsg, setUnReadMsg] = useState(0)
     const classesDarkMode = clsx(styles.messagesItem,{ 
         [styles.dark]: theme === "dark",
         [styles.active]: activeChat
     })
-
-    const [unReadMsg, setUnReadMsg] = useState(0)
 
     // Get new message & display
     useEffect(() => {        
@@ -33,7 +32,10 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
             if (data.roomId === conversation._id) {
                 setLastMsg(data);
                 // count by one if someone text
-                if (data.sender !== currentUser.id) setUnReadMsg(prev => prev + 1)
+                if (data.sender !== currentUser.id) {
+                    setUnReadMsg(prev => prev + 1)
+                    setNewMsgAppert(prev => !prev)
+                }
             }
         })
         // Get and display new update last msg ex: recall last msg > display "Tin nhắn đã bị thu hồi"
@@ -61,7 +63,7 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
 
         return () => { isMounted = false };
 
-    }, [socket, conversation, currentUser.id])
+    }, [socket, conversation, currentUser.id, setNewMsgAppert])
 
     // set state users online
     useEffect(() => {
@@ -74,17 +76,16 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
         }
     },[usersOnline, friends])    
 
-    // Set unread or default 0 (read)
+    // Set unread default 0 
     useEffect(() => {
         const found = conversation?.readBy.find(u => u._id === currentUser.id) 
         setUnReadMsg(found?.count ?? 0)
-        setCountUnRead(prev => prev + (found?.count ?? 0))
-        // userRead if a flag trigger whatever user chose conversationItem
-        if(userRead && conversation._id === currentChat._id) setUnReadMsg(0)
-        return () => {
-            setCountUnRead(0)
-        }
-    }, [conversation, currentUser.id, userRead, setCountUnRead])
+    }, [conversation, currentUser.id])
+    
+    // Set unread if user chose converstion
+    useEffect(() => {
+        if(userReadConver?._id === conversation?._id) setUnReadMsg(0)
+    }, [userReadConver, conversation._id])
     
 
     return (
@@ -100,7 +101,7 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
                 <span>
                     <b>{friends[0].fullname}</b>
                     {lastMsg && !lastMsg.reCall ? 
-                        <p>{friends[0]._id !== currentUser.id && "Bạn: "} {renderSubString(lastMsg.text, 7)} </p>:
+                        <p>{ lastMsg.sender === currentUser.id && "Bạn :" } {renderSubString(lastMsg.text, 7)} </p>:
                         lastMsg?.reCall && <p className={styles.italic}>{renderSubString("Tin nhắn đã bị thu hồi", 11)}</p>
                     }
                 </span>

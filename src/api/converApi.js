@@ -6,6 +6,9 @@ const converApi = {
             userId, type
         })
     },
+    getCountUnReadMsg(userId) {
+        return api.get(`conversation/getCountUnReadMsg/${userId}`)
+    },
     getOneByUserId(currentUserId, friendId) {
         return api.post(`conversation/getOne`, {
             currentUserId, 

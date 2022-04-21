@@ -22,25 +22,6 @@ const Navbar = () => {
   const [currentUser] = useDecodeJwt()
   const {socket} = useContext(SocketContext)
   const {pathname} = useLocation();
-  
-  const listLink1 = [
-    {
-      icon: <BsChatSquareDots />,
-      text: 'Trang chủ',
-      path: "/"
-    },
-    {
-      icon: <BsPeople />,
-      text: 'Danh bạ',
-      path: "/Contact",
-      fr: true
-    },
-    {
-      icon: <BsTelephone />,
-      text: 'Admin',
-      path: "/admin"
-    },
-  ]
 
   const listLink2 = [
     {
@@ -89,6 +70,10 @@ const Navbar = () => {
       })
   }
 
+  const checkActiveClass = (path) => {
+    return pathname === path ? styles.active : " "
+  }
+
   return (
     <div className={classesDarkMode}>
         <div className={styles.user}>
@@ -100,14 +85,21 @@ const Navbar = () => {
             <Link to={`/profile/${currentUser?.id}`}>{currentUser?.username}</Link>
           </span>
         </div>
-        {listLink1 && listLink1.map((item, index) =>(
-          <NavLink to={`${item.path}`} key={index} 
-            className={pathname === item.path ? [styles.active] : " "}>
-            {item.icon}
-            <p>{item.text}</p>
-            {frLength > 0 && item.fr ? <span>{frLength}</span> : null}
-            {countUnRead !== 0 && item.path === "/" && <span>{countUnRead}</span> }
-          </NavLink>))}
+
+        <NavLink to={`/`} className={checkActiveClass('/')}>
+          <BsChatSquareDots />
+          <p>Trang chủ</p>
+          {countUnRead > 0 && <span>{countUnRead}</span> }
+        </NavLink>
+        <NavLink to={`/contact`} className={checkActiveClass('/contact')}>
+          <BsPeople />
+          <p>Danh bạ</p>
+          {frLength > 0 &&  <span>{frLength}</span> }
+        </NavLink>
+        <NavLink to={`/admin`} className={checkActiveClass('/admin')}>
+          <BsTelephone />
+          <p>Admin</p>
+        </NavLink>
 
         <div className={styles.hr} />
 
