@@ -32,7 +32,9 @@ const Chats = () => {
     const classesDarkMode = clsx(styles.conversation,{ 
         [styles.dark]: theme === "dark"
     })
-
+    const [offset, setOffset] = useState({count: 0, counting: false})
+    const loadMoreRef = useRef()
+    const oldScroll = useRef()
     // Listening even from socket
     useEffect(() => {        
         let isMounted = true;   
@@ -40,7 +42,9 @@ const Chats = () => {
         socket.on("getMessage", data => {
             if (isMounted && data) {
                 setChats(prevChat => [...prevChat, data]);
-                // setCount(prev => prev + 1)
+                // if someOne or CurrUser Texting the off set will count by one
+                // And the counting flag will prevent user load more recode
+                setOffset(prev => ({count: prev.count + 1, counting: true}))        
                 bottomRef?.current?.scrollIntoView({behavior: "smooth"})
             }
         })
@@ -80,6 +84,7 @@ const Chats = () => {
         }
     }, [currentChat, socket])
 
+    // Scroll funtion
     const toTheBottom = () => {
         if (bottomRef.current !== undefined) {
             bottomRef.current.scrollIntoView()
@@ -92,10 +97,20 @@ const Chats = () => {
         const getChats = async () => {
             try {
                 if (currentChat) {
-                    const {data} = await chatApi.getChatByRoomId(`${currentChat?._id}`)
+                    const {data} = await chatApi.getChatByRoomId(currentChat._id, offset.count)
                     if (isMounted) {
-                        setChats(data.reverse()); 
-                        toTheBottom();
+                        if (offset?.count === 0) {
+                            setChats(data.reverse()); 
+                            toTheBottom();
+                        
+                        // If not couting user will recive 20 record
+                        } else if (!offset?.counting) {
+                            let revs = data.reverse() // new value
+                            // Push new value in front of array, and the ref (oldScroll) so user can stay with current postion
+                            // The Prev value just remove the oldScroll
+                            setChats(prev => [...revs, {oldScroll: true}, ...prev.filter(c => !c.oldScroll) ]); 
+                            oldScroll?.current.scrollIntoView()
+                        }
                     }
                 }
             } catch (error) {
@@ -107,8 +122,37 @@ const Chats = () => {
         return () => { 
             isMounted = false 
         };
-    }, [currentChat])
+    }, [currentChat, offset])
+    
+    // Tracking user sroll to the top
+    useEffect(() => {
+          const observer = new IntersectionObserver(entries => {
+              let entry = entries[0];
+              //  boundingClientRect.top default is 70, this will prevent the offset increse the first time
+              if(entry.isIntersecting && entry.boundingClientRect.top === 68){
+                    // Every time user reach the top will get more 20 record
+                    // The counting just trigger to get new record
+                    setOffset(prev => ({count: prev.count + 20, counting: false}))        
+              }
+          },{
+              root: null,
+              threshold: 0,
+              rootMargin: "0px"
+          });
+  
+          const currTarget = loadMoreRef.current
+          if(currTarget) observer.observe(currTarget);
+  
+          return () => {
+              // Reset
+              setOffset({count: 0, counting: false})
+              if(currTarget) {
+                  observer.unobserve(currTarget);
+              }
+          }
+    },[currentChat])
 
+    // Check is Friend
     const checkIsFriend = () => {
         return currentChat.type === 'Friend'
     }
@@ -169,10 +213,14 @@ const Chats = () => {
 
                 {/* // Render all chat  */}
                 <div className={styles.chatContainer} >
+                    <div ref={loadMoreRef}></div>
                     {chats && chats.map((currChat, index, chat) => {
                         let dup = false
                         if (index > 0 && chat[index - 1].sender === currChat.sender) {
                             dup = true
+                        }
+                        if (currChat.oldScroll) {
+                            return <div key={currChat.oldScroll} ref={oldScroll}></div>
                         }
                         return <ChatItem
                             key={currChat._id} 

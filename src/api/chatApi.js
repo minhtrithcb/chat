@@ -1,8 +1,8 @@
 import api from "./api.config"
 
 const chatApi = {
-    getChatByRoomId(roomId) {
-        return api.get(`chat/${roomId}`)
+    getChatByRoomId(roomId, offset) {
+        return api.get(`chat/${roomId}/${offset}`)
     },
     postNewChat({roomId, sender, text}) {
         return api.post(`chat`, {roomId, sender, text})
