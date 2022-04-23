@@ -27,9 +27,8 @@ npm start
 * User tạo nhóm thêm thành viên, chat nhóm
 * Giao diện mobile riêng. Theme cho ứng dụng.
 * Hiện bagde số tin nhắn chưa đọc, hoặc mới nhận
+* Hiện thị chat infinite scroll
 
-### issues
-* Rev Infinity scroll
 
 #### Chức năng đang làm
 * Chat option, kick, out group, (tạo bình chọn), mute user

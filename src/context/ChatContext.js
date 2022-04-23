@@ -15,7 +15,6 @@ const ChatProvider = ({children}) => {
     const [countUnRead, setCountUnRead] = useState(0)
     const {auth} = useContext(AuthContext)
 
-    
     const value = {
         currentChat,
         setCurrentChat,
@@ -43,7 +42,7 @@ const ChatProvider = ({children}) => {
                     const {data} = await converApi.getCountUnReadMsg(currentUser.id)
                     if (isMounted) {
                         const readBy = data.map(c => {
-                            return c.readBy.find(u => u._id === currentUser.id)
+                            return c.readBy.find(u => u._id === currentUser.id) || {count: 0}
                         })
                         const count = readBy.reduce((p, c) => {
                             return  c._id === currentUser.id && p + c.count

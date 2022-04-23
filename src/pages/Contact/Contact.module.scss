@@ -7,6 +7,7 @@
     overflow-y: hidden;
     display: flex;
     background-color: #fff;
+    
 
     @include maxWitdh(1230px) {
         flex-direction: column;
@@ -33,7 +34,6 @@
 
 .contact {
     width: 100%;
-
     .heading {
         height: 70px;
         padding: 1em;
@@ -56,6 +56,7 @@
         height: calc(100vh - 70px);
         overflow-y: scroll;
         border-left: 1px solid $gray;
+        
         @include scrollBarDefault;
     }
 
