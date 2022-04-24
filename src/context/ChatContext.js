@@ -45,7 +45,7 @@ const ChatProvider = ({children}) => {
                             return c.readBy.find(u => u._id === currentUser.id) || {count: 0}
                         })
                         const count = readBy.reduce((p, c) => {
-                            return  c._id === currentUser.id && p + c.count
+                            return c._id === currentUser.id ? p + c.count : p + 0
                         }, 0)
                         setCountUnRead(count)
                     }

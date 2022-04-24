@@ -31,10 +31,10 @@ npm start
 
 
 #### Chức năng đang làm
-* Chat option, kick, out group, (tạo bình chọn), mute user
-* Activiti panel
+* Đăng nhập đa nền tảng, gửi mail, đổi mật khẩu, thay đổi thông tin cá nhân
 
 ### Chức năng Frontend sẽ có ...
+* Chat option, kick, out group, (tạo bình chọn), mute user
 * custumize conversation item
 * Ngày trên chat
 * wellcome khi login lần đầu
@@ -42,7 +42,6 @@ npm start
 * Tìm user online / offline
 * Ghim hộp thọai,
 * User gửi otp đăng nhập
-* Đăng nhập đa nền tảng, gửi mail
 * User online theo thời gần nhất (lần cuối online)
 * User nhắn tin khi ko kết bạn theo setting
 * User chat có file & gif ảnh 

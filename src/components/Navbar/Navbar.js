@@ -26,6 +26,7 @@ const Navbar = () => {
   const {pathname} = useLocation();
   const [isOpen, setIsOpen] = useState(false)
   const navigate = useNavigate()
+
   const listLink2 = [
     {
       icon: <BsStar />,
