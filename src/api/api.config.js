@@ -23,28 +23,30 @@ const AxiosInterceptor = ({ children }) => {
         }
         const errInterceptor = async error => {
             const prevReq = error?.config
-              if (error?.response?.status === 401 && !prevReq?.sent) {
+            if (error?.response?.status === 401 && !prevReq?.sent) {
                 prevReq.sent = true
                 const {data} = await authApi.refreshToken()
                 if (data.isLogin) {
-                  setAuth({isLogin: true, accessToken:  data.accessToken, loading: false})
-                } 
-
+                    setAuth({isLogin: true, accessToken:  data.accessToken, loading: false})
+                } else {
+                    setAuth({isLogin: false})
+                    navigate("/login", {replace: true})
+                }
                 return api(prevReq)
-              } 
-              // If status 403 mean you dont have cookies accessTk and RefreshTk push back to login
-              if (error.response?.status === 403) {
-                  navigate("/login", {replace: true})
-              }
-              return Promise.reject(error);
+            } 
+            
+            // If status 403 mean you dont have cookies accessTk and RefreshTk push back to login
+            if (error.response?.status === 403) {
+                setAuth({isLogin: false})
+                navigate("/login", {replace: true})
+            }
+            
+            return Promise.reject(error);
         }
-
 
         const interceptor = api.interceptors.response.use(resInterceptor, errInterceptor);
 
         return () => api.interceptors.response.eject(interceptor);
-
-        // Somtime if this now work remove this
         // eslint-disable-next-line
     }, []) 
     return children;

@@ -89,7 +89,22 @@
     background-color: $dark-lv3;
     color: #fff;
 
+    .modelContainer, .modelHeading {
+        p {
+            color: #fff;
+        }
+    }
+
     .closeBtn {
+        color: #fff;
+    }
+
+    button:first-child {
+        background-color: $primary-color;
+        color: #fff;
+    }
+    button:last-child {
+        background-color: $dark-lv4;
         color: #fff;
     }
 }

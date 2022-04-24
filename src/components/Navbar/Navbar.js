@@ -1,5 +1,5 @@
-import React, { useContext, useEffect} from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import React, { useContext, useEffect, useState} from 'react'
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import styles from './Navbar.module.scss'
 import avatar from '../../assets/images/user.png'
 import {  BsChatSquareDots, BsPeople, BsTelephone,BsGear , BsBookmarkPlus , BsStar} from "react-icons/bs";
@@ -7,22 +7,25 @@ import { AiOutlinePoweroff } from "react-icons/ai";
 import { FiUser } from "react-icons/fi";
 import clsx from 'clsx';
 import useTheme  from '../../hooks/useTheme'
-import Swal from 'sweetalert2';
 import authApi from '../../api/authApi';
 import useDecodeJwt from '../../hooks/useDecodeJwt';
 import { toast } from 'react-toastify';
 import { FriendContext } from '../../context/FriendContext';
 import { SocketContext } from '../../context/SocketContext';
 import { ChatContext } from '../../context/ChatContext';
+import Alert from '../Common/Alert/Alert';
+import { AuthContext } from '../../context/AuthContext';
 
 const Navbar = () => {
   const {theme, toggle} = useTheme()
   const {frLength, setFrLength } = useContext(FriendContext)
   const {countUnRead, setCountUnRead} = useContext(ChatContext)
+  const {setAuth} = useContext(AuthContext)
   const [currentUser] = useDecodeJwt()
   const {socket} = useContext(SocketContext)
   const {pathname} = useLocation();
-
+  const [isOpen, setIsOpen] = useState(false)
+  const navigate = useNavigate()
   const listLink2 = [
     {
       icon: <BsStar />,
@@ -56,24 +59,20 @@ const Navbar = () => {
         setCountUnRead(prev => prev + 1)
       }
     })
+    return () => {
+      setIsOpen(false)
+    }
   }, [socket, setFrLength, currentUser.id, setCountUnRead])
 
   // funtion Log out 
-  const handleLogout = () => {
-    Swal.fire({
-      title: 'Bạn có muốn đăng xuất không?',
-      icon: 'info',
-      showDenyButton: true,
-      confirmButtonText: 'Có',
-      denyButtonText: 'Không',
-    }).then((result) => {
-      if (result.isConfirmed) {
+  const handleLogout = async (userComfirm) => {
+    if (userComfirm) {
         toast.success(`Đăng xuất thành công`)
-      }})
-      .then(async () => {
         await authApi.logout();
-        window.location = "/login"
-      })
+        setAuth({isLogin: false})
+        navigate(`/login`,  {replace: true})
+    }
+    setIsOpen(false)
   }
 
   const checkActiveClass = (path) => {
@@ -124,11 +123,18 @@ const Navbar = () => {
             <FiUser />
             <p></p>
         </NavLink>
-        <div className={styles.btn_logout} onClick={handleLogout}>
+        <div className={styles.btn_logout} onClick={() => setIsOpen(true)}>
           <AiOutlinePoweroff />
           <span>Thoát</span>
         </div>
         <input type="checkbox" onClick={toggle} className={styles.checkBox} defaultChecked={theme === "dark"} />
+        <Alert 
+          isOpen={isOpen} 
+          heading="Đăng xuất" 
+          text="Bạn có muốn đăng xuất không ?" 
+          userComfirm={handleLogout} 
+          textComfirm="Đăng xuất"
+        />
     </div>
   )
 }

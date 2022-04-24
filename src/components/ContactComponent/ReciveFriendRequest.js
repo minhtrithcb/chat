@@ -5,7 +5,6 @@ import styles from './ContactComponent.module.scss'
 import useDecodeJwt from '../../hooks/useDecodeJwt'
 import friendReqApi from '../../api/friendReqApi'
 import converApi from '../../api/converApi'
-import Swal from 'sweetalert2'
 import { toast } from 'react-toastify'
 import { FriendContext } from '../../context/FriendContext'
 import CardItem from './CardItem'
@@ -13,6 +12,7 @@ import Dropdown, { DropdownItem } from '../Common/Dropdown/Dropdown'
 import useTheme from '../../hooks/useTheme'
 import clsx from 'clsx'
 import { SocketContext } from '../../context/SocketContext'
+import Alert from '../Common/Alert/Alert'
 
 const ReciveFriendRequest = () => {
     const {theme} = useTheme()
@@ -20,6 +20,9 @@ const ReciveFriendRequest = () => {
     const [currentUser] = useDecodeJwt()
     const {setFrLength} = useContext(FriendContext)
     const {socket} = useContext(SocketContext)
+    const [friendReqId, setfriendReqId] = useState('')
+    const [isOpen, setIsOpen] = useState(false)
+
     const classesDarkMode = clsx(styles.cardContainer,{ 
       [styles.dark]: theme === "dark"
     })
@@ -63,31 +66,29 @@ const ReciveFriendRequest = () => {
     }
 
     // Un accept Friend Reqs
-    const handleUnsendFriendRes = (id) => {
-      Swal.fire({
-        title: 'Bạn có muốn xóa lời kết bạn không?',
-        showDenyButton: true,
-        confirmButtonText: 'Có',
-        icon: 'warning',
-        denyButtonText: `Không`,
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          await friendReqApi.unSendFriendReq(id)
-          const remove = acceptFriendReqs.filter(fr => fr._id !== id)
-          setAcceptFriendReqs(remove)
-          setFrLength(remove.length)
-          toast.success("Xóa kết bạn thành công");
-        } 
-      })
+    const handleUnsendFriendRes = async userComfirm => {
+      if (userComfirm) {
+        await friendReqApi.unSendFriendReq(friendReqId)
+        const remove = acceptFriendReqs.filter(fr => fr._id !== friendReqId)
+        setAcceptFriendReqs(remove)
+        setFrLength(remove.length)
+        setfriendReqId('')
+        toast.success("Xóa kết bạn thành công");
+      }
+      setIsOpen(false)
     }
 
+    
   return (
       <div className={classesDarkMode}>
           {acceptFriendReqs.length > 0 ? acceptFriendReqs.map(fr => (
             <CardItem sender={fr.sender} key={fr._id} >
                 <Dropdown position="right" key="topRight">
                     <DropdownItem 
-                        onClick={() => handleUnsendFriendRes(fr._id)}>
+                        onClick={() => {
+                            setfriendReqId(fr._id)
+                            setIsOpen(true) 
+                        }}>
                             Từ chối lời kết bạn
                     </DropdownItem>
                     <Link to={`/profile/${fr.reciver._id}`}>
@@ -104,7 +105,10 @@ const ReciveFriendRequest = () => {
                 </Button>
                 <Button 
                     fluid danger key="botRight" 
-                    onClick={() => handleUnsendFriendRes(fr._id)}
+                    onClick={() => {
+                      setfriendReqId(fr._id)
+                      setIsOpen(true) 
+                  }}
                 >
                     Từ chối
                 </Button>
@@ -112,6 +116,12 @@ const ReciveFriendRequest = () => {
           )):
           <p>Bạn chưa ai gửi lời kết bạn đến bạn.</p>
           }
+          <Alert 
+              isOpen={isOpen} 
+              heading="Xóa lời mời" 
+              text="Bạn có muốn xóa lời mời kết bạn không ?" 
+              userComfirm={handleUnsendFriendRes}
+          />
         </div>
   )
 }

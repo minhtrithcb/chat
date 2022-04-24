@@ -1,10 +1,9 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import CardItem from './CardItem'
 import styles from './ContactComponent.module.scss'
 import useDecodeJwt from '../../hooks/useDecodeJwt'
 import { FriendContext } from '../../context/FriendContext'
 import userApi from '../../api/userApi'
-import Swal from 'sweetalert2'
 import converApi from '../../api/converApi'
 import { toast } from 'react-toastify'
 import Button from '../Common/Button/Button'
@@ -16,14 +15,16 @@ import Dropdown, { DropdownItem } from '../Common/Dropdown/Dropdown'
 import useTheme from '../../hooks/useTheme'
 import clsx from 'clsx'
 import { ChatContext } from '../../context/ChatContext';
+import Alert from '../Common/Alert/Alert'
 
 const FriendListContact = () => {
     const [currentUser] = useDecodeJwt()
     const {friendList, setFriendList} = useContext(FriendContext)
     const {setFriend, setCurrentChat, setChatsOption} = useContext(ChatContext)
-
     const {theme} = useTheme()
     const navigate = useNavigate();
+    const [friendId, setfriendId] = useState('')
+    const [isOpen, setIsOpen] = useState(false)
     const classesDarkMode = clsx(styles.cardContainer,{ 
       [styles.dark]: theme === "dark"
     })
@@ -43,22 +44,16 @@ const FriendListContact = () => {
 
 
     // UnFriend By current user
-    const handleUnFriend = async (id) => {
-      Swal.fire({
-        title: 'Bạn có muốn xóa lời bạn không?',
-        showDenyButton: true,
-        confirmButtonText: 'Có',
-        icon: 'warning',
-        denyButtonText: `Không`,
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          await converApi.deleteByFriendId(currentUser.id, id)
-          await userApi.unFriend(currentUser.id, id);
-          const remove = friendList.filter(fr => fr._id !== id)
+    const handleUnFriend = async userComfirm => {
+      if (userComfirm) {
+          await converApi.deleteByFriendId(currentUser.id, friendId)
+          await userApi.unFriend(currentUser.id, friendId);
+          const remove = friendList.filter(fr => fr._id !== friendId)
           setFriendList(remove)
+          setfriendId('')
           toast.success("Xóa kết bạn thành công");
-        }
-      })
+      }
+      setIsOpen(false)
     }
 
     // Redirect to chat friend
@@ -78,7 +73,11 @@ const FriendListContact = () => {
                     {fr.notified ? <BsBell /> : <BsBellSlash />}
                 </div>
                 <Dropdown position="right" key="topRight">
-                    <DropdownItem onClick={() => handleUnFriend(fr._id) }>Xóa kết bạn</DropdownItem>
+                    <DropdownItem onClick={() => {
+                      setfriendId(fr._id)
+                      setIsOpen(true) 
+                    }
+                    }>Xóa kết bạn</DropdownItem>
                     <DropdownItem>Chọt</DropdownItem>
                     <DropdownItem>Tắt thông báo</DropdownItem>
                 </Dropdown>
@@ -92,6 +91,12 @@ const FriendListContact = () => {
             </CardItem>
           ))
           :<p>Hãy kết bạn nhiều hơn nào !</p> }
+           <Alert 
+                isOpen={isOpen} 
+                heading="Xóa lời mời" 
+                text="Bạn có muốn xóa lời mời kết bạn không ?" 
+                userComfirm={handleUnFriend}
+            />
       </div>
     )
 }
