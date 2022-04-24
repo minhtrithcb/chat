@@ -6,7 +6,6 @@
     z-index: 1001;
     width: 700px;
     max-height: 80vh;
-    // overflow: hidden;
     background-color: rgb(255, 255, 255);
     left: 50%;
     top: 50%;
@@ -14,8 +13,10 @@
     border-radius: .5em;
     box-shadow: $box-shadow1;
 
-    @include maxWitdh(768px) {
+    @include maxWitdh(1280px) {
         max-width: 95%;
+        overflow-y: auto;
+        @include scrollBarDefault;
     }
 
     .backdrop {
@@ -25,14 +26,12 @@
     .modelBox {
         top: 65%;
         width: 800px;
-
-
+        box-shadow: $box-shadow4;
     }
 }
 
 .modelContainer {
     padding: 1em;
-    height: auto;
 }
 
 .backdrop {
@@ -46,11 +45,16 @@
 }
 
 .modelHeading {
+    position: sticky;
+    top: 0;
+    z-index: 9;
+    background-color: #fff;
     padding: 0.5em 1em;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid $gray;
+    border-radius: .5em .5em 0 0;
     
     .closeBtn {
         background-color: transparent;
@@ -93,6 +97,12 @@
 .dark {
     background-color: $dark-lv3;
     color: #fff;
+
+    .modelHeading {
+        background-color: $dark-lv3;
+        border-bottom: 1px solid #000;
+        color: #fff;
+    }
 
     .closeBtn {
         color: #fff;

@@ -19,9 +19,7 @@ const Model = ({isOpen, heading, handleClick, children, prevLostData}) => {
             handleClick(false)
         }
     })
-
     
-
     return (
         <CSSTransition 
             in={isOpen} 
