@@ -13,6 +13,8 @@ import PrevPrivateRoute from "./components/PrevPrivateRoute";
 import Contact from "./pages/Contact/Contact";
 import Profile from "./pages/Profile/Profile";
 import Admin from "./pages/Admin";
+import ForgotPass from "./pages/AuthPage/ForgotPass";
+import VerifyEmail from "./pages/AuthPage/VerifyEmail";
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
           <Route element={<PrevPrivateRoute />}>
             <Route path="/login" element={<Login />} />
             <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/forgot-password" element={<ForgotPass />} />
+            <Route path="/verify-email" element={<VerifyEmail />} />
           </Route>
           {/* Catch Not Found */}
           <Route path="*" element={<NotFound />} />

@@ -18,7 +18,7 @@ npm start
 * Giao diện, Đăng nhập, đăng ký, trang chủ, profile, trang 404...
 * Logic Đăng nhập, đăng ký, đăng xuất, kiểm lỗi form, protective Route. 
 * kết bạn nhận tin kết bạn (realtime), Gửi tin nhắn 1 - 1 (realtime) 
-* Người dùng tìm kiếm bạn bè (thêm thành công tạo hộp thoại)
+* Người dùng tìm kiếm bạn bè, nhóm (thêm thành công tạo hộp thoại)
 * Người dùng thêm, sửa Reaction (realtime).
 * Người dùng sửa, thu hồi Chat (realtime).
 * Người dùng trích lời (reply)
@@ -29,20 +29,18 @@ npm start
 * Hiện bagde số tin nhắn chưa đọc, hoặc mới nhận
 * Hiện thị chat infinite scroll
 
+### Chức năng đang làm
+* Gửi mail, đổi mật khẩu, quên mật khẩu
+* Xin gia nhập 
+* infinite scroll converstion
+* kick, out group
 
-#### Chức năng đang làm
-* Đăng nhập đa nền tảng, gửi mail, đổi mật khẩu, thay đổi thông tin cá nhân
-
-### Chức năng Frontend sẽ có ...
-* Chat option, kick, out group, (tạo bình chọn), mute user
+### Chức năng gợi ý ...
+* Tạo bình chọn, mute user
 * custumize conversation item
-* Ngày trên chat
-* wellcome khi login lần đầu
-* xác thực sử dụng socket.
-* Tìm user online / offline
+* wellcome khi login lần đầu 
 * Ghim hộp thọai,
 * User gửi otp đăng nhập
-* User online theo thời gần nhất (lần cuối online)
 * User nhắn tin khi ko kết bạn theo setting
 * User chat có file & gif ảnh 
 * User upload avatar 
@@ -50,7 +48,7 @@ npm start
 * User Tìm bạn theo tag ... 
 * Setting (chặn tin từ người lại, hiện email, hiện thông báo)
 
-### Model
+### Model note
 *   UserModel {
         hobby: ["id", ...],
         lang: "vn",

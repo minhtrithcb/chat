@@ -18,7 +18,6 @@
         animation-name: run;
         animation-duration: 0.5s;
     }
-
 }
 
 @keyframes run {
@@ -40,6 +39,7 @@
         display: block;
         text-align: center;
         padding: 0.5em;
+        font-size: 0.9rem;
     }
 }
 
@@ -57,10 +57,17 @@
         background-color: #fff;
         color: #000;
     }
+
+    &>small {
+        text-align: center;
+        margin: 1em;
+        display: block;
+    }
 }
 
 .LoginHr {
     margin-top: 2em;
+    margin-bottom: 2em;
     position: relative;
 
     hr {

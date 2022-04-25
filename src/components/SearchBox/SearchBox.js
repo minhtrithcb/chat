@@ -16,8 +16,10 @@ const SearchBox = () => {
     const {theme} = useTheme()
     const [toggle, toggleF] = useToggle(false)
     const [results, setResults] = useState([])
+    const [oldResults, setOldResults] = useState([])
     const [userFriend, setUserFriend] = useState([])
     const [friendReqs, setFriendReqs] = useState([])
+    const [tabActive, setTabActive] = useState("All")
     const [currentUser] = useDecodeJwt()
     const inputRef = useRef()
     const {socket} = useContext(SocketContext)
@@ -31,10 +33,10 @@ const SearchBox = () => {
         if (value.length >= 3 && value !== "" ) {
             try {
                 const {data} = await userApi.search(value, currentUser.id)
-                // console.log(data);
-                setResults(data[0]);
-                setUserFriend(data[1].friend);
-                setFriendReqs(data[2]);
+                setResults([...data.users, ...data.groups]);
+                setOldResults([...data.users, ...data.groups]);
+                setUserFriend(data.friends);
+                setFriendReqs(data.friendReqs);
             } catch (error) {
                 console.log(error);
             }
@@ -55,7 +57,7 @@ const SearchBox = () => {
 
     const debounceFn = useCallback(debounce(fetchResult), []); // eslint-disable-line react-hooks/exhaustive-deps
 
-    function handleChange(event) {
+    const handleChange = (event) => {
         setValue(event.target.value);
         debounceFn(event.target.value);
     }
@@ -92,6 +94,32 @@ const SearchBox = () => {
         setFriendReqs(remove)
     }
     
+    // Fiter render result group or not
+    const filterGroup = (flag = true) => {
+        return oldResults.filter(item => flag ? item.type === 'Group':  item.type !== 'Group')
+    }
+
+    // Handle Chage Tab
+    const handleChageTabs = (type) => {
+        if (type === 'All') return setResults(oldResults); setTabActive('All')
+        let newArr = oldResults.filter(res => {
+            switch (type) {
+                case 'Group':
+                    setTabActive('Group')
+                    return res?.type === "Group" && res
+                
+                case 'User':
+                    setTabActive('User')
+                    return res?.fullname && res 
+            
+                default:
+                    setTabActive('All')
+                    return res;
+            }
+        })
+
+        setResults(newArr)
+    }
 
     return (
         <div className={classesDarkMode}>
@@ -109,46 +137,55 @@ const SearchBox = () => {
             </div>
             {toggle && <div className={styles.chatBox}>
                 <ul className={styles.filter}>
-                    <li>
+                    <li 
+                        className={tabActive === "All" ? styles.active : " "} 
+                        onClick={() => handleChageTabs('All')}>
                         Tất cả
-                        <small>20</small>
+                        <small>{oldResults && oldResults.length}</small>
                     </li>
-                    <li className={styles.active}>
+                    <li 
+                        className={tabActive === "User" ? styles.active : " "} 
+                        onClick={() => handleChageTabs('User')}>
                         Người dùng
-                        <small>{results && results.length}</small>
+                        <small>{filterGroup(false).length}</small>
                     </li>
-                    <li>
+                    <li 
+                        className={tabActive === "Group" ? styles.active : " "} 
+                        onClick={() => handleChageTabs('Group')}>
                         Nhóm
-                        <small>15</small>
+                        <small>{filterGroup().length}</small>
                     </li>
                 </ul>
                 <ul className={styles.result}>
                     {results.length !== 0 ? results.map(res => (
                         <li className={styles.resultItem} key={res._id}>
                             <div className={styles.avatar}>
-                                <img src={avatar} alt="friend" />
-                                <span className={styles.isOnline}></span>
+                                <img src={avatar} alt="resultAvatar" />
                             </div>
                             <div>
-                                <Link to={`/profile/${res._id}`}>{res.fullname}</Link>
+                                {res.fullname ? <Link to={`/profile/${res._id}`}>{res.fullname}</Link>: 
+                                <Link to={`/group/${res._id}`}>{res.name}</Link>}
                             </div>
-                            {
-                                // If user has result in friendList
-                                userFriend.includes(res._id) ? 
-                                <Button disabled>
-                                    Đã kết bạn
-                                </Button>
-                                : 
-                                // or user has friend in friend request
-                                friendReqs.find(s => s.reciver._id === res._id)?
-                                <Button onClick={() => 
-                                    handleUnsendFriendRes(friendReqs.find(s => s.reciver._id === res._id))
-                                }>
-                                    Đang chờ
-                                </Button>
+                            {res.fullname ? 
+                                // User 
+                                (userFriend.includes(res._id)  ?
+                                    <Button disabled>
+                                        Đã kết bạn
+                                    </Button>: 
+                                     (friendReqs.find(s => s.reciver._id === res._id)?
+                                     <Button onClick={() => 
+                                         handleUnsendFriendRes(friendReqs.find(s => s.reciver._id === res._id))
+                                     }>
+                                        Đang chờ
+                                    </Button> : 
+                                    <Button primary onClick={() => handleSendFriendRes(res)}>
+                                        Kết bạn
+                                    </Button>
+                                ))
                                 :
-                                <Button primary onClick={() => handleSendFriendRes(res)}>
-                                    Kết bạn
+                                // Group
+                                <Button primary >
+                                    Tham gia 
                                 </Button>
                             }
                         </li>

@@ -19,6 +19,14 @@ const authApi = {
 
     refreshToken() {
         return api.get(`auth/refreshToken`)
+    },
+
+    forgotPassword(email) {
+        return api.post(`auth/forgotPassword`, {email})
+    },
+
+    verify(email) {
+        return api.post(`auth/forgotPassword`, {email})
     }
 }
 

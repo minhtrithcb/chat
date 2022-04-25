@@ -73,19 +73,15 @@ const SignUp = () => {
         }
       },
     }
-
+    // Submit form
     const onSubmit = async ({fullname, email, password}) => {
       try {
         setLoading(true)
         let {data} = await authApi.signup(fullname, email, password)
         if(data?.success) {
           toast.success(`${data?.msg}`)
-          setTimeout(()=> {
-            navigate('/login', {state: {
-              email: watch('email'),
-            }})
-            setLoading(false)
-          },3000)
+          navigate('/verify-email', {state : {email}})
+          setLoading(false)
         } else {
           toast.error(`${data?.msg}`)
           setLoading(false)

@@ -78,7 +78,6 @@ const FriendListContact = () => {
                       setIsOpen(true) 
                     }
                     }>Xóa kết bạn</DropdownItem>
-                    <DropdownItem>Chọt</DropdownItem>
                     <DropdownItem>Tắt thông báo</DropdownItem>
                 </Dropdown>
                 <Button fluid primary key="botLeft">

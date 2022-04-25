@@ -43,7 +43,6 @@ const Contact = () => {
           <h3>Liên hệ</h3>
         </div>
         <div className={styles.main}>
-
           <ul className={styles.tabs}>
             <li 
               className={choseTabs === 1 ? styles.active: null} 

@@ -1,4 +1,4 @@
-import React, { useContext} from 'react'
+import React from 'react'
 import styles from './Auth.module.scss'
 import ImageLight from '../../assets/images/illu/s.png'
 import Button from '../../components/Common/Button/Button'
@@ -8,13 +8,11 @@ import authApi from '../../api/authApi'
 import { useForm } from 'react-hook-form'
 import useLoading from '../../hooks/useLoading'
 import { toast } from 'react-toastify'
-import { AuthContext } from '../../context/AuthContext'
 
-const Login = () => {
+const ForgotPass = () => {
   const { register,  formState: { errors }, handleSubmit } = useForm();
   const [loading, setLoading, Icon] = useLoading()
   const navigate = useNavigate();
-  const {setAuth} = useContext(AuthContext)
   
   const inputInit = {
     email: {
@@ -23,13 +21,6 @@ const Login = () => {
       name: "email", 
       placeholder: "Nhập địa chỉ email",
       err: errors.email,
-    },
-    password: {
-      label: "Mật khẩu", 
-      type: "password", 
-      name: "password", 
-      placeholder: "Nhập mật khẩu",
-      err: errors.password,
     }
   }
 
@@ -41,35 +32,21 @@ const Login = () => {
         value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
         message: "không hợp lệ" 
       }
-    },
-    password: {
-      required: true,
-      minLength: 6,
     }
   }
   
   // Form submit
-  const onSubmit = async ({email, password}) => {
+  const onSubmit = async ({email}) => {
     try {
-      setLoading(true)
-      let {data} = await authApi.login(email, password)
-      if(data?.success) {
-        toast.success(`Đăng nhập thành công`)
-        setLoading(false)
-        setAuth({isLogin: true, accessToken:  data.accessToken, loading: false})
-        navigate("/", {replace: true})
-      } else if (!data?.isVerifi) {
-        toast.error(`${data?.msg}`)
-        navigate('/verify-email', {state : {
-          email : data.email
-        }})
-      } else {
-        toast.error(`${data?.msg}`)
-        setLoading(false)
-      }
+        setLoading(true)
+        let {data} = await authApi.forgotPassword(email)
+        if(data?.success) {
+            setLoading(false)
+            toast.success(`Gửi yêu cầu thành công`)
+            navigate('/change-password', {replace: true})
+        } else setLoading(false)
     } catch (error) {
-      setLoading(false)
-      toast.error(`${error}`)
+        setLoading(false)
     }
   }
 
@@ -80,12 +57,11 @@ const Login = () => {
       </div>
       <div className={styles.LoginSide}>
         <div className={styles.LoginForm}>
-          <h2>Đăng nhập</h2>
+          <h2>Quên mật khẩu</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Input  {...register("email", inpValid.email)} {...inputInit.email}  />
-            <Input  {...register("password", inpValid.password)} {...inputInit.password} />
+            <Input  {...register("email", inpValid.email)}  {...inputInit.email}  />
             <Button disabled={loading} type="submit" primary size="lg" fluid style={{marginTop : "1em"}}> 
-              Đăng nhập {loading && <Icon />}
+              Gửi  {loading && <Icon />}
             </Button>
           </form>
           <div className={styles.LoginHr}>
@@ -94,7 +70,7 @@ const Login = () => {
           </div>
 
           <Link to="/sign-up">Không có tài khoản? đăng ký ngay.</Link>
-          <Link to="/forgot-password">Quên mật khẩu?</Link>
+          <Link to="/login">Đăng nhập ?</Link>
 
         </div>
       </div>
@@ -102,4 +78,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default ForgotPass

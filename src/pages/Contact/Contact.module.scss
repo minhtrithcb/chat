@@ -15,10 +15,14 @@
 }
 
 .sideBar {
+    min-width: 300px;
     display: block;
     
-    img {
-        width: 300px;
+    &>img {
+        margin-top: 3em;
+        width: 250px;
+        text-align: center;
+        margin-left: 25px;
     }
 
     p {
@@ -26,7 +30,7 @@
     }
 
     @include maxWitdh(1230px) {
-        img , p{
+        p, &>img{
             display: none;
         }
     }
@@ -34,6 +38,8 @@
 
 .contact {
     width: 100%;
+    border-left: 1px solid $gray;
+
     .heading {
         height: 70px;
         padding: 1em;
@@ -43,7 +49,6 @@
         position: sticky;
         top: 0;
         border-bottom: 1px solid $gray;
-        border-left: 1px solid $gray;
 
         h3 {
             margin: 0;
@@ -55,15 +60,12 @@
         padding: 1em;
         height: calc(100vh - 70px);
         overflow-y: scroll;
-        border-left: 1px solid $gray;
         
         @include scrollBarDefault;
     }
 
     @include maxWitdh(1230px) {
-        .main, .heading {
-            border-left: none;
-        }
+        border-left: none;
 
         .heading {
             display: none;
@@ -128,14 +130,13 @@
 
 .dark {
     background-color: $dark-lv4 ;
-
+    border-left: none;
     .sideBar {
         color: $primary-color;
     }
 
     .heading {
-        border-left: 1px solid $dark-lv4;
-        border-bottom: 1px solid $light-lv1;
+        border-bottom: none;
         background-color: $dark-lv4;
         color: #fff;
     }
@@ -149,8 +150,11 @@
         }
     }
 
-    .main {
+    .contact {
         border-left: 1px solid $dark-lv4;
+    }
+
+    .main {
         background-color: $dark-lv3 ;
     }
 }

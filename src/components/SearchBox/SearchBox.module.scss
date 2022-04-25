@@ -38,7 +38,7 @@
     }
 
     @include maxWitdh(1230px) {
-        height: auto;
+        // height: auto;
         div:first-child {
             p {
                 display: none;
@@ -80,9 +80,7 @@
     padding: 0.5em 0.7em;
     border-radius: .7em;
     background-color: #f1f1f1;
-    float: right;
-
-   
+    float: right;   
 }
 
 
@@ -149,19 +147,6 @@
 
 .avatar {
     @include avatar(35px);
-    position: relative;
-    margin-left: 1em;
-
-    .isOnline {
-        position: absolute;
-        right: -2px;
-        bottom: 0px;
-        width: 10px;
-        height: 10px;
-        border: 2px solid white;
-        border-radius: 50%;
-        background-color: $green;
-    }
 }
 
 .dark {
