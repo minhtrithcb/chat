@@ -50,7 +50,6 @@ const VerifyEmail = () => {
   const onSubmit = async ({email}) => {
     try {
       // setLoading(true)
-
       console.log(email);
     } catch (error) {
       setLoading(false)
@@ -78,7 +77,8 @@ const VerifyEmail = () => {
           </form>
           <small>Chúng tôi sẻ gửi bạn mã xác thực vào email của bạn</small>
           <ReCAPTCHA
-            sitekey="6LfuvJwfAAAAAHEbDTIj3xPKxAs65BFDii89dQbi"
+            className={styles.captcha}
+            sitekey={process.env.REACT_APP_GOOGLE_SITE_KEY}
             onChange={onChange}
           />
           <div className={styles.LoginHr}>
