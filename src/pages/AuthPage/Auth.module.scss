@@ -63,9 +63,8 @@
         margin: 1em;
         display: block;
     }
-    &>.captcha { 
-        transform:scale(0.77);
-        transform-origin:0 0;
+    &>.captcha{ 
+        margin: 0 auto;
     }
 }
 

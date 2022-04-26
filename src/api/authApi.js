@@ -25,8 +25,12 @@ const authApi = {
         return api.post(`auth/forgotPassword`, {email})
     },
 
-    verify(email) {
-        return api.post(`auth/forgotPassword`, {email})
+    sendVerify(email) {
+        return api.post(`auth/send-verify`, {email})
+    },
+
+    checkVerifyOTP(email, otp) {
+        return api.post(`auth/check-verify`, {email, otp})
     }
 }
 

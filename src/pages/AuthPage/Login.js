@@ -58,7 +58,7 @@ const Login = () => {
         setLoading(false)
         setAuth({isLogin: true, accessToken:  data.accessToken, loading: false})
         navigate("/", {replace: true})
-      } else if (!data?.isVerifi) {
+      } else if (data.isVerifi === false) {
         toast.error(`${data?.msg}`)
         navigate('/verify-email', {state : {
           email : data.email
