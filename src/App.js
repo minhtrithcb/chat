@@ -15,6 +15,7 @@ import Profile from "./pages/Profile/Profile";
 import Admin from "./pages/Admin";
 import ForgotPass from "./pages/AuthPage/ForgotPass";
 import VerifyEmail from "./pages/AuthPage/VerifyEmail";
+import ChangePass from "./pages/AuthPage/ChangePass";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route path="/sign-up" element={<SignUp />} />
             <Route path="/forgot-password" element={<ForgotPass />} />
             <Route path="/verify-email" element={<VerifyEmail />} />
+            <Route path="/change-password/:token" element={<ChangePass />} />
           </Route>
           {/* Catch Not Found */}
           <Route path="*" element={<NotFound />} />

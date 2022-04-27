@@ -24,6 +24,7 @@ const VerifyEmail = () => {
       type: "email", 
       name: "email", 
       placeholder: "Nhập địa chỉ email",
+      value : emailVetify,
       err: errors.email,
     },
     otp: {
@@ -99,7 +100,7 @@ const VerifyEmail = () => {
       // captcha fail
       } else {
         setLoading(false)
-        toast.error(`Hãy xác thực captcha`)
+        toast.error(`Lỗi xác thực Captcha`)
       }
     } catch (error) {
       setLoading(false)
@@ -126,7 +127,7 @@ const VerifyEmail = () => {
         <div className={styles.LoginForm}>
           <h2>Xác thực tài khoản</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Input  {...register("email", inpValid.email)} defaultValue={emailVetify}  {...inputInit.email}  />
+            <Input  {...register("email", inpValid.email)} {...inputInit.email}  />
             {isSentVerify && <Input  {...register("otp", inpValid.otp)} {...inputInit.otp}  />}
             <Button disabled={loading} type="submit" primary size="lg" fluid style={{marginTop : "1em"}}> 
               {isSentVerify ? "Xác thực OTP" : "Gửi email"} {loading && <Icon />}
@@ -144,7 +145,6 @@ const VerifyEmail = () => {
       </div>
       <ReCAPTCHA
         ref={reCaptchaRef}
-        className={styles.captcha}
         size={"invisible"}
         sitekey={process.env.REACT_APP_GOOGLE_SITE_KEY}
       />

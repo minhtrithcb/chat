@@ -1,18 +1,19 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import styles from './Auth.module.scss'
 import ImageLight from '../../assets/images/illu/s.png'
 import Button from '../../components/Common/Button/Button'
 import Input from '../../components/Common/Form/Input'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import authApi from '../../api/authApi'
 import { useForm } from 'react-hook-form'
 import useLoading from '../../hooks/useLoading'
 import { toast } from 'react-toastify'
+import ReCAPTCHA  from 'react-google-recaptcha'
 
 const ForgotPass = () => {
-  const { register,  formState: { errors }, handleSubmit } = useForm();
+  const { register,  formState: { errors }, handleSubmit, reset } = useForm();
   const [loading, setLoading, Icon] = useLoading()
-  const navigate = useNavigate();
+  const reCaptchaRef = useRef(null)
   
   const inputInit = {
     email: {
@@ -39,14 +40,23 @@ const ForgotPass = () => {
   const onSubmit = async ({email}) => {
     try {
         setLoading(true)
-        let {data} = await authApi.forgotPassword(email)
-        if(data?.success) {
-            setLoading(false)
-            toast.success(`Gửi yêu cầu thành công`)
-            navigate('/change-password', {replace: true})
-        } else setLoading(false)
+         // Cet Captcha
+        const captcha = await reCaptchaRef.current.executeAsync();
+        if (captcha !== '' && captcha !== null && captcha !== undefined) {
+          // Captcha checking
+          const {data} = await authApi.forgotPassword(email)
+          if(data?.success) {
+              setLoading(false)
+              toast.success(`${data.msg}`)
+              reset()
+          } else { 
+              toast.error(`${data.msg}`)
+              setLoading(false)
+          }
+        }
     } catch (error) {
         setLoading(false)
+        toast.error(`${error}`)
     }
   }
 
@@ -68,12 +78,16 @@ const ForgotPass = () => {
             <hr />
             <p>Hoặc thử với</p>
           </div>
-
+          <ReCAPTCHA
+            ref={reCaptchaRef}
+            size={'invisible'}
+            sitekey={process.env.REACT_APP_GOOGLE_SITE_KEY}
+          />
           <Link to="/sign-up">Không có tài khoản? đăng ký ngay.</Link>
           <Link to="/login">Đăng nhập ?</Link>
-
         </div>
       </div>
+      
     </div>
   )
 }
