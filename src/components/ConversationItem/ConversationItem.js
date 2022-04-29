@@ -85,7 +85,6 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
     useEffect(() => {
         if(userReadConver?._id === conversation?._id) setUnReadMsg(0)
     }, [userReadConver, conversation._id])
-    
 
     return (
         <>

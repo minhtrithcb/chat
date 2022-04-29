@@ -28,9 +28,9 @@ npm start
 * Giao diện mobile riêng. Theme cho ứng dụng.
 * Hiện bagde số tin nhắn chưa đọc, hoặc mới nhận
 * Hiện thị chat infinite scroll
+* Gửi mail, đổi mật khẩu, quên mật khẩu
 
 ### Chức năng đang làm
-* Gửi mail, đổi mật khẩu, quên mật khẩu
 * Xin gia nhập 
 * infinite scroll converstion
 * kick, out group

@@ -2,19 +2,21 @@ import api from "./api.config"
 
 const converApi = {
     getByUserId({userId, type}) {
-        return api.post(`conversation/get`, {
-            userId, type
+        return api.get(`conversation/get`, {
+            params : {
+                userId, type
+            }
         })
     },
     getCountUnReadMsg(userId) {
         return api.get(`conversation/getCountUnReadMsg/${userId}`)
     },
-    getOneByUserId(currentUserId, friendId) {
-        return api.post(`conversation/getOne`, {
-            currentUserId, 
-            friendId
-        })
-    },
+    // getOneByUserId(currentUserId, friendId) {
+    //     return api.post(`conversation/getOne`, {
+    //         currentUserId, 
+    //         friendId
+    //     })
+    // },
     postUnReadMsg({roomId, senderId, recivers}) {
         return api.post(`conversation/postUnReadMsg`, {
             roomId, 

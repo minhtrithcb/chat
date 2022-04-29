@@ -58,16 +58,18 @@ const ConversationOption = () => {
     useEffect(() => {
         let isMounted = true
         const getFriendList = async () => {
-            const {data} = await userApi.getFriendUser(currentUser.id)
-            const res = await userApi.getByUserId(currentUser.id)
-            if (isMounted) 
-                setSender(res.data)
-                setFriendList(data)
+            if(isOpen === true) {
+                const {data} = await userApi.getFriendUser(currentUser.id)
+                const res = await userApi.getByUserId(currentUser.id)
+                if (isMounted) 
+                    setSender(res.data)
+                    setFriendList(data)
+            }
         }
 
         getFriendList()
         return () => { isMounted = false };
-    }, [currentUser.id, setFriendList])
+    }, [currentUser.id, setFriendList, isOpen])
     
     // Add or remove
     const handleClick = (friend) => {

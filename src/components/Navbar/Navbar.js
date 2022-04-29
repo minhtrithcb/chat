@@ -19,7 +19,7 @@ import { AuthContext } from '../../context/AuthContext';
 const Navbar = () => {
   const {theme, toggle} = useTheme()
   const {frLength, setFrLength } = useContext(FriendContext)
-  const {countUnRead, setCountUnRead} = useContext(ChatContext)
+  const {countUnRead, setCountUnRead, setCurrentChat} = useContext(ChatContext)
   const {setAuth} = useContext(AuthContext)
   const [currentUser] = useDecodeJwt()
   const {socket} = useContext(SocketContext)
@@ -71,6 +71,7 @@ const Navbar = () => {
         toast.success(`Đăng xuất thành công`)
         await authApi.logout();
         setAuth({isLogin: false})
+        setCurrentChat(null)
         navigate(`/login`,  {replace: true})
     }
     setIsOpen(false)
