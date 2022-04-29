@@ -6,22 +6,54 @@ import { MdReport, MdLogout} from "react-icons/md";
 import clsx from 'clsx';
 import useTheme  from '../../hooks/useTheme'
 import { ChatContext } from '../../context/ChatContext';
-import { Link } from 'react-router-dom';
+import { SocketContext } from '../../context/SocketContext';
+import { Link, useNavigate } from 'react-router-dom';
 import Alert from '../Common/Alert/Alert';
+import converApi from '../../api/converApi';
+import useDecodeJwt from '../../hooks/useDecodeJwt'
+import { toast } from 'react-toastify';
+import chatApi from '../../api/chatApi';
 
 const GroupInfoTab = () => {
-    const {friend, currentChat} = useContext(ChatContext)
+    const {socket} = useContext(SocketContext)
+    const {setCurrentChat ,currentChat, friend} = useContext(ChatContext)
     const {theme} = useTheme()
     const [isOpen, setIsOpen] = useState(false)
+    const [currentUser] = useDecodeJwt()
+    const navigator = useNavigate()
     const classesDarkMode = clsx(styles.GroupInfoTab, { 
       [styles.dark]: theme === "dark",
     })
   
-    const userComfirm = (isComfirm) => {
-      console.log(friend); 
-      setIsOpen(false)
+    const userComfirm = async (isComfirm) => {
+      if (isComfirm) {
+        try {
+          const {data} = await chatApi.postNewChat({
+            roomId: currentChat._id,
+            sender: currentUser.id,
+            text:   `${currentUser.username} đã rời khỏi nhóm` ,
+            type: "Notify"
+          })
+          // Send to socket room
+          socket.emit("send-msg", data)
+          // Send to socket id
+          socket.emit("sendToFriendOnline", { 
+              recivers : friend, 
+              ...data
+          })
+          const res = await converApi.leaveGroup(currentUser.id, currentChat._id)
+          if (res.data?.success) {
+            setCurrentChat(null)
+            toast.success('Thoát nhòm thành công')
+            navigator('/', {replace: true})
+          } else toast.error('Thoát nhòm thất bại')          
+        } catch (error) {
+          console.log(error);
+        }
+      }
     }
 
+    // render group master
     const findGroupMaster = () => {
         return (currentChat.members.find(u => u._id === currentChat.owner))?.fullname
     }

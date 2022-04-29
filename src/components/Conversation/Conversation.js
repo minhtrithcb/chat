@@ -12,7 +12,12 @@ import ConversationOption from '../ConversationOption/ConversationOption'
 const Conversation = () => {
     const [conversations, setConversations] = useState([])
     const [currentUser] = useDecodeJwt()
-    const {currentChat, setCurrentChat, friend, setFriend, setChatEdit, setChatReply, chatsOption, setUserReadConver} = useContext(ChatContext)
+    const {
+        currentChat, setCurrentChat, friend, 
+        setFriend, setChatEdit, setChatReply, 
+        chatsOption, setUserReadConver,
+        setReciverLeaveGroup
+    } = useContext(ChatContext)
     const {theme} = useTheme()
     const classesDarkMode = clsx(styles.contact,{ 
         [styles.dark]: theme === "dark"
@@ -59,7 +64,8 @@ const Conversation = () => {
     const handleChoseChat = async (conversation) => {
         setCurrentChat(conversation)
         const friends = conversation.members.filter(u => u._id !== currentUser.id)
-        setFriend(friends);        
+        setFriend(friends);
+        if (conversation.membersLeave.length !== 0) setReciverLeaveGroup(conversation.membersLeave);
         setChatEdit(null)
         setChatReply(null)
         // trigger flag
@@ -85,7 +91,7 @@ const Conversation = () => {
                         <ConversationItem 
                             usersOnline={usersOnline}
                             conversation={conver} 
-                            friends={conver.members.filter(u => u._id !== currentUser.id)}
+                            members={[...conver.members, ...conver.membersLeave].filter(u => u._id !== currentUser.id)}
                             activeChat={currentChat && currentChat?._id === conver._id}
                         />
                     </div>

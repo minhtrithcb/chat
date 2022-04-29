@@ -8,6 +8,7 @@ export const ChatContext = createContext();
 const ChatProvider = ({children}) => {
     const [currentChat, setCurrentChat] = useState(null)
     const [friend, setFriend] = useState(null)
+    const [reciverLeaveGroup, setReciverLeaveGroup] = useState([])
     const [chatEdit, setChatEdit] = useState(null)
     const [chatReply, setChatReply] = useState(null)
     const [chatsOption, setChatsOption] = useState({type:  'All', title: 'Tất cả tin nhắn'})
@@ -20,6 +21,8 @@ const ChatProvider = ({children}) => {
         setCurrentChat,
         friend,
         setFriend,
+        reciverLeaveGroup, 
+        setReciverLeaveGroup,
         chatEdit,
         setChatEdit,
         chatReply,

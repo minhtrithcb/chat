@@ -13,7 +13,7 @@ import { renderTimeDiff } from '../../helper/renderSubString'
 
 const ChatItem = ({self, data, dup}) => {
     const {theme} = useTheme()
-    const {friend, setChatEdit, chatEdit, currentChat, setChatReply} = useContext(ChatContext)
+    const {friend, setChatEdit, chatEdit, currentChat, setChatReply, reciverLeaveGroup} = useContext(ChatContext)
     const {socket} = useContext(SocketContext)
     const [currentUser] = useDecodeJwt()
     const classesDarkMode = clsx(styles.chatItem,{ 
@@ -66,9 +66,13 @@ const ChatItem = ({self, data, dup}) => {
     }
 
     // Render friend fullname
-    const renderFullname = () => {
-        return data.replyMsg.sender === currentUser.id ? "Bạn" :
-        friend.find(u => u._id === data.replyMsg.sender)?.fullname  
+    const renderFullname = (data) => {
+        let members
+        if (reciverLeaveGroup.length !== 0) {
+            members = [...friend, ...reciverLeaveGroup]
+        } else members = [...friend]
+        return data === currentUser.id ? "Bạn" :
+        members.find(u => u._id === data)?.fullname  
     }
 
     return (
@@ -130,12 +134,12 @@ const ChatItem = ({self, data, dup}) => {
                 <div className={styles.chatDes}>
                     {!dup && <div className={styles.chatInfo}>
                         <small>{renderTimeDiff(data.createdAt)}</small>
-                        <b>{friend.find(u => u._id === data.sender)?.fullname }</b>
+                        <b>{renderFullname(data.sender) }</b>
                     </div> }
                     <div className={styles.chatText}>
                         <div>
                             {data.replyMsg && <div className={styles.chatTextReply}>
-                                <b>{renderFullname()}</b>
+                                <b>{renderFullname(data.replyMsg.sender)}</b>
                                 <small>{renderTimeDiff(data.replyMsg.createdAt)}</small>
                                 <p>{data.replyMsg.text}</p>
                             </div>}

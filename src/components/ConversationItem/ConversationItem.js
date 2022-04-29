@@ -9,7 +9,7 @@ import useDecodeJwt from '../../hooks/useDecodeJwt'
 import renderSubString, { renderTimeDiff } from '../../helper/renderSubString'
 import { ChatContext } from '../../context/ChatContext'
 
-const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => {
+const ConversationItem = ({activeChat , conversation, members, usersOnline}) => {
     const {socket} = useContext(SocketContext)
     const {userReadConver} = useContext(ChatContext)
     const [currentUser] = useDecodeJwt()
@@ -67,13 +67,13 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
     // set state users online
     useEffect(() => {
         if(usersOnline !== undefined) {
-            let res = usersOnline?.find(u => u.uid === friends[0]._id)
+            let res = usersOnline?.find(u => u.uid === members[0]._id)
             if(res !== undefined) setOnlineFriend(true) 
         }
         return () => {
             setOnlineFriend(false)
         }
-    },[usersOnline, friends])    
+    },[usersOnline, members])    
 
     // Set unread default 0 
     useEffect(() => {
@@ -85,6 +85,12 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
     useEffect(() => {
         if(userReadConver?._id === conversation?._id) setUnReadMsg(0)
     }, [userReadConver, conversation._id])
+    
+    // Render fullname
+    const renderNameInGroup = () => {
+        if(lastMsg.sender === currentUser.id) return "Bạn"
+        return members.find(u => u._id === lastMsg.sender)?.fullname.slice(0,6)
+    }
 
     return (
         <>
@@ -97,7 +103,7 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
                     {onlineFriend && <span className={styles.isOnline}></span>}
                 </span>
                 <span>
-                    <b>{friends[0].fullname}</b>
+                    <b>{members[0].fullname}</b>
                     {lastMsg && !lastMsg.reCall ? 
                         <p>{ lastMsg.sender === currentUser.id && "Bạn :" } {renderSubString(lastMsg.text, 7)} </p>:
                         lastMsg?.reCall && <p className={styles.italic}>{renderSubString("Tin nhắn đã bị thu hồi", 11)}</p>
@@ -112,16 +118,15 @@ const ConversationItem = ({activeChat , conversation, friends, usersOnline}) => 
             // Group conversation
             <div className={classesDarkMode}>
                 <span className={styles.avatarConatiner}>
-                        <div className={styles.avatar}>
-                            <img src={avatar} alt="friend" /> 
-                        </div>
+                    <div className={styles.avatar}>
+                        <img src={avatar} alt="friend" /> 
+                    </div>
                 </span>
                 <span>
                     <b>{renderSubString(conversation.name, 9)}</b>
                     {lastMsg && !lastMsg.reCall ? 
                         <p> 
-                            {lastMsg.sender === currentUser.id ? "Bạn" :
-                            (friends.find(u => u._id === lastMsg.sender)?.fullname).slice(0,6) }
+                            {renderNameInGroup()}
                             {`: ${renderSubString(lastMsg.text, 7)}`} 
                         </p>:
                         lastMsg?.reCall && 

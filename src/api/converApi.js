@@ -11,12 +11,12 @@ const converApi = {
     getCountUnReadMsg(userId) {
         return api.get(`conversation/getCountUnReadMsg/${userId}`)
     },
-    // getOneByUserId(currentUserId, friendId) {
-    //     return api.post(`conversation/getOne`, {
-    //         currentUserId, 
-    //         friendId
-    //     })
-    // },
+    getOneByUserId(currentUserId, friendId) {
+        return api.post(`conversation/getOne`, {
+            currentUserId, 
+            friendId
+        })
+    },
     postUnReadMsg({roomId, senderId, recivers}) {
         return api.post(`conversation/postUnReadMsg`, {
             roomId, 
@@ -42,6 +42,9 @@ const converApi = {
     },
     deleteByFriendId(currentUserId, friendId) {
         return api.post(`conversation/delete`, {currentUserId, friendId})
+    },
+    leaveGroup(currentUserId, roomId) {
+        return api.post(`conversation/leave-group`, {currentUserId, roomId})
     },
     getLastMessage(converId) {
         return api.get(`conversation/lastMsg/${converId}`)

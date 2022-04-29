@@ -107,11 +107,12 @@ const Chats = () => {
         return () => {
             // reset 
             if(currTarget) {
-                setFirstLoad(false)
+                if(offset.count !== 0) setOffset({count: 0, counting: false})
+                if(firstLoad) setFirstLoad(false)
                 observer.unobserve(currTarget);
-                setOffset({count: 0, counting: false})
             }
         }
+         // eslint-disable-next-line react-hooks/exhaustive-deps
   },[currentChat, firstLoad])
 
     
@@ -121,11 +122,11 @@ const Chats = () => {
         const getChats = async () => {
             try {
                 if (isMounted) {
-                    const {data} = await chatApi.getChatByRoomId(currentChat?._id, offset.count)
-                    if (offset.count === 0  && offset.counting === false) {
+                    const {data} = await chatApi.getChatByRoomId(currentChat._id, offset.count)
+                    if (offset.count === 0 && offset.counting === false) {
                         let revs = data.reverse() // new value
                         setChats(revs); 
-                        bottomRef?.current.scrollIntoView()
+                        bottomRef?.current?.scrollIntoView()
                         setFirstLoad(true)
                         // console.log("set chat 1st",currentChat?._id, offset.count);
                     // If not couting user will recive 20 record
@@ -134,7 +135,7 @@ const Chats = () => {
                         // Push new value in front of array, and the ref (oldScroll) so user can stay with current postion
                         // The Prev value just remove the oldScroll
                         setChats(prev => [...revs, {oldScroll: true}, ...prev.filter(c => !c.oldScroll) ]); 
-                        oldScroll?.current.scrollIntoView()
+                        oldScroll?.current?.scrollIntoView()
                         // console.log("set chat n ....",currentChat?._id,  offset.count);
                     }
                 }   
@@ -215,8 +216,13 @@ const Chats = () => {
                         dup = true
                     }
                     if (currChat.oldScroll) {
-                        return <div className={styles.oldMsg} key={currChat.oldScroll} ref={oldScroll}>
-                            <p>{offset.count < chats.length ? "Tin cũ hơn" : "Đã hết tin nhắn"}</p>
+                        return chats.length > 20 && <div className={styles.oldMsg} key={currChat.oldScroll} ref={oldScroll}>
+                             <p>{offset.count < chats.length ? "Tin cũ hơn" : "Đã hết tin nhắn"}</p>
+                        </div>
+                    }
+                    if (currChat.type === 'Notify') {
+                        return <div className={styles.oldMsg} key={currChat._id}>
+                             <p>{currChat.text}</p>
                         </div>
                     }
                     return <ChatItem

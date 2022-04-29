@@ -122,6 +122,15 @@
 
     @include maxWitdh(768px) {
         margin: 0 1em;
+
+        &.isReplyChat {
+            .replyChat {
+                height: 0;
+            }
+            textarea, .sendBtn, .emote  {
+                margin-top: 10px;
+            }    
+        }
     }
 }
 

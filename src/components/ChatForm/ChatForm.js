@@ -15,7 +15,7 @@ import Button from '../Common/Button/Button'
 import { Picker } from 'emoji-mart'
 
 const ChatForm = () => {
-    const {currentChat, friend, chatEdit, setChatEdit, chatReply, setChatReply, setUserReadConver} = useContext(ChatContext)
+    const {currentChat, friend, chatEdit, setChatEdit, chatReply, setChatReply, setUserReadConver, reciverLeaveGroup} = useContext(ChatContext)
     const [inputChat, setInputChat] = useState('')
     const [textReply, setTextReply] = useState('')
     const [isEditChat, setIsEditChat] = useState(false)
@@ -222,6 +222,16 @@ const ChatForm = () => {
         setUserReadConver({_id: currentChat._id, flag: true})
     }
 
+     // Render friend fullname
+     const renderFullname = (data) => {
+        let members
+        if (reciverLeaveGroup.length !== 0) {
+            members = [...friend, ...reciverLeaveGroup]
+        } else members = [...friend]
+        return data === currentUser.id ? "Bạn" :
+        members.find(u => u._id === data)?.fullname  
+    }
+
     return (
         <div className={classesDarkMode} >
             {/* Edit & post new chat  */}
@@ -259,9 +269,7 @@ const ChatForm = () => {
             {isReplyChat && chatReply && <>
            <div className={classes2DarkMode}>
                 <div>
-                    <b>{chatReply.sender === currentUser.id ? "Bạn" :
-                        friend.find(u => u._id === chatReply.sender)?.fullname  
-                    }</b>
+                    <b>{renderFullname(chatReply.sender)}</b>
                     <Button size={'md'} danger onClick={handleStopReply}>Bỏ trả lời</Button>
                     <p>{textReply}</p>
                 </div>
