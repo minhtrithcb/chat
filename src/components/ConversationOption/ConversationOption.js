@@ -16,6 +16,7 @@ import { toast } from 'react-toastify';
 import { ChatContext } from '../../context/ChatContext';
 import clsx from 'clsx';
 import useTheme from '../../hooks/useTheme'
+import { SocketContext } from '../../context/SocketContext';
 
 const ConversationOption = () => {
     const options = [
@@ -34,6 +35,7 @@ const ConversationOption = () => {
     const [sender, setSender] = useState(null)
     const [errorNoMember, setErrorNoMember] = useState(false)
     const {theme} = useTheme()
+    const {socket} = useContext(SocketContext)
     const classesDarkMode = clsx(styles.optionContainer,{ 
         [styles.dark]: theme === "dark",
     })
@@ -95,8 +97,12 @@ const ConversationOption = () => {
                 })
                 if (res.data?.success) {
                     toast.success(`Tạo nhóm thành công`)
+                    socket.emit("send-createGroup", {  
+                        recivers: [...addFriend, sender], 
+                        sender: currentUser.id, 
+                        group : res.data.saved
+                    })
                     prevQuit(true)
-                    setChatsOption({type:  'All', title: 'Tất cả tin nhắn'})
                 }
             } catch (error) {
                 console.log(error);

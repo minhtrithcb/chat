@@ -15,8 +15,6 @@
 
     @include maxWitdh(1280px) {
         max-width: 95%;
-        overflow-y: auto;
-        @include scrollBarDefault;
     }
 
     .backdrop {

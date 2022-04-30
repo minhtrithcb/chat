@@ -46,6 +46,9 @@ const converApi = {
     leaveGroup(currentUserId, roomId) {
         return api.post(`conversation/leave-group`, {currentUserId, roomId})
     },
+    deleteGroup(currentUserId, roomId) {
+        return api.post(`conversation/delete-group`, {currentUserId, roomId})
+    },
     getLastMessage(converId) {
         return api.get(`conversation/lastMsg/${converId}`)
     }

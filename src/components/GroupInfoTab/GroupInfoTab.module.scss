@@ -1,12 +1,6 @@
 @import '../../assets/css/variable';
 @import '../../assets/css/mixin';
 
-// .GroupInfoTab {
-//     position: relative;
-//     overflow: hidden;
-//     display: block;
-// }
-
 .infoBackGround {
     position: relative;
     height: 150px;
@@ -35,9 +29,21 @@
         }
     }
 
+    &>b {
+        font-size: 0.9rem;
+        display: block;
+        margin-bottom: 0.5em;
+    }
+
     p {
         line-height: 25px;
         max-width: fit-content;
+        margin: 0.5em 0;
+        max-height: 75px;
+        overflow-y: auto;
+        font-size: 0.9rem;
+        @include scrollBarDefault;
+    
     }
 }
 
@@ -79,19 +85,12 @@
         cursor: pointer;
         padding: 1em;
         transition: 0.3s ease-in;
+        font-size: 0.9rem;
 
         svg {
             margin-right: 0.5em;
             color: $primary-color;
             transition: 0.3s ease-in;
-        }
-
-        &:hover {
-            color: #fff;
-            background-color: $primary-colorLight;
-            svg {
-                color: #fff;
-            }
         }
     }
 }

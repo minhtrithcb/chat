@@ -197,7 +197,7 @@ const Chats = () => {
                 </div> : 
                 <div>
                     <span className={styles.des}>
-                        <b onClick={() => setIsOpen(true)}>{currentChat.name}</b>:
+                        <b onClick={() => setIsOpen(true)}>{currentChat.name}</b>
                     </span> 
                 </div>}
 

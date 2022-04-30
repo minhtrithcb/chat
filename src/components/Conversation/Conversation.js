@@ -16,7 +16,7 @@ const Conversation = () => {
         currentChat, setCurrentChat, friend, 
         setFriend, setChatEdit, setChatReply, 
         chatsOption, setUserReadConver,
-        setReciverLeaveGroup
+        setReciverLeaveGroup, setChatsOption
     } = useContext(ChatContext)
     const {theme} = useTheme()
     const classesDarkMode = clsx(styles.contact,{ 
@@ -34,8 +34,24 @@ const Conversation = () => {
         socket.on("getUser", usersOnline => {
             if (isMounted) setUsersOnline(usersOnline) // Array users online 
         })
+        // Some one delete group 
+        socket.on("getDeleteGroup", data => {
+            if (isMounted && data.reciverId === currentUser.id) {
+                const removed = conversations.filter(c => c._id !== data.roomId)
+                setConversations(removed)
+                // In case user focus on Conver delete
+                if (currentChat?._id === data.roomId) setCurrentChat(null)
+            }
+        })
+        // Some one create group 
+        socket.on("getCreateGroup", data => {
+            if (isMounted && data.reciverId === currentUser.id ) {
+                // Trigger rerender all convertation
+                setChatsOption({type:  'All', title: 'Tất cả tin nhắn'})
+            }
+        })
         return () => { isMounted = false };
-    }, [friend, socket, currentChat])    
+    }, [friend, socket, currentChat, currentUser.id, conversations, setCurrentChat, setChatsOption])    
 
     // Feach all conversations of current user
     useEffect(() => {

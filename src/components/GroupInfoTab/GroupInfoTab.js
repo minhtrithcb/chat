@@ -28,29 +28,47 @@ const GroupInfoTab = () => {
     const userComfirm = async (isComfirm) => {
       if (isComfirm) {
         try {
-          const {data} = await chatApi.postNewChat({
-            roomId: currentChat._id,
-            sender: currentUser.id,
-            text:   `${currentUser.username} đã rời khỏi nhóm` ,
-            type: "Notify"
-          })
-          // Send to socket room
-          socket.emit("send-msg", data)
-          // Send to socket id
-          socket.emit("sendToFriendOnline", { 
-              recivers : friend, 
-              ...data
-          })
-          const res = await converApi.leaveGroup(currentUser.id, currentChat._id)
-          if (res.data?.success) {
-            setCurrentChat(null)
-            toast.success('Thoát nhòm thành công')
-            navigator('/', {replace: true})
-          } else toast.error('Thoát nhòm thất bại')          
+          // In case group master out group => delete group  
+          if (currentChat.owner === currentUser.id) {
+            setIsOpen(false)
+            socket.emit("send-deleteGroup", { 
+                recivers : friend, 
+                roomId: currentChat._id,
+                sender: currentUser.id,
+            })
+            const res = await converApi.deleteGroup(currentUser.id, currentChat._id)
+            if (res.data?.success) {
+              setCurrentChat(null)
+              toast.success('Xóa nhóm thành công')
+              navigator('/', {replace: true})
+            } else toast.error('Xóa nhóm thất bại')          
+          } else {
+            setIsOpen(false)
+            // If not group master out group and leave msg
+            const {data} = await chatApi.postNewChat({
+              roomId: currentChat._id,
+              sender: currentUser.id,
+              text:   `${currentUser.username} đã rời khỏi nhóm` ,
+              type: "Notify"
+            })
+            // Send to socket room
+            socket.emit("send-msg", data)
+            // Send to socket id
+            socket.emit("sendToFriendOnline", { 
+                recivers : friend, 
+                ...data
+            })
+            const res = await converApi.leaveGroup(currentUser.id, currentChat._id)
+            if (res.data?.success) {
+              setCurrentChat(null)
+              toast.success('Thoát nhóm thành công')
+              navigator('/', {replace: true})
+            } else toast.error('Thoát nhóm thất bại')          
+          }
         } catch (error) {
           console.log(error);
-        }
-      }
+        } 
+      } else setIsOpen(false)
     }
 
     // render group master
@@ -68,11 +86,11 @@ const GroupInfoTab = () => {
             </div>
             <div className={styles.infoText}>
               <h4>{currentChat.name}</h4>
-              <p>Chủ nhóm : {findGroupMaster()}</p>
+              <p><b>Chủ nhóm</b> : {findGroupMaster()}</p>
             </div>
             <div className={styles.infoText}>
-                <p>Thông tin: dolor sit amet consectetur adipisicing elit. Reiciendis, quod voluptatum? Expedita ex voluptate necessitatibus consequatu</p>
-                <p>Thành viên</p>
+                <p>Dolor sit amet consectetur adipisicing elit. Reiciendis, quod voluptatum? Expedita ex voluptate necessitatibus consequatu</p>
+                <b>Thành viên</b>
             </div>
             <div className={styles.infoUserList}>
                 {currentChat.members.map( user => (
@@ -106,7 +124,7 @@ const GroupInfoTab = () => {
           <Alert 
             isOpen={isOpen} 
             heading={'Thoát nhóm'} 
-            text={'Bạn có muốn thoát nhóm không'} 
+            text={`Bạn có muốn thoát nhóm không ${currentChat.owner === currentUser.id ? '(Trong trường hợp bạn là chủ nhóm sẻ xóa nhóm !)' : " "}`} 
             userComfirm={userComfirm}
           />
         </>
