@@ -129,6 +129,12 @@
   .chatForm {
     margin: 0 1em;
   }
+  .chatForm.isReplyChat .replyChat {
+    height: 0;
+  }
+  .chatForm.isReplyChat textarea, .chatForm.isReplyChat .sendBtn, .chatForm.isReplyChat .emote {
+    margin-top: 10px;
+  }
 }
 
 .renderPiker {

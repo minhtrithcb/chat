@@ -18,6 +18,36 @@
   }
 }
 
+.oldMsg {
+  font-size: 0.8rem;
+  position: relative;
+  margin: 0 3em;
+  padding: 1em;
+}
+
+.oldMsg p {
+  display: inline;
+  background-color: #f6f7fb;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  z-index: 2;
+  padding: 0 1em;
+  margin: 0;
+}
+
+.oldMsg::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  top: 50%;
+  background-color: #d1d1d1;
+  left: 0;
+}
+
 .chatContainer {
   width: 100%;
   height: calc(100vh - 150px);
@@ -63,6 +93,7 @@
   .mobileViewCover {
     position: fixed;
     top: 0;
+    left: 0;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -76,7 +107,7 @@
         -ms-flex-align: center;
             align-items: center;
     cursor: pointer;
-    z-index: 2;
+    z-index: 6;
     border-bottom: 1px solid #d1d1d1;
   }
 }
@@ -128,6 +159,7 @@
 }
 
 .friendCover .des {
+  margin-left: 1em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -135,6 +167,7 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  cursor: pointer;
 }
 
 .friendCover .des small {

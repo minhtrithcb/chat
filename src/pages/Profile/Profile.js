@@ -1,6 +1,5 @@
 import React, {useEffect, useState } from 'react'
 import styles from './Profile.module.scss'
-import avatar from '../../assets/images/user.png'
 import Button from '../../components/Common/Button/Button'
 import { BsBookmarkCheck, BsChatLeftDots ,BsGlobe, BsGenderAmbiguous, BsCalendar2Date } from "react-icons/bs";
 import { FiMail } from "react-icons/fi";
@@ -10,6 +9,7 @@ import userApi from '../../api/userApi';
 import { useParams } from 'react-router-dom';
 import useTheme from '../../hooks/useTheme'
 import clsx from 'clsx';
+import Avatar from '../../components/Common/Avatar/Avatar'
 
 const Profile = () => {
   const {theme} = useTheme()
@@ -38,7 +38,10 @@ const Profile = () => {
           <div className={styles.profileBackground}></div>
           <div className={styles.cardHolder}>
             <div className={styles.avatar}>
-              <img src={avatar} alt="friend" />
+              {user && <Avatar 
+                size={'lg'}
+                letter={user.fullname.charAt(0)} 
+              /> }
             </div>
             <div className={styles.cardInfo}>
               <h3>{user && user.fullname}</h3>

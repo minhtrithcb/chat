@@ -44,13 +44,20 @@
   }
 }
 
-@media screen and (max-width: 567px) {
+@media screen and (max-width: 768px) {
   .cardContainer .card {
     width: 32%;
   }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 540px) {
+  .cardContainer .card {
+    width: 49%;
+    margin-bottom: 1em;
+  }
+}
+
+@media screen and (max-width: 425px) {
   .cardContainer .card {
     width: 100%;
     margin-bottom: 1em;

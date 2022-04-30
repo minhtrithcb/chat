@@ -1,6 +1,5 @@
 import React, {  useContext, useEffect, useState } from 'react'
 import styles from './ConversationItem.module.scss'
-import avatar from '../../assets/images/user.png'
 import clsx from 'clsx'
 import useTheme from '../../hooks/useTheme'
 import { SocketContext } from '../../context/SocketContext'
@@ -8,6 +7,7 @@ import {ConversationItemLoading} from '../ChatLoading/ChatLoading'
 import useDecodeJwt from '../../hooks/useDecodeJwt'
 import renderSubString, { renderTimeDiff } from '../../helper/renderSubString'
 import { ChatContext } from '../../context/ChatContext'
+import Avatar from '../Common/Avatar/Avatar'
 
 const ConversationItem = ({activeChat , conversation, members, usersOnline}) => {
     const {socket} = useContext(SocketContext)
@@ -96,13 +96,13 @@ const ConversationItem = ({activeChat , conversation, members, usersOnline}) => 
         <>
         {/* // Friend conversation */}
             {conversation.type === 'Friend' ? <div className={classesDarkMode}>
-                <span className={styles.avatarConatiner}>
-                    <div className={styles.avatar}>
-                        <img src={avatar} alt="friend" />
-                    </div>
-                    {onlineFriend && <span className={styles.isOnline}></span>}
-                </span>
                 <span>
+                    <Avatar 
+                        letter={members[0].fullname.charAt(0)} 
+                        isOnline={onlineFriend}
+                    />
+                </span>
+                <span className={styles.textMsg}>
                     <b>{members[0].fullname}</b>
                     {lastMsg && !lastMsg.reCall ? 
                         <p>{ lastMsg.sender === currentUser.id && "Bạn :" } {renderSubString(lastMsg.text, 7)} </p>:
@@ -117,12 +117,12 @@ const ConversationItem = ({activeChat , conversation, members, usersOnline}) => 
             </div> :
             // Group conversation
             <div className={classesDarkMode}>
-                <span className={styles.avatarConatiner}>
-                    <div className={styles.avatar}>
-                        <img src={avatar} alt="friend" /> 
-                    </div>
-                </span>
                 <span>
+                    <Avatar 
+                        letter={conversation.name.charAt(0)} 
+                    />
+                </span>
+                <span className={styles.textMsg}>
                     <b>{renderSubString(conversation.name, 9)}</b>
                     {lastMsg && !lastMsg.reCall ? 
                         <p> 

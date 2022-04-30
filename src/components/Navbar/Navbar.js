@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState} from 'react'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import styles from './Navbar.module.scss'
-import avatar from '../../assets/images/user.png'
 import {  BsChatSquareDots, BsPeople, BsTelephone,BsGear , BsBookmarkPlus , BsStar} from "react-icons/bs";
 import { AiOutlinePoweroff } from "react-icons/ai";
 import { FiUser } from "react-icons/fi";
@@ -15,6 +14,7 @@ import { SocketContext } from '../../context/SocketContext';
 import { ChatContext } from '../../context/ChatContext';
 import Alert from '../Common/Alert/Alert';
 import { AuthContext } from '../../context/AuthContext';
+import Avatar from '../Common/Avatar/Avatar';
 
 const Navbar = () => {
   const {theme, toggle} = useTheme()
@@ -85,7 +85,9 @@ const Navbar = () => {
     <div className={classesDarkMode}>
         <div className={styles.user}>
           <div className={styles.avatar}>
-            <img src={avatar} alt="currunt_user" />
+            {currentUser && <Avatar 
+                letter={currentUser.username.charAt(0)} 
+            /> }
           </div>
           <span>
             <small className="activity">Online</small>

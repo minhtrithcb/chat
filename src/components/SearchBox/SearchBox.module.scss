@@ -10,17 +10,19 @@
     position: sticky;
     z-index: 6;
 
-    div:first-child {
+    &>div:first-child {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        p {
+            margin: 1em 0;
+            font-weight: bold;
+        }
     }
 
     p {
-        font-weight: bold;
         display: inline-block;
     }
-
 
     input {
         border-radius: 0.4em;
@@ -38,10 +40,9 @@
     }
 
     @include maxWitdh(1230px) {
-        // height: auto;
-        div:first-child {
+        &>div:first-child {
             p {
-                display: none;
+                margin: 0;
             }
         }
     }
@@ -120,6 +121,10 @@
         text-align: center;
     }
 
+    .avatar {
+        margin-right: 0.5em;
+    }
+
     .resultItem {
         display: flex;
         align-items: center;
@@ -145,9 +150,6 @@
     }
 }
 
-.avatar {
-    @include avatar(35px);
-}
 
 .dark {
     background-color: $dark-lv4;

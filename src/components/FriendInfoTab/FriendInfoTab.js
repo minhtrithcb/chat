@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react'
 import styles from './FriendInfoTab.module.scss'
-import avatar from '../../assets/images/user.png'
 import { BsBellSlashFill,BsFillEnvelopeFill,BsFillTelephoneFill,BsFillPersonFill,BsBriefcaseFill
       } from "react-icons/bs";
 import { MdReport} from "react-icons/md";
@@ -10,6 +9,7 @@ import useTheme  from '../../hooks/useTheme'
 import { ChatContext } from '../../context/ChatContext';
 import { Link } from 'react-router-dom';
 import Alert from '../Common/Alert/Alert';
+import Avatar from '../Common/Avatar/Avatar';
 
 const FriendInfoTab = () => {
   const {friend} = useContext(ChatContext)
@@ -28,7 +28,9 @@ const FriendInfoTab = () => {
       {friend && <div className={classesDarkMode}>
         <div className={styles.infoBackGround}>
           <div className={styles.avatar}>
-            <img src={avatar} alt="friendAvatar" />
+            <Avatar 
+                letter={friend[0].fullname.charAt(0)} 
+            /> 
           </div>
         </div>
         <div className={styles.infoText}>

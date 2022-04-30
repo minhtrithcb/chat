@@ -19,7 +19,7 @@
   border-left: 2px solid #a29bfe;
 }
 
-.messagesItem p {
+.messagesItem .textMsg p {
   margin: 0.5em 0;
   font-size: 0.9rem;
 }
@@ -57,76 +57,8 @@
   font-style: italic;
 }
 
-.avatarConatiner {
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  width: 50px;
-  height: 100%;
-  margin-right: 10px;
-}
-
-.avatarConatiner .avatar {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-}
-
-.avatarConatiner .avatar img {
-  width: 100%;
-}
-
-.avatarConatiner .isOnline {
-  position: absolute;
-  right: 0.5em;
-  bottom: -0.9em;
-  width: 12px;
-  height: 12px;
-  border: 2.5px solid white;
-  border-radius: 50%;
-  background-color: #2ecc71;
-}
-
-.avatarConatiner .listAvatar {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  width: 60px;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-}
-
-.avatarConatiner .listAvatar .avatar {
-  position: relative;
-  width: 23px;
-  height: 23px;
-  border-radius: 50%;
-  margin-bottom: 2px;
-}
-
-.avatarConatiner .listAvatar .avatar2 {
-  position: relative;
-  width: 23px;
-  height: 23px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  background-color: #a29bfe;
-  border-radius: 50%;
-  color: #fff;
-  font-size: 0.8rem;
+.textMsg {
+  margin-left: 1em;
 }
 
 .dark {
@@ -135,7 +67,7 @@
   border-radius: 1em;
 }
 
-.dark p:not(:last-child) {
+.dark > p:not(:last-child) {
   color: #585c76;
 }
 

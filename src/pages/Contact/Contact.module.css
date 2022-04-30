@@ -18,11 +18,15 @@
 }
 
 .sideBar {
+  min-width: 300px;
   display: block;
 }
 
-.sideBar img {
-  width: 300px;
+.sideBar > img {
+  margin-top: 3em;
+  width: 250px;
+  text-align: center;
+  margin-left: 25px;
 }
 
 .sideBar p {
@@ -30,13 +34,14 @@
 }
 
 @media screen and (max-width: 1230px) {
-  .sideBar img, .sideBar p {
+  .sideBar p, .sideBar > img {
     display: none;
   }
 }
 
 .contact {
   width: 100%;
+  border-left: 1px solid #d1d1d1;
 }
 
 .contact .heading {
@@ -53,7 +58,6 @@
   position: sticky;
   top: 0;
   border-bottom: 1px solid #d1d1d1;
-  border-left: 1px solid #d1d1d1;
 }
 
 .contact .heading h3 {
@@ -65,7 +69,6 @@
   padding: 1em;
   height: calc(100vh - 70px);
   overflow-y: scroll;
-  border-left: 1px solid #d1d1d1;
 }
 
 .contact .main::-webkit-scrollbar {
@@ -89,7 +92,7 @@
 }
 
 @media screen and (max-width: 1230px) {
-  .contact .main, .contact .heading {
+  .contact {
     border-left: none;
   }
   .contact .heading {
@@ -169,6 +172,7 @@
 
 .dark {
   background-color: #292c43;
+  border-left: none;
 }
 
 .dark .sideBar {
@@ -176,8 +180,7 @@
 }
 
 .dark .heading {
-  border-left: 1px solid #292c43;
-  border-bottom: 1px solid #585c76;
+  border-bottom: none;
   background-color: #292c43;
   color: #fff;
 }
@@ -190,8 +193,11 @@
   color: #a29bfe;
 }
 
-.dark .main {
+.dark .contact {
   border-left: 1px solid #292c43;
+}
+
+.dark .main {
   background-color: #2f334d;
 }
 /*# sourceMappingURL=Contact.module.css.map */

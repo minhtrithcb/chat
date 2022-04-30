@@ -101,7 +101,21 @@
   color: #fff;
 }
 
+.dark .modelContainer p, .dark .modelHeading p {
+  color: #fff;
+}
+
 .dark .closeBtn {
+  color: #fff;
+}
+
+.dark button:first-child {
+  background-color: #a29bfe;
+  color: #fff;
+}
+
+.dark button:last-child {
+  background-color: #292c43;
   color: #fff;
 }
 /*# sourceMappingURL=Alert.module.css.map */

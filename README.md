@@ -29,15 +29,16 @@ npm start
 * Hiện bagde số tin nhắn chưa đọc, hoặc mới nhận
 * Hiện thị chat infinite scroll
 * Gửi mail, đổi mật khẩu, quên mật khẩu
+* User out group (realtime).
+* Tạo Avatar Component
 
 ### Chức năng đang làm
-* Xin gia nhập 
-* infinite scroll converstion
-* kick, out group
+* Tùy biến giao diện hộp thoại
+* Option khi tạo group : des, text wellcom, rule,
 
 ### Chức năng gợi ý ...
+* Xin gia nhập 
 * Tạo bình chọn, mute user
-* custumize conversation item
 * wellcome khi login lần đầu 
 * Ghim hộp thọai,
 * User gửi otp đăng nhập
@@ -47,6 +48,8 @@ npm start
 * User edit profile
 * User Tìm bạn theo tag ... 
 * Setting (chặn tin từ người lại, hiện email, hiện thông báo)
+* infinite scroll converstion
+
 
 ### Model note
 *   UserModel {

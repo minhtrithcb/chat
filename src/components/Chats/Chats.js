@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import styles from "./Chats.module.scss"
-import avatar from '../../assets/images/user.png'
 import { FiAlignRight } from "react-icons/fi";
 import { MdOutlineArrowBackIos } from "react-icons/md";
 import clsx from 'clsx';
@@ -17,6 +16,7 @@ import ChatLoading from '../ChatLoading/ChatLoading';
 import FriendInfoTab from '../FriendInfoTab/FriendInfoTab';
 import GroupInfoTab from '../GroupInfoTab/GroupInfoTab';
 import Model from '../Common/Model/Model';
+import Avatar from '../Common/Avatar/Avatar'
 
 const Chats = () => {
     const [isOpen, setIsOpen] = useToggle(false)
@@ -161,18 +161,18 @@ const Chats = () => {
             {/* // Desktop view  */}
             <div className={styles.friendCover}>
                 {checkIsFriend() ? <div>
-                    <div className={styles.avatar}>
-                        <img src={avatar} alt="friend_avatar" />
-                    </div>
+                    <Avatar 
+                        letter={friend[0].fullname.charAt(0)} 
+                    />
                     <span className={styles.des}>
                         <b onClick={() => setIsOpen(true)}>{friend[0].fullname}</b>
                         <small>#{friend[0].email}</small>
                     </span>
                 </div> : 
                 <div>
-                    <div className={styles.avatar}>
-                        <img src={avatar} alt="group_avatar" />
-                    </div>
+                    <Avatar 
+                        letter={currentChat.name.charAt(0)} 
+                    />
                     <span className={styles.des}>
                         <b onClick={() => setIsOpen(true)}>{currentChat.name}</b>
                         <small>{currentChat.members.length} Thành viên</small>

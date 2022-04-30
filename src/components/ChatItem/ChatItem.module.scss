@@ -12,7 +12,7 @@
     }
 
     .chatAvatar {
-        max-width: 40px;
+        width: 40px;
     }
 
     .chatDes {
@@ -111,12 +111,9 @@
     }
 
     .chatAvatar {
-        max-width: 40px;
-
-        .avatar {
-            margin-right: 0;
-            margin-left: 1em;
-        }
+        width: 40px;
+        display: flex;
+        justify-content: flex-end;
     }
 
     .chatDes {

@@ -1,6 +1,5 @@
 import clsx from 'clsx'
 import React, {  useContext } from 'react'
-import avatar from '../../assets/images/user.png'
 import { ChatContext } from '../../context/ChatContext'
 import useTheme  from '../../hooks/useTheme'
 import styles from "./ChatItem.module.scss"
@@ -10,6 +9,7 @@ import useDecodeJwt from '../../hooks/useDecodeJwt';
 import chatApi from '../../api/chatApi'
 import { SocketContext } from '../../context/SocketContext'
 import { renderTimeDiff } from '../../helper/renderSubString'
+import Avatar from '../Common/Avatar/Avatar'
 
 const ChatItem = ({self, data, dup}) => {
     const {theme} = useTheme()
@@ -82,11 +82,11 @@ const ChatItem = ({self, data, dup}) => {
             // Self 
             <div className={classesDarkMode}>
                 <div className={styles.chatAvatar}>
-                    <div className={styles.avatar}>
-                    {!dup && <img src={avatar} alt="avatar" />}
-                    </div> 
+                    {!dup && <Avatar 
+                        size={'sm'}
+                        letter={currentUser.username.charAt(0)} 
+                    />   }             
                 </div>
-                
                 <div className={styles.chatDes}>
                     {!dup && <div className={styles.chatInfo}>
                         <b>Bạn</b> 
@@ -95,7 +95,7 @@ const ChatItem = ({self, data, dup}) => {
                     <div className={styles.chatText}>
                         <div>
                             {data.replyMsg && <div className={styles.chatTextReply}>
-                                <b>{renderFullname()}</b>
+                                <b>{renderFullname(data.replyMsg.sender)}</b>
                                 <small>{renderTimeDiff(data.replyMsg.createdAt)}</small>
                                 <p>{data.replyMsg.text}</p>
                             </div>}
@@ -171,9 +171,10 @@ const ChatItem = ({self, data, dup}) => {
                     { data.isEdit && <small>Đã chỉnh sửa</small>}
                 </div>
                 <div className={styles.chatAvatar}>
-                    <div className={styles.avatar}>
-                        {!dup && <img src={avatar} alt="avatar" /> }
-                    </div> 
+                    {!dup && <Avatar 
+                        size={'sm'}
+                        letter={renderFullname(data.sender)?.charAt(0)} 
+                    /> }  
                 </div>
             </div>
             }

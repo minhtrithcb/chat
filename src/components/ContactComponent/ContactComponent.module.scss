@@ -41,13 +41,19 @@
 
     }
 
-    @include maxWitdh(567px) {
+    @include maxWitdh(768px) {
         .card {
             width: 32%;
         }
     }
 
-    @include maxWitdh(450px) {
+    @include maxWitdh(540px) {
+        .card {
+            width: 49%;
+            margin-bottom: 1em;
+        }
+    }
+    @include maxWitdh(425px) {
         .card {
             width: 100%;
             margin-bottom: 1em;

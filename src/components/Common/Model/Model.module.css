@@ -2,7 +2,7 @@
   position: fixed;
   z-index: 1001;
   width: 700px;
-  height: auto;
+  max-height: 80vh;
   background-color: white;
   left: 50%;
   top: 50%;
@@ -13,7 +13,7 @@
           box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1280px) {
   .modelBox {
     max-width: 95%;
   }
@@ -26,11 +26,12 @@
 .modelBox .modelBox {
   top: 65%;
   width: 800px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+          box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 }
 
 .modelContainer {
   padding: 1em;
-  height: auto;
 }
 
 .backdrop {
@@ -44,6 +45,11 @@
 }
 
 .modelHeading {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 9;
+  background-color: #fff;
   padding: 0.5em 1em;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -55,6 +61,7 @@
       -ms-flex-align: center;
           align-items: center;
   border-bottom: 1px solid #d1d1d1;
+  border-radius: .5em .5em 0 0;
 }
 
 .modelHeading .closeBtn {
@@ -113,6 +120,12 @@
 
 .dark {
   background-color: #2f334d;
+  color: #fff;
+}
+
+.dark .modelHeading {
+  background-color: #2f334d;
+  border-bottom: 1px solid #000;
   color: #fff;
 }
 

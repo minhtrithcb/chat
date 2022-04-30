@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import React, { useCallback, useContext, useRef, useState} from 'react'
 import useTheme from '../../hooks/useTheme'
 import styles from './SearchBox.module.scss'
-import avatar from '../../assets/images/user.png'
+import Avatar from '../Common/Avatar/Avatar'
 import Button from '../Common/Button/Button'
 import useToggle from '../../hooks/useToggle'
 import {FiDelete} from "react-icons/fi";
@@ -37,6 +37,7 @@ const SearchBox = () => {
                 setOldResults([...data.users, ...data.groups]);
                 setUserFriend(data.friends);
                 setFriendReqs(data.friendReqs);
+                setTabActive('All')
             } catch (error) {
                 console.log(error);
             }
@@ -101,9 +102,11 @@ const SearchBox = () => {
 
     // Handle Chage Tab
     const handleChageTabs = (type) => {
-        if (type === 'All') return setResults(oldResults); setTabActive('All')
         let newArr = oldResults.filter(res => {
             switch (type) {
+                case 'All':
+                    setTabActive('All')
+                    return res
                 case 'Group':
                     setTabActive('Group')
                     return res?.type === "Group" && res
@@ -117,7 +120,6 @@ const SearchBox = () => {
                     return res;
             }
         })
-
         setResults(newArr)
     }
 
@@ -160,7 +162,10 @@ const SearchBox = () => {
                     {results.length !== 0 ? results.map(res => (
                         <li className={styles.resultItem} key={res._id}>
                             <div className={styles.avatar}>
-                                <img src={avatar} alt="resultAvatar" />
+                                <Avatar
+                                    size={'sm'}
+                                    letter={res.fullname ? res.fullname.charAt(0) : res.name.charAt(0)}
+                                />
                             </div>
                             <div>
                                 {res.fullname ? <Link to={`/profile/${res._id}`}>{res.fullname}</Link>: 

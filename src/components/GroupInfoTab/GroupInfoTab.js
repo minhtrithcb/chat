@@ -13,6 +13,7 @@ import converApi from '../../api/converApi';
 import useDecodeJwt from '../../hooks/useDecodeJwt'
 import { toast } from 'react-toastify';
 import chatApi from '../../api/chatApi';
+import Avatar from '../Common/Avatar/Avatar';
 
 const GroupInfoTab = () => {
     const {socket} = useContext(SocketContext)
@@ -81,7 +82,9 @@ const GroupInfoTab = () => {
           {currentChat && <div className={classesDarkMode}>
             <div className={styles.infoBackGround}>
               <div className={styles.avatar}>
-                <img src={avatar} alt="friendAvatar" />
+                <Avatar 
+                  letter={currentChat.name.charAt(0)} 
+                /> 
               </div>
             </div>
             <div className={styles.infoText}>

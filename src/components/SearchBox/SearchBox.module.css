@@ -9,7 +9,7 @@
   z-index: 6;
 }
 
-.heading div:first-child {
+.heading > div:first-child {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -21,8 +21,12 @@
           align-items: center;
 }
 
-.heading p {
+.heading > div:first-child p {
+  margin: 1em 0;
   font-weight: bold;
+}
+
+.heading p {
   display: inline-block;
 }
 
@@ -42,11 +46,8 @@
 }
 
 @media screen and (max-width: 1230px) {
-  .heading {
-    height: auto;
-  }
-  .heading div:first-child p {
-    display: none;
+  .heading > div:first-child p {
+    margin: 0;
   }
 }
 
@@ -130,6 +131,10 @@
   text-align: center;
 }
 
+.result .avatar {
+  margin-right: 0.5em;
+}
+
 .result .resultItem {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -154,45 +159,6 @@
 .result .resultItem button {
   min-width: 90px;
   margin-left: auto;
-}
-
-.avatar {
-  width: 35px;
-  height: 35px;
-  background-color: #fff;
-  border: 1px solid #f1f1f1;
-  margin-right: 1em;
-  border-radius: 50%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  cursor: pointer;
-  position: relative;
-  margin-left: 1em;
-}
-
-.avatar img {
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-
-.avatar .isOnline {
-  position: absolute;
-  right: -2px;
-  bottom: 0px;
-  width: 10px;
-  height: 10px;
-  border: 2px solid white;
-  border-radius: 50%;
-  background-color: #2ecc71;
 }
 
 .dark {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import avatar from '../../assets/images/user.png'
+import Avatar from '../Common/Avatar/Avatar'
 import styles from './ContactComponent.module.scss'
 
 const CardItem = ({friend, reciver, sender, children}) => {
@@ -11,7 +11,15 @@ const CardItem = ({friend, reciver, sender, children}) => {
                 {children.map(c => c.key === 'topRight' && c )}
             </div>
             <div className={styles.avatar}>
-                <img src={avatar} alt="friend" />
+                {friend && <Avatar 
+                    letter={friend.fullname.charAt(0)}    
+                /> }
+                {sender && <Avatar 
+                    letter={sender.fullname.charAt(0)}    
+                /> }
+                {reciver && <Avatar 
+                    letter={reciver.fullname.charAt(0)}    
+                /> }
             </div>
             {friend && <Link to={`/profile/${friend._id}`}>{friend.fullname}</Link>}
             {sender && <Link to={`/profile/${sender._id}`}>{sender.fullname}</Link>}

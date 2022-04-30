@@ -59,6 +59,7 @@
   display: block;
   text-align: center;
   padding: 0.5em;
+  font-size: 0.9rem;
 }
 
 .LoginForm {
@@ -77,8 +78,15 @@
   color: #000;
 }
 
+.LoginForm > small {
+  text-align: center;
+  margin: 1em;
+  display: block;
+}
+
 .LoginHr {
   margin-top: 2em;
+  margin-bottom: 2em;
   position: relative;
 }
 
