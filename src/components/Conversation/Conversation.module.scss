@@ -27,7 +27,9 @@
     padding-bottom: 2em;
 
     &>small {
-        display: block;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         padding: 1em 1.2em;
     }
     @include scrollBarDefault();

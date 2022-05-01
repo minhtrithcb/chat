@@ -4,9 +4,16 @@ export const ThemeContext = createContext()
 
 
 export default function ThemeProvider({children}) {
-    // const [theme, setTheme] = useState("light")
+    const [themeConver, setThemeConver] = useState(() => {
+        let check = localStorage.getItem("themeConver")
+        if (!check) {
+            localStorage.setItem("themeConver", "default")
+            return "default"
+        }
+        return check
+    })
 
-    let [theme, setTheme] = useState(() => {
+    const [theme, setTheme] = useState(() => {
         let check = localStorage.getItem("theme")
         if (!check) {
             localStorage.setItem("theme", "light")
@@ -18,6 +25,10 @@ export default function ThemeProvider({children}) {
     useEffect(() => {
         localStorage.setItem("theme", theme)
     }, [theme])
+
+    useEffect(() => {
+        localStorage.setItem("themeConver", themeConver)
+    }, [themeConver])
     
 
     const ToggleTheme = () => {
@@ -26,7 +37,9 @@ export default function ThemeProvider({children}) {
 
     const value = {
         theme,
-        toggle: ToggleTheme
+        toggle: ToggleTheme,
+        themeConver,
+        setThemeConver
     }
 
     return (

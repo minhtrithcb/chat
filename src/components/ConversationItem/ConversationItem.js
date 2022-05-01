@@ -14,13 +14,16 @@ const ConversationItem = ({activeChat , conversation, members, usersOnline}) => 
     const {userReadConver} = useContext(ChatContext)
     const [currentUser] = useDecodeJwt()
     const [pendingChat, setPendingChat] = useState(false)
-    const {theme} = useTheme()
+    const {theme, themeConver} = useTheme()
     const [lastMsg, setLastMsg] = useState(conversation.lastMsg)
     const [onlineFriend, setOnlineFriend] = useState(false)
     const [unReadMsg, setUnReadMsg] = useState(0)
     const classesDarkMode = clsx(styles.messagesItem,{ 
         [styles.dark]: theme === "dark",
-        [styles.active]: activeChat
+        [styles.themeDefault]: themeConver === "default",
+        [styles.themeSimple]: themeConver === "simple",
+        [styles.themeDetail]: themeConver === "detail",
+        [styles.active]: activeChat,
     })
 
     // Get new message & display
@@ -102,12 +105,23 @@ const ConversationItem = ({activeChat , conversation, members, usersOnline}) => 
                         isOnline={onlineFriend}
                     />
                 </span>
+                {onlineFriend ?
+                    <div className={styles.box}>
+                        <span className={styles.isOnline}></span>
+                    </div>:
+                    <div className={styles.box}>
+                        <span className={styles.isOffline}></span>
+                    </div>
+                }
                 <span className={styles.textMsg}>
                     <b>{members[0].fullname}</b>
                     {lastMsg && !lastMsg.reCall ? 
                         <p>{ lastMsg.sender === currentUser.id && "Bạn :" } {renderSubString(lastMsg.text, 7)} </p>:
                         lastMsg?.reCall && <p className={styles.italic}>{renderSubString("Tin nhắn đã bị thu hồi", 11)}</p>
                     }
+                    <div className={styles.tag}>
+                        <small>Bạn bè</small>
+                    </div>
                 </span>
                 <span>
                     {pendingChat && <ConversationItemLoading />}
@@ -122,6 +136,9 @@ const ConversationItem = ({activeChat , conversation, members, usersOnline}) => 
                         letter={conversation.name.charAt(0)} 
                     />
                 </span>
+                <div className={styles.box}>
+                    <span className={styles.isNull}></span>
+                </div>
                 <span className={styles.textMsg}>
                     <b>{renderSubString(conversation.name, 9)}</b>
                     {lastMsg && !lastMsg.reCall ? 
@@ -134,6 +151,9 @@ const ConversationItem = ({activeChat , conversation, members, usersOnline}) => 
                             {renderSubString("Tin nhắn đã bị thu hồi", 11)}
                         </p>
                     }
+                    <div className={styles.tag}>
+                        <small>Nhóm</small>
+                    </div>
                 </span>
                 <span>
                     {pendingChat && <ConversationItemLoading />}

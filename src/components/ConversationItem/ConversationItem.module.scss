@@ -2,13 +2,13 @@
 @import '../../assets/css/mixin';
 
 .messagesItem {
-    height: 70px;
+    height: 80px;
     padding: 0 1em;
     display: flex;
     align-items: center;
     margin: 0.5em 0;
     cursor: pointer;
-    transition: .5s;
+    transition:  .5s;
     border-left: 2px solid transparent;
 
     &.active,
@@ -17,10 +17,17 @@
         border-left: 2px solid $primary-color;
     }
 
-    .textMsg p {
-        margin: 0.5em 0;
-        font-size: 0.9rem;
+    .textMsg {
+        margin-left: 0.5em;
+        p {
+            margin: 0.5em 0;
+            font-size: 0.9rem;
+        }
+        .tag {
+            display: none;
+        }
     }
+        
 
     span:last-of-type {
         margin-left: auto;
@@ -47,11 +54,64 @@
     .italic {
         font-style: italic;
     }
+
+    &.themeSimple {
+        height: 70px;
+        &>span:first-child {
+            display: none;
+        }
+        .box {
+            width: 10px;
+            height: 100%;
+            position: relative;
+            
+            &>span {
+                position: absolute;
+                left: 0;
+                top: 17px;
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+
+            }
+            .isOnline {
+                background-color: $green;
+            }
+            .isOffline {
+                background-color: $red-light;
+            }
+            .isNull {
+                background-color: $gray;
+            }
+        }
+    }
+    &.themeDetail {
+        height: 100px;
+        &>span:first-child {
+            transform: scale(0.7);
+            height: 100%;
+        }
+        .textMsg {
+            height: 100%;
+            padding: 1em 0;
+            .tag {
+                display: flex;
+                small {
+                    margin-right: 0.3em;
+                    display: block;
+                    padding: 0.3em 0.5em;
+                    background-color: $primary-colorDark;
+                    text-align: center;
+                    font-size: 0.7rem;
+                    color: white;
+                    border-radius: 0.5em;
+                }
+            }
+        }
+        
+    }
 }
 
-.textMsg {
-    margin-left: 1em;
-}
 
 .dark {
     padding: 0.5em;
@@ -60,6 +120,17 @@
 
     &>p:not(:last-child) {
         color: $light-lv1;
+    }
+
+    &.themeSimple {
+        .box {
+            &>span {
+                top: 7px;
+            }
+        }
+    }
+    &.themeDetail { 
+        padding: 0 0.5em;
     }
 
     &.active,

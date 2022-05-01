@@ -132,6 +132,7 @@ const Navbar = () => {
           <span>Thoát</span>
         </div>
         <input type="checkbox" onClick={toggle} className={styles.checkBox} defaultChecked={theme === "dark"} />
+        
         <Alert 
           isOpen={isOpen} 
           heading="Đăng xuất" 

@@ -8,7 +8,8 @@ import { ChatContext } from '../../context/ChatContext'
 import ConversationItem from '../ConversationItem/ConversationItem'
 import { SocketContext } from '../../context/SocketContext'
 import ConversationOption from '../ConversationOption/ConversationOption'
-
+import Dropdown, {DropdownItem} from '../Common/Dropdown/Dropdown'
+import { BsChevronDown } from "react-icons/bs";
 const Conversation = () => {
     const [conversations, setConversations] = useState([])
     const [currentUser] = useDecodeJwt()
@@ -18,7 +19,7 @@ const Conversation = () => {
         chatsOption, setUserReadConver,
         setReciverLeaveGroup, setChatsOption
     } = useContext(ChatContext)
-    const {theme} = useTheme()
+    const {theme,themeConver, setThemeConver} = useTheme()
     const classesDarkMode = clsx(styles.contact,{ 
         [styles.dark]: theme === "dark"
     })
@@ -93,15 +94,40 @@ const Conversation = () => {
         })
     }
 
+    // User change theme converstaion
+    const changeThemeConver = (type) => {
+        setThemeConver(type);
+    }
+    
+    const renderNameThemeConver = () => {
+        switch (themeConver) {
+            case 'default':
+                return "mặc định"
+            case 'simple':
+                return "tối giản"
+            case 'detail':
+                return "chi tiết"
+        
+            default:
+                return "mặc định"
+        }
+    }
+
     return (
         <div className={classesDarkMode}>
             <h3>Tin nhắn</h3>
             <ConversationOption />
-            
             <div className={classesDarkMode2}>        
             {conversations && 
                 <>
-                <small>{chatsOption.title}</small>
+                <small>
+                    <span>Kiểu hiển thị {renderNameThemeConver()}</span>
+                    <Dropdown icon={BsChevronDown}>
+                        <DropdownItem onClick={() => changeThemeConver('default')}>Hiển thị mặc định</DropdownItem>
+                        <DropdownItem onClick={() => changeThemeConver('simple')}>Hiển thị tối giản</DropdownItem>
+                        <DropdownItem onClick={() => changeThemeConver('detail')}>Hiển thị chi tiết</DropdownItem>
+                    </Dropdown>
+                </small>
                 { conversations.map((conver) => (
                     <div onClick={() => handleChoseChat(conver)} key={conver._id}>
                         <ConversationItem 
