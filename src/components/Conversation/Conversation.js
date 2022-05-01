@@ -105,8 +105,6 @@ const Conversation = () => {
                 return "mặc định"
             case 'simple':
                 return "tối giản"
-            case 'detail':
-                return "chi tiết"
         
             default:
                 return "mặc định"
@@ -125,7 +123,6 @@ const Conversation = () => {
                     <Dropdown icon={BsChevronDown}>
                         <DropdownItem onClick={() => changeThemeConver('default')}>Hiển thị mặc định</DropdownItem>
                         <DropdownItem onClick={() => changeThemeConver('simple')}>Hiển thị tối giản</DropdownItem>
-                        <DropdownItem onClick={() => changeThemeConver('detail')}>Hiển thị chi tiết</DropdownItem>
                     </Dropdown>
                 </small>
                 { conversations.map((conver) => (

@@ -12,24 +12,26 @@
     transform: translate(-50%, -50%); 
     border-radius: .5em;
     box-shadow: $box-shadow1;
-
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+        width: 0px;
+    }
     @include maxWitdh(1280px) {
         max-width: 95%;
     }
 
-    .backdrop {
-        display: none;
+    & ~ .modelBox {
+        width: 800px;
+        z-index: 1009;
     }
 
-    .modelBox {
-        top: 65%;
-        width: 800px;
-        box-shadow: $box-shadow4;
+    & ~ .backdrop {
+        z-index: 1008;
     }
 }
 
 .modelContainer {
-    padding: 1em;
+    padding: 1em;    
 }
 
 .backdrop {

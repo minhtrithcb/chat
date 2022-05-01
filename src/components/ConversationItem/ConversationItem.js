@@ -22,7 +22,6 @@ const ConversationItem = ({activeChat , conversation, members, usersOnline}) => 
         [styles.dark]: theme === "dark",
         [styles.themeDefault]: themeConver === "default",
         [styles.themeSimple]: themeConver === "simple",
-        [styles.themeDetail]: themeConver === "detail",
         [styles.active]: activeChat,
     })
 
@@ -119,9 +118,6 @@ const ConversationItem = ({activeChat , conversation, members, usersOnline}) => 
                         <p>{ lastMsg.sender === currentUser.id && "Bạn :" } {renderSubString(lastMsg.text, 7)} </p>:
                         lastMsg?.reCall && <p className={styles.italic}>{renderSubString("Tin nhắn đã bị thu hồi", 11)}</p>
                     }
-                    <div className={styles.tag}>
-                        <small>Bạn bè</small>
-                    </div>
                 </span>
                 <span>
                     {pendingChat && <ConversationItemLoading />}
@@ -140,7 +136,7 @@ const ConversationItem = ({activeChat , conversation, members, usersOnline}) => 
                     <span className={styles.isNull}></span>
                 </div>
                 <span className={styles.textMsg}>
-                    <b>{renderSubString(conversation.name, 9)}</b>
+                    <b>{renderSubString(`${conversation.name}`,15)}</b>
                     {lastMsg && !lastMsg.reCall ? 
                         <p> 
                             {renderNameInGroup()}
@@ -151,9 +147,6 @@ const ConversationItem = ({activeChat , conversation, members, usersOnline}) => 
                             {renderSubString("Tin nhắn đã bị thu hồi", 11)}
                         </p>
                     }
-                    <div className={styles.tag}>
-                        <small>Nhóm</small>
-                    </div>
                 </span>
                 <span>
                     {pendingChat && <ConversationItemLoading />}

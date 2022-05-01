@@ -1,0 +1,33 @@
+@import '../../../assets//css/_variable.scss';
+
+.ChoseRadius {
+    width: 200px;
+    margin-right: 1em;
+    padding: 1em;
+    border-radius: 0.7em;
+    border: 1px solid $gray;
+    margin-bottom: 1em;
+    cursor: pointer;
+    transition: background-color 0.5s ease-in-out;
+    min-height: 100px;
+    background-color: #fff;
+    color: #000;
+
+    &.active {
+        background-color: $primary-color;
+        color: #fff;
+    }
+}
+
+.dark {
+    &.ChoseRadius {
+        border: transparent;
+        background-color: $dark-lv4;
+        color: #fff;
+
+        &.active {
+            background-color: $primary-color;
+            color: #fff;
+        }
+    }
+}

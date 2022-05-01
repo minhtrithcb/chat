@@ -31,43 +31,23 @@ npm start
 * Gửi mail, đổi mật khẩu, quên mật khẩu
 * User out group (realtime).
 * Tạo Avatar Component
+* Tùy biến giao diện hộp thoại
 
 ### Chức năng đang làm
-* Tùy biến giao diện hộp thoại
 * Option khi tạo group : des, text wellcom, rule,
 
 ### Chức năng gợi ý ...
-* Xin gia nhập 
+* Xin gia nhập, create with condition
 * Tạo bình chọn, mute user
 * wellcome khi login lần đầu 
 * Ghim hộp thọai,
 * User gửi otp đăng nhập
 * User nhắn tin khi ko kết bạn theo setting
-* User chat có file & gif ảnh 
-* User upload avatar 
-* User edit profile
-* User Tìm bạn theo tag ... 
-* Setting (chặn tin từ người lại, hiện email, hiện thông báo)
-* infinite scroll converstion
-
-
-### Model note
-*   UserModel {
-        hobby: ["id", ...],
-        lang: "vn",
-        gender: ["male", "female", "?"],
-        working: [{"name", "true/đã"}],
-        studing: [{"name", "true/đã"}],
-    } 
-
-*   HobbyModel {
-        _id: "?",
-        name: "Thời trang",
-        color: "#fff",
-        img: "?",
-        des: "..."
-    } 
-
+* User chat có stiker
+* User edit profile, chage pass
+* Setting (chặn tin từ người lại, hiện email,auto set theme, hiện thông báo)
+* infinite scroll converstion, contact
+* Chào ngày mới, chúc ngủ ngon Aleart
 
 
 

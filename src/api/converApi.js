@@ -35,9 +35,9 @@ const converApi = {
             senderId, receiverId
         })
     },
-    createGroptConver({members, owner, nameGroup}) {
+    createGroptConver({members, owner, nameGroup, privacy,des,  rule}) {
         return api.post(`conversation/postGroup`, {
-            members, owner, nameGroup
+            members, owner, nameGroup, des, privacy, rule, 
         })
     },
     deleteByFriendId(currentUserId, friendId) {

@@ -17,6 +17,10 @@ import { ChatContext } from '../../context/ChatContext';
 import clsx from 'clsx';
 import useTheme from '../../hooks/useTheme'
 import { SocketContext } from '../../context/SocketContext';
+import TextArea from '../Common/Form/TextArea';
+import ChoseRadius from '../Common/ChoseRadius/ChoseRadius';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const ConversationOption = () => {
     const options = [
@@ -25,9 +29,8 @@ const ConversationOption = () => {
       { value: 'Friend', label: 'Tin nhắn bạn bè' }
     ]
     const [addFriend, setAddFriend] = useState([])
-    const [isOpen, setIsOpen] = useState(false) // main model
-    const [isOpen2, setIsOpen2] = useState(false) // chose friend model
-    const [isOpen3, setIsOpen3] = useState(false) // prev quit model
+    const [isOpen, setIsOpen] = useState(false) 
+    const [isAlert, setIsAlert] = useState(false) 
     const { register,  formState: { errors }, reset, handleSubmit } = useForm();
     const {friendList, setFriendList} = useContext(FriendContext)
     const {chatsOption, setChatsOption} = useContext(ChatContext)
@@ -36,9 +39,12 @@ const ConversationOption = () => {
     const [errorNoMember, setErrorNoMember] = useState(false)
     const {theme} = useTheme()
     const {socket} = useContext(SocketContext)
+    const [privacy, setPrivacy] = useState('pu')
+    const [ruleGroup, setRuleGroup] = useState('')
     const classesDarkMode = clsx(styles.optionContainer,{ 
         [styles.dark]: theme === "dark",
     })
+    
     const inputInit = {
         nameGroup: {
           label: "Tên nhóm", 
@@ -46,6 +52,13 @@ const ConversationOption = () => {
           name: "nameGroup", 
           placeholder: "Nhập tên nhóm",
           err: errors.nameGroup,
+        },
+        desGroup: {
+            label: "Mô tả nhóm", 
+            type: "text", 
+            name: "desGroup", 
+            placeholder: "Nhập mô tả cho nhóm",
+            err: errors.desGroup,
         }
     }
     
@@ -53,7 +66,7 @@ const ConversationOption = () => {
         nameGroup: {
           required: true,
           minLength: 6,
-        }
+        },
     }
 
     // Fetch friendList & sender user obj
@@ -87,13 +100,16 @@ const ConversationOption = () => {
 
     // Submit form
     const onSubmit = async data => {
-        if (addFriend.length >= 2) {
+        if (addFriend.length >= 2 || privacy === "pr") {
             setErrorNoMember(false)
             try {
                 const res = await converApi.createGroptConver({
                     members: [...addFriend, sender],
                     nameGroup: data.nameGroup,
-                    owner: sender._id
+                    owner: sender._id,
+                    des : data.desGroup,
+                    rule: ruleGroup,
+                    privacy: privacy === "pr" ? true : false
                 })
                 if (res.data?.success) {
                     toast.success(`Tạo nhóm thành công`)
@@ -107,9 +123,11 @@ const ConversationOption = () => {
             } catch (error) {
                 console.log(error);
             }
-        } else {
+        
             setErrorNoMember(true)
         }
+        setErrorNoMember(false)
+
     }
 
     // Prev form not save
@@ -119,8 +137,9 @@ const ConversationOption = () => {
             setIsOpen(false)
             setAddFriend([])
         } 
+        setPrivacy('pu')
         setErrorNoMember(false)
-        setIsOpen3(false)
+        setIsAlert(false)
     }
 
     // Render default option
@@ -136,6 +155,7 @@ const ConversationOption = () => {
     return (
         <div className={classesDarkMode}>
             <div className={styles.optionBox}>
+                
                 <Select  
                     options={options} 
                     onChange={handleChangeOption}
@@ -148,16 +168,44 @@ const ConversationOption = () => {
             {/* Main model */}
             <Model 
                 isOpen={isOpen} 
-                handleClick={() => setIsOpen3(true)} 
+                handleClick={() => setIsAlert(true)} 
                 heading="Tạo nhóm"
-                prevLostData={() => setIsOpen3(true)}
+                prevLostData={() => setIsAlert(true)}
             >
                 {/* Form  */}
                  <form onSubmit={handleSubmit(onSubmit)}>
                     <Input  {...register("nameGroup", inpValid.nameGroup)} {...inputInit.nameGroup} />
+                    <TextArea  {...register("desGroup")} {...inputInit.desGroup} />
+                    <label>Quy tắc nhóm</label>
+                    <CKEditor
+                        editor={ ClassicEditor }
+                        config={{
+                            removePlugins: ['CKFinderUploadAdapter', 'CKFinder', 'EasyImage', 'Image', 'ImageCaption', 'ImageStyle', 'ImageToolbar', 'ImageUpload', 'MediaEmbed'],
+                        }}
+                        data=""
+                        onChange={ ( event, editor ) => {
+                            const data = editor.getData();
+                            setRuleGroup(data)
+                        }}
+                    />
+                    <label>Tính riêng tư</label>
+                    <div className={styles.flex}>
+                        <ChoseRadius 
+                            text="Bất kể ai cũng có thể tham gia nhóm này"
+                            title={"Công khai"}
+                            active={privacy === "pu"}
+                            onClick={() => setPrivacy('pu')}
+                        />
+                        <ChoseRadius 
+                            text="Chỉ có thể tham gia nhóm này qua đường dẫn"
+                            title={"Riêng tư"}
+                            active={privacy === "pr"}
+                            onClick={() => setPrivacy('pr')}
+                        />
+                    </div>
                     <label>Thêm thành viên</label>
                     <div className={styles.friendList}>
-                        {addFriend.map(f => (
+                         {friendList && friendList.map(f => (
                             <FriendItem 
                                 key={f._id} 
                                 friend={f} 
@@ -166,44 +214,25 @@ const ConversationOption = () => {
                             />
                         ))}
                     </div>
-                    {/* // Button Add Friend */}
-                    <span className={styles.optionAddPeople} onClick={() => setIsOpen2(true) }>
-                        <AiOutlinePlus />
-                    </span>
-                    {errorNoMember && <small className={styles.errorText}>Hãy thêm ít nhất 2 thành viên</small>}
+                    {(errorNoMember || privacy === "pu") && <small className={styles.errorText}>Hãy thêm ít nhất 2 thành viên</small>}
                     {/* // Footer Button  */}
                     <div className={styles.footer}>
-                        <Button size={'lg'} onClick={() => setIsOpen3(true)}>Thoát</Button>
                         <Button 
                             type="submit" 
                             primary 
+                            fluid
                             size={'lg'}
                         >
                             Tạo nhóm
                         </Button>
                     </div>
                 </form>
-                {/* Chose friend model */}
-                <Model 
-                    isOpen={isOpen2} 
-                    handleClick={setIsOpen2} 
-                    heading="Thêm thành viên"
-                > 
-                    {friendList && friendList.map(f => (
-                        <FriendItem 
-                            key={f._id} 
-                            friend={f} 
-                            inAddFriend={addFriend.some(u => u._id === f._id)}
-                            onClick={handleClick} 
-                        />
-                    ))}
-                </Model>
             </Model>
             {/* Prev quit model */}
             <Alert 
                 heading={'Cảnh báo'}
                 text={'Bạn chưa lưu lại dữ liệu, bạn có muốn rời đi không'}
-                isOpen={isOpen3} 
+                isOpen={isAlert} 
                 userComfirm={prevQuit} 
             />
         </div>

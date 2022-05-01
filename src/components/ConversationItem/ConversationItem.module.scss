@@ -23,9 +23,6 @@
             margin: 0.5em 0;
             font-size: 0.9rem;
         }
-        .tag {
-            display: none;
-        }
     }
         
 
@@ -86,7 +83,7 @@
         }
     }
     &.themeDetail {
-        height: 100px;
+        height: 80px;
         &>span:first-child {
             transform: scale(0.7);
             height: 100%;
