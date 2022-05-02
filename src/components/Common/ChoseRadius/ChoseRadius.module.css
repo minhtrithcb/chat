@@ -1,0 +1,55 @@
+.ChoseRadius {
+  width: 200px;
+  margin-right: 1em;
+  padding: 1em;
+  border-radius: 0.7em;
+  border: 1px solid #d1d1d1;
+  margin-bottom: 1em;
+  cursor: pointer;
+  -webkit-transition: background-color 0.5s ease-in-out;
+  transition: background-color 0.5s ease-in-out;
+  min-height: 100px;
+  background-color: #fff;
+  color: #000;
+}
+
+.ChoseRadius.active {
+  background-color: #a29bfe;
+  color: #fff;
+}
+
+.ChoseRadius > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.ChoseRadius .dot {
+  width: 15px;
+  height: 15px;
+  background-color: #d1d1d1;
+  border: 2px solid #fff;
+  border-radius: 50%;
+}
+
+.ChoseRadius .dot.dotActive {
+  background-color: #a29bfe;
+}
+
+.dark.ChoseRadius {
+  border: transparent;
+  background-color: #292c43;
+  color: #fff;
+}
+
+.dark.ChoseRadius.active {
+  background-color: #a29bfe;
+  color: #fff;
+}
+/*# sourceMappingURL=ChoseRadius.module.css.map */

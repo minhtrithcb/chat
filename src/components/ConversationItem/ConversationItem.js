@@ -69,7 +69,7 @@ const ConversationItem = ({activeChat , conversation, members, usersOnline}) => 
     // set state users online
     useEffect(() => {
         if(usersOnline !== undefined) {
-            let res = usersOnline?.find(u => u.uid === members[0]._id)
+            let res = usersOnline?.find(u => u.uid === members[0]?._id)
             if(res !== undefined) setOnlineFriend(true) 
         }
         return () => {
@@ -114,15 +114,18 @@ const ConversationItem = ({activeChat , conversation, members, usersOnline}) => 
                 }
                 <span className={styles.textMsg}>
                     <b>{members[0].fullname}</b>
+                    
                     {lastMsg && !lastMsg.reCall ? 
-                        <p>{ lastMsg.sender === currentUser.id && "Bạn :" } {renderSubString(lastMsg.text, 7)} </p>:
+                        <p>{ lastMsg.sender === currentUser.id && "Bạn :" } {renderSubString(lastMsg.text, 11)} </p>:
                         lastMsg?.reCall && <p className={styles.italic}>{renderSubString("Tin nhắn đã bị thu hồi", 11)}</p>
                     }
                 </span>
                 <span>
-                    {pendingChat && <ConversationItemLoading />}
                     <small>{lastMsg && renderTimeDiff(lastMsg.createdAt)}</small>
-                    { unReadMsg !== 0 && <p>{unReadMsg}</p> }
+                    <span>
+                        {pendingChat && <ConversationItemLoading />}
+                        { unReadMsg !== 0 && <p> {unReadMsg}</p>}
+                    </span> 
                 </span>
             </div> :
             // Group conversation
@@ -140,7 +143,7 @@ const ConversationItem = ({activeChat , conversation, members, usersOnline}) => 
                     {lastMsg && !lastMsg.reCall ? 
                         <p> 
                             {renderNameInGroup()}
-                            {`: ${renderSubString(lastMsg.text, 7)}`} 
+                            {`: ${renderSubString(lastMsg.text, 11)}`} 
                         </p>:
                         lastMsg?.reCall && 
                         <p className={styles.italic}>
@@ -149,9 +152,11 @@ const ConversationItem = ({activeChat , conversation, members, usersOnline}) => 
                     }
                 </span>
                 <span>
-                    {pendingChat && <ConversationItemLoading />}
                     <small>{lastMsg && renderTimeDiff(lastMsg.createdAt)}</small>
-                    { unReadMsg !== 0 && <p>{unReadMsg}</p> }
+                    <span>
+                        {pendingChat && <ConversationItemLoading />}
+                        { unReadMsg !== 0 && <p> {unReadMsg}</p>}
+                    </span> 
                 </span>
             </div> }
         </>

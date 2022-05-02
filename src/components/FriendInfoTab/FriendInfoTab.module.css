@@ -115,18 +115,9 @@
 
 .infoAction span svg {
   margin-right: 0.5em;
-  color: #a29bfe;
+  color: #6c5ce7;
   -webkit-transition: 0.3s ease-in;
   transition: 0.3s ease-in;
-}
-
-.infoAction span:hover {
-  color: #fff;
-  background-color: #bab6ff;
-}
-
-.infoAction span:hover svg {
-  color: #fff;
 }
 
 .dark {

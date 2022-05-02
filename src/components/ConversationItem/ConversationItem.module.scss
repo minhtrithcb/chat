@@ -18,7 +18,15 @@
     }
 
     .textMsg {
-        margin-left: 0.5em;
+        margin-left: 1em;
+        height: 60px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        b {
+            display: flex;
+            align-items: center;
+        }
         p {
             margin: 0.5em 0;
             font-size: 0.9rem;
@@ -26,25 +34,36 @@
     }
         
 
-    span:last-of-type {
+    &>span:last-of-type {
         margin-left: auto;
-        position: relative;
+        height: 60px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
 
         small {
             font-size: 0.7rem;
             color: gray;
+            display: block;
         }
 
         // chip
-        p {
-            font-size: 0.7rem;
-            width: 15px;
-            height: 15px;
-            color: #fff;
-            border-radius: 50%;
-            @include center;
-            background-color: $red-light;
-            margin-left: auto;
+        &>span {
+            height: 20px;
+            display: flex;
+            align-items: center;
+            margin-top: 0.7em;
+            justify-content: flex-end;
+            p {
+                font-size: 0.7rem;
+                width: 15px;
+                height: 15px;
+                color: #fff;
+                border-radius: 50%;
+                @include center;
+                background-color: $red-light;
+                margin-left: auto;
+            }
         }
     }
 
@@ -82,31 +101,6 @@
             }
         }
     }
-    &.themeDetail {
-        height: 80px;
-        &>span:first-child {
-            transform: scale(0.7);
-            height: 100%;
-        }
-        .textMsg {
-            height: 100%;
-            padding: 1em 0;
-            .tag {
-                display: flex;
-                small {
-                    margin-right: 0.3em;
-                    display: block;
-                    padding: 0.3em 0.5em;
-                    background-color: $primary-colorDark;
-                    text-align: center;
-                    font-size: 0.7rem;
-                    color: white;
-                    border-radius: 0.5em;
-                }
-            }
-        }
-        
-    }
 }
 
 
@@ -125,9 +119,6 @@
                 top: 7px;
             }
         }
-    }
-    &.themeDetail { 
-        padding: 0 0.5em;
     }
 
     &.active,

@@ -1,6 +1,6 @@
 .infoBackGround {
   position: relative;
-  height: 150px;
+  height: 70px;
   width: 100%;
   background: #4e54c8;
   /* fallback for old browsers */
@@ -64,29 +64,12 @@
   max-width: -moz-fit-content;
   max-width: fit-content;
   margin: 0.5em 0;
-  max-height: 75px;
-  overflow-y: auto;
   font-size: 0.9rem;
 }
 
-.infoText p::-webkit-scrollbar {
-  width: 5px;
-}
-
-.infoText p:hover::-webkit-scrollbar {
-  border-radius: 0.8em;
-  width: 5px;
-}
-
-.infoText p::-webkit-scrollbar-thumb {
-  background: transparent;
-  border-radius: 0.5em;
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
-}
-
-.infoText p:hover::-webkit-scrollbar-thumb {
-  background: #f1f1f1;
+.infoText p ol {
+  margin: 0;
+  padding-left: 1.5em;
 }
 
 .infoUserList {
@@ -191,7 +174,7 @@
 
 .infoAction span svg {
   margin-right: 0.5em;
-  color: #a29bfe;
+  color: #6c5ce7;
   -webkit-transition: 0.3s ease-in;
   transition: 0.3s ease-in;
 }

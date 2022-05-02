@@ -17,6 +17,24 @@
         background-color: $primary-color;
         color: #fff;
     }
+
+    &>div {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .dot {
+        width: 15px;
+        height: 15px;
+        background-color: $gray;
+        border: 2px solid #fff;
+        border-radius: 50%;
+
+        &.dotActive {
+            background-color: $primary-color;
+        }
+    }
 }
 
 .dark {

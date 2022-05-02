@@ -5,6 +5,7 @@
   border: 1px solid #d1d1d1;
   font-size: 0.9rem;
   margin-bottom: 0.5em;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .FromInput > input:focus {
@@ -21,8 +22,25 @@
   display: block;
 }
 
-.dark > input {
+.FromInput > textarea {
+  padding: 1em;
+  width: 100%;
+  border-radius: 0.4em;
+  border: 1px solid #d1d1d1;
+  font-size: 0.9rem;
+  margin-bottom: 0.5em;
+  font-family: 'Montserrat', sans-serif;
+  resize: none;
+  min-height: 100px;
+}
+
+.FromInput > textarea:focus {
+  outline: 1px solid #a29bfe;
+}
+
+.dark > input, .dark > textarea {
   background-color: #292c43;
   color: #fff;
+  border: 1px solid #57606f;
 }
 /*# sourceMappingURL=Form.module.css.map */

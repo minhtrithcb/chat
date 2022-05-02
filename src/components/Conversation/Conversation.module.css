@@ -1,5 +1,5 @@
 .contact {
-  min-width: 300px;
+  min-width: 350px;
   height: 100vh;
   background-color: #fff;
   padding-top: 1em;
@@ -27,8 +27,17 @@
 }
 
 .messages > small {
-  display: block;
-  padding: 1em 1.2em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0.5em 1.2em;
+  background-color: #fff;
 }
 
 .messages::-webkit-scrollbar {
@@ -78,5 +87,9 @@
 
 .dark .messages::-webkit-scrollbar {
   width: 0px;
+}
+
+.dark .messages > small {
+  background-color: #292c43;
 }
 /*# sourceMappingURL=Conversation.module.css.map */

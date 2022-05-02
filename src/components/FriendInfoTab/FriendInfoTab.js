@@ -1,26 +1,49 @@
 import React, { useContext, useState } from 'react'
 import styles from './FriendInfoTab.module.scss'
-import { BsBellSlashFill,BsFillEnvelopeFill,BsFillTelephoneFill,BsFillPersonFill,BsBriefcaseFill
+import { BsFillEnvelopeFill,BsFillTelephoneFill,BsFillPersonFill,BsBriefcaseFill
       } from "react-icons/bs";
-import { MdReport} from "react-icons/md";
 import { AiOutlineUserDelete} from "react-icons/ai";
 import clsx from 'clsx';
 import useTheme  from '../../hooks/useTheme'
 import { ChatContext } from '../../context/ChatContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Alert from '../Common/Alert/Alert';
 import Avatar from '../Common/Avatar/Avatar';
+import { toast } from 'react-toastify';
+import converApi from '../../api/converApi';
+import userApi from '../../api/userApi';
+import useDecodeJwt from '../../hooks/useDecodeJwt';
+import { SocketContext } from '../../context/SocketContext';
 
 const FriendInfoTab = () => {
-  const {friend} = useContext(ChatContext)
+  const {friend, setCurrentChat, currentChat} = useContext(ChatContext)
   const {theme} = useTheme()
+  const {socket} = useContext(SocketContext)
+  const [currentUser] = useDecodeJwt()
   const [isOpen, setIsOpen] = useState(false)
+  const navigator = useNavigate()
   const classesDarkMode = clsx(styles.friendProfile, { 
     [styles.dark]: theme === "dark"
   })
 
-  const userComfirm = (isComfirm) => {
-    setIsOpen(false)
+  const userComfirm = async (isComfirm) => {
+    if (isComfirm) {
+      try {
+        setIsOpen(false)
+        socket.emit("send-deleteGroup", { 
+          recivers : friend, 
+          roomId: currentChat._id,
+          sender: currentUser.id,
+        })
+        await converApi.deleteByFriendId(currentUser.id, friend[0]._id)
+        await userApi.unFriend(currentUser.id, friend[0]._id);
+        setCurrentChat(null)
+        toast.success("Xóa kết bạn thành công");
+        navigator('/', {replace: true})
+      } catch (error) {
+        console.log(error);
+      }
+    } else setIsOpen(false)
   }
 
   return (
@@ -73,14 +96,6 @@ const FriendInfoTab = () => {
           </div>
         </div>
         <div className={styles.infoAction}>
-          <span >
-            <BsBellSlashFill /> 
-            Chặn
-          </span>
-          <span >
-            <MdReport /> 
-            Báo cáo
-          </span>
           <span onClick={() => setIsOpen(true)}>
             <AiOutlineUserDelete /> 
             Xóa kết bạn

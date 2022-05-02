@@ -85,16 +85,8 @@
 
         svg {
             margin-right: 0.5em;
-            color: $primary-color;
+            color: $primary-colorDark;
             transition: 0.3s ease-in;
-        }
-
-        &:hover {
-            color: #fff;
-            background-color: $primary-colorLight;
-            svg {
-                color: #fff;
-            }
         }
     }
 }

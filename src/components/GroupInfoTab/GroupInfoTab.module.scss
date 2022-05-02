@@ -3,7 +3,7 @@
 
 .infoBackGround {
     position: relative;
-    height: 150px;
+    height: 70px;
     width: 100%;
     background: #4e54c8;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);  /* Chrome 10-25, Safari 5.1-6 */
@@ -39,11 +39,12 @@
         line-height: 25px;
         max-width: fit-content;
         margin: 0.5em 0;
-        max-height: 75px;
-        overflow-y: auto;
         font-size: 0.9rem;
-        @include scrollBarDefault;
-    
+
+        ol {
+            margin: 0;
+            padding-left: 1.5em;
+        }
     }
 }
 
@@ -89,7 +90,7 @@
 
         svg {
             margin-right: 0.5em;
-            color: $primary-color;
+            color: $primary-colorDark;
             transition: 0.3s ease-in;
         }
     }

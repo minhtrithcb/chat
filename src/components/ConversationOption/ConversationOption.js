@@ -95,12 +95,11 @@ const ConversationOption = () => {
             setAddFriend(prev => prev.filter(u => u._id !== friend._id))
         }
         setErrorNoMember(false)
-
     }
 
     // Submit form
     const onSubmit = async data => {
-        if (addFriend.length >= 2 || privacy === "pr") {
+        if (addFriend.length >= 2) {
             setErrorNoMember(false)
             try {
                 const res = await converApi.createGroptConver({
@@ -124,10 +123,10 @@ const ConversationOption = () => {
                 console.log(error);
             }
         
+            
+        } else { 
             setErrorNoMember(true)
         }
-        setErrorNoMember(false)
-
     }
 
     // Prev form not save
@@ -214,7 +213,7 @@ const ConversationOption = () => {
                             />
                         ))}
                     </div>
-                    {(errorNoMember || privacy === "pu") && <small className={styles.errorText}>Hãy thêm ít nhất 2 thành viên</small>}
+                    {errorNoMember && <small className={styles.errorText}>Hãy thêm ít nhất 2 thành viên</small>}
                     {/* // Footer Button  */}
                     <div className={styles.footer}>
                         <Button 

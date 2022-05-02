@@ -42,7 +42,7 @@
 .isOnline {
   position: absolute;
   right: -0em;
-  bottom: -1em;
+  bottom: -0em;
   width: 10px;
   height: 10px;
   border-radius: 50%;

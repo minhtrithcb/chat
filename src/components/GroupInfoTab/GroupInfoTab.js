@@ -1,8 +1,7 @@
 import React, { useContext, useState } from 'react'
 import styles from './GroupInfoTab.module.scss'
-import avatar from '../../assets/images/user.png'
-import { BsBellSlashFill,BsChatLeftDots} from "react-icons/bs";
-import { MdReport, MdLogout} from "react-icons/md";
+import { BsChatLeftDots} from "react-icons/bs";
+import {MdLogout} from "react-icons/md";
 import clsx from 'clsx';
 import useTheme  from '../../hooks/useTheme'
 import { ChatContext } from '../../context/ChatContext';
@@ -92,14 +91,17 @@ const GroupInfoTab = () => {
               <p><b>Chủ nhóm</b> : {findGroupMaster()}</p>
             </div>
             <div className={styles.infoText}>
-                <p>Dolor sit amet consectetur adipisicing elit. Reiciendis, quod voluptatum? Expedita ex voluptate necessitatibus consequatu</p>
+                {currentChat.des && <b>Tóm tắc</b>}
+                <p>{currentChat.des}</p>
+                {currentChat.rule && <b>Quy tắc nhóm</b>}
+                <p dangerouslySetInnerHTML={{__html : currentChat.rule}} ></p>
                 <b>Thành viên</b>
             </div>
             <div className={styles.infoUserList}>
                 {currentChat.members.map( user => (
                     <div className={styles.infoUserItem} key={user._id}>
                         <div className={styles.avatar}>
-                            <img src={avatar} alt="friendAvatar" />
+                            <Avatar letter={user.fullname.charAt(0)} size="sm" />
                         </div>
                         <Link to={`/profile/${user._id}`}>{user.fullname}</Link>
                         <span>
@@ -109,14 +111,6 @@ const GroupInfoTab = () => {
                 ))}
             </div>
             <div className={styles.infoAction}>
-              <span >
-                <BsBellSlashFill /> 
-                Chặn
-              </span>
-              <span >
-                <MdReport /> 
-                Báo cáo
-              </span>
               <span onClick={() => setIsOpen(true)}>
                 <MdLogout /> 
                 Thoát nhóm

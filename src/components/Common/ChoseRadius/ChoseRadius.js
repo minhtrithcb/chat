@@ -11,7 +11,10 @@ const ChoseRadius = ({text, title, active, ...rest}) => {
     })
     return (
         <div className={classesDarkMode} {...rest}>
-            <p >{title}</p>
+           <div>
+                <p>{title}</p>
+                <span className={active ? clsx(styles.dotActive, styles.dot) : styles.dot }></span>
+           </div>
             <small>{text}</small>
         </div>
     )
