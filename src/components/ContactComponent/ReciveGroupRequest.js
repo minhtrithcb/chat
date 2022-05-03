@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import Button from '../Common/Button/Button'
 import styles from './ContactComponent.module.scss'
 import useDecodeJwt from '../../hooks/useDecodeJwt'
-import converApi from '../../api/converApi'
 import { toast } from 'react-toastify'
 import { GroupContext } from '../../context/GroupContext'
 import Dropdown, { DropdownItem } from '../Common/Dropdown/Dropdown'
@@ -13,6 +12,8 @@ import { SocketContext } from '../../context/SocketContext'
 import groupReqApi from '../../api/groupReq'
 import GroupReqCardItem from './GroupReqCardItme'
 import { AiOutlineLock, AiOutlineUnlock } from "react-icons/ai";
+import Alert from '../Common/Alert/Alert'
+import chatApi from '../../api/chatApi'
 
 const ReciveGroupRequest = () => {
     const {theme} = useTheme()
@@ -20,8 +21,8 @@ const ReciveGroupRequest = () => {
     const [currentUser] = useDecodeJwt()
     const {setGrLength} = useContext(GroupContext)
     const {socket} = useContext(SocketContext)
-    // const [friendReqId, setfriendReqId] = useState('')
-    // const [isOpen, setIsOpen] = useState(false)
+    const [reqId, setReqId] = useState('')
+    const [isOpen, setIsOpen] = useState(false)
 
     const classesDarkMode = clsx(styles.cardContainer,{ 
       [styles.dark]: theme === "dark"
@@ -50,30 +51,45 @@ const ReciveGroupRequest = () => {
     }, [currentUser.id])
 
 
-    // Accept Friend Reqs
-    // const handleAcceptFriendReq = async (id, sender) => {
-    //   const {data} = await friendReqApi.acceptFriendReq(id, sender, currentUser.id)
-    //   if (data.success) {
-    //     toast.success("Kết bạn thành công");
-    //     const remove = acceptFriendReqs.filter(fr => fr._id !== id)
-    //     setAcceptFriendReqs(remove)
-    //     setFrLength(remove.length)
-    //     await converApi.createFriendConver(sender._id, currentUser.id)
-    //   }
-    // }
+    // Accept Group Reqs
+    const handleAcceptGroupReq = async (reqId, roomId, sender) => {
+      const {data} = await groupReqApi.acceptGroupReq(reqId, roomId, sender._id)
+      if (data.success) {
+        // Call socket
+        const {data} = await chatApi.postNewChat({
+            roomId,
+            sender: sender._id,
+            text:  `${sender.fullname} đã được thêm vào nhóm` ,
+            type: "Notify"
+        })
 
-    // // Un accept Friend Reqs
-    // const handleUnsendFriendRes = async userComfirm => {
-    //   if (userComfirm) {
-    //     await friendReqApi.unSendFriendReq(friendReqId)
-    //     const remove = acceptFriendReqs.filter(fr => fr._id !== friendReqId)
-    //     setAcceptFriendReqs(remove)
-    //     setFrLength(remove.length)
-    //     setfriendReqId('')
-    //     toast.success("Xóa kết bạn thành công");
-    //   }
-    //   setIsOpen(false)
-    // }
+        // Send to socket room
+        socket.emit("send-msg", data)
+        // Send to socket id
+        socket.emit("send-createGroup", {  
+            recivers: [sender], 
+            sender: currentUser.id, 
+            group : data
+        })
+        toast.success("Kết bạn thành công");
+        const remove = acceptGroupReqs.filter(gr => gr._id !== reqId)
+        setAcceptGroupReqs(remove)
+        setGrLength(remove.length)
+      }
+    }
+
+    // Denie Group Reqs
+    const handleDenieGroupRes = async userComfirm => {
+      if (userComfirm) {
+        await groupReqApi.unSendGroupReq(reqId)
+        const remove = acceptGroupReqs.filter(gr => gr._id !== reqId)
+        setAcceptGroupReqs(remove)
+        setGrLength(remove.length)
+        setReqId('')
+        toast.success("Xóa kết bạn thành công");
+      }
+      setIsOpen(false)
+    }
 
     
   return (
@@ -86,9 +102,6 @@ const ReciveGroupRequest = () => {
                     <AiOutlineUnlock style={{color: '#2ecc71'}} />}
                 </div>
                 <Dropdown position="right" key="topRight">
-                    <DropdownItem >
-                            Từ chối gia nhập
-                    </DropdownItem>
                     <Link to={`/profile/${gr.sender._id}`}>
                         <DropdownItem>
                             Hồ sơ
@@ -97,15 +110,15 @@ const ReciveGroupRequest = () => {
                 </Dropdown>
                 <Button 
                     fluid key="botLeft" primary
-                    // onClick={() => handleAcceptFriendReq(fr._id, fr.sender)}
+                    onClick={() => handleAcceptGroupReq(gr._id, gr.room._id, gr.sender)}
                 >
                     Chấp nhận
                 </Button>
                 <Button 
                     fluid danger key="botRight" 
                     onClick={() => {
-                    //   setfriendReqId(fr._id)
-                    //   setIsOpen(true) 
+                      setReqId(gr._id)
+                      setIsOpen(true) 
                   }}
                 >
                     Từ chối
@@ -114,12 +127,12 @@ const ReciveGroupRequest = () => {
           )):
           <p>Chưa ai gửi lời kết bạn đến bạn.</p>
           }
-          {/* <Alert 
+          <Alert 
               isOpen={isOpen} 
               heading="Xóa lời mời" 
               text="Bạn có muốn xóa lời mời kết bạn không ?" 
-              userComfirm={handleUnsendFriendRes}
-          /> */}
+              userComfirm={handleDenieGroupRes}
+          />
         </div>
   )
 }

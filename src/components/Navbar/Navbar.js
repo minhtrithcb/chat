@@ -27,7 +27,7 @@ const Navbar = () => {
   const {pathname} = useLocation();
   const [isOpen, setIsOpen] = useState(false)
   const navigate = useNavigate()
-  const {setGrLength} = useContext(GroupContext)
+  const {grLength, setGrLength} = useContext(GroupContext)
 
   const listLink2 = [
     {
@@ -51,7 +51,7 @@ const Navbar = () => {
     [styles.dark]: theme === "dark"
   })
 
-  // Notifi friend
+  // Notifi friendReq
   useEffect(() => {        
     socket.on("getAddFriend", data => {
       if(data) setFrLength(prev => prev + 1);
@@ -67,10 +67,11 @@ const Navbar = () => {
     }
   }, [socket, setFrLength, currentUser.id, setCountUnRead])
 
-  // Notifi group 
+  // Notifi group req
   useEffect(() => {        
     socket.on("getGroupRequest", data => {
-      if(data) setGrLength(prev => prev + 1);
+      if(data) 
+        setGrLength(prev => prev + 1);
     })
   }, [socket, setGrLength])
 
@@ -112,7 +113,7 @@ const Navbar = () => {
         <NavLink to={`/contact`} className={checkActiveClass('/contact')}>
           <BsTelephone />
           <p>Danh bạ</p>
-          {frLength > 0 &&  <span>{frLength}</span> }
+          {(frLength > 0 || grLength > 0) && <span>{frLength + grLength}</span> }
         </NavLink>
         <NavLink to={`/groups`} className={checkActiveClass('/groups')}>
           <BsPeople />
