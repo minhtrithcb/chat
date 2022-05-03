@@ -106,6 +106,10 @@
   font-style: italic;
 }
 
+.messagesItem .box {
+  display: none;
+}
+
 .messagesItem.themeSimple {
   height: 70px;
 }
@@ -117,6 +121,7 @@
 .messagesItem.themeSimple .box {
   width: 10px;
   height: 100%;
+  display: block;
   position: relative;
 }
 

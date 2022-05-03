@@ -21,6 +21,7 @@ import TextArea from '../Common/Form/TextArea';
 import ChoseRadius from '../Common/ChoseRadius/ChoseRadius';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import chatApi from '../../api/chatApi';
 
 const ConversationOption = () => {
     const options = [
@@ -58,6 +59,14 @@ const ConversationOption = () => {
             type: "text", 
             name: "desGroup", 
             placeholder: "Nhập mô tả cho nhóm",
+            err: errors.desGroup,
+        },
+        welcomeTextGroup: {
+            label: "Lời chào khi tạo nhóm", 
+            type: "text", 
+            name: "welcomeTextGroup", 
+            defaultValue: "Chào mừng các bạn đã tham gia nhóm ^^",
+            placeholder: "Nhập lời chào khi tạo",
             err: errors.desGroup,
         }
     }
@@ -102,8 +111,9 @@ const ConversationOption = () => {
         if (addFriend.length >= 2) {
             setErrorNoMember(false)
             try {
+                const allReciver = [...addFriend, sender]
                 const res = await converApi.createGroptConver({
-                    members: [...addFriend, sender],
+                    members: allReciver,
                     nameGroup: data.nameGroup,
                     owner: sender._id,
                     des : data.desGroup,
@@ -112,8 +122,22 @@ const ConversationOption = () => {
                 })
                 if (res.data?.success) {
                     toast.success(`Tạo nhóm thành công`)
+
+                    const saved = await chatApi.postNewChat({
+                        roomId: res.data.saved._id,
+                        sender: currentUser.id,
+                        text:   data.welcomeTextGroup,
+                    })
+                    // Send to socket room
+                    socket.emit("send-msg", saved)
+                    // Send to socket id
+                    socket.emit("sendToFriendOnline", { 
+                        recivers : allReciver, 
+                        ...saved
+                    })
+
                     socket.emit("send-createGroup", {  
-                        recivers: [...addFriend, sender], 
+                        recivers: allReciver, 
                         sender: currentUser.id, 
                         group : res.data.saved
                     })
@@ -174,6 +198,7 @@ const ConversationOption = () => {
                 {/* Form  */}
                  <form onSubmit={handleSubmit(onSubmit)}>
                     <Input  {...register("nameGroup", inpValid.nameGroup)} {...inputInit.nameGroup} />
+                    <Input  {...register("welcomeTextGroup")} {...inputInit.welcomeTextGroup} />
                     <TextArea  {...register("desGroup")} {...inputInit.desGroup} />
                     <label>Quy tắc nhóm</label>
                     <CKEditor

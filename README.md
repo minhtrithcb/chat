@@ -15,29 +15,26 @@ npm start
 
 ### Chức năng Frontend Đã hoàn thiện
 
-* Giao diện, Đăng nhập, đăng ký, trang chủ, profile, trang 404...
-* Logic Đăng nhập, đăng ký, đăng xuất, kiểm lỗi form, protective Route. 
-* kết bạn nhận tin kết bạn (realtime), Gửi tin nhắn 1 - 1 (realtime) 
-* Người dùng tìm kiếm bạn bè, nhóm (thêm thành công tạo hộp thoại)
-* Người dùng thêm, sửa Reaction (realtime).
-* Người dùng sửa, thu hồi Chat (realtime).
-* Người dùng trích lời (reply)
-* Chat nối với nhau nếu 1 người chat liên tục
-* User typing hiện đang gõ  
-* User tạo nhóm thêm thành viên, chat nhóm
+* Giao diện, Đăng nhập, đăng ký, trang chủ, profile, Gửi mail otp, đổi mật khẩu, quên mật khẩu trang 404, ...
 * Giao diện mobile riêng. Theme cho ứng dụng.
-* Hiện bagde số tin nhắn chưa đọc, hoặc mới nhận
+* Người dùng có thể kết bạn chat 1 -1 hoặc chat nhóm.
+* Danh sách bạn bè, nhận tin kết bạn, danh sách chờ kết bạn.
+* Người dùng tìm kiếm bạn bè, nhóm.
+* Người dùng thêm, sửa Cảm xúc, sửa chat, thu hồi Chat, trích lời.
+* Chat nối với nhau nếu 1 người chat liên tục.
+* Người dùng khi đang nhắn hiện đang gõ cho người dùng trong chat, hoặc đang online.
+* Tùy biến giao diện hộp thoại (Mặc định, tối giản)
+* Người dùng tạo nhóm thêm thành viên (Nhóm công khai, nhóm riêng tư).
+* Hiện số tin nhắn chưa đọc, hoặc tin kết bạn.
+* Người dùng thoát nhóm (hiện thông báo khi out)
 * Hiện thị chat infinite scroll
-* Gửi mail, đổi mật khẩu, quên mật khẩu
-* User out group (realtime).
-* Tạo Avatar Component
-* Tùy biến giao diện hộp thoại
+
 
 ### Chức năng đang làm
-* Option khi tạo group : des, text wellcom, rule,
+* Xin gia nhập bằng chấp nhận hoặc link invinte
 
 ### Chức năng gợi ý ...
-* Xin gia nhập, create with condition
+* Tự tùy chỉnh hoặc tạo Avatar
 * Tạo bình chọn, mute user
 * wellcome khi login lần đầu 
 * Ghim hộp thọai,

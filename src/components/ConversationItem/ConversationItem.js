@@ -8,7 +8,6 @@ import useDecodeJwt from '../../hooks/useDecodeJwt'
 import renderSubString, { renderTimeDiff } from '../../helper/renderSubString'
 import { ChatContext } from '../../context/ChatContext'
 import Avatar from '../Common/Avatar/Avatar'
-
 const ConversationItem = ({activeChat , conversation, members, usersOnline}) => {
     const {socket} = useContext(SocketContext)
     const {userReadConver} = useContext(ChatContext)
