@@ -65,7 +65,7 @@ const ConversationOption = () => {
             label: "Lời chào khi tạo nhóm", 
             type: "text", 
             name: "welcomeTextGroup", 
-            defaultValue: "Chào mừng các bạn đã tham gia nhóm ^^",
+            defaultValue: "Chào mừng các bạn đã tham gia nhóm",
             placeholder: "Nhập lời chào khi tạo",
             err: errors.desGroup,
         }

@@ -4,16 +4,20 @@ import FriendRequest from '../../components/ContactComponent/FriendRequest'
 import ReciveFriendRequest from '../../components/ContactComponent/ReciveFriendRequest'
 import FriendListContact from '../../components/ContactComponent/FriendListContact'
 import { FriendContext } from '../../context/FriendContext'
+import { GroupContext } from '../../context/GroupContext'
 import SearchBox from '../../components/SearchBox/SearchBox'
 import clsx from 'clsx'
 import useTheme from '../../hooks/useTheme'
 import noSearch from '../../assets/images/illu/undraw_searching_re_3ra9.svg'
 import Select from 'react-select';
+import GroupList from '../../components/ContactComponent/GroupList'
+import ReciveGroupRequest from '../../components/ContactComponent/ReciveGroupRequest'
 
 const Contact = () => {
   const {theme} = useTheme()
   const [choseTabs, setchoseTabs] = useState(1)
   const {frLength} = useContext(FriendContext)
+  const {grLength} = useContext(GroupContext)
 
   const classesDarkMode = clsx(styles.contactContainer,{ 
     [styles.dark]: theme === "dark"
@@ -21,8 +25,10 @@ const Contact = () => {
 
   const options = [
     { value: 1, label: 'Danh sách bạn bè' },
-    { value: 2, label: 'Danh sách chờ kết bạn' },
+    { value: 4, label: 'Danh sách nhóm đã tham gia' },
+    { value: 2, label: 'Danh sách chờ ' },
     { value: 3, label: 'Danh sách tin kết bạn' },
+    { value: 5, label: 'Danh sách xin vào nhóm' },
   ];
 
   const handleChange = (params) => {
@@ -50,17 +56,31 @@ const Contact = () => {
                 Danh sách bạn bè
             </li>
             <li 
+              className={choseTabs === 4 ? styles.active: null} 
+              onClick={() => setchoseTabs(4)}
+              >
+                Danh sách Nhóm đã tham gia
+            </li>
+            <li 
               className={choseTabs === 2 ? styles.active: null} 
               onClick={() => setchoseTabs(2)}
             >
-              Danh sách chờ kết bạn
+              Danh sách chờ
             </li>
             <li 
               className={choseTabs === 3 ? styles.active: null} 
               onClick={() => setchoseTabs(3)}
               >
-                Danh sách tin kết bạn
+                Danh sách xin kết bạn
                {frLength > 0 ? <span>{frLength}</span> : null}
+            </li>
+          
+            <li 
+              className={choseTabs === 5 ? styles.active: null} 
+              onClick={() => setchoseTabs(5)}
+              >
+                Danh sách xin vào nhóm
+               {grLength > 0 ? <span>{grLength}</span> : null}
             </li>
           </ul>
           <Select
@@ -73,6 +93,8 @@ const Contact = () => {
           {choseTabs === 1 && <FriendListContact />}
           {choseTabs === 2 && <FriendRequest />}
           {choseTabs === 3 && <ReciveFriendRequest />}
+          {choseTabs === 4 && <GroupList />}
+          {choseTabs === 5 && <ReciveGroupRequest />}
         </div>
       </div>
     </div>

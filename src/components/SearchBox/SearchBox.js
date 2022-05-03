@@ -11,6 +11,7 @@ import useDecodeJwt from '../../hooks/useDecodeJwt'
 import friendReqApi from '../../api/friendReqApi'
 import { SocketContext } from '../../context/SocketContext'
 import { Link } from 'react-router-dom'
+import groupReqApi from '../../api/groupReq'
 
 const SearchBox = () => {
     const {theme} = useTheme()
@@ -19,6 +20,7 @@ const SearchBox = () => {
     const [oldResults, setOldResults] = useState([])
     const [userFriend, setUserFriend] = useState([])
     const [friendReqs, setFriendReqs] = useState([])
+    // const [friendReqs, setFriendReqs] = useState([])
     const [tabActive, setTabActive] = useState("All")
     const [currentUser] = useDecodeJwt()
     const inputRef = useRef()
@@ -86,6 +88,16 @@ const SearchBox = () => {
         const {data} = await friendReqApi.createFriendReq(user.data, reciver)
         socket.emit("sendAddFriend", {reciverId: data.reciver._id , ...data})
         setFriendReqs(prev => [...prev, data])
+    }
+
+    // Sent Group request
+    const handleSendGroupRes = async (conversation) => {
+        const sender =  await userApi.getByUserId(currentUser.id)
+        const reciver =  await userApi.getByUserId(conversation.owner)
+        const {data} = await groupReqApi.createGroupReq(sender.data, reciver.data, conversation)
+        socket.emit("sendGroupRequest", {reciverId: data.reciver._id , ...data})
+        // setFriendReqs(prev => [...prev, data])
+        // console.log(data);
     }
 
     // UnSend add Friend quest
@@ -189,7 +201,7 @@ const SearchBox = () => {
                                 ))
                                 :
                                 // Group
-                                <Button primary >
+                                <Button primary onClick={() => handleSendGroupRes(res)}>
                                     Tham gia 
                                 </Button>
                             }

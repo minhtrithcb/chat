@@ -28,11 +28,13 @@
   display: block;
   margin: 1em 0;
   word-wrap: break-word;
-  height: 50px;
+  min-height: 40px;
 }
 
-.cardContainer .card a {
-  color: #a29bfe;
+.cardContainer .card > a {
+  color: #6c5ce7;
+  display: block;
+  min-height: 40px;
 }
 
 @media screen and (max-width: 1280px) {
@@ -154,8 +156,40 @@
      object-fit: cover;
 }
 
+.groupReq {
+  text-align: left;
+}
+
+.groupReq b {
+  display: block;
+  padding: 0.5em 0;
+}
+
+.groupReq p {
+  line-height: 25px;
+}
+
+.groupReq .groupReqAvatar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 1em;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.groupReq .groupReqAvatar a {
+  padding-left: 0.5em;
+}
+
 .dark p {
   color: #fff;
+}
+
+.dark .avatar {
+  background-color: #2f334d;
+  border: none;
 }
 
 .dark .card {

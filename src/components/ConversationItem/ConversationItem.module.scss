@@ -26,10 +26,15 @@
         b {
             display: flex;
             align-items: center;
+            font-size: 0.9rem;
         }
         p {
             margin: 0.5em 0;
             font-size: 0.9rem;
+        }
+        svg {
+            margin-left: 0.2em;
+            color: $green;
         }
     }
         

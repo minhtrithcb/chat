@@ -24,11 +24,13 @@
             display: block;
             margin: 1em 0;
             word-wrap: break-word;
-            height: 50px;
+            min-height: 40px;
         }
 
-        a {
-            color: $primary-color;
+        &>a {
+            color: $primary-colorDark;
+            display: block;
+            min-height: 40px;
         }
     }
 
@@ -113,9 +115,36 @@
     margin-bottom: 1em;
 }
 
+.groupReq {
+    text-align: left;
+    
+    b {
+        display: block;
+        padding: 0.5em 0;
+    }
+
+    p {
+        line-height: 25px;
+    }
+
+    .groupReqAvatar {
+        display: flex;
+        margin-top: 1em;
+        align-items: center;
+        a {
+            padding-left: 0.5em;
+        }
+    }
+}
+
 .dark {
     p {
         color: #fff;
+    }
+
+    .avatar {
+        background-color: $dark-lv3;
+        border: none;
     }
 
     .card {

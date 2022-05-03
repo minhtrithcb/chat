@@ -11,7 +11,8 @@
     @include center ;
     cursor: pointer;
     position: relative; 
-    z-index: 3;
+    // z-index: 3;
+    z-index: 0;
 
     &.right {
         margin-left: auto;

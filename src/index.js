@@ -10,11 +10,13 @@ import ChatProvider from './context/ChatContext';
 import SocketProvider from './context/SocketContext';
 import FriendProvider from './context/FriendContext';
 import { AxiosInterceptor } from './api/api.config';
+import GroupProvider from './context/GroupContext';
 
 ReactDOM.render(
   <BrowserRouter>
   <AuthProvider>
     <SocketProvider>
+    <GroupProvider>
     <FriendProvider>
         <ChatProvider>
           <ThemeProvider>
@@ -32,6 +34,7 @@ ReactDOM.render(
           </ThemeProvider>
         </ChatProvider>
     </FriendProvider>
+    </GroupProvider>
     </SocketProvider>
   </AuthProvider>
   </BrowserRouter>

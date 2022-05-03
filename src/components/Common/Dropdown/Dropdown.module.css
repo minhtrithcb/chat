@@ -16,7 +16,7 @@
           align-items: center;
   cursor: pointer;
   position: relative;
-  z-index: 3;
+  z-index: 0;
 }
 
 .DropdownBtn.right {

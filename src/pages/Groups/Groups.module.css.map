@@ -1,0 +1,11 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "Groups.module.scss",
+        "../../assets/css/_mixin.scss",
+        "../../assets/css/_variable.scss"
+    ],
+    "names": [],
+    "file": "Groups.module.css"
+}

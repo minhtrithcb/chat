@@ -8,6 +8,7 @@ import useDecodeJwt from '../../hooks/useDecodeJwt'
 import renderSubString, { renderTimeDiff } from '../../helper/renderSubString'
 import { ChatContext } from '../../context/ChatContext'
 import Avatar from '../Common/Avatar/Avatar'
+import { AiOutlineLock, AiOutlineUnlock } from "react-icons/ai";
 const ConversationItem = ({activeChat , conversation, members, usersOnline}) => {
     const {socket} = useContext(SocketContext)
     const {userReadConver} = useContext(ChatContext)
@@ -112,7 +113,7 @@ const ConversationItem = ({activeChat , conversation, members, usersOnline}) => 
                     </div>
                 }
                 <span className={styles.textMsg}>
-                    <b>{members[0].fullname}</b>
+                    <b>{renderSubString(members[0].fullname, 15)}</b>
                     
                     {lastMsg && !lastMsg.reCall ? 
                         <p>{ lastMsg.sender === currentUser.id && "Bạn :" } {renderSubString(lastMsg.text, 11)} </p>:
@@ -138,7 +139,11 @@ const ConversationItem = ({activeChat , conversation, members, usersOnline}) => 
                     <span className={styles.isNull}></span>
                 </div>
                 <span className={styles.textMsg}>
-                    <b>{renderSubString(`${conversation.name}`,15)}</b>
+                    <b>{renderSubString(`${conversation.name}`,15)}
+                    {conversation.private ? 
+                        <AiOutlineLock style={{color: '#ff7675'}} />  :                  
+                        <AiOutlineUnlock/>}
+                     </b>
                     {lastMsg && !lastMsg.reCall ? 
                         <p> 
                             {renderNameInGroup()}

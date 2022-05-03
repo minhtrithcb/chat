@@ -29,7 +29,7 @@ const GroupInfoTab = () => {
       if (isComfirm) {
         try {
           // In case group master out group => delete group  
-          if (currentChat.owner === currentUser.id) {
+          if (currentChat?.owner === currentUser.id) {
             setIsOpen(false)
             socket.emit("send-deleteGroup", { 
                 recivers : friend, 
@@ -121,7 +121,7 @@ const GroupInfoTab = () => {
           <Alert 
             isOpen={isOpen} 
             heading={'Thoát nhóm'} 
-            text={`Bạn có muốn thoát nhóm không ${currentChat.owner === currentUser.id ? '(Trong trường hợp bạn là chủ nhóm sẻ xóa nhóm !)' : " "}`} 
+            text={`Bạn có muốn thoát nhóm không ${currentChat?.owner === currentUser.id ? '(Trong trường hợp bạn là chủ nhóm sẻ xóa nhóm !)' : " "}`} 
             userComfirm={userComfirm}
           />
         </>

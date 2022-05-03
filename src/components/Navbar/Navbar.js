@@ -15,6 +15,7 @@ import { ChatContext } from '../../context/ChatContext';
 import Alert from '../Common/Alert/Alert';
 import { AuthContext } from '../../context/AuthContext';
 import Avatar from '../Common/Avatar/Avatar';
+import { GroupContext } from '../../context/GroupContext';
 
 const Navbar = () => {
   const {theme, toggle} = useTheme()
@@ -26,6 +27,7 @@ const Navbar = () => {
   const {pathname} = useLocation();
   const [isOpen, setIsOpen] = useState(false)
   const navigate = useNavigate()
+  const {setGrLength} = useContext(GroupContext)
 
   const listLink2 = [
     {
@@ -49,7 +51,7 @@ const Navbar = () => {
     [styles.dark]: theme === "dark"
   })
 
-  // Notifi Add frined
+  // Notifi friend
   useEffect(() => {        
     socket.on("getAddFriend", data => {
       if(data) setFrLength(prev => prev + 1);
@@ -64,6 +66,13 @@ const Navbar = () => {
       setIsOpen(false)
     }
   }, [socket, setFrLength, currentUser.id, setCountUnRead])
+
+  // Notifi group 
+  useEffect(() => {        
+    socket.on("getGroupRequest", data => {
+      if(data) setGrLength(prev => prev + 1);
+    })
+  }, [socket, setGrLength])
 
   // funtion Log out 
   const handleLogout = async (userComfirm) => {
@@ -101,13 +110,13 @@ const Navbar = () => {
           {countUnRead > 0 && <span>{countUnRead}</span> }
         </NavLink>
         <NavLink to={`/contact`} className={checkActiveClass('/contact')}>
-          <BsPeople />
+          <BsTelephone />
           <p>Danh bạ</p>
           {frLength > 0 &&  <span>{frLength}</span> }
         </NavLink>
-        <NavLink to={`/admin`} className={checkActiveClass('/admin')}>
-          <BsTelephone />
-          <p>Admin</p>
+        <NavLink to={`/groups`} className={checkActiveClass('/groups')}>
+          <BsPeople />
+          <p>Nhóm</p>
         </NavLink>
 
         <div className={styles.hr} />

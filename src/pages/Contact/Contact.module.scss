@@ -102,13 +102,13 @@
     }
 
     li.active {
-        color: $primary-color;
+        color: $primary-colorDark;
         &::after {
             content: '';
             position: absolute;
             width: 100%;
             height: 3px;
-            background-color: $primary-color;
+            background-color: $primary-colorDark;
             bottom: calc( -1em - 2px );
             left: 0;
         }

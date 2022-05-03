@@ -12,10 +12,10 @@ import 'emoji-mart/css/emoji-mart.css'
 import PrevPrivateRoute from "./components/PrevPrivateRoute";
 import Contact from "./pages/Contact/Contact";
 import Profile from "./pages/Profile/Profile";
-import Admin from "./pages/Admin";
 import ForgotPass from "./pages/AuthPage/ForgotPass";
 import VerifyEmail from "./pages/AuthPage/VerifyEmail";
 import ChangePass from "./pages/AuthPage/ChangePass";
+import Groups from "./pages/Groups/Groups";
 
 function App() {
   return (
@@ -28,7 +28,7 @@ function App() {
               <Route path="home" element={<Home />} />
               <Route path="contact" element={<Contact />} />
               <Route path="profile/:id" element={<Profile />} />
-              <Route path="admin" element={<Admin />} />
+              <Route path="groups" element={<Groups />} />
             </Route>
           </Route>
           {/* Visible Route when they not login*/}

@@ -39,7 +39,7 @@ const ReciveFriendRequest = () => {
 
       return () => { isMounted = false };
 
-    }, [socket, setFrLength])
+    }, [socket])
 
     // Fetch Data first 
     useEffect(() => {
@@ -114,7 +114,7 @@ const ReciveFriendRequest = () => {
                 </Button>
             </CardItem>
           )):
-          <p>Bạn chưa ai gửi lời kết bạn đến bạn.</p>
+          <p>Chưa ai gửi lời kết bạn đến bạn.</p>
           }
           <Alert 
               isOpen={isOpen} 
