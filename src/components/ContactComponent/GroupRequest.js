@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
-import friendReqApi from '../../api/friendReqApi';
 import useDecodeJwt from '../../hooks/useDecodeJwt';
 import Button from '../Common/Button/Button'
 import styles from './ContactComponent.module.scss'
 import { toast } from 'react-toastify';
-import CardItem from './CardItem';
 import Dropdown, { DropdownItem } from '../Common/Dropdown/Dropdown';
 import clsx from 'clsx';
 import useTheme from '../../hooks/useTheme';
 import Alert from '../Common/Alert/Alert';
+import groupReqApi from '../../api/groupReq';
+import GroupCardItem from './GroupCardItem';
+import { AiOutlineLock, AiOutlineUnlock } from "react-icons/ai";
 
-const FriendRequest = () => {
+const  GroupRequest = () => {
     const {theme} = useTheme()
-    const [friendReqId, setfriendReqId] = useState('')
-    const [friendReqs, setfriendReqs] = useState([])
+    const [groupReqId, setGroupReqId] = useState('')
+    const [groupReqs, setGroupReqs] = useState([])
     const [currentUser] = useDecodeJwt()
     const classesDarkMode = clsx(styles.cardContainer,{ 
         [styles.dark]: theme === "dark"
@@ -24,9 +24,9 @@ const FriendRequest = () => {
     useEffect(() => {
         let isMounted = true;   
         const getFriendReqs = async () => {
-            const fr = await friendReqApi.getFriendReq(currentUser.id)
+            const gr = await groupReqApi.getGroupReq(currentUser.id)
             if (isMounted) {
-                setfriendReqs(fr.data)
+                setGroupReqs(gr.data)
             }
         }
         getFriendReqs()
@@ -36,10 +36,10 @@ const FriendRequest = () => {
     // UnSend Friend Reqs(flag true)  or denie Friend Reqs(flag false)
     const handleUnsendFriendRes = async userComfirm => {
         if (userComfirm) {
-            await friendReqApi.unSendFriendReq(friendReqId)
-            const remove = friendReqs.filter(fr => fr._id !== friendReqId)
-            setfriendReqs(remove)
-            setfriendReqId('')
+            await groupReqApi.unSendGroupReq(groupReqId)
+            const remove = groupReqs.filter(gr => gr._id !== groupReqId)
+            setGroupReqs(remove)
+            setGroupReqId('')
             toast.success("Xóa kết bạn thành công");
         }
         setIsOpen(false)
@@ -47,43 +47,42 @@ const FriendRequest = () => {
 
     return (
         <div className={classesDarkMode}>
-        {friendReqs.length > 0 ? friendReqs.map((fr => 
-            <CardItem reciver={fr.reciver} key={fr._id} >
-                <Dropdown position="right" key="topRight">
-                    <DropdownItem 
+        {groupReqs.length > 0 ? groupReqs.map((gr => 
+            <GroupCardItem group={gr.room} key={gr._id} >
+                <div key={'topLeft'}>
+                    {gr.private ? 
+                    <AiOutlineLock style={{color: '#ff7675'}} />  :                  
+                    <AiOutlineUnlock style={{color: '#2ecc71'}} />}
+                </div>
+                <Dropdown position="right" key="topRight" >
+                    <DropdownItem
                         onClick={() => {
-                            setfriendReqId(fr._id)
+                            setGroupReqId(gr._id)
                             setIsOpen(true) 
-                        }}>
-                            Xóa lời kết bạn
+                        }}
+                    >
+                        Xóa xin vào nhóm
                     </DropdownItem>
-                    <Link to={`/profile/${fr.reciver._id}`}>
-                        <DropdownItem>
-                            Hồ sơ
-                        </DropdownItem>     
-                    </Link>               
-                    </Dropdown>
-                <Button 
-                    fluid key="botLeft" 
+                </Dropdown>
+                <Button fluid key="botRight" 
                     onClick={() => {
-                        setfriendReqId(fr._id)
+                        setGroupReqId(gr._id)
                         setIsOpen(true) 
                     }}
                 >
                     Đang chờ
                 </Button>
-               
-            </CardItem>
+            </GroupCardItem>
             )): <p>Danh sách chờ trống !</p> }
 
             <Alert 
                 isOpen={isOpen} 
                 heading="Xóa lời mời" 
-                text="Bạn có muốn xóa lời mời kết bạn không ?" 
+                text="Bạn có muốn xóa xin vào nhóm không ?" 
                 userComfirm={handleUnsendFriendRes}
             />
         </div>
     )
 }
 
-export default FriendRequest
+export default GroupRequest

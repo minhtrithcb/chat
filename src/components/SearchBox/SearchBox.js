@@ -20,7 +20,8 @@ const SearchBox = () => {
     const [oldResults, setOldResults] = useState([])
     const [userFriend, setUserFriend] = useState([])
     const [friendReqs, setFriendReqs] = useState([])
-    // const [friendReqs, setFriendReqs] = useState([])
+    const [userGroup, setUserGroup] = useState([])
+    const [groupReqs, setGroupReqs] = useState([])
     const [tabActive, setTabActive] = useState("All")
     const [currentUser] = useDecodeJwt()
     const inputRef = useRef()
@@ -37,8 +38,10 @@ const SearchBox = () => {
                 const {data} = await userApi.search(value, currentUser.id)
                 setResults([...data.users, ...data.groups]);
                 setOldResults([...data.users, ...data.groups]);
-                setUserFriend(data.friends);
+                setUserFriend(data.userFriends);
                 setFriendReqs(data.friendReqs);
+                setUserGroup(data.userGroup)
+                setGroupReqs(data.groupReq)
                 setTabActive('All')
             } catch (error) {
                 console.log(error);
@@ -96,15 +99,21 @@ const SearchBox = () => {
         const reciver =  await userApi.getByUserId(conversation.owner)
         const {data} = await groupReqApi.createGroupReq(sender.data, reciver.data, conversation)
         socket.emit("sendGroupRequest", {reciverId: data.reciver._id , ...data})
-        // setFriendReqs(prev => [...prev, data])
-        // console.log(data);
+        setGroupReqs(prev => [...prev, data])
     }
 
-    // UnSend add Friend quest
+    // UnSend add Friend request
     const handleUnsendFriendRes = async (value) => {
         await friendReqApi.unSendFriendReq(value._id)
         const remove = friendReqs.filter(fr => fr._id !== value._id)
         setFriendReqs(remove)
+    }
+    
+    // UnSend add Group request
+    const handleUnsendGroupRes = async (value) => {
+        await groupReqApi.unSendGroupReq(value._id)
+        const remove = groupReqs.filter(gr => gr._id !== value._id)
+        setGroupReqs(remove)
     }
     
     // Fiter render result group or not
@@ -201,9 +210,20 @@ const SearchBox = () => {
                                 ))
                                 :
                                 // Group
-                                <Button primary onClick={() => handleSendGroupRes(res)}>
-                                    Tham gia 
-                                </Button>
+                                (userGroup.find(ug => ug._id === res._id)  ?
+                                <Button disabled>
+                                    Đã Trong nhóm 
+                                </Button>:                     
+                                    (groupReqs.find(gr => gr.room._id === res._id ) ?
+                                    <Button 
+                                    onClick={() => 
+                                        handleUnsendGroupRes(groupReqs.find(gr => gr.room._id === res._id))
+                                    }>
+                                        Đang chờ
+                                    </Button> : 
+                                    <Button primary onClick={() => handleSendGroupRes(res)}>
+                                        Tham gia
+                                    </Button>))
                             }
                         </li>
                     )) : 

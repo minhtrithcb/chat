@@ -51,6 +51,7 @@ const GroupList = () => {
       navigate('/', {replace: true})
     }
 
+    // User chose open group detail
     const handleChoseGroup = (group) => {
       const friends = group.members.filter(u => u._id !== currentUser.id)
       setFriend(friends);

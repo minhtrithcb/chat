@@ -112,8 +112,7 @@
 
     .chatAvatar {
         width: 40px;
-        display: flex;
-        justify-content: flex-end;
+        padding-left: 15px;
     }
 
     .chatDes {
@@ -228,11 +227,6 @@
     display: none
 }
 
-.avatar {
-    @include avatar(30px);
-    border: none;
-    background-color: transparent;
-}
 
 .reactionWraper {
     display: flex;

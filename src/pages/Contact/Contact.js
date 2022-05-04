@@ -12,6 +12,7 @@ import noSearch from '../../assets/images/illu/undraw_searching_re_3ra9.svg'
 import Select from 'react-select';
 import GroupList from '../../components/ContactComponent/GroupList'
 import ReciveGroupRequest from '../../components/ContactComponent/ReciveGroupRequest'
+import GroupRequest from '../../components/ContactComponent/GroupRequest'
 
 const Contact = () => {
   const {theme} = useTheme()
@@ -26,7 +27,8 @@ const Contact = () => {
   const options = [
     { value: 1, label: 'Danh sách bạn bè' },
     { value: 4, label: 'Danh sách nhóm đã tham gia' },
-    { value: 2, label: 'Danh sách chờ ' },
+    { value: 2, label: 'Danh sách chờ kết bạn' },
+    { value: 6, label: 'Danh sách chờ vào nhóm' },
     { value: 3, label: 'Danh sách tin kết bạn' },
     { value: 5, label: 'Danh sách xin vào nhóm' },
   ];
@@ -65,7 +67,13 @@ const Contact = () => {
               className={choseTabs === 2 ? styles.active: null} 
               onClick={() => setchoseTabs(2)}
             >
-              Danh sách chờ
+              Danh sách chờ bạn bè
+            </li>
+            <li 
+              className={choseTabs === 6 ? styles.active: null} 
+              onClick={() => setchoseTabs(6)}
+            >
+              Danh sách chờ nhóm
             </li>
             <li 
               className={choseTabs === 3 ? styles.active: null} 
@@ -95,6 +103,7 @@ const Contact = () => {
           {choseTabs === 3 && <ReciveFriendRequest />}
           {choseTabs === 4 && <GroupList />}
           {choseTabs === 5 && <ReciveGroupRequest />}
+          {choseTabs === 6 && <GroupRequest />}
         </div>
       </div>
     </div>

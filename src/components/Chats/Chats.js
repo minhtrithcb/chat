@@ -212,16 +212,16 @@ const Chats = () => {
                 {firstLoad && <div ref={loadMoreRef}></div>}
                 {chats && chats.map((currChat, index, chat) => {
                     let dup = false
-                    if (index > 0 && chat[index - 1].sender === currChat.sender) {
+                    if (index > 0 && chat[index - 1].sender === currChat.sender && chat[index - 1].type === currChat.type) {
                         dup = true
                     }
                     if (currChat.oldScroll) {
-                        return chats.length > 20 && <div className={styles.oldMsg} key={currChat.oldScroll} ref={oldScroll}>
+                        return chats.length > 20 && <div className={styles.notifyMsg} key={currChat.oldScroll} ref={oldScroll}>
                              <p>{offset.count < chats.length ? "Tin cũ hơn" : "Đã hết tin nhắn"}</p>
                         </div>
                     }
                     if (currChat.type === 'Notify') {
-                        return <div className={styles.oldMsg} key={currChat._id}>
+                        return <div className={styles.notifyMsg} key={currChat._id}>
                              <p>{currChat.text}</p>
                         </div>
                     }
