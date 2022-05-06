@@ -71,7 +71,7 @@ const ReciveGroupRequest = () => {
             sender: currentUser.id, 
             group : data
         })
-        toast.success("Kết bạn thành công");
+        toast.success("Đã chấp nhận");
         const remove = acceptGroupReqs.filter(gr => gr._id !== reqId)
         setAcceptGroupReqs(remove)
         setGrLength(remove.length)
@@ -86,7 +86,7 @@ const ReciveGroupRequest = () => {
         setAcceptGroupReqs(remove)
         setGrLength(remove.length)
         setReqId('')
-        toast.success("Xóa kết bạn thành công");
+        toast.success("Từ chối thành công");
       }
       setIsOpen(false)
     }

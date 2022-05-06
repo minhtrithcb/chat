@@ -9,12 +9,16 @@ import {FiDelete} from "react-icons/fi";
 import userApi from '../../api/userApi'
 import useDecodeJwt from '../../hooks/useDecodeJwt'
 import friendReqApi from '../../api/friendReqApi'
+import chatApi from '../../api/chatApi'
 import { SocketContext } from '../../context/SocketContext'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import groupReqApi from '../../api/groupReq'
+import { toast } from 'react-toastify'
+import { ChatContext } from '../../context/ChatContext'
 
 const SearchBox = () => {
     const {theme} = useTheme()
+    const {setCurrentChat, setChatsOption, setFriend} = useContext(ChatContext)
     const [toggle, toggleF] = useToggle(false)
     const [results, setResults] = useState([])
     const [oldResults, setOldResults] = useState([])
@@ -30,6 +34,8 @@ const SearchBox = () => {
     const classesDarkMode = clsx(styles.heading,{ 
         [styles.dark]: theme === "dark"
     })
+    const navigate = useNavigate();
+
 
     // Submit searching ...
     const fetchResult = async (value) => {
@@ -94,12 +100,35 @@ const SearchBox = () => {
     }
 
     // Sent Group request
-    const handleSendGroupRes = async (conversation) => {
-        const sender =  await userApi.getByUserId(currentUser.id)
-        const reciver =  await userApi.getByUserId(conversation.owner)
-        const {data} = await groupReqApi.createGroupReq(sender.data, reciver.data, conversation)
-        socket.emit("sendGroupRequest", {reciverId: data.reciver._id , ...data})
-        setGroupReqs(prev => [...prev, data])
+    const handleSendGroupRes = async (conversation) => {        
+        // if send to private group
+        if (conversation.private) {
+            const sender =  await userApi.getByUserId(currentUser.id)
+            const reciver =  await userApi.getByUserId(conversation.owner)
+            const {data} = await groupReqApi.createGroupReq(sender.data, reciver.data, conversation)
+            socket.emit("sendGroupRequest", {reciverId: data.reciver._id , ...data})
+            setGroupReqs(prev => [...prev, data])
+        // Accept if send to public group
+        } else {
+            const res = await groupReqApi.acceptGroupPublic(conversation._id , currentUser.id)
+            if (res.data.success) {
+                // Call socket
+                const {data} = await chatApi.postNewChat({
+                    roomId: conversation._id ,
+                    sender: currentUser.id,
+                    text:  `${currentUser.username} đã được thêm vào nhóm` ,
+                    type: "Notify"
+                })
+
+                // Send to socket room
+                socket.emit("send-msg", data)
+                setFriend(conversation.members);
+                toast.success("Đã vào nhóm thành công");
+                setChatsOption({type: 'Group', title: "Tin nhắn nhóm"})
+                setCurrentChat(conversation)
+                navigate('/', {replace: true})
+            }
+        }
     }
 
     // UnSend add Friend request

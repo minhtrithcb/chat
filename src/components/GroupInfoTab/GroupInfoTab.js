@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react'
 import styles from './GroupInfoTab.module.scss'
-import { BsChatLeftDots} from "react-icons/bs";
 import {MdLogout} from "react-icons/md";
 import clsx from 'clsx';
 import useTheme  from '../../hooks/useTheme'
@@ -105,7 +104,7 @@ const GroupInfoTab = () => {
                         </div>
                         <Link to={`/profile/${user._id}`}>{user.fullname}</Link>
                         <span>
-                            <BsChatLeftDots/>
+                            {/* <BsChatLeftDots/> */}
                         </span>
                     </div>
                 ))}
@@ -117,6 +116,7 @@ const GroupInfoTab = () => {
               </span>
             </div>
           </div>}
+          {/* <MasterGroupOption /> */}
     
           <Alert 
             isOpen={isOpen} 

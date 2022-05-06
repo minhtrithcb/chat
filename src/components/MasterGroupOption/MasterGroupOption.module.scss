@@ -1,0 +1,63 @@
+@import '../../assets/css/variable';
+@import '../../assets/css/mixin';
+
+.groupOption {
+    margin-left: auto;
+
+    &>span {
+        @include center;
+        width: 30px;
+        height: 30px;
+        margin: 0 .3em;
+        cursor: pointer;
+    }
+    &>svg {
+        width: 15px;
+    }
+}
+
+label {
+    display: block;
+    padding: 0.5em 0;
+}
+
+.flex {
+    display: flex;
+}
+
+.linkInviteGroup {
+    >input {
+        padding: 0.5em;
+        width: 78%;
+        height: 40px;
+        border: 1px solid $gray;
+        outline: none;
+        font-family: "Montserrat", sans-serif;
+        border-radius: 0.4em;
+        padding-left: 1em;
+        &:focus {
+            outline: 1px solid $primary-color;
+        }
+
+        &::selection {
+            color: #fff;
+            background: $primary-color;
+        }
+    }
+
+    >button {
+        width: 20%;
+        margin-left: 2%;
+        height: 40px;
+        outline: none;
+        border-radius: 0.4em;
+        border: none;
+        cursor: pointer;
+        transition: background-color .5s;
+        background-color: $primary-color;
+        color: #fff;
+        &:hover {
+            background-color: $primary-colorDark;
+        }
+    }
+}

@@ -145,9 +145,7 @@ const ConversationOption = () => {
                 }
             } catch (error) {
                 console.log(error);
-            }
-        
-            
+            }            
         } else { 
             setErrorNoMember(true)
         }
@@ -178,7 +176,6 @@ const ConversationOption = () => {
     return (
         <div className={classesDarkMode}>
             <div className={styles.optionBox}>
-                
                 <Select  
                     options={options} 
                     onChange={handleChangeOption}

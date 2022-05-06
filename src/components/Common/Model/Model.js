@@ -33,7 +33,7 @@ const Model = ({isOpen, heading, handleClick, children, prevLostData}) => {
             unmountOnExit
             nodeRef={modelDiv}
         >   
-            <>
+            <>  
                 <div className={styles.backdrop}></div>
                 <div className={classesDarkMode} ref={modelDiv}>
                     <div className={styles.modelHeading}>

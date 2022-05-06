@@ -16,6 +16,7 @@ import ForgotPass from "./pages/AuthPage/ForgotPass";
 import VerifyEmail from "./pages/AuthPage/VerifyEmail";
 import ChangePass from "./pages/AuthPage/ChangePass";
 import Groups from "./pages/Groups/Groups";
+import Admin from "./pages/Admin";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
               <Route path="contact" element={<Contact />} />
               <Route path="profile/:id" element={<Profile />} />
               <Route path="groups" element={<Groups />} />
+              <Route path="link-invite/:code" element={<Admin />} />
             </Route>
           </Route>
           {/* Visible Route when they not login*/}

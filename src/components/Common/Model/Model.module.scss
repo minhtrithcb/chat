@@ -11,8 +11,9 @@
     top: 50%;
     transform: translate(-50%, -50%); 
     border-radius: .5em;
-    box-shadow: $box-shadow1;
+    // box-shadow: $box-shadow1;
     overflow-y: auto;
+    
     &::-webkit-scrollbar {
         width: 0px;
     }
@@ -20,15 +21,13 @@
         max-width: 95%;
     }
 
-    & ~ .modelBox {
-        width: 800px;
-        z-index: 1009;
-    }
+    // & ~ .modelBox {
+    //     width: 800px;
+    //     z-index: 1009;
+    // }
 
-    & ~ .backdrop {
-        z-index: 1008;
-    }
 }
+
 
 .modelContainer {
     padding: 1em;    

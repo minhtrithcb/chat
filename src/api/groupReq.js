@@ -7,6 +7,9 @@ const groupReqApi = {
     acceptGroupReq(reqId, roomId, senderId) {
         return api.post(`groupReq/accept-group-request`,{reqId, roomId, senderId})
     },
+    acceptGroupPublic(roomId, senderId) {
+        return api.post(`groupReq/accept-group-public`,{ roomId, senderId})
+    },
     getAcceptGroupReq(reciver) {
         return api.get(`groupReq/accept-group-request/${reciver}`)
     },

@@ -39,11 +39,10 @@
     }
 
     &::-webkit-scrollbar-thumb {
-        background: transparent;
         border-radius: 0.5em;
         transition: all 0.5s;
     }
-
+    
     &:hover::-webkit-scrollbar-thumb {
         background: #f1f1f1;
     }

@@ -22,30 +22,15 @@
 .notifyMsg {
     font-size: 0.8rem;
     position: relative;
-    margin: 0 3em;
-    padding: 1em;
+    padding: 1em 0;
+    display: flex;
+    justify-content: center;
 
     p {
-        display: inline;
         background-color: $white-smok;
-        position: absolute;
-        top: 25%;
-        left: 50%;
-        transform: translateX(-50%);
         z-index: 2;
-        padding: 0 1em;
         margin: 0;
     }
-
-    // &::after {
-        // content: '';
-        // position: absolute;
-        // width: 100%;
-        // height: 1px;
-        // top: 50%;
-        // background-color: $gray;
-        // left: 0;
-    // }
 }
 
 .chatContainer {
@@ -81,8 +66,8 @@
 
 .mobileViewCover {
     display: none;
-    a {
-        color: $primary-color;
+    b {
+        color: $primary-colorDark;
     }
 
     @include maxWitdh(768px) {
@@ -93,7 +78,7 @@
         height: 50px;
         width: 100%;
         background-color: #fff;
-        justify-content: space-between;
+        // justify-content: space-between;
         align-items: center;
         cursor: pointer;
         z-index: 6;
@@ -101,31 +86,34 @@
 
     }
 
-    .goBackBtn,
-    div:last-of-type {
+    .goBackBtn {
         width: 50px;
         height: 50px;
         @include center;
     }
 
+    &>div:last-child {
+        display: flex;
+        padding-right: 1em;
+    }
 }
 
-.friendCover {
+.cover {
     border-bottom: 1px solid $gray;
     background-color: #fff;
     height: 70px;
-    position: sticky;
+    // position: sticky;
     top: 0;
     display: flex;
     justify-content: space-between;
     padding: 0 1em;
     z-index: 6;
 
-    div {
+    &>div {
         display: flex;
         align-items: center;
 
-        svg {
+        &>svg {
             cursor: pointer;
             font-size: 1.2em;
         }
@@ -143,8 +131,8 @@
         }
     }
 
-    .avatar {
-        @include avatar(40px);
+    b {
+        color: $primary-colorDark;
     }
 
     @include maxWitdh(768px) {
@@ -156,11 +144,20 @@
     background-color: $dark-lv4;
     border-left: 1px solid $light-lv1;
     border-right: 1px solid $light-lv1;
+    
+    b {
+        color: white;
+    }
 
-    .friendCover {
+    .cover {
         background-color: $dark-lv3;
         color: #fff;
         border-bottom: 1px solid $light-lv1;
+    }
+
+    .notifyMsg p{
+        background-color: transparent;
+        color: $light-lv1;
     }
 
     .mobileViewCover {

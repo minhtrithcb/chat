@@ -48,7 +48,7 @@ const Navbar = () => {
   ]
 
   const classesDarkMode = clsx(styles.navBar,{ 
-    [styles.dark]: theme === "dark"
+    [styles.dark]: theme === "dark",
   })
 
   // Notifi friendReq

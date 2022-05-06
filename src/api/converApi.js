@@ -40,6 +40,11 @@ const converApi = {
             members, owner, nameGroup, des, privacy, rule, 
         })
     },
+    editGroupConver({roomId, name, des, rule, privacy}) {
+        return api.post(`conversation/edit-group`, {
+            roomId, name, des, rule, privacy
+        })
+    },
     deleteByFriendId(currentUserId, friendId) {
         return api.post(`conversation/delete`, {currentUserId, friendId})
     },
