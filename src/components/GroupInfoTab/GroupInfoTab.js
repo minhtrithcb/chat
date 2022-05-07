@@ -112,7 +112,7 @@ const GroupInfoTab = () => {
             <div className={styles.infoAction}>
               <span onClick={() => setIsOpen(true)}>
                 <MdLogout /> 
-                Thoát nhóm
+                {currentChat?.owner === currentUser.id ? 'Xóa nhóm' : 'Thoát nhóm'  }
               </span>
             </div>
           </div>}

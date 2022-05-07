@@ -15,7 +15,7 @@ import { toast } from 'react-toastify';
 import converApi from '../../api/converApi';
 import { useNavigate } from 'react-router-dom';
 
-const OptionAdd = () => {
+const OptionEdit = () => {
     const [isOpen, setIsOpen] = useState(false)
     const { register,  formState: { errors }, reset, handleSubmit } = useForm();
     const [privacy, setPrivacy] = useState('pu')
@@ -168,4 +168,4 @@ const OptionAdd = () => {
     )
 }
 
-export default OptionAdd
+export default OptionEdit

@@ -1,19 +1,25 @@
 import styles from './MasterGroupOption.module.scss'
-import OptionAdd from './OptionAdd';
-import OptionNotify from './OptionNotify';
+import OptionEdit from './OptionEdit';
 import OptionMute from './OptionMute';
 import OptionDelete from './OptionDelete';
 import OptionVote from './OptionVote';
+import useDecodeJwt from '../../hooks/useDecodeJwt';
+import { useContext } from 'react';
+import { ChatContext } from '../../context/ChatContext';
 
 const MasterGroupOption = () => {
-
+    const {currentChat } = useContext(ChatContext)
+    const [currentUser] = useDecodeJwt()
     return (
         <div className={styles.groupOption}>
-            <OptionNotify />
-            <OptionMute />
-            <OptionDelete />
-            <OptionVote />
-            <OptionAdd />
+            {currentChat.owner === currentUser.id && 
+                <>
+                    <OptionMute />
+                    <OptionDelete />
+                    <OptionVote />
+                    <OptionEdit />
+                </>
+            }
         </div>
     )
 }
