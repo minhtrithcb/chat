@@ -10,6 +10,12 @@
         height: 30px;
         margin: 0 .3em;
         cursor: pointer;
+        transition: background-color .5s;
+        border-radius: 50%;
+        font-size: 1.2em;
+        &:hover {
+            background-color: $light;
+        }
     }
     &>svg {
         width: 15px;
@@ -28,9 +34,11 @@ label {
 
 .userItem {
     display: flex;
-    padding: 0.5em 0;
+    padding: 0.5em 1em;
     height: 70px;
     align-items: center;
+    transition: background-color .5s;
+    border-radius: .3em;
 
     span {
         margin-left: 1em;
@@ -41,6 +49,9 @@ label {
         }
         display: flex;
         flex-direction: column;
+    }
+    &:hover {
+        background-color: $light;
     }
 
     button {

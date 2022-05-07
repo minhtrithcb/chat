@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {FaThList} from "react-icons/fa";
+import {MdOutlinePlaylistAddCheck} from "react-icons/md";
 import Button from '../Common/Button/Button'
 import styles from './MasterGroupOption.module.scss'
 import Alert from '../Common/Alert/Alert'
@@ -21,7 +21,7 @@ const OptionVote = () => {
     return (
       <>
           <span title='Thêm bình chọn' onClick={() => setIsOpen(true)}>
-            <FaThList />
+            <MdOutlinePlaylistAddCheck />
           </span>
 
           <Model 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {FaVolumeMute} from "react-icons/fa";
+import {BsVolumeMute} from "react-icons/bs";
 import Button from '../Common/Button/Button'
 import styles from './MasterGroupOption.module.scss'
 import Alert from '../Common/Alert/Alert'
@@ -17,11 +17,10 @@ const OptionMute = () => {
         setIsAlert(false)
     }
 
-
     return (
       <>
           <span title='Cấm chat' onClick={() => setIsOpen(true)}>
-            <FaVolumeMute />
+            <BsVolumeMute />
           </span>
           <Model 
               isOpen={isOpen} 

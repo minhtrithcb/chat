@@ -102,10 +102,10 @@ const GroupInfoTab = () => {
                         <div className={styles.avatar}>
                             <Avatar letter={user.fullname.charAt(0)} size="sm" />
                         </div>
-                        <Link to={`/profile/${user._id}`}>{user.fullname}</Link>
-                        <span>
-                            {/* <BsChatLeftDots/> */}
-                        </span>
+                        <div>
+                            <Link to={`/profile/${user._id}`}>{user.fullname}</Link>
+                            <small>{user.email}</small>
+                        </div>
                     </div>
                 ))}
             </div>

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import styles from './MasterGroupOption.module.scss'
 import Model from '../Common/Model/Model'
-import { AiTwotoneSetting } from "react-icons/ai";
+import { IoSettingsOutline } from "react-icons/io5";
 import Button from '../Common/Button/Button';
 import ChoseRadius from '../Common/ChoseRadius/ChoseRadius';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
@@ -100,7 +100,7 @@ const OptionEdit = () => {
             <span
                 title='Cài đặt' 
                 onClick={() => setIsOpen(true)}>
-                <AiTwotoneSetting />
+                <IoSettingsOutline />
             </span>
             <Model 
                 isOpen={isOpen} 

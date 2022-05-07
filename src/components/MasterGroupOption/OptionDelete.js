@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import {FaUserSlash} from "react-icons/fa";
+import {AiOutlineUserDelete} from "react-icons/ai";
 import Button from '../Common/Button/Button'
 import styles from './MasterGroupOption.module.scss'
 import Alert from '../Common/Alert/Alert'
@@ -62,7 +62,7 @@ const OptionDelete = () => {
     return (
       <>
           <span title='Đuổi khỏi nhóm' onClick={() => setIsOpen(true)}>
-              <FaUserSlash />
+              <AiOutlineUserDelete />
           </span>
 
           <Model 

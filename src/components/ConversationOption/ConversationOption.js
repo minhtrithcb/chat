@@ -181,7 +181,7 @@ const ConversationOption = () => {
                     onChange={handleChangeOption}
                     defaultValue={renderDefOption} 
                 />
-                <span onClick={() => setIsOpen(true) }>
+                <span onClick={() => setIsOpen(true) } title="Tạo nhóm">
                     <AiOutlinePlus />
                 </span>
             </div>

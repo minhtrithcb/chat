@@ -113,7 +113,7 @@ const ConversationItem = ({activeChat , conversation, members, usersOnline}) => 
                     </div>
                 }
                 <span className={styles.textMsg}>
-                    <b>{renderSubString(members[0].fullname, 15)}</b>
+                    <b title={members[0].fullname}>{renderSubString(members[0].fullname, 15)}</b>
                     
                     {lastMsg && !lastMsg.reCall ? 
                         <p>{ lastMsg.sender === currentUser.id && "Bạn :" } {renderSubString(lastMsg.text, 11)} </p>:
@@ -139,10 +139,10 @@ const ConversationItem = ({activeChat , conversation, members, usersOnline}) => 
                     <span className={styles.isNull}></span>
                 </div>
                 <span className={styles.textMsg}>
-                    <b>{renderSubString(`${conversation.name}`,15)}
+                    <b title={conversation.name}>{renderSubString(`${conversation.name}`,15)}
                     {conversation.private ? 
-                        <AiOutlineLock style={{color: '#ff7675'}} />  :                  
-                        <AiOutlineUnlock/>}
+                        <AiOutlineLock style={{color: '#ff7675'}} title="Công khai" />  :                  
+                        <AiOutlineUnlock title='Riêng tư' />}
                      </b>
                     {lastMsg && !lastMsg.reCall ? 
                         <p> 
