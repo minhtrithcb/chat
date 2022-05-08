@@ -9,8 +9,6 @@
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
   border-radius: .5em;
-  -webkit-box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-          box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   overflow-y: auto;
 }
 
@@ -24,13 +22,32 @@
   }
 }
 
+.modelBox ~ .backdrop {
+  z-index: 1008;
+}
+
 .modelBox ~ .modelBox {
-  width: 800px;
+  width: 600px;
   z-index: 1009;
 }
 
-.modelBox ~ .backdrop {
-  z-index: 1008;
+.modelBox ~ .modelBox::-webkit-scrollbar {
+  width: 5px;
+}
+
+.modelBox ~ .modelBox:hover::-webkit-scrollbar {
+  border-radius: 0.8em;
+  width: 5px;
+}
+
+.modelBox ~ .modelBox::-webkit-scrollbar-thumb {
+  border-radius: 0.5em;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.modelBox ~ .modelBox:hover::-webkit-scrollbar-thumb {
+  background: #f1f1f1;
 }
 
 .modelContainer {

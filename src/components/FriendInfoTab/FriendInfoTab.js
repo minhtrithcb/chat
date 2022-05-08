@@ -17,11 +17,11 @@ import { SocketContext } from '../../context/SocketContext';
 
 const FriendInfoTab = () => {
   const {friend, setCurrentChat, currentChat} = useContext(ChatContext)
-  const {theme} = useTheme()
   const {socket} = useContext(SocketContext)
   const [currentUser] = useDecodeJwt()
   const [isOpen, setIsOpen] = useState(false)
   const navigator = useNavigate()
+  const {theme} = useTheme()
   const classesDarkMode = clsx(styles.friendProfile, { 
     [styles.dark]: theme === "dark"
   })

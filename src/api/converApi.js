@@ -54,6 +54,12 @@ const converApi = {
     deleteGroup(currentUserId, roomId) {
         return api.post(`conversation/delete-group`, {currentUserId, roomId})
     },
+    banUser({roomId, memberId, reason, time}) {
+        return api.post(`conversation/ban-user`, {roomId, memberId, reason, time})
+    },
+    unBanUser({roomId, memberId}) {
+        return api.post(`conversation/unBan-user`, {roomId, memberId})
+    },
     getLastMessage(converId) {
         return api.get(`conversation/lastMsg/${converId}`)
     }

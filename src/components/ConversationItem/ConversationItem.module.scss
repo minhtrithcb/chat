@@ -10,7 +10,6 @@
     cursor: pointer;
     transition:  .5s;
     border-left: 2px solid transparent;
-
     &.active,
     &:hover {
         background-color: $light;

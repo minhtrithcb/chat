@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import styles from "./Chats.module.scss"
 import { MdOutlineArrowBackIos } from "react-icons/md";
 import clsx from 'clsx';
@@ -16,6 +16,8 @@ import GroupInfoTab from '../GroupInfoTab/GroupInfoTab';
 import Model from '../Common/Model/Model';
 import Avatar from '../Common/Avatar/Avatar'
 import MasterGroupOption from '../MasterGroupOption/MasterGroupOption';
+import moment from 'moment';
+import converApi from '../../api/converApi';
 
 const Chats = () => {
     const [isOpen, setIsOpen] = useToggle(false)
@@ -23,7 +25,7 @@ const Chats = () => {
     const [sender, setSender] = useState('')
     const [chats, setChats] = useState([])
     const bottomRef = useRef()
-    const {currentChat, friend, setCurrentChat} = useContext(ChatContext)
+    const {currentChat, friend, setCurrentChat, setChatsOption} = useContext(ChatContext)
     const {socket} = useContext(SocketContext)
     const [currentUser] = useDecodeJwt()
     const {theme} = useTheme()
@@ -114,13 +116,39 @@ const Chats = () => {
          // eslint-disable-next-line react-hooks/exhaustive-deps
   },[currentChat, firstLoad])
 
+    // Check user is ban
+    const checkUserIsBanned = useCallback(() => {
+        return currentChat?.membersBanned.find(u => u._id === currentUser.id)
+    }, [currentChat, currentUser.id])
+
+    // Check time to unban
+    useEffect(() => {
+        const checkTimeUnban = async () => {
+            const userBan = currentChat?.membersBanned.find(u => u._id === currentUser.id)
+            if (Date.parse(userBan?.time) < Date.now()) {
+                const {data} = await converApi.unBanUser({
+                    roomId: currentChat._id, 
+                    memberId: userBan._id
+                })
+
+                if (data?.success) {
+                    setChatsOption({type:  'All', title: 'Tất cả tin nhắn'})
+                    setCurrentChat(data?.result)
+                }
+            }
+        }
+        checkTimeUnban()
+        // return () => {}
+    }, [currentChat, currentUser.id, setCurrentChat, setChatsOption])
     
+
     // Fetch all chat by id conversation
     useEffect(() => {
         let isMounted = true;   
         const getChats = async () => {
             try {
-                if (isMounted) {
+                const found = currentChat?.membersBanned.find(u => u._id === currentUser.id)
+                if (isMounted && !found) {
                     const {data} = await chatApi.getChatByRoomId(currentChat._id, offset.count)
                     if (offset.count === 0 && offset.counting === false) {
                         let revs = data.reverse() // new value
@@ -137,7 +165,7 @@ const Chats = () => {
                         oldScroll?.current?.scrollIntoView()
                         // console.log("set chat n ....",currentChat?._id,  offset.count);
                     }
-                }   
+                }   else setChats([])
             } catch (error) {
                 console.log(error);
             }
@@ -146,12 +174,14 @@ const Chats = () => {
         return () => { 
             isMounted = false 
         };
-    }, [currentChat, offset])
+    }, [currentChat, offset, currentUser.id])
     
     // Check is Friend
     const checkIsFriend = () => {
         return currentChat.type === 'Friend'
     }
+
+   
 
     return (
         <div className={classesDarkMode} >
@@ -201,6 +231,15 @@ const Chats = () => {
             {/* // Render all chat  */}
             <div className={styles.chatContainer} >
                 {firstLoad && <div ref={loadMoreRef}></div>}
+                {
+                    checkUserIsBanned()  &&  
+                        <div className={styles.notifyMsg}>
+                             <p>Bạn dã bị cấm chat đến ngày 
+                                {` ${moment(checkUserIsBanned().time).format('DD/MM/YYYY')} `}
+                                vì lý do {checkUserIsBanned().reason}
+                            </p>
+                        </div>
+                }
                 {chats && chats.map((currChat, index, chat) => {
                     let dup = false
                     if (index > 0 && chat[index - 1].sender === currChat.sender && chat[index - 1].type === currChat.type) {
@@ -226,9 +265,10 @@ const Chats = () => {
                 })}
                 {pendingChat && <ChatLoading username={friend.find(u => u._id === sender)?.fullname  } />}
                 <div ref={bottomRef}></div>
+               
             </div>
             {/* // From Chat  */}
-            <ChatForm/>
+            {!checkUserIsBanned()  && <ChatForm/>}
 
             <Model isOpen={isOpen} heading={checkIsFriend()? "Bạn bè": "Nhóm"} handleClick={setIsOpen}>
                 {checkIsFriend() ? <FriendInfoTab />:  <GroupInfoTab />}

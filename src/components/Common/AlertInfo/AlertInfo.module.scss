@@ -1,0 +1,13 @@
+@import '../../../assets/css/variable';
+
+.alertContent {
+    padding: 1em;
+    background-color: $light;
+    line-height: 1.7em;
+    margin-bottom: 1em;
+    border-left: 2px solid $primary-color;
+}
+
+.dark {
+    background-color: $dark-lv4;
+}

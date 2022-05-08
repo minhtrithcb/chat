@@ -16,9 +16,147 @@
   height: 30px;
   margin: 0 .3em;
   cursor: pointer;
+  -webkit-transition: background-color .5s;
+  transition: background-color .5s;
+  border-radius: 50%;
+  font-size: 1.2em;
+}
+
+.groupOption > span:hover {
+  background-color: #f6f7fb;
 }
 
 .groupOption > svg {
   width: 15px;
+}
+
+label {
+  display: block;
+  padding: 0.5em 0;
+}
+
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.userItem {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0.5em 1em;
+  height: 70px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: background-color .5s;
+  transition: background-color .5s;
+  border-radius: .3em;
+}
+
+.userItem span {
+  margin-left: 1em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.userItem span a {
+  color: #a29bfe;
+  margin-bottom: 0.5em;
+}
+
+.userItem:hover {
+  background-color: #f6f7fb;
+}
+
+.userItem button {
+  margin-left: auto;
+}
+
+.linkInviteGroup > input {
+  padding: 0.5em;
+  width: 78%;
+  height: 40px;
+  border: 1px solid #d1d1d1;
+  outline: none;
+  font-family: "Montserrat", sans-serif;
+  border-radius: 0.4em;
+  padding-left: 1em;
+}
+
+.linkInviteGroup > input:focus {
+  outline: 1px solid #a29bfe;
+}
+
+.linkInviteGroup > input::-moz-selection {
+  color: #fff;
+  background: #a29bfe;
+}
+
+.linkInviteGroup > input::selection {
+  color: #fff;
+  background: #a29bfe;
+}
+
+.linkInviteGroup > button {
+  width: 20%;
+  margin-left: 2%;
+  height: 40px;
+  outline: none;
+  border-radius: 0.4em;
+  border: none;
+  cursor: pointer;
+  -webkit-transition: background-color .5s;
+  transition: background-color .5s;
+  background-color: #a29bfe;
+  color: #fff;
+}
+
+.linkInviteGroup > button:hover {
+  background-color: #6c5ce7;
+}
+
+.dflex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.footer {
+  margin-top: 1em;
+}
+
+.dark .linkInviteGroup input {
+  background-color: #292c43;
+  color: #fff;
+  border-color: #585c76;
+}
+
+.dark div[role="toolbar"] {
+  background-color: #292c43 !important;
+  border-color: #585c76 !important;
+}
+
+.dark div[role="toolbar"] span, .dark div[role="toolbar"] svg {
+  color: #fff !important;
+}
+
+.dark div[role="textbox"] {
+  background-color: #292c43 !important;
+  border-color: #585c76 !important;
+}
+
+.dark > span:hover {
+  background-color: #a29bfe;
+}
+
+.dark .userItem:hover {
+  background-color: #292c43;
 }
 /*# sourceMappingURL=MasterGroupOption.module.css.map */

@@ -44,6 +44,22 @@ const Conversation = () => {
                 if (currentChat?._id === data.roomId) setCurrentChat(null)
             }
         })
+
+        socket.on("getMuteUser", ({roomId, user}) => {
+            if (isMounted && user._id === currentUser.id) {
+                setChatsOption({type:  'All', title: 'Tất cả tin nhắn'})
+                // In case user focus on Conver change
+                if (currentChat?._id === roomId) setCurrentChat(null)
+            }
+        })
+
+        socket.on("getUnMuteUser", ({roomId, user, result}) => {
+            if (isMounted && user._id === currentUser.id) {
+                setChatsOption({type:  'All', title: 'Tất cả tin nhắn'})
+                // In case user focus on Conver change
+                if (currentChat?._id === roomId) setCurrentChat(result)
+            }
+        })
         // Some one create group 
         socket.on("getCreateGroup", data => {
             if (isMounted && data.reciverId === currentUser.id ) {

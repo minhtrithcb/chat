@@ -73,7 +73,7 @@
 }
 
 .infoUserList {
-  height: 150px;
+  max-height: 200px;
   overflow: hidden;
   overflow-y: auto;
 }
@@ -88,7 +88,6 @@
 }
 
 .infoUserList::-webkit-scrollbar-thumb {
-  background: transparent;
   border-radius: 0.5em;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
@@ -99,58 +98,45 @@
 }
 
 .infoUserList .infoUserItem {
+  width: 100%;
+  height: 70px;
   padding: 1em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  height: 50px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-transition: background-color .5s;
+  transition: background-color .5s;
+  margin-right: 5px;
+  border-radius: .3em;
+  cursor: pointer;
+  font-size: .95rem;
 }
 
-.infoUserList .infoUserItem .avatar {
-  margin-right: 0.5em;
-  width: 30px;
-  height: 30px;
-  background-color: #fff;
-  border: 1px solid #f1f1f1;
-  margin-right: 1em;
+.infoUserList .infoUserItem > div:last-child {
+  margin-left: 1em;
   border-radius: 50%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  cursor: pointer;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
-.infoUserList .infoUserItem .avatar img {
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+.infoUserList .infoUserItem > div:last-child a {
+  color: #a29bfe;
 }
 
-.infoUserList .infoUserItem span {
-  margin-left: auto;
-  cursor: pointer;
-  width: 25px;
-  border-radius: 50%;
-  height: 25px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+.infoUserList .infoUserItem > div:last-child small {
+  margin-top: 0.5em;
+}
+
+.infoUserList .infoUserItem:hover {
+  background-color: #f6f7fb;
 }
 
 .infoAction {

@@ -21,10 +21,15 @@
         max-width: 95%;
     }
 
-    // & ~ .modelBox {
-    //     width: 800px;
-    //     z-index: 1009;
-    // }
+    & ~ .backdrop {
+        z-index: 1008;
+    }
+    
+    & ~ .modelBox {
+        width: 600px;
+        z-index: 1009;
+        @include scrollBarDefault;
+    }
 
 }
 

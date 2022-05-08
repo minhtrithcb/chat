@@ -3,7 +3,7 @@ import React, { forwardRef } from 'react'
 import useTheme from '../../../hooks/useTheme'
 import styles from './Form.module.scss'
 
-const Input = ({type, name, placeholder, label, err, ...rest}, ref) => {
+const Input = ({type, name, placeholder, label, err,ctStyle, ...rest}, ref) => {
   const {theme} = useTheme()
   const classesDarkMode = clsx(styles.FromInput,{ 
       [styles.dark]: theme === "dark"
@@ -11,7 +11,7 @@ const Input = ({type, name, placeholder, label, err, ...rest}, ref) => {
   return (
     <div className={classesDarkMode}>
         <label htmlFor={name}>{label}</label>
-        <input type={type} name={name} id={name} placeholder={placeholder} ref={ref} {...rest} />
+        <input style={ctStyle} type={type} name={name} id={name} placeholder={placeholder} ref={ref} {...rest} />
         <small>
           {err?.type === 'required' && `${label} không được bỏ trống`}
         </small>

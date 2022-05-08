@@ -117,14 +117,22 @@ const ChatForm = () => {
         }))
     },[currentChat.members, currentUser.id])
 
+    // Check user banned
+    const banList = () => {
+        return currentChat?.membersBanned.map(u => u._id)
+    }
+
     // Submit send message
     const handleSubmit = async () => {
         if (inputChat !== "") {
+            // Not send to user in ban list
+            const reciver =  friend.filter(u => !banList().includes(u._id) && u)
+           
             try {
                 // Sent event to stop pending when on submit
                 socket.emit("stop-pendingChat", {
                     roomId: currentChat._id, 
-                    recivers: friend
+                    recivers: reciver
                 })
                 setFlag(true)
                 setInputChat("")
@@ -149,7 +157,7 @@ const ChatForm = () => {
                     socket.emit("send-msg", data)
                     // Send to socket id
                     socket.emit("sendToFriendOnline", { 
-                        recivers : friend, 
+                        recivers : reciver, 
                         ...data
                     })
                 // If user reply chat
@@ -164,7 +172,7 @@ const ChatForm = () => {
                     // Send to socket room
                     socket.emit("send-msg", data)
                     // Send to socket id
-                    socket.emit("sendToFriendOnline", { recivers: friend , ...data})
+                    socket.emit("sendToFriendOnline", { recivers: reciver , ...data})
                     // reset
                     setIsReplyChat(false)
                     setChatReply(null)
@@ -183,7 +191,7 @@ const ChatForm = () => {
                     // Send into room
                     socket.emit("sendChangeChat", data.result)
                     //send backto change lastmsg if this is lastmsg
-                    socket.emit("sendLastActivity", { recivers: friend , ...data})
+                    socket.emit("sendLastActivity", { recivers: reciver , ...data})
                     // reset
                     setIsEditChat(false)
                     setChatEdit(null)
@@ -231,6 +239,8 @@ const ChatForm = () => {
         return data === currentUser.id ? "Bạn" :
         members.find(u => u._id === data)?.fullname  
     }
+
+    
 
     return (
         <div className={classesDarkMode} >

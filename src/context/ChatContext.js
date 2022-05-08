@@ -43,8 +43,12 @@ const ChatProvider = ({children}) => {
                 if (auth.accessToken) {
                     let currentUser = jwtDecode(auth.accessToken) 
                     const {data} = await converApi.getCountUnReadMsg(currentUser.id)
+                    
                     if (isMounted) {
                         const readBy = data.map(c => {
+                            // find this user is ban not count
+                            const isBan = c?.membersBanned.find(u => u._id === currentUser.id)
+                            if (isBan) return {count: 0}
                             return c.readBy.find(u => u._id === currentUser.id) || {count: 0}
                         })
                         const count = readBy.reduce((p, c) => {

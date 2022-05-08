@@ -12,6 +12,7 @@ import { toast } from 'react-toastify';
 import { SocketContext } from '../../context/SocketContext';
 import useDecodeJwt from '../../hooks/useDecodeJwt';
 import chatApi from '../../api/chatApi';
+import AlertInfo from '../Common/AlertInfo/AlertInfo';
 
 const OptionDelete = () => {
     const [isOpen, setIsOpen] = useState(false)
@@ -28,7 +29,7 @@ const OptionDelete = () => {
             const {data} = await chatApi.postNewChat({
                 roomId: currentChat._id,
                 sender: memberSelect._id,
-                text:   `${memberSelect.fullname} đã được mời rời khỏi nhóm` ,
+                text:   `${currentUser.username} đã mời ${memberSelect.fullname} rời khỏi nhóm` ,
                 type: "Notify"
             })
             // Send to socket room
@@ -44,13 +45,12 @@ const OptionDelete = () => {
                 currentChat._id
             )
 
-            socket.emit("send-deleteGroup", { 
-                recivers : [memberSelect], 
-                roomId: currentChat._id,
-                sender: memberSelect.id,
-            })
-
             if (res.data?.success) {
+                socket.emit("send-deleteGroup", { 
+                    recivers : [memberSelect], 
+                    roomId: currentChat._id,
+                    sender: memberSelect.id,
+                })
                 toast.success("Đã mời người dùng ra khỏi nhóm")
                 setIsAlert(false)
                 setCurrentChat(res.data.result)
@@ -71,19 +71,20 @@ const OptionDelete = () => {
               heading={'Xóa thành viên'}
               prevLostData={() => setIsAlert(false)}
           > 
-                {currentChat && currentChat.members.filter(u => u._id !== currentUser.id).map(u => (
-                     <div key={u._id} className={styles.userItem}>
-                        <Avatar size={'sm'} letter={u.fullname.charAt(0)} />
-                        <span>
-                            <Link to={`/profile/${u._id}`}>{u.fullname}</Link>    
-                            <small>{u.email}</small>
-                        </span>
-                        <Button danger type="Button" onClick={() => {
-                            setIsAlert(true)
-                            setMemberSelect(u)
-                        }}>Xóa thành viên</Button> 
-                    </div>
-                ))}
+            <AlertInfo text='Chọn để xóa người dùng này ra khỏi nhóm !' />
+            {currentChat && currentChat.members.filter(u => u._id !== currentUser.id).map(u => (
+                    <div key={u._id} className={styles.userItem}>
+                    <Avatar size={'sm'} letter={u.fullname.charAt(0)} />
+                    <span>
+                        <Link to={`/profile/${u._id}`}>{u.fullname}</Link>    
+                        <small>{u.email}</small>
+                    </span>
+                    <Button danger type="Button" onClick={() => {
+                        setIsAlert(true)
+                        setMemberSelect(u)
+                    }}>Xóa thành viên</Button> 
+                </div>
+            ))}
           </Model>
           <Alert 
               heading={'Cảnh báo'}

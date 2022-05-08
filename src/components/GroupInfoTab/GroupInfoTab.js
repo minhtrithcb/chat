@@ -94,7 +94,7 @@ const GroupInfoTab = () => {
                 <p>{currentChat.des}</p>
                 {currentChat.rule && <b>Quy tắc nhóm</b>}
                 <p dangerouslySetInnerHTML={{__html : currentChat.rule}} ></p>
-                <b>Thành viên</b>
+                <b>Thành viên ({currentChat.members.length })</b>
             </div>
             <div className={styles.infoUserList}>
                 {currentChat.members.map( user => (
@@ -103,8 +103,8 @@ const GroupInfoTab = () => {
                             <Avatar letter={user.fullname.charAt(0)} size="sm" />
                         </div>
                         <div>
-                            <Link to={`/profile/${user._id}`}>{user.fullname}</Link>
-                            <small>{user.email}</small>
+                            <Link to={`/profile/${user._id}`}>{user.fullname} {currentChat?.owner === user._id && <small>(Chủ nhóm)</small> }</Link>
+                            <small>{user.email} </small>
                         </div>
                     </div>
                 ))}

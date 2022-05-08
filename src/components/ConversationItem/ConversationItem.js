@@ -94,6 +94,11 @@ const ConversationItem = ({activeChat , conversation, members, usersOnline}) => 
         return members.find(u => u._id === lastMsg.sender)?.fullname.slice(0,6)
     }
 
+    // Check user banned
+    const checkUserIsBanned = () => {
+        return conversation?.membersBanned.find(u => u._id === currentUser.id)
+    }
+
     return (
         <>
         {/* // Friend conversation */}
@@ -144,7 +149,9 @@ const ConversationItem = ({activeChat , conversation, members, usersOnline}) => 
                         <AiOutlineLock style={{color: '#ff7675'}} title="Công khai" />  :                  
                         <AiOutlineUnlock title='Riêng tư' />}
                      </b>
-                    {lastMsg && !lastMsg.reCall ? 
+                    {!checkUserIsBanned() ? 
+                        // if not ban
+                        (lastMsg && !lastMsg.reCall ? 
                         <p> 
                             {renderNameInGroup()}
                             {`: ${renderSubString(lastMsg.text, 11)}`} 
@@ -152,14 +159,19 @@ const ConversationItem = ({activeChat , conversation, members, usersOnline}) => 
                         lastMsg?.reCall && 
                         <p className={styles.italic}>
                             {renderSubString("Tin nhắn đã bị thu hồi", 11)}
+                        </p>) : 
+                        // if Banned
+                        <p className={styles.italic}>
+                            Bạn đã bị cấm chat    
                         </p>
+
                     }
                 </span>
                 <span>
-                    <small>{lastMsg && renderTimeDiff(lastMsg.createdAt)}</small>
+                    <small>{!checkUserIsBanned() && lastMsg && renderTimeDiff(lastMsg.createdAt)}</small>
                     <span>
-                        {pendingChat && <ConversationItemLoading />}
-                        { unReadMsg !== 0 && <p> {unReadMsg}</p>}
+                        {!checkUserIsBanned() && pendingChat && <ConversationItemLoading />}
+                        {!checkUserIsBanned() && unReadMsg !== 0 && <p> {unReadMsg}</p>}
                     </span> 
                 </span>
             </div> }

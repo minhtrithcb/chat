@@ -89,7 +89,6 @@
 }
 
 .friendList::-webkit-scrollbar-thumb {
-  background: transparent;
   border-radius: 0.5em;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;

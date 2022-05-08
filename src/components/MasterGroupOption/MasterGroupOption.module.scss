@@ -95,3 +95,41 @@ label {
         }
     }
 }
+
+.dflex {
+    display: flex;
+}
+
+.footer {
+    margin-top: 1em;
+}
+
+.dark {
+
+    .linkInviteGroup input {
+        background-color: $dark-lv4;
+        color: #fff;
+        border-color: $light-lv1;
+    }
+
+    div[role="toolbar"] {
+        background-color:  $dark-lv4 !important;
+        border-color: $light-lv1 !important;
+        span, svg {
+            color: #fff !important;
+        }
+    }
+
+    div[role="textbox"] {
+        background-color:  $dark-lv4 !important;
+        border-color: $light-lv1 !important;
+    }
+
+    >span:hover {
+        background-color: $primary-color;
+    }
+
+    .userItem:hover {
+        background-color: $dark-lv4;
+    }
+}

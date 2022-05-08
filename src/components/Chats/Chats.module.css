@@ -122,8 +122,6 @@
   border-bottom: 1px solid #d1d1d1;
   background-color: #fff;
   height: 70px;
-  position: -webkit-sticky;
-  position: sticky;
   top: 0;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -182,10 +180,19 @@
   border-right: 1px solid #585c76;
 }
 
+.dark b {
+  color: white;
+}
+
 .dark .cover {
   background-color: #2f334d;
   color: #fff;
   border-bottom: 1px solid #585c76;
+}
+
+.dark .notifyMsg p {
+  background-color: transparent;
+  color: #585c76;
 }
 
 .dark .mobileViewCover {

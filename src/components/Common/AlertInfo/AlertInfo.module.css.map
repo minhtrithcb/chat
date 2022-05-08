@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAEA,AAAA,aAAa,CAAC;EACV,OAAO,EAAE,GAAG;EACZ,gBAAgB,ECKZ,OAAO;EDJX,WAAW,EAAE,KAAK;EAClB,aAAa,EAAE,GAAG;EAClB,WAAW,EAAE,GAAG,CAAC,KAAK,CCNV,OAAO;CDOtB;;AAED,AAAA,KAAK,CAAC;EACF,gBAAgB,ECIT,OAAO;CDHjB",
+    "sources": [
+        "AlertInfo.module.scss",
+        "../../../assets/css/_variable.scss"
+    ],
+    "names": [],
+    "file": "AlertInfo.module.css"
+}

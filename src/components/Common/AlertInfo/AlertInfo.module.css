@@ -1,0 +1,12 @@
+.alertContent {
+  padding: 1em;
+  background-color: #f6f7fb;
+  line-height: 1.7em;
+  margin-bottom: 1em;
+  border-left: 2px solid #a29bfe;
+}
+
+.dark {
+  background-color: #292c43;
+}
+/*# sourceMappingURL=AlertInfo.module.css.map */
