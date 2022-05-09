@@ -27,11 +27,11 @@ npm start
 * Người dùng thoát nhóm (hiện thông báo khi out).
 * Hiện thị chat infinite scroll.
 * Người dùng tạo nhóm thêm thành viên (bạn bè), chọn loại nhóm (nhóm công khai, nhóm riêng tư)...
+* Chủ nhóm chỉnh sửa nhóm, cấm chat người dùng, đuổi người dùng.
+* Ghim hộp thọai.
 
 ### Chức năng đang làm
 
-* Ghim hộp thọai,
-* Chủ nhóm thêm người dùng, cấm chat người dùng, đuổi người dùng.
 * Người dùng Tạo bình chọn, tin nhắn ghim.
 
 ### Chức năng gợi ý ...

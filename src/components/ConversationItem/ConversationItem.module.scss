@@ -3,7 +3,7 @@
 
 .messagesItem {
     height: 80px;
-    padding: 0 1em;
+    padding-left: 1em;
     display: flex;
     align-items: center;
     margin: 0.5em 0;
@@ -69,6 +69,12 @@
                 margin-left: auto;
             }
         }
+    }
+
+    &>div:last-child {
+        // background-color: red;
+        height: 100%;
+        padding-top: 0.7em;
     }
 
     .italic {

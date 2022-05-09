@@ -12,6 +12,7 @@ import Dropdown, {DropdownItem} from '../Common/Dropdown/Dropdown'
 import { BsChevronDown } from "react-icons/bs";
 const Conversation = () => {
     const [conversations, setConversations] = useState([])
+    const [pinConversations, setPinConversations] = useState([])
     const [currentUser] = useDecodeJwt()
     const {
         currentChat, setCurrentChat, friend, 
@@ -73,6 +74,8 @@ const Conversation = () => {
     // Feach all conversations of current user
     useEffect(() => {
         let isMounted = true;   
+        const found = localStorage.getItem('listPin')
+
         const  getAllconvertation = async () => {
             try {
                 const {data} = await converApi.getByUserId({
@@ -80,7 +83,16 @@ const Conversation = () => {
                     type: chatsOption.type
                 })
                 if (isMounted) {
-                    setConversations(data);
+                    if (!found) {
+                        setConversations(data);
+                    } else {
+                        const listPin = JSON.parse(found)
+                        const converPin = data.filter(c => listPin.includes(c._id))
+                        const converNotPin = data.filter(c => !listPin.includes(c._id))
+                        setConversations(converNotPin);
+                        setPinConversations(converPin)
+                    }
+                    
                     socket.emit('join conversation')
                 }
             } catch (error) {
@@ -115,6 +127,7 @@ const Conversation = () => {
         setThemeConver(type);
     }
     
+    // Render name of theme conver
     const renderNameThemeConver = () => {
         switch (themeConver) {
             case 'default':
@@ -141,6 +154,18 @@ const Conversation = () => {
                         <DropdownItem onClick={() => changeThemeConver('simple')}>Hiển thị tối giản</DropdownItem>
                     </Dropdown>
                 </small>
+                {pinConversations.length > 0 && <small>Tin nhắn ghim</small> }
+                {pinConversations.map((conver) => (
+                    <div onClick={() => handleChoseChat(conver)} key={conver._id}>
+                        <ConversationItem 
+                            usersOnline={usersOnline}
+                            conversation={conver} 
+                            members={[...conver.members, ...conver.membersLeave].filter(u => u._id !== currentUser.id)}
+                            activeChat={currentChat && currentChat?._id === conver._id}
+                        />
+                    </div>
+                ))} 
+                <small>Tất cả tin nhắn</small> 
                 { conversations.map((conver) => (
                     <div onClick={() => handleChoseChat(conver)} key={conver._id}>
                         <ConversationItem 

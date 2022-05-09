@@ -51,7 +51,7 @@ const Navbar = () => {
     [styles.dark]: theme === "dark",
   })
 
-  // Notifi friendReq
+  // Notify friendReq
   useEffect(() => {        
     socket.on("getAddFriend", data => {
       if(data) setFrLength(prev => prev + 1);
@@ -66,6 +66,12 @@ const Navbar = () => {
       setIsOpen(false)
     }
   }, [socket, setFrLength, currentUser.id, setCountUnRead])
+
+  // Change title when get Notify 
+  useEffect(() => {
+    countUnRead > 0 ? document.title = `React Chat (bạn có ${countUnRead} tin nhắn chưa đọc)` : document.title = 'React Chat'  
+  }, [countUnRead])
+  
 
   // Notifi group req
   useEffect(() => {        

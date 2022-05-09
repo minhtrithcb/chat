@@ -68,7 +68,8 @@ const OptionMute = () => {
                     recivers : friend, 
                     ...res.data
                 })
-                // send to user band
+                
+                // send to user is ban
                 socket.emit("send-muteUser", { 
                     recivers: [memberSelect], 
                     roomId: currentChat._id

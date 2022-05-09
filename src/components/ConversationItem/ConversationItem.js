@@ -9,9 +9,11 @@ import renderSubString, { renderTimeDiff } from '../../helper/renderSubString'
 import { ChatContext } from '../../context/ChatContext'
 import Avatar from '../Common/Avatar/Avatar'
 import { AiOutlineLock, AiOutlineUnlock } from "react-icons/ai";
+import Dropdown, {DropdownItem} from '../Common/Dropdown/Dropdown'
+
 const ConversationItem = ({activeChat , conversation, members, usersOnline}) => {
     const {socket} = useContext(SocketContext)
-    const {userReadConver} = useContext(ChatContext)
+    const {userReadConver, setChatsOption} = useContext(ChatContext)
     const [currentUser] = useDecodeJwt()
     const [pendingChat, setPendingChat] = useState(false)
     const {theme, themeConver} = useTheme()
@@ -99,6 +101,33 @@ const ConversationItem = ({activeChat , conversation, members, usersOnline}) => 
         return conversation?.membersBanned.find(u => u._id === currentUser.id)
     }
 
+    // Pin convertation
+    const pinConvertation = (conver) => {
+        const found = localStorage.getItem('listPin')
+        if (!found) {
+            let listPin = []
+            listPin.push(conver._id)
+            localStorage.setItem('listPin',JSON.stringify(listPin))    
+        } else {
+            let listPin = JSON.parse(found)
+            if (!listPin.includes(conver._id)) {
+                listPin.push(conver._id)
+                localStorage.setItem('listPin', JSON.stringify(listPin))    
+            } else {
+                let newList = listPin.filter(id => id !== conver._id)
+                localStorage.setItem('listPin', JSON.stringify(newList))    
+            }
+        }
+        setChatsOption({type:  'All', title: 'Tất cả tin nhắn'})
+    }
+
+    // Check convesation is pin
+    const CheckPin = () => {
+        const found = localStorage.getItem('listPin')
+        if (found) return JSON.parse(found).includes(conversation._id)
+        return false
+    }
+
     return (
         <>
         {/* // Friend conversation */}
@@ -132,6 +161,13 @@ const ConversationItem = ({activeChat , conversation, members, usersOnline}) => 
                         { unReadMsg !== 0 && <p> {unReadMsg}</p>}
                     </span> 
                 </span>
+                <Dropdown position="right" >
+                    <DropdownItem
+                        onClick={() => pinConvertation(conversation)}
+                    >
+                        {!CheckPin() ? 'Ghim' : 'Bỏ Ghim'}
+                    </DropdownItem>
+                </Dropdown>
             </div> :
             // Group conversation
             <div className={classesDarkMode}>
@@ -174,6 +210,13 @@ const ConversationItem = ({activeChat , conversation, members, usersOnline}) => 
                         {!checkUserIsBanned() && unReadMsg !== 0 && <p> {unReadMsg}</p>}
                     </span> 
                 </span>
+                <Dropdown position="right" >
+                    <DropdownItem
+                        onClick={() => pinConvertation(conversation)}
+                    >
+                        {!CheckPin() ? 'Ghim' : 'Bỏ Ghim'}
+                    </DropdownItem>
+                </Dropdown>
             </div> }
         </>
     )
