@@ -12,6 +12,9 @@
     transform: translate(-50%, -50%); 
     border-radius: .5em;
     box-shadow: $box-shadow1;
+    p {
+        line-height: 2em;
+    }
 
     @include maxWitdh(768px) {
         max-width: 95%;

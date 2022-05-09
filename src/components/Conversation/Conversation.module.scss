@@ -34,13 +34,13 @@
         background-color: #fff;
         
     }
-    
-    &>small:nth-child(2),
-    &>small:nth-child(3) {
+
+    &>small:nth-child(2) ,
+    &>small:last-of-type {
         position: sticky;
         z-index: 3;
         top: 0;
-        border-bottom: 1px solid #000;
+        // border-bottom: 1px solid $gray;
     }
     @include scrollBarDefault();
 
@@ -74,7 +74,11 @@
         }
         &>small {
             background-color: $dark-lv4;
-
         }
+        // &>small:nth-child(2) ,
+        // &>small:last-of-type { 
+        //     border-bottom-color: $light-lv1;
+
+        // }
     }
 }

@@ -208,7 +208,7 @@ const Chats = () => {
                     </span>
                 </div> 
                 {/* Open model  */}
-                <MasterGroupOption />
+                {!checkIsFriend() && <MasterGroupOption />}
             </div>
             {/* // Mobile View  */}
             <div className={styles.mobileViewCover}>
@@ -225,7 +225,7 @@ const Chats = () => {
                     </span>
                 </div> 
                 {/* Open model  */}
-                <MasterGroupOption />
+                {!checkIsFriend() && <MasterGroupOption />}
             </div>
 
             {/* // Render all chat  */}

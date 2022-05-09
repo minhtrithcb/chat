@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styles from './MasterGroupOption.module.scss'
 import Model from '../Common/Model/Model'
 import { IoSettingsOutline } from "react-icons/io5";
@@ -22,7 +22,7 @@ const OptionEdit = () => {
     const [ruleGroup, setRuleGroup] = useState('')
     const {currentChat, setChatsOption, setCurrentChat} = useContext(ChatContext)
     const [isAlert, setIsAlert] = useState(false) 
-    const copyRef = useRef(null)
+    // const copyRef = useRef(null)
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -88,12 +88,12 @@ const OptionEdit = () => {
     }
 
     // Copy to clipboard
-    const handleCopy = () => {
-        copyRef.current.select();
-        copyRef.current.setSelectionRange(0, 99999);
-        navigator.clipboard.writeText(copyRef.current.value);
-        toast.success('Sao chép đường dẫn thành công')
-    }
+    // const handleCopy = () => {
+    //     copyRef.current.select();
+    //     copyRef.current.setSelectionRange(0, 99999);
+    //     navigator.clipboard.writeText(copyRef.current.value);
+    //     toast.success('Sao chép đường dẫn thành công')
+    // }
 
     return (
         <>
@@ -109,11 +109,11 @@ const OptionEdit = () => {
                 prevLostData={() => setIsAlert(true)}
             >
                 {/* Form  */}
-                <h4>Tạo link mời</h4>
+                {/* <h4>Tạo link mời</h4>
                 <div className={styles.linkInviteGroup}>
                     <input type="text" readOnly={true} defaultValue={currentChat?.inviteCode} ref={copyRef} />
                     <button onClick={handleCopy}>Sao chép</button>
-                </div>
+                </div> */}
                 <h4>Cập nhật thông tin nhóm</h4>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Input  {...register("nameGroup", inpValid.nameGroup)} {...inputInit.nameGroup} />

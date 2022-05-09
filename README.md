@@ -28,11 +28,9 @@ npm start
 * Hiện thị chat infinite scroll.
 * Người dùng tạo nhóm thêm thành viên (bạn bè), chọn loại nhóm (nhóm công khai, nhóm riêng tư)...
 * Chủ nhóm chỉnh sửa nhóm, cấm chat người dùng, đuổi người dùng.
-* Ghim hộp thọai.
+* Ghim hộp thoại.
 
 ### Chức năng đang làm
-
-* Người dùng Tạo bình chọn, tin nhắn ghim.
 
 ### Chức năng gợi ý ...
 * Welcome khi login lần đầu 
@@ -40,7 +38,7 @@ npm start
 * User edit profile, chage pass
 * Setting (chặn tin từ người lại, hiện email,auto set theme, hiện thông báo)
 * infinite scroll converstion, contact
-* Chào ngày mới, chúc ngủ ngon Aleart
+
 
 
 

@@ -90,6 +90,7 @@ label {
         transition: background-color .5s;
         background-color: $primary-color;
         color: #fff;
+        font-family: "Montserrat", sans-serif;
         &:hover {
             background-color: $primary-colorDark;
         }
