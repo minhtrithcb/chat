@@ -35,13 +35,13 @@
         
     }
 
-    &>small:nth-child(2) ,
-    &>small:last-of-type {
-        position: sticky;
-        z-index: 3;
-        top: 0;
-        // border-bottom: 1px solid $gray;
-    }
+    // &>small:nth-child(2) ,
+    // &>small:last-of-type {
+    //     position: sticky;
+    //     z-index: 3;
+    //     top: 0;
+    //     // border-bottom: 1px solid $gray;
+    // }
     @include scrollBarDefault();
 
 }
