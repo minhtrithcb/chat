@@ -6,7 +6,7 @@ import { AuthContext } from './AuthContext';
 export const SocketContext = createContext();
 
 const SocketProvider = ({children}) => {
-    const socket = io("http://localhost:2077")
+    const socket = io("https://react-chat-101.herokuapp.com")
     const {auth} = useContext(AuthContext)
  
     useEffect(() => {
