@@ -7,7 +7,8 @@ import authApi from "./authApi";
 
 const api = axios.create({
     // baseURL: 'http://localhost:2077/api',
-    baseURL: 'https://react-chat-101.herokuapp.com/api',
+    // baseURL: 'https://react-chat-101.herokuapp.com/api',
+    baseURL: 'https://venerable-llama-acfcbc.netlify.app/api',
     timeout: 10000,
     withCredentials: true,
 });
