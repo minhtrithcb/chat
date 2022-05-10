@@ -6,8 +6,8 @@ import { AuthContext } from './AuthContext';
 export const SocketContext = createContext();
 
 const SocketProvider = ({children}) => {
-    // const socket = io("https://react-chat-101.herokuapp.com")
-    const socket = io("https://venerable-llama-acfcbc.netlify.app/api")
+    const socket = io("https://react-chat-101.herokuapp.com")
+    // const socket = io("https://venerable-llama-acfcbc.netlify.app/api")
     const {auth} = useContext(AuthContext)
  
     useEffect(() => {
