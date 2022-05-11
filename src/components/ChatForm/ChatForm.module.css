@@ -1,8 +1,8 @@
 .chatForm {
-  position: -webkit-sticky;
-  position: sticky;
+  width: calc(100% - 420px);
+  position: fixed;
   height: 50px;
-  margin: 1em calc(40px + 1em);
+  padding: 0 2em;
   z-index: 2;
 }
 
@@ -57,7 +57,7 @@
 }
 
 .chatForm > small {
-  left: 0;
+  left: 2.5em;
   top: -20px;
   position: absolute;
   padding: 0.5em;
@@ -127,7 +127,7 @@
 
 @media screen and (max-width: 768px) {
   .chatForm {
-    margin: 0 2em;
+    width: 100%;
   }
   .chatForm.isReplyChat .replyChat {
     height: 0;
@@ -145,7 +145,7 @@
 
 .sendBtn {
   position: absolute;
-  right: 7px;
+  right: 2.5em;
   top: 7px;
   background-color: #a29bfe;
   width: 35px;
@@ -170,7 +170,7 @@
 
 .emote {
   position: absolute;
-  right: 47px;
+  right: 5em;
   top: 7px;
   width: 35px;
   height: 35px;
