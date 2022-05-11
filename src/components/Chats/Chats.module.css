@@ -1,6 +1,7 @@
 .conversation {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
   background-color: #f6f7fb;
   overflow: hidden;
   border-left: 1px solid #d1d1d1;
