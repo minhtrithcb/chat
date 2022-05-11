@@ -20,16 +20,22 @@
 }
 
 .notifyMsg {
+    text-align: center;
+    max-width: 80%;
     font-size: 0.8rem;
     position: relative;
     padding: 1em 0;
-    display: flex;
-    justify-content: center;
+    margin-left: 10%;
+    line-height: 1.5em;
 
     p {
         background-color: $white-smok;
         z-index: 2;
         margin: 0;
+    }
+
+    @include maxWitdh(375px) {
+        font-size: 0.7rem;
     }
 }
 
@@ -60,12 +66,14 @@
 
     @include maxWitdh(768px) {
         padding-top: 60px;
+        height: calc(100vh - 70px);
     }
 
 }
 
 .mobileViewCover {
     display: none;
+
     b {
         color: $primary-colorDark;
     }
@@ -78,12 +86,13 @@
         height: 50px;
         width: 100%;
         background-color: #fff;
-        // justify-content: space-between;
         align-items: center;
         cursor: pointer;
         z-index: 6;
         border-bottom: 1px solid $gray;
-
+        b {
+            font-size: .8rem;
+        }
     }
 
     .goBackBtn {
@@ -92,9 +101,18 @@
         @include center;
     }
 
-    &>div:last-child {
+    &>div:nth-child(3) {
         display: flex;
+    }
+    &>div:last-child {
+        margin-left: auto;
         padding-right: 1em;
+    }
+
+    .mobileDes {
+        max-width: 170px;
+        display: flex;
+        flex-direction: column;
     }
 }
 

@@ -177,6 +177,7 @@ const ConversationOption = () => {
         <div className={classesDarkMode}>
             <div className={styles.optionBox}>
                 <Select  
+                    isSearchable={false}
                     options={options} 
                     onChange={handleChangeOption}
                     defaultValue={renderDefOption} 

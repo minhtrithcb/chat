@@ -1,6 +1,6 @@
 .messagesItem {
   height: 80px;
-  padding: 0 1em;
+  padding-left: 1em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -67,6 +67,7 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  padding-right: 1em;
 }
 
 .messagesItem > span:last-of-type small {
@@ -150,6 +151,30 @@
 
 .messagesItem.themeSimple .box .isNull {
   background-color: #d1d1d1;
+}
+
+@media screen and (max-width: 768px) {
+  .messagesItem {
+    padding-right: 1em;
+  }
+  .messagesItem > div:last-child {
+    display: none;
+  }
+}
+
+.skeletonItem {
+  padding: 1em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.skeletonItem .left {
+  width: 50px;
+}
+
+.skeletonItem .right {
+  width: calc(100% - 50px);
 }
 
 .dark {

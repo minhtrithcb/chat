@@ -116,6 +116,7 @@ label {
   transition: background-color .5s;
   background-color: #a29bfe;
   color: #fff;
+  font-family: "Montserrat", sans-serif;
 }
 
 .linkInviteGroup > button:hover {

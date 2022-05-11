@@ -127,7 +127,7 @@
 
 @media screen and (max-width: 768px) {
   .chatForm {
-    margin: 0 1em;
+    margin: 0 2em;
   }
   .chatForm.isReplyChat .replyChat {
     height: 0;

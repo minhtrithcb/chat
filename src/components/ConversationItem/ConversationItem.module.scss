@@ -44,7 +44,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-
+        padding-right: 1em;
         small {
             font-size: 0.7rem;
             color: gray;
@@ -70,13 +70,6 @@
             }
         }
     }
-
-    &>div:last-child {
-        // background-color: red;
-        height: 100%;
-        padding-top: 0.7em;
-    }
-
     .italic {
         font-style: italic;
     }
@@ -115,6 +108,25 @@
                 background-color: $gray;
             }
         }
+    }
+
+    @include maxWitdh(768px) {
+        padding-right: 1em;
+        &>div:last-child {
+            display: none;
+        }
+    }
+}
+
+.skeletonItem {
+    padding: 1em ;
+    display: flex;
+
+    .left {
+        width: 50px;
+    }
+    .right {
+        width: calc(100% - 50px);
     }
 }
 

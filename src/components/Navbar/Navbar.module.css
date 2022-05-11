@@ -104,6 +104,9 @@
   .navBar p {
     display: none;
   }
+  .navBar.isHide {
+    display: none;
+  }
   .navBar .hr,
   .navBar .user,
   .navBar .btn_logout,

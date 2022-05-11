@@ -18,6 +18,8 @@ import Avatar from '../Common/Avatar/Avatar'
 import MasterGroupOption from '../MasterGroupOption/MasterGroupOption';
 import moment from 'moment';
 import converApi from '../../api/converApi';
+import renderSubString from '../../helper/renderSubString';
+import Dropdown, { DropdownItem } from '../Common/Dropdown/Dropdown';
 
 const Chats = () => {
     const [isOpen, setIsOpen] = useToggle(false)
@@ -30,7 +32,8 @@ const Chats = () => {
     const [currentUser] = useDecodeJwt()
     const {theme} = useTheme()
     const classesDarkMode = clsx(styles.conversation,{ 
-        [styles.dark]: theme === "dark"
+        [styles.dark]: theme === "dark",
+
     })
     const [offset, setOffset] = useState({count: 0, counting: false})
     const loadMoreRef = useRef()
@@ -181,7 +184,32 @@ const Chats = () => {
         return currentChat.type === 'Friend'
     }
 
-   
+   // Pin convertation
+   const pinConvertation = (conver) => {
+        const found = localStorage.getItem('listPin')
+        if (!found) {
+            let listPin = []
+            listPin.push(conver._id)
+            localStorage.setItem('listPin',JSON.stringify(listPin))    
+        } else {
+            let listPin = JSON.parse(found)
+            if (!listPin.includes(conver._id)) {
+                listPin.push(conver._id)
+                localStorage.setItem('listPin', JSON.stringify(listPin))    
+            } else {
+                let newList = listPin.filter(id => id !== conver._id)
+                localStorage.setItem('listPin', JSON.stringify(newList))    
+            }
+        }
+        setChatsOption({type:  'All', title: 'Tất cả tin nhắn'})
+    }
+
+    // Check convesation is pin
+    const CheckPin = () => {
+        const found = localStorage.getItem('listPin')
+        if (found) return JSON.parse(found).includes(currentChat._id)
+        return false
+    }
 
     return (
         <div className={classesDarkMode} >
@@ -209,23 +237,41 @@ const Chats = () => {
                 </div> 
                 {/* Open model  */}
                 {!checkIsFriend() && <MasterGroupOption />}
+                <Dropdown >
+                    <DropdownItem onClick={() => setIsOpen(true)}>
+                        Thông tin
+                    </DropdownItem>
+                    <DropdownItem
+                        onClick={() => pinConvertation(currentChat)}
+                    >
+                        {!CheckPin() ? 'Ghim' : 'Bỏ Ghim'}
+                    </DropdownItem>
+                </Dropdown>
             </div>
             {/* // Mobile View  */}
             <div className={styles.mobileViewCover}>
                 <div className={styles.goBackBtn} onClick={() => setCurrentChat(null)}>
                     <MdOutlineArrowBackIos />
                 </div>
-                <div>
-                    <span className={styles.des}>
-                        <b onClick={() => setIsOpen(true)}>{
-                            checkIsFriend() ?
-                                friend[0].fullname: 
-                                currentChat.name
-                        }</b>
-                    </span>
-                </div> 
+                <span className={styles.mobileDes}>
+                    { checkIsFriend() ? 
+                    <>
+                        <b onClick={() => setIsOpen(true)}>{renderSubString(friend[0].fullname, 20)}</b>
+                        <small>#{friend[0].email}</small> 
+                    </>
+                    :
+                    <>
+                    <b onClick={() => setIsOpen(true)}>{renderSubString(currentChat.name, 20)}</b>
+                    <small>{currentChat.members.length} Thành viên</small>
+                    </>}
+                </span>
                 {/* Open model  */}
                 {!checkIsFriend() && <MasterGroupOption />}
+                <Dropdown >
+                    <DropdownItem onClick={() => setIsOpen(true)}>
+                        Thông tin
+                    </DropdownItem>
+                </Dropdown>
             </div>
 
             {/* // Render all chat  */}

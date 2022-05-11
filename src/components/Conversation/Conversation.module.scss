@@ -7,14 +7,18 @@
     background-color: #fff;
     padding-top: 1em;
 
+    &>h3 {
+        padding: 0 1em;
+    }
+
     @include maxWitdh(768px) {
         height: 100%;
         width: 100%;
-        
-    }
-    
-    h3 {
-        padding: 0 1em;
+        padding-top: 0;
+
+        &>h3 {
+            display: none;
+        }
     }
 }
 
@@ -34,14 +38,6 @@
         background-color: #fff;
         
     }
-
-    // &>small:nth-child(2) ,
-    // &>small:last-of-type {
-    //     position: sticky;
-    //     z-index: 3;
-    //     top: 0;
-    //     // border-bottom: 1px solid $gray;
-    // }
     @include scrollBarDefault();
 
 }
@@ -75,10 +71,5 @@
         &>small {
             background-color: $dark-lv4;
         }
-        // &>small:nth-child(2) ,
-        // &>small:last-of-type { 
-        //     border-bottom-color: $light-lv1;
-
-        // }
     }
 }

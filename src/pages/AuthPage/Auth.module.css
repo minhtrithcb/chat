@@ -137,10 +137,23 @@
 
 @media screen and (max-width: 768px) {
   .LoginImg {
-    width: 0;
+    width: 100%;
   }
   .LoginSide {
     width: 100%;
+    position: absolute;
+    height: auto;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+    background-color: transparent;
+  }
+  .LoginSide .LoginForm {
+    width: 90%;
+    height: auto;
+    padding: 1em;
+    -webkit-box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   }
 }
 /*# sourceMappingURL=Auth.module.css.map */

@@ -92,6 +92,7 @@ const Contact = () => {
             </li>
           </ul>
           <Select
+            isSearchable={false}
             defaultValue={options[0]}
             onChange={handleChange}
             options={options}

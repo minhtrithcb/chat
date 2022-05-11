@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState} from 'react'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import styles from './Navbar.module.scss'
-import {  BsChatSquareDots, BsPeople, BsTelephone,BsGear , BsBookmarkPlus , BsStar} from "react-icons/bs";
+import {  BsChatSquareDots, BsTelephone,BsGear} from "react-icons/bs";
 import { AiOutlinePoweroff } from "react-icons/ai";
 import { FiUser } from "react-icons/fi";
 import clsx from 'clsx';
@@ -20,7 +20,7 @@ import { GroupContext } from '../../context/GroupContext';
 const Navbar = () => {
   const {theme, toggle} = useTheme()
   const {frLength, setFrLength } = useContext(FriendContext)
-  const {countUnRead, setCountUnRead, setCurrentChat} = useContext(ChatContext)
+  const {countUnRead, setCountUnRead, setCurrentChat, currentChat} = useContext(ChatContext)
   const {setAuth} = useContext(AuthContext)
   const [currentUser] = useDecodeJwt()
   const {socket} = useContext(SocketContext)
@@ -29,26 +29,9 @@ const Navbar = () => {
   const navigate = useNavigate()
   const {grLength, setGrLength} = useContext(GroupContext)
 
-  const listLink2 = [
-    {
-      icon: <BsStar />,
-      text: 'Bài viết',
-      path: "/posts"
-    },
-    {
-      icon: <BsBookmarkPlus />,
-      text: 'Dấu trang',
-      path: "/bookmark"
-    },
-    {
-      icon: <BsGear />,
-      text: 'Cài đặt',
-      path: "/setting"
-    },
-  ]
-
   const classesDarkMode = clsx(styles.navBar,{ 
     [styles.dark]: theme === "dark",
+    [styles.isHide]: currentChat ? true: false
   })
 
   // Notify friendReq
@@ -70,6 +53,8 @@ const Navbar = () => {
   // Change title when get Notify 
   useEffect(() => {
     countUnRead > 0 ? document.title = `React Chat (bạn có ${countUnRead} tin nhắn chưa đọc)` : document.title = 'React Chat'  
+
+    return () => document.title = 'React Chat'
   }, [countUnRead])
   
 
@@ -121,18 +106,10 @@ const Navbar = () => {
           <p>Danh bạ</p>
           {(frLength > 0 || grLength > 0) && <span>{frLength + grLength}</span> }
         </NavLink>
-        <NavLink to={`/groups`} className={checkActiveClass('/groups')}>
-          <BsPeople />
-          <p>Nhóm</p>
+        <NavLink to={`/setting`} className={checkActiveClass('/setting')}>
+          <BsGear />
+          <p>Cài đặt</p>
         </NavLink>
-
-        <div className={styles.hr} />
-
-        {listLink2 && listLink2.map((item, index) =>(
-          <NavLink to={`${item.path}`} key={index}>
-            {item.icon}
-            <p>{item.text}</p>
-          </NavLink>))}
         <div className={styles.hr} />
         {/* // User tab only mobile  */}
         <NavLink to={`/profile/${currentUser?.id}`} 
@@ -148,6 +125,7 @@ const Navbar = () => {
           <span>Thoát</span>
         </div>
         <input type="checkbox" onClick={toggle} className={styles.checkBox} defaultChecked={theme === "dark"} />
+     
         
         <Alert 
           isOpen={isOpen} 

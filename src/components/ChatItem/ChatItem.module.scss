@@ -96,7 +96,30 @@
     &.dup {
         padding: 0 1em;
     }
-    
+
+    @include maxWitdh(375px) {
+        padding: 0 0.7em;
+        .chatOption {
+            div {
+                left: 5px;
+            }
+        }
+        &.dup {
+            padding: 0 .7em;
+        }
+        .chatAvatar {
+            width: 25px;
+            div {
+                width: 20px;
+                height: 20px;
+        
+                p {
+                    font-size: 0.7rem;
+                }
+            }
+        }
+    }
+
 }
 
 .chatItem2 {
@@ -145,7 +168,6 @@
 
     .chatText {
         margin-top: 0.5em;
-        // width: fit-content;
         max-width: 90%;
         background-color: $primary-color;
         padding: 0.5em 0.7em;
@@ -199,12 +221,50 @@
 
         p {
             color: #fff;
-
         }
     }
 
     &.dup {
         padding: 0 1em;
+    }
+
+    @include maxWitdh(375px) {
+        padding: 0 0.7em;
+
+        .chatText {
+            max-width: 75%;
+            word-wrap: break-word;
+        }
+
+        .chatDes {
+            justify-content: space-around;
+            // background-color: red;
+        }
+
+        .chatInfo {
+            margin-top: 0.3em;
+        }
+
+        .chatOption {
+            div {
+                right: 10px;
+            }
+        }
+        &.dup {
+            padding: 0 .7em;
+        }
+        .chatAvatar {
+            width: 25px;
+            margin-left: -0.5em;
+            div {
+                width: 20px;
+                height: 20px;
+                p {
+                    font-size: 0.7rem;
+                }
+            }
+        }
+
     }
 
 }

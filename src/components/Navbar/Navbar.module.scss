@@ -88,6 +88,11 @@
             display: none;
         }
 
+        &.isHide {
+            display: none;
+        }
+        
+
         .hr,
         .user,
         .btn_logout,
@@ -108,6 +113,7 @@
         }
     }
 }
+
 
 
 

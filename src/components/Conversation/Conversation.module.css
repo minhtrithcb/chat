@@ -5,15 +5,19 @@
   padding-top: 1em;
 }
 
+.contact > h3 {
+  padding: 0 1em;
+}
+
 @media screen and (max-width: 768px) {
   .contact {
     height: 100%;
     width: 100%;
+    padding-top: 0;
   }
-}
-
-.contact h3 {
-  padding: 0 1em;
+  .contact > h3 {
+    display: none;
+  }
 }
 
 .messages {

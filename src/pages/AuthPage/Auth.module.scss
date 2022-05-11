@@ -48,7 +48,6 @@
     width: 500px;
     height: 700px;
     background-color: #fff;
-
     h2 {
         text-align: center;
     }
@@ -106,10 +105,23 @@
 
 @include maxWitdh(768px) {
     .LoginImg {
-        width: 0;
+        width: 100%;
     }
 
     .LoginSide {
         width: 100%;
+        position: absolute;
+        height: auto;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: transparent;
+        
+        .LoginForm {
+            width: 90%;
+            height: auto;
+            // margin-top: 100px;
+            padding: 1em;
+            box-shadow: $box-shadow1;
+        }
     }
 }

@@ -10,9 +10,13 @@ import { SocketContext } from '../../context/SocketContext'
 import ConversationOption from '../ConversationOption/ConversationOption'
 import Dropdown, {DropdownItem} from '../Common/Dropdown/Dropdown'
 import { BsChevronDown } from "react-icons/bs";
+import MobileNav from '../MobileNav/MobileNav'
+import ConversationItemLoading from '../ConversationItem/ConversationItemLoading'
+
 const Conversation = () => {
     const [conversations, setConversations] = useState([])
     const [pinConversations, setPinConversations] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
     const [currentUser] = useDecodeJwt()
     const {
         currentChat, setCurrentChat, friend, 
@@ -29,7 +33,6 @@ const Conversation = () => {
     })
     const [usersOnline, setUsersOnline] = useState(null)
     const {socket} = useContext(SocketContext)
-
     // Get all users online
     useEffect(() => {
         let isMounted = true;            
@@ -83,13 +86,17 @@ const Conversation = () => {
                     type: chatsOption.type
                 })
                 if (isMounted) {
+                    setTimeout(() => {
+                        setIsLoading(false)
+                    }, 1000);
+
                     if (!found) {
-                        setConversations(data);
+                        setConversations(data)
                     } else {
                         const listPin = JSON.parse(found)
                         const converPin = data.filter(c => listPin.includes(c._id))
                         const converNotPin = data.filter(c => !listPin.includes(c._id))
-                        setConversations(converNotPin);
+                        setConversations(converNotPin)
                         setPinConversations(converPin)
                     }
                     
@@ -143,6 +150,7 @@ const Conversation = () => {
     return (
         <div className={classesDarkMode}>
             <h3>Tin nhắn</h3>
+            <MobileNav />
             <ConversationOption />
             <div className={classesDarkMode2}>        
             {conversations && 
@@ -166,7 +174,7 @@ const Conversation = () => {
                     </div>
                 ))} 
                 <small>Tất cả tin nhắn</small> 
-                { conversations.map((conver) => (
+                {!isLoading ? conversations.map((conver) => (
                     <div onClick={() => handleChoseChat(conver)} key={conver._id}>
                         <ConversationItem 
                             usersOnline={usersOnline}
@@ -175,7 +183,10 @@ const Conversation = () => {
                             activeChat={currentChat && currentChat?._id === conver._id}
                         />
                     </div>
-                ))} 
+                )):
+                    <ConversationItemLoading count={conversations.length} />
+                } 
+
                 </> }
             </div>
         </div>
