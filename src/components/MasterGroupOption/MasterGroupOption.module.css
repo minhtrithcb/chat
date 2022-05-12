@@ -79,6 +79,25 @@ label {
   margin-left: auto;
 }
 
+@media screen and (max-width: 768px) {
+  .userItem {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    height: auto;
+    margin: 1em 0;
+  }
+  .userItem span {
+    padding: 1em 0;
+    text-align: center;
+    margin-left: 0;
+  }
+  .userItem button {
+    width: 100%;
+  }
+}
+
 .linkInviteGroup > input {
   padding: 0.5em;
   width: 78%;
@@ -129,6 +148,18 @@ label {
   display: flex;
 }
 
+@media screen and (max-width: 768px) {
+  .dflex {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .dflex div {
+    width: 100%;
+  }
+}
+
 .footer {
   margin-top: 1em;
 }
@@ -159,5 +190,22 @@ label {
 
 .dark .userItem:hover {
   background-color: #292c43;
+}
+
+.dark .beforeSelect ~ div div {
+  color: #fff;
+  border-color: #585c76;
+}
+
+.dark .beforeSelect ~ div > div {
+  background-color: transparent;
+}
+
+.dark .beforeSelect ~ div > div > div {
+  background-color: #2f334d;
+}
+
+.dark .beforeSelect ~ div > div > div :hover {
+  background-color: transparent;
 }
 /*# sourceMappingURL=MasterGroupOption.module.css.map */

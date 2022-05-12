@@ -14,10 +14,12 @@ import Alert from '../Common/Alert/Alert';
 import { toast } from 'react-toastify';
 import converApi from '../../api/converApi';
 import { useNavigate } from 'react-router-dom';
+import useLoading from '../../hooks/useLoading'
 
 const OptionEdit = () => {
     const [isOpen, setIsOpen] = useState(false)
     const { register,  formState: { errors }, reset, handleSubmit } = useForm();
+    const [loading, setLoading, Icon] = useLoading()
     const [privacy, setPrivacy] = useState('pu')
     const [ruleGroup, setRuleGroup] = useState('')
     const {currentChat, setChatsOption, setCurrentChat} = useContext(ChatContext)
@@ -58,6 +60,7 @@ const OptionEdit = () => {
 
     const onSubmit = async data => {
         try {
+            setLoading(true)
             const res = await converApi.editGroupConver({
                 roomId: currentChat._id,
                 name: data.nameGroup,
@@ -66,9 +69,10 @@ const OptionEdit = () => {
                 privacy: privacy === "pr" ? true : false
             })
             if (res.data?.success) {
+                setLoading(false)
                 prevQuit(true)
                 toast.success(`Cập nhật nhóm thành công`)
-                setChatsOption({type: 'Group', title: "Tin nhắn nhóm"})
+                setChatsOption({type:  'All', title: 'Tất cả tin nhắn'})
                 setCurrentChat(res.data.result)
                 navigate('/', {replace: true})
             }
@@ -152,8 +156,9 @@ const OptionEdit = () => {
                             primary 
                             fluid
                             size={'lg'}
+                            disabled={loading}
                         >
-                            Lưu lại
+                            {loading ? "Đang lưu": "Lưu lại"} {loading && <Icon />}
                         </Button>
                     </div>
                 </form>

@@ -63,7 +63,6 @@
   -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
           box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
   cursor: pointer;
-  margin-right: 40px;
   position: relative;
 }
 
@@ -88,7 +87,8 @@
 }
 
 .chatItem .chatText p small {
-  display: block;
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .chatItem .chatText .chatEmoji {
@@ -148,7 +148,7 @@
 
 .chatItem2 .chatAvatar {
   width: 40px;
-  padding-left: 15px;
+  padding-left: 10px;
 }
 
 .chatItem2 .chatDes {
@@ -202,7 +202,6 @@
   -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
           box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
   cursor: pointer;
-  margin-left: 40px;
   color: #fff;
   position: relative;
 }
@@ -227,7 +226,8 @@
 }
 
 .chatItem2 .chatText p small {
-  display: block;
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .chatItem2 .chatText .chatEmoji {
@@ -326,6 +326,8 @@
 .chatTextReply small {
   font-size: 0.7rem;
   font-style: italic;
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .chatTextReply b {

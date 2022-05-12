@@ -192,6 +192,23 @@
   color: #a29bfe;
 }
 
+.dark .select div {
+  color: #f6f7fb;
+  border-color: #585c76;
+}
+
+.dark .select > div {
+  background-color: transparent;
+}
+
+.dark .select > div > div {
+  background-color: #2f334d;
+}
+
+.dark .select > div > div :hover {
+  background-color: transparent;
+}
+
 .dark .contact {
   border-left: 1px solid #292c43;
 }

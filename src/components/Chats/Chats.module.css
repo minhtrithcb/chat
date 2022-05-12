@@ -44,9 +44,8 @@
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 150px);
   max-height: -webkit-fill-available;
-  padding-top: 6em;
 }
 
 .chatContainer::-webkit-scrollbar {
@@ -147,7 +146,6 @@
   border-bottom: 1px solid #d1d1d1;
   background-color: #fff;
   height: 70px;
-  position: fixed;
   top: 0;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -157,7 +155,7 @@
           justify-content: space-between;
   padding: 0 1em;
   z-index: 6;
-  width: calc(100% - 420px);
+  width: 100%;
 }
 
 .cover > div {
@@ -167,6 +165,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  position: relative;
 }
 
 .cover > div > svg {

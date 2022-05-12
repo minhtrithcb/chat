@@ -57,6 +57,20 @@ label {
     button {
         margin-left: auto
     }
+
+    @include maxWitdh(768px) {
+        flex-direction: column;
+        height: auto;
+        margin: 1em 0;
+        span {
+            padding: 1em 0;
+            text-align: center;
+            margin-left: 0;
+        }
+        button {
+            width: 100%;
+        }
+    }
 }
 
 .linkInviteGroup {
@@ -99,11 +113,20 @@ label {
 
 .dflex {
     display: flex;
+
+    @include maxWitdh(768px) {
+        flex-direction: column;
+        div {
+            width: 100%;
+        }
+    }
 }
 
 .footer {
     margin-top: 1em;
 }
+
+
 
 .dark {
 
@@ -132,5 +155,21 @@ label {
 
     .userItem:hover {
         background-color: $dark-lv4;
+    }
+
+    .beforeSelect ~ div {
+        div {
+            color: #fff;
+            border-color: $light-lv1;
+        }
+        &>div {
+            background-color: transparent;
+            &>div {
+                background-color: $dark-lv3;
+                :hover {
+                    background-color: transparent;
+                }
+            }
+        }
     }
 }

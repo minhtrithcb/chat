@@ -183,7 +183,7 @@
   padding-left: 0.5em;
 }
 
-.dark p {
+.dark p, .dark a {
   color: #fff;
 }
 
@@ -197,6 +197,11 @@
 }
 
 .dark .card small {
+  color: #fff;
+}
+
+.dark .card button:last-child {
+  background-color: #2f334d;
   color: #fff;
 }
 

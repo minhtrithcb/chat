@@ -43,10 +43,9 @@
     width: 100%;
     overflow-y: auto;
     overflow-x: hidden;
-    // height: calc(100vh - 150px);
-    height: calc(100vh - 80px);
+    height: calc(100vh - 150px);
     max-height: -webkit-fill-available;
-    padding-top: 6em;
+    // padding-top: 6em;
     &::-webkit-scrollbar {
         width: 5px;
     }
@@ -122,18 +121,17 @@
     border-bottom: 1px solid $gray;
     background-color: #fff;
     height: 70px;
-    position: fixed;
     top: 0;
     display: flex;
     justify-content: space-between;
     padding: 0 1em;
     z-index: 6;
-    width: calc(100% - 420px);
+    width: 100%;
 
     &>div {
         display: flex;
         align-items: center;
-
+        position: relative;
         &>svg {
             cursor: pointer;
             font-size: 1.2em;

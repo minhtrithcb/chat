@@ -13,6 +13,7 @@ import { SocketContext } from '../../context/SocketContext';
 import useDecodeJwt from '../../hooks/useDecodeJwt';
 import chatApi from '../../api/chatApi';
 import AlertInfo from '../Common/AlertInfo/AlertInfo';
+import useLoading from '../../hooks/useLoading';
 
 const OptionDelete = () => {
     const [isOpen, setIsOpen] = useState(false)
@@ -21,10 +22,12 @@ const OptionDelete = () => {
     const {currentChat, setCurrentChat, friend} = useContext(ChatContext)
     const {socket} = useContext(SocketContext)
     const [currentUser] = useDecodeJwt()
+    const [loading, setLoading, Icon] = useLoading()
 
     // Prev form not save
     const comfirmDelete = async (chose) => {
         if (chose) {
+            setLoading(true)
             // post msg
             const {data} = await chatApi.postNewChat({
                 roomId: currentChat._id,
@@ -46,6 +49,8 @@ const OptionDelete = () => {
             )
 
             if (res.data?.success) {
+                setLoading(false)
+
                 socket.emit("send-deleteGroup", { 
                     recivers : [memberSelect], 
                     roomId: currentChat._id,
@@ -79,10 +84,17 @@ const OptionDelete = () => {
                         <Link to={`/profile/${u._id}`}>{u.fullname}</Link>    
                         <small>{u.email}</small>
                     </span>
-                    <Button danger type="Button" onClick={() => {
-                        setIsAlert(true)
-                        setMemberSelect(u)
-                    }}>Xóa thành viên</Button> 
+                    <Button 
+                        danger 
+                        type="Button" 
+                        disabled={loading}
+                        onClick={() => {
+                            setIsAlert(true)
+                            setMemberSelect(u)
+                        }}
+                    >{loading && memberSelect?._id === u._id ? 
+                    <>Đang xóa <Icon /></> : 
+                    "Xóa thành viên"}</Button> 
                 </div>
             ))}
           </Model>

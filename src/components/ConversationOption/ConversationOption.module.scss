@@ -17,6 +17,7 @@
     margin-top: 1em;
 }
 
+
 .optionAddPeople {
     width: 35px;
     height: 35px;
@@ -49,6 +50,7 @@
         color: #fff;
     } 
 }
+
 
 .friendList {
     max-height: 250px;
@@ -92,13 +94,34 @@
 }
 
 .dark {
+    div[role="toolbar"] {
+        background-color: $dark-lv4 !important;
+        border: 1px solid $light-lv1;
+        div button {
+            color: white;
+        }
+    }
+
+    div[role="presentation"]:last-child {
+        div {
+            background-color: $dark-lv4 !important;
+            border: none;
+        }
+        border: 1px solid $light-lv1;
+    }
+
     .optionBox {
         div {
             color: #fff;
+            border-color: $light-lv1;
         }
         &>div {
+            background-color: transparent;
             &>div {
                 background-color: $dark-lv3;
+                :hover {
+                    background-color: transparent;
+                }
             }
         }
     }

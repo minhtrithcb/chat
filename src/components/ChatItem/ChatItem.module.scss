@@ -52,7 +52,7 @@
         border-top-left-radius: 0;
         box-shadow: $box-shadow3;
         cursor: pointer;
-        margin-right: 40px;
+        // margin-right: 40px;
         position: relative;
 
         i {
@@ -75,7 +75,8 @@
             font-size: 0.9rem;
 
             small {
-                display: block;
+                display: inline-block;
+                white-space: nowrap;
             }
         }
 
@@ -135,7 +136,7 @@
 
     .chatAvatar {
         width: 40px;
-        padding-left: 15px;
+        padding-left: 10px;
     }
 
     .chatDes {
@@ -175,7 +176,7 @@
         border-top-right-radius: 0;
         box-shadow: $box-shadow3;
         cursor: pointer;
-        margin-left: 40px;
+        // margin-left: 40px;
         color: #fff;
         position: relative;
 
@@ -198,7 +199,8 @@
             font-size: 0.9rem;
 
             small {
-                display: block;
+                display: inline-block;
+                white-space: nowrap;
             }
         }
 
@@ -238,7 +240,6 @@
 
         .chatDes {
             justify-content: space-around;
-            // background-color: red;
         }
 
         .chatInfo {
@@ -302,6 +303,8 @@
     small {
         font-size: 0.7rem;
         font-style: italic;
+        display: inline-block;
+        white-space: nowrap;
     }
 
     b {

@@ -125,9 +125,6 @@
   .chatForm.isReplyChat .replyChat {
     width: calc(100% - 4em);
   }
-  .chatForm.isReplyChat textarea, .chatForm.isReplyChat .sendBtn, .chatForm.isReplyChat .emote {
-    margin-top: 10px;
-  }
 }
 
 .renderPiker {

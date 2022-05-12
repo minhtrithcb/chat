@@ -130,6 +130,7 @@
 .dark {
     background-color: $dark-lv4 ;
     border-left: none;
+    
     .sideBar {
         color: $primary-color;
     }
@@ -146,6 +147,22 @@
         }
         li.active {
             color: $primary-color;
+        }
+    }
+
+    .select {
+        div {
+            color: $light;
+            border-color: $light-lv1;
+        }
+        &>div {
+            background-color: transparent;
+            &>div {
+                background-color: $dark-lv3;
+                :hover {
+                    background-color: transparent;
+                }
+            }
         }
     }
 

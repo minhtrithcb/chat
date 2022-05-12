@@ -6,9 +6,7 @@ import authApi from "./authApi";
 
 
 const api = axios.create({
-    // baseURL: 'http://localhost:2077/api',
     baseURL: 'https://react-chat-101.herokuapp.com/api',
-    // baseURL: 'https://venerable-llama-acfcbc.netlify.app/api',
     timeout: 10000,
     withCredentials: true,
 });
@@ -30,6 +28,9 @@ const AxiosInterceptor = ({ children }) => {
                 const {data} = await authApi.refreshToken()
                 if (data.isLogin) {
                     setAuth({isLogin: true, accessToken:  data.accessToken, loading: false})
+                } else if (data.reload) {
+                    setAuth({isLogin: false})
+                    navigate("/login", {replace: true})
                 } else {
                     setAuth({isLogin: false})
                     navigate("/login", {replace: true})

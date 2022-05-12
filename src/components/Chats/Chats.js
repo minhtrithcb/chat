@@ -20,6 +20,7 @@ import moment from 'moment';
 import converApi from '../../api/converApi';
 import renderSubString from '../../helper/renderSubString';
 import Dropdown, { DropdownItem } from '../Common/Dropdown/Dropdown';
+// import useLoading from '../../hooks/useLoading';
 
 const Chats = () => {
     const [isOpen, setIsOpen] = useToggle(false)
@@ -33,7 +34,6 @@ const Chats = () => {
     const {theme} = useTheme()
     const classesDarkMode = clsx(styles.conversation,{ 
         [styles.dark]: theme === "dark",
-
     })
     const [offset, setOffset] = useState({count: 0, counting: false})
     const loadMoreRef = useRef()
@@ -154,6 +154,7 @@ const Chats = () => {
                 if (isMounted && !found) {
                     const {data} = await chatApi.getChatByRoomId(currentChat._id, offset.count)
                     if (offset.count === 0 && offset.counting === false) {
+
                         let revs = data.reverse() // new value
                         setChats(revs); 
                         bottomRef?.current?.scrollIntoView()
@@ -161,6 +162,7 @@ const Chats = () => {
                         // console.log("set chat 1st",currentChat?._id, offset.count);
                     // If not couting user will recive 20 record
                     } else if (offset.count > 0 && offset.counting === false) {
+
                         let revs = data.reverse() // new value
                         // Push new value in front of array, and the ref (oldScroll) so user can stay with current postion
                         // The Prev value just remove the oldScroll

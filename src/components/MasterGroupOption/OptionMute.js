@@ -16,9 +16,11 @@ import converApi from '../../api/converApi';
 import chatApi from '../../api/chatApi';
 import { toast } from 'react-toastify';
 import moment from 'moment';
+import useLoading from '../../hooks/useLoading';
 
 const OptionMute = () => {
     const [isOpen, setIsOpen] = useState(false)
+    const [loading, setLoading, Icon] = useLoading()
     const [isOpenReason, setIsOpenReason] = useState(false)
     const [reason, setReason] = useState(1) 
     const [otherReason, setOtherReason] = useState('') 
@@ -44,6 +46,7 @@ const OptionMute = () => {
         // console.log(memberSelect, choseTime, reason, otherReason);
         const reasonBan = calcReason()
         const timeBan = calcTime()
+        setLoading(true)
         try {
             const {data} = await converApi.banUser({
                 roomId: currentChat._id, 
@@ -74,6 +77,7 @@ const OptionMute = () => {
                     recivers: [memberSelect], 
                     roomId: currentChat._id
                 })
+                setLoading(false)
                 resetInput()
                 setCurrentChat(data?.result)
                 toast.success('Cấm chat thành công')
@@ -133,11 +137,15 @@ const OptionMute = () => {
 
     // Unban user
     const handleUnBan = async (user) => {
+        setLoading(true)
+
         const {data} = await converApi.unBanUser({
             roomId: currentChat._id, 
             memberId: user._id
         })
         if (data?.success) {
+            setLoading(false)
+
             toast.success("Gở cấm chat thành công")
             setCurrentChat(data?.result)
             socket.emit("send-unMute", { 
@@ -169,13 +177,26 @@ const OptionMute = () => {
                         </span>
 
                         { findBanUser(u._id) ? 
-                        <Button type="Button" onClick={() => handleUnBan(u)}>
-                            Mở cấm chat {moment(findBanUser(u._id).time).format('DD/MM/YYYY')}
+                        <Button 
+                            type="Button" 
+                            primary 
+                            onClick={() => handleUnBan(u)}
+                            disabled={loading}
+                        >
+                            {!loading ?
+                                <>Mở cấm chat {moment(findBanUser(u._id).time).format('DD/MM/YYYY')}</>:
+                                <>Đang Mở <Icon /></>
+                            }
                         </Button>: 
-                        <Button danger type="Button" onClick={() => {
-                            setIsOpenReason(true)
-                            setMemberSelect(u)
-                        }}>Cấm chat</Button> }
+                        <Button 
+                            danger 
+                            type="Button" 
+                            onClick={() => {
+                                setIsOpenReason(true)
+                                setMemberSelect(u)
+                        }}>
+                            Cấm chat
+                        </Button> }
                     </div>
                 ))}
           </Model>
@@ -215,7 +236,7 @@ const OptionMute = () => {
                     ctStyle={{padding: "0.7em"}} 
                     onChange={e => setOtherReason(e.target.value)}
                 />}
-               <label>Thời gian cấm</label>
+               <label className={styles.beforeSelect}>Thời gian cấm</label>
                <Select  
                     options={options} 
                     onChange={handleChangeOption}
@@ -228,8 +249,9 @@ const OptionMute = () => {
                         fluid
                         size={'lg'}
                         onClick={handleSaved}
+                        disabled={loading}
                     >
-                        Lưu lại
+                        {loading ? "Đang lưu": "Lưu lại"} {loading && <Icon />}
                     </Button>
                 </div>
           </Model>

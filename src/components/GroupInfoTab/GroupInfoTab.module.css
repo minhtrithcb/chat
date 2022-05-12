@@ -181,6 +181,10 @@
   color: #d1d1d1;
 }
 
+.dark .infoUserItem:hover {
+  background-color: #292c43;
+}
+
 .dark .frinedInfoItem {
   color: #d1d1d1;
 }

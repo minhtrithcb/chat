@@ -144,11 +144,38 @@
   display: block;
 }
 
+.dark div[role="toolbar"] {
+  background-color: #292c43 !important;
+  border: 1px solid #585c76;
+}
+
+.dark div[role="toolbar"] div button {
+  color: white;
+}
+
+.dark div[role="presentation"]:last-child {
+  border: 1px solid #585c76;
+}
+
+.dark div[role="presentation"]:last-child div {
+  background-color: #292c43 !important;
+  border: none;
+}
+
 .dark .optionBox div {
   color: #fff;
+  border-color: #585c76;
+}
+
+.dark .optionBox > div {
+  background-color: transparent;
 }
 
 .dark .optionBox > div > div {
   background-color: #2f334d;
+}
+
+.dark .optionBox > div > div :hover {
+  background-color: transparent;
 }
 /*# sourceMappingURL=ConversationOption.module.css.map */
