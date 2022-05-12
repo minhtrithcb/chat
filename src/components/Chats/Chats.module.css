@@ -1,7 +1,6 @@
 .conversation {
   width: 100%;
   height: 100vh;
-  max-height: -webkit-fill-available;
   background-color: #f6f7fb;
   overflow: hidden;
   border-left: 1px solid #d1d1d1;
@@ -43,9 +42,12 @@
 
 .chatContainer {
   width: 100%;
-  height: calc(100vh - 150px);
   overflow-y: auto;
   overflow-x: hidden;
+  height: calc(100vh - 150px);
+  min-height: -webkit-fill-available;
+  padding-top: 6em;
+  padding-bottom: 6em;
 }
 
 .chatContainer::-webkit-scrollbar {
@@ -121,13 +123,13 @@
 }
 
 .mobileViewCover > div:nth-child(3) {
+  margin-left: auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
 .mobileViewCover > div:last-child {
-  margin-left: auto;
   padding-right: 1em;
 }
 
@@ -146,6 +148,7 @@
   border-bottom: 1px solid #d1d1d1;
   background-color: #fff;
   height: 70px;
+  position: fixed;
   top: 0;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -155,6 +158,7 @@
           justify-content: space-between;
   padding: 0 1em;
   z-index: 6;
+  width: calc(100% - 420px);
 }
 
 .cover > div {

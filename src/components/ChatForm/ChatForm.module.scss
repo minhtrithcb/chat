@@ -4,19 +4,20 @@
 .chatForm {
     width: calc(100% - 420px);
     position: fixed;
-    height: 50px;
-    max-height: -webkit-fill-available;
+    height: 70px;
+    bottom: 0;
+    right: 0;
     padding: 0 2em;
     z-index: 2;
-
+    background-color: #fff;
+    // border-top: 1px solid $gray;
+    border-left: 1px solid $gray;
     &.isReplyChat {
-        height: 100px;
-        bottom: 1em;
-
         .replyChat {
-            position: absolute;
+            position: fixed;
+            bottom: calc(50px + 2em);
             background-color: $white-smok;
-            width: 100%;
+            width: calc(100% - 420px - 4em);
             height: 40px;
             
             div {
@@ -45,6 +46,7 @@
                     right: 0em;
                     top: -2.5em;
                     position: absolute;
+                    // font-family: 'Montserrat', sans-serif;
                 }
             }
 
@@ -52,14 +54,14 @@
         }
         
 
-        textarea {
-            height: 50%;
-            margin-top: 50px;
-        }
+        // textarea {
+        //     height: 50%;
+        //     margin-top: 50px;
+        // }
 
-        .sendBtn, .emote {
-            margin-top: 50px;
-        }
+        // .sendBtn, .emote {
+        //     margin-top: 50px;
+        // }
     }
 
     &>small {
@@ -76,7 +78,7 @@
 
     textarea {
         width: 100%;
-        height: 100%;
+        height: 50px;
         resize: none;
         padding: 1em;
         padding-right: 80px;
@@ -84,7 +86,7 @@
         border-radius: .7em;
         border: 1px solid $gray;
         padding-top: 1.2em;
-
+        margin-top: 10px;
         &:focus {
             border-radius: .7em;
             outline: none;
@@ -104,7 +106,7 @@
     &.isEditChat {
         .btnClose {
             position: absolute;
-            right: 0;
+            right: 2.5em;
             top: -3em;
             padding: 0.4em 1em;
             border-radius: 0.4em;
@@ -115,6 +117,7 @@
             @include center;
             background-color: $red-light;
             color: #fff;
+            font-family: 'Montserrat', sans-serif;
         
             &:hover {
                 opacity: 0.9;
@@ -146,7 +149,7 @@
 .sendBtn {
     position: absolute;
     right: 2.5em;
-    top: 7px;
+    top: 17px;
     background-color: $primary-color;
     width: 35px;
     height: 35px;
@@ -163,7 +166,7 @@
 .emote {
     position: absolute;
     right: 5em;
-    top: 7px;
+    top: 17px;
     width: 35px;
     height: 35px;
     border-radius: .6em;
@@ -177,6 +180,8 @@
 
 .dark {
     color: #fff;
+    background-color: $dark-lv3;
+    border-left: 1px solid $light-lv1;
 
     textarea {
         background-color: $dark-lv4;
