@@ -45,7 +45,7 @@
     overflow-x: hidden;
     // height: calc(100vh - 150px);
     height: calc(100vh - 80px);
-    // max-height: -webkit-fill-available;
+    max-height: -webkit-fill-available;
     padding-top: 6em;
     &::-webkit-scrollbar {
         width: 5px;

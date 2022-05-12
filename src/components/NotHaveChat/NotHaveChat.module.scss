@@ -17,10 +17,7 @@
         animation-duration: 0.5s;
     }
 
-    @include maxWitdh(768px) {
-        display: none;
-    }
-
+    
     @keyframes run {
         0% {
             opacity: 0;
@@ -39,6 +36,7 @@
     }
 
     @include maxWitdh(768px) {
+        display: none;
 
         img {
             width: 100%;

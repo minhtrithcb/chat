@@ -26,12 +26,6 @@
           animation-duration: 0.5s;
 }
 
-@media screen and (max-width: 768px) {
-  .notHaveChat {
-    display: none;
-  }
-}
-
 @-webkit-keyframes run {
   0% {
     opacity: 0;
@@ -67,6 +61,9 @@
 }
 
 @media screen and (max-width: 768px) {
+  .notHaveChat {
+    display: none;
+  }
   .notHaveChat img {
     width: 100%;
   }

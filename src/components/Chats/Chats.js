@@ -271,6 +271,11 @@ const Chats = () => {
                     <DropdownItem onClick={() => setIsOpen(true)}>
                         Thông tin
                     </DropdownItem>
+                    <DropdownItem
+                        onClick={() => pinConvertation(currentChat)}
+                    >
+                        {!CheckPin() ? 'Ghim' : 'Bỏ Ghim'}
+                    </DropdownItem>
                 </Dropdown>
             </div>
 

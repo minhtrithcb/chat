@@ -31,7 +31,8 @@ npm start
 * Ghim hộp thoại.
 
 ### Chức năng đang làm
-
+, reply mobile
+ 
 ### Chức năng gợi ý ...
 * Welcome khi login lần đầu 
 * User chat có stiker

@@ -45,22 +45,9 @@
                     right: 0em;
                     top: -2.5em;
                     position: absolute;
-                    // font-family: 'Montserrat', sans-serif;
                 }
             }
-
-
         }
-        
-
-        // textarea {
-        //     height: 50%;
-        //     margin-top: 50px;
-        // }
-
-        // .sendBtn, .emote {
-        //     margin-top: 50px;
-        // }
     }
 
     &>small {
@@ -129,7 +116,8 @@
 
         &.isReplyChat {
             .replyChat {
-                height: 0;
+                width: calc(100% - 4em);
+
             }
             textarea, .sendBtn, .emote  {
                 margin-top: 10px;

@@ -18,6 +18,7 @@ import VerifyEmail from "./pages/AuthPage/VerifyEmail";
 import ChangePass from "./pages/AuthPage/ChangePass";
 import Groups from "./pages/Groups/Groups";
 import Admin from "./pages/Admin";
+import Setting from "./pages/Setting/Setting";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
               <Route path="contact" element={<Contact />} />
               <Route path="profile/:id" element={<Profile />} />
               <Route path="groups" element={<Groups />} />
+              <Route path="setting" element={<Setting />} />
               <Route path="link-invite/:code" element={<Admin />} />
             </Route>
           </Route>
