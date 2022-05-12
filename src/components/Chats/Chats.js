@@ -311,7 +311,7 @@ const Chats = () => {
                 })}
                 {pendingChat && <ChatLoading username={friend.find(u => u._id === sender)?.fullname  } />}
                 <div ref={bottomRef}></div>
-               
+                <div className={styles.blockBottom}></div>
             </div>
             {/* // From Chat  */}
             {!checkUserIsBanned()  && <ChatForm/>}

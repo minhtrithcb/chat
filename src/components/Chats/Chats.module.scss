@@ -46,7 +46,6 @@
     height: calc(100vh - 150px);
     min-height: -webkit-fill-available;
     padding-top: 6em;
-    padding-bottom: 6em;
     &::-webkit-scrollbar {
         width: 5px;
     }
@@ -71,6 +70,11 @@
         height: calc(100vh - 70px);
     }
 
+}
+
+.blockBottom {
+    height: 80px;
+    background-color: transparent;
 }
 
 .mobileViewCover {
