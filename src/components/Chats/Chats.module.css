@@ -44,8 +44,7 @@
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  height: calc(100vh - 150px);
-  min-height: -webkit-fill-available;
+  height: calc(100vh - 80px);
   padding-top: 6em;
 }
 
@@ -74,11 +73,6 @@
     padding-top: 60px;
     height: calc(100vh - 70px);
   }
-}
-
-.blockBottom {
-  height: 80px;
-  background-color: transparent;
 }
 
 .mobileViewCover {
