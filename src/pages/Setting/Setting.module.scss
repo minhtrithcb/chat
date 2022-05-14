@@ -1,2 +1,151 @@
 @import '../../assets/css/variable';
 @import '../../assets/css/mixin';
+
+.settingContainer {
+    width: 100%;
+}
+
+.settingHeading {
+    padding: 1em;
+    height: 70px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: calc(100% - 70px);
+    border-bottom: 1px solid $gray;
+    h3 {
+        margin: 0;
+    }
+
+    @include maxWitdh(768px) {
+        width: 100%;
+    }
+}
+
+.settingMain {
+    padding: 1em;
+    background-color: $white-smok;
+    margin-top: 70px;
+    height: calc(100vh - 70px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    @include scrollBarDefault;
+
+    >h4 {
+        padding-left: 0.5em;
+    }
+
+    @include maxWitdh(768px) {
+        padding-bottom: 100px;
+    }
+}
+
+.settingCard {
+    padding: 1em;
+    background-color: #fff;
+    width: 100%;
+    border-radius: .7em;
+    box-shadow: $box-shadow3;
+    margin-bottom: 1em;
+
+    .labelDiv {
+        width: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    @include maxWitdh(768px) {
+        &:nth-child(4),
+        &:nth-child(6) {
+            div {
+                small {
+                    display: none;
+                }
+            } 
+        }
+    }
+}
+
+.settingCardItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.settingSwitch {
+    width: 45px;
+    height: 20px;
+    appearance: none;
+    transition: .5s;
+    border-radius: 15px;
+    position: relative;
+    box-shadow: $box-shadow1;
+    cursor: pointer;
+    margin-left: 10px;
+    background-color: $primary-color;
+
+    &::before {
+        content: "";
+        position: absolute;
+        background-color: rgb(241, 241, 241);
+        width: 16px;
+        height: 16px;
+        left: 2px;
+        top: 2px;
+        transition: .5s;
+        border-radius: 50%;
+    }
+
+    &:checked {
+        background-color: $light-lv1;
+    }
+
+    &:checked::before {
+        left: 27px;
+        background-color: $primary-color;
+    }
+
+    &.checker {
+        background-color: $light-lv1;
+        &::before {
+            left: 27px ;
+            background-color: $primary-color;
+        }
+    }
+    &.unChecked {
+        background-color: $primary-color;
+        &::before {
+            left: 2px ;
+            background-color: rgb(241, 241, 241);
+        }
+    }
+} 
+
+.dark {
+    .settingHeading {
+        background-color: $dark-lv3;
+        color: #Fff;
+        border-bottom: none;
+    }
+
+    .settingMain {
+        background-color: $dark-lv4;
+        h4 {
+            color: #Fff;
+        }
+    }
+
+    .settingCard {
+        background-color: $dark-lv3;
+        color: $light;
+
+        button {
+            background-color: $dark-lv4;
+            color: $light;
+        }
+    }
+}

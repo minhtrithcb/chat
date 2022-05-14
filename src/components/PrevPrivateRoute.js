@@ -7,10 +7,12 @@ const PrevPrivateRoute = () => {
     const location = useLocation()
     const from = location.state?.from?.pathname || "/"
 
-    if (auth?.isLogin) {
-        return <Navigate to={from} replace />;
-    } else {
+    if (!auth.isLogin) {
         return <Outlet />;
+    }
+
+    if(auth.isLogin) {
+        return <Navigate to={from} replace />;
     }
 }
 

@@ -126,8 +126,11 @@
     position: absolute;
     bottom: 5em;
     right: 0;
-}
 
+    @include maxWitdh (768px) {
+        right: 2em;
+    }
+}
 
 .sendBtn {
     position: absolute;

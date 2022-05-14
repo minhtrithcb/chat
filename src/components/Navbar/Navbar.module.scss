@@ -248,6 +248,20 @@
         background-color: $primary-color;
     }
 
+    &.checker {
+        background-color: $light-lv1;
+        &::before {
+            left: 27px ;
+            background-color: $primary-color;
+        }
+    }
+    &.unChecked {
+        background-color: $primary-color;
+        &::before {
+            left: 2px ;
+            background-color: rgb(241, 241, 241);
+        }
+    }
 }
 
 .hr {

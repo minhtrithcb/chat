@@ -4,7 +4,7 @@ import useTheme from '../../hooks/useTheme'
 import styles from './ConversationItem.module.scss'
 
 const ConversationItemLoading = ({count}) => {
-    const {theme} = useTheme()
+    const {theme, themeConver} = useTheme()
 
     return (
         <>
@@ -15,13 +15,19 @@ const ConversationItemLoading = ({count}) => {
                             baseColor={theme === "dark" ? "#2f334d" : ""} 
                             highlightColor={theme === "dark" ?"#292c43" : ""}
                         >
-                            <div className={styles.left}>
+                            {themeConver === 'default' && <div className={styles.left}>
                                 <Skeleton circle width={40} height={40} />
-                            </div>
+                            </div>}
+                            {themeConver === 'default' ? 
                             <div className={styles.right}>
                                 <Skeleton width={'60%'} />
                                 <Skeleton width={'50%'}  />
+                            </div>: 
+                            <div className={styles.right}>
+                                <Skeleton width={'100%'} />
+                                <Skeleton width={'90%'}  />
                             </div>
+                            }
                         </SkeletonTheme>
                     </div>
                 ))

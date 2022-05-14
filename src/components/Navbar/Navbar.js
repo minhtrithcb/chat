@@ -31,7 +31,12 @@ const Navbar = () => {
 
   const classesDarkMode = clsx(styles.navBar,{ 
     [styles.dark]: theme === "dark",
-    [styles.isHide]: currentChat ? true: false
+    [styles.isHide]: currentChat && pathname === "/" ? true: false
+  })
+
+  const classTheme = clsx(styles.checkBox, {
+    [styles.checker] : theme === 'dark',
+    [styles.unChecked] : theme === 'light',
   })
 
   // Notify friendReq
@@ -57,7 +62,6 @@ const Navbar = () => {
     return () => document.title = 'React Chat'
   }, [countUnRead])
   
-
   // Notifi group req
   useEffect(() => {        
     socket.on("getGroupRequest", data => {
@@ -78,6 +82,7 @@ const Navbar = () => {
     setIsOpen(false)
   }
 
+  // Check active class by path
   const checkActiveClass = (path) => {
     return pathname === path ? styles.active : " "
   }
@@ -124,8 +129,7 @@ const Navbar = () => {
           <AiOutlinePoweroff />
           <span>Thoát</span>
         </div>
-        <input type="checkbox" onClick={toggle} className={styles.checkBox} defaultChecked={theme === "dark"} />
-     
+        <input type="checkbox" onClick={toggle} className={classTheme} defaultChecked={theme === "dark"} />
         
         <Alert 
           isOpen={isOpen} 

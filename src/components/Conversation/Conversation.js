@@ -86,9 +86,8 @@ const Conversation = () => {
                     type: chatsOption.type
                 })
                 if (isMounted) {
-                    setTimeout(() => {
-                        setIsLoading(false)
-                    }, 1000);
+                    // Delay to see skeleton
+                    setTimeout(() => setIsLoading(false), 1000);
 
                     if (!found) {
                         setConversations(data)
@@ -163,7 +162,7 @@ const Conversation = () => {
                     </Dropdown>
                 </small>
                 {pinConversations.length > 0 && <small>Tin nhắn ghim</small> }
-                {pinConversations.map((conver) => (
+                {!isLoading ?  pinConversations.map((conver) => (
                     <div onClick={() => handleChoseChat(conver)} key={conver._id}>
                         <ConversationItem 
                             usersOnline={usersOnline}
@@ -172,7 +171,9 @@ const Conversation = () => {
                             activeChat={currentChat && currentChat?._id === conver._id}
                         />
                     </div>
-                ))} 
+                )):
+                    <ConversationItemLoading count={pinConversations.length} />
+                } 
                 <small>Tất cả tin nhắn</small> 
                 {!isLoading ? conversations.map((conver) => (
                     <div onClick={() => handleChoseChat(conver)} key={conver._id}>
@@ -186,7 +187,6 @@ const Conversation = () => {
                 )):
                     <ConversationItemLoading count={conversations.length} />
                 } 
-
                 </> }
             </div>
         </div>

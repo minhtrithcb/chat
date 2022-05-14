@@ -31,14 +31,9 @@ npm start
 * Ghim hộp thoại.
 
 ### Chức năng đang làm
-, reply mobile
- 
-### Chức năng gợi ý ...
-* Welcome khi login lần đầu 
-* User chat có stiker
-* User edit profile, chage pass
+navbar mobile
 * Setting (chặn tin từ người lại, hiện email,auto set theme, hiện thông báo)
-* infinite scroll converstion, contact
+remove localhost in backend
 
 
 
