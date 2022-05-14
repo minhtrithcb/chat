@@ -111,7 +111,7 @@ const Navbar = () => {
           <p>Danh bạ</p>
           {(frLength > 0 || grLength > 0) && <span>{frLength + grLength}</span> }
         </NavLink>
-        <NavLink to={`/setting`} className={checkActiveClass('/setting')}>
+        <NavLink to={`/Setting`} className={checkActiveClass('/Setting')}>
           <BsGear />
           <p>Cài đặt</p>
         </NavLink>
