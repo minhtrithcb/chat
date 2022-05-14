@@ -12,7 +12,7 @@ const PrevPrivateRoute = () => {
     }
 
     if(auth.isLogin) {
-        return <Navigate to={from} replace />;
+        return <Navigate to={from} state={{ from: location }} replace />;
     }
 }
 
