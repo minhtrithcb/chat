@@ -3,7 +3,7 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
 const PrivateRoute = () => {
-    let location = useLocation();
+    const location = useLocation();
     const {auth} = useContext(AuthContext)
     
     // console.log('private route');

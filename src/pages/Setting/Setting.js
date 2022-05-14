@@ -62,9 +62,9 @@ const Setting = () => {
               handleClick={() => setIsAlert(true)}
               prevLostData={() => setIsAlert(true)}
           >
-              <SettingChagePass onSubmited={isSubmit =>   {
+              {/* <SettingChagePass onSubmited={isSubmit =>   {
                 if (isSubmit) prevQuit(true)
-              }} />
+              }} /> */}
           </Model>
 
           {/* Privacy  */}
