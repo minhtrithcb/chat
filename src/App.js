@@ -28,12 +28,12 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route path="/" element={<MainLayout />} >
               <Route index element={<Home />} />
-              <Route path="home" element={<Home />} />
-              <Route path="contact" element={<Contact />} />
-              <Route path="profile/:id" element={<Profile />} />
-              <Route path="groups" element={<Groups />} />
-              <Route path="setting" element={<Setting />} />
-              <Route path="link-invite/:code" element={<Admin />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/profile/:id" element={<Profile />} />
+              <Route path="/groups" element={<Groups />} />
+              <Route path="/setting" element={<Setting />} />
+              <Route path="/link-invite/:code" element={<Admin />} />
             </Route>
           </Route>
           {/* Visible Route when they not login*/}
