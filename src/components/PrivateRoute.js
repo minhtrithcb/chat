@@ -5,7 +5,6 @@ import { AuthContext } from '../context/AuthContext';
 const PrivateRoute = () => {
     const location = useLocation();
     const {auth} = useContext(AuthContext)
-    
     // console.log('private route');
 
     if (auth.isLogin) {

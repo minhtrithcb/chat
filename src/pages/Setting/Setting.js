@@ -6,7 +6,7 @@ import Dropdown, {DropdownItem}  from '../../components/Common/Dropdown/Dropdown
 import Button from '../../components/Common/Button/Button'
 import Model from '../../components/Common/Model/Model'
 import { IoIosArrowDown } from "react-icons/io";
-// import SettingChagePass from './SettingChagePass'
+import SettingChagePass from './SettingChagePass'
 import Alert from '../../components/Common/Alert/Alert'
 
 const Setting = () => {
@@ -62,9 +62,9 @@ const Setting = () => {
               handleClick={() => setIsAlert(true)}
               prevLostData={() => setIsAlert(true)}
           >
-              {/* <SettingChagePass onSubmited={isSubmit =>   {
+              <SettingChagePass onSubmited={isSubmit =>   {
                 if (isSubmit) prevQuit(true)
-              }} /> */}
+              }} />
           </Model>
 
           {/* Privacy  */}
