@@ -2,10 +2,10 @@ import clsx from 'clsx'
 import React, { useState } from 'react'
 import useTheme from '../../hooks/useTheme'
 import styles from './Setting.module.scss'
-import Dropdown, {DropdownItem}  from '../../components/Common/Dropdown/Dropdown'
+// import Dropdown, {DropdownItem}  from '../../components/Common/Dropdown/Dropdown'
 import Button from '../../components/Common/Button/Button'
 import Model from '../../components/Common/Model/Model'
-import { IoIosArrowDown } from "react-icons/io";
+// import { IoIosArrowDown } from "react-icons/io";
 import SettingChagePass from './SettingChagePass'
 import Alert from '../../components/Common/Alert/Alert'
 
@@ -46,10 +46,10 @@ const Setting = () => {
           {/* Password  */}
           <h4>Cài đặt bảo mật</h4>
           <div className={styles.settingCard}>
-            <div className={styles.settingCardItem}>
+            {/* <div className={styles.settingCardItem}>
               <p>Bảo mật hai lớp</p>
               <Button>Thiết lập</Button>
-            </div>
+            </div> */}
             <div className={styles.settingCardItem}>
               <p>Đổi mật khẩu</p>
               <Button onClick={()=> setIsOpen(true)}>Thiết lập</Button>
@@ -68,7 +68,7 @@ const Setting = () => {
           </Model>
 
           {/* Privacy  */}
-          <h4>Cài đặt quyển riêng tư</h4>
+          {/* <h4>Cài đặt quyển riêng tư</h4>
           <div className={styles.settingCard}>
             <div className={styles.settingCardItem}>
               <p>Ai có thể tìm kiếm tên của bạn ?</p>
@@ -100,8 +100,7 @@ const Setting = () => {
                 </Dropdown>
               </div>
             </div>
-
-          </div>
+          </div> */}
           {/* // Theme  */}
           <h4>Cài đặt giao diện</h4>
           <div className={styles.settingCard}>

@@ -30,12 +30,6 @@ npm start
 * Chủ nhóm chỉnh sửa nhóm, cấm chat người dùng, đuổi người dùng.
 * Ghim hộp thoại.
 
-### Chức năng đang làm
-navbar mobile
-* Setting (chặn tin từ người lại, hiện email,auto set theme, hiện thông báo)
-remove localhost in backend
-
-
 
 
 
