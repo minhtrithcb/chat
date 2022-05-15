@@ -63,7 +63,7 @@ const FriendInfoTab = () => {
           <small>{friend[0].email}</small>
         </div>
         <div className={styles.infoText}>
-          <p>ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, quod voluptatum? Expedita ex voluptate necessitatibus consequatu</p>
+          {/* <p>ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, quod voluptatum? Expedita ex voluptate necessitatibus consequatu</p> */}
         </div>
         <div className={styles.frinedInfo}>
           <div className={styles.frinedInfoItem}>

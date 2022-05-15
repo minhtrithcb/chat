@@ -15,6 +15,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import groupReqApi from '../../api/groupReq'
 import { toast } from 'react-toastify'
 import { ChatContext } from '../../context/ChatContext'
+import { BsFillCheckCircleFill } from "react-icons/bs";
+import renderSubString from '../../helper/renderSubString'
 
 const SearchBox = () => {
     const {theme} = useTheme()
@@ -180,11 +182,12 @@ const SearchBox = () => {
                 {toggle && <Button onClick={handleClose}>Đóng</Button> }
             </div>
             <div className={styles.inputChat}>
-                <input type="text" placeholder='Tìm kiếm ...'
+                <input type="text" placeholder='Tìm kiếm theo tên hoặc email'
                     ref={inputRef}
                     value={value}
                     onChange={handleChange} 
                 />
+                <small>Hãy nhập ít nhất 3 ký tự</small>
                 {toggle && <FiDelete onClick={handleDelete} /> }
             </div>
             {toggle && <div className={styles.chatBox}>
@@ -218,8 +221,9 @@ const SearchBox = () => {
                                 />
                             </div>
                             <div>
-                                {res.fullname ? <Link to={`/profile/${res._id}`}>{res.fullname}</Link>: 
+                                {res.fullname ? <Link to={`/profile/${res._id}`}>{res.fullname} {res.isVerifi && <BsFillCheckCircleFill title='Đã xác thực' />}</Link>: 
                                 <Link to={`/group/${res._id}`}>{res.name}</Link>}
+                                {res.fullname && <small title={res.email}>{renderSubString(res.email, 17)}</small>}
                             </div>
                             {res.fullname ? 
                                 // User 

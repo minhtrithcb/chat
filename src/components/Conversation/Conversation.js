@@ -12,6 +12,8 @@ import Dropdown, {DropdownItem} from '../Common/Dropdown/Dropdown'
 import { BsChevronDown } from "react-icons/bs";
 import MobileNav from '../MobileNav/MobileNav'
 import ConversationItemLoading from '../ConversationItem/ConversationItemLoading'
+import { Link } from 'react-router-dom'
+import Button from '../Common/Button/Button'
 
 const Conversation = () => {
     const [conversations, setConversations] = useState([])
@@ -77,8 +79,6 @@ const Conversation = () => {
     // Feach all conversations of current user
     useEffect(() => {
         let isMounted = true;   
-        const found = localStorage.getItem('listPin')
-
         const  getAllconvertation = async () => {
             try {
                 const {data} = await converApi.getByUserId({
@@ -86,6 +86,7 @@ const Conversation = () => {
                     type: chatsOption.type
                 })
                 if (isMounted) {
+                    const found = localStorage.getItem('listPin')
                     // Delay to see skeleton
                     setTimeout(() => setIsLoading(false), 1000);
 
@@ -108,6 +109,7 @@ const Conversation = () => {
         getAllconvertation()
         return () => { 
             isMounted = false 
+            setIsLoading(true)
         };
     }, [socket, currentUser.id, setCurrentChat, chatsOption])   
 
@@ -174,7 +176,7 @@ const Conversation = () => {
                 )):
                     <ConversationItemLoading count={pinConversations.length} />
                 } 
-                <small>Tất cả tin nhắn</small> 
+                {conversations.length !== 0 && <small>Tất cả tin nhắn</small> }
                 {!isLoading ? conversations.map((conver) => (
                     <div onClick={() => handleChoseChat(conver)} key={conver._id}>
                         <ConversationItem 
@@ -187,7 +189,16 @@ const Conversation = () => {
                 )):
                     <ConversationItemLoading count={conversations.length} />
                 } 
+                {!isLoading && conversations.length === 0 && 
+                    <div className={styles.quickStart}>
+                        <p>Bạn chưa kết bạn với bất kỳ ai !</p>
+                        <Link to={"/contact"}>
+                            <Button primary size={'lg'} fluid>Bắt đầu nào !</Button>
+                        </Link>
+                    </div>
+                }
                 </> }
+
             </div>
         </div>
     )

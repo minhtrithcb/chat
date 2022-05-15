@@ -236,7 +236,7 @@ const ConversationOption = () => {
                             />
                         ))}
                     </div>
-                    {errorNoMember && <small className={styles.errorText}>Hãy thêm ít nhất 2 thành viên</small>}
+                    {errorNoMember && <small className={styles.errorText}>Hãy thêm ít nhất 2 bạn bè làm thành viên</small>}
                     {/* // Footer Button  */}
                     <div className={styles.footer}>
                         <Button 

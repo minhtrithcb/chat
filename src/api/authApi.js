@@ -1,4 +1,4 @@
-import api, {apiNonCookies} from "./api.config"
+import api from "./api.config"
 
 const authApi = {
     login(email, password) {
@@ -33,12 +33,16 @@ const authApi = {
         return api.post(`auth/reset-password`, {userId, password})
     },
 
+    resetwithOldPassword ({oldPassword, userId, password}) {
+        return api.post(`auth/reset-oldPassword`, {oldPassword, userId, password})
+    },
+
     forgotPassword(email) {
-        return apiNonCookies.post(`auth/forgotPassword`, {email})
+        return api.post(`auth/forgotPassword`, {email})
     },
 
     sendVerify(email) {
-        return apiNonCookies.post(`auth/send-verify`, {email})
+        return api.post(`auth/send-verify`, {email})
     },
 }
 

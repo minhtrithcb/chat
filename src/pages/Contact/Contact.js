@@ -58,22 +58,10 @@ const Contact = () => {
                 Danh sách bạn bè
             </li>
             <li 
-              className={choseTabs === 4 ? styles.active: null} 
-              onClick={() => setchoseTabs(4)}
-              >
-                Danh sách Nhóm đã tham gia
-            </li>
-            <li 
               className={choseTabs === 2 ? styles.active: null} 
               onClick={() => setchoseTabs(2)}
             >
               Danh sách chờ bạn bè
-            </li>
-            <li 
-              className={choseTabs === 6 ? styles.active: null} 
-              onClick={() => setchoseTabs(6)}
-            >
-              Danh sách chờ nhóm
             </li>
             <li 
               className={choseTabs === 3 ? styles.active: null} 
@@ -82,7 +70,20 @@ const Contact = () => {
                 Danh sách xin kết bạn
                {frLength > 0 ? <span>{frLength}</span> : null}
             </li>
-          
+          </ul>
+          <ul className={styles.tabs}>
+            <li 
+              className={choseTabs === 4 ? styles.active: null} 
+              onClick={() => setchoseTabs(4)}
+              >
+                Danh sách Nhóm đã tham gia
+            </li>
+            <li 
+              className={choseTabs === 6 ? styles.active: null} 
+              onClick={() => setchoseTabs(6)}
+            >
+              Danh sách chờ nhóm
+            </li>
             <li 
               className={choseTabs === 5 ? styles.active: null} 
               onClick={() => setchoseTabs(5)}

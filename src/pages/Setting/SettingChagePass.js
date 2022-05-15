@@ -14,6 +14,13 @@ const SettingChagePass = ({onSubmited}) => {
     const [currentUser] = useDecodeJwt()
 
     const inputInit = {
+        oldPassword: {
+          label: "Mật khẩu Cũ", 
+          type: "password", 
+          name: "oldPassword", 
+          placeholder: "Nhập mật khẩu Cũ",
+          err: errors.oldPassword,
+        },
         password: {
           label: "Mật khẩu", 
           type: "password", 
@@ -31,6 +38,10 @@ const SettingChagePass = ({onSubmited}) => {
     }
 
     const inpValid = {
+        oldPassword: {
+            required: true,
+            minLength: 6,
+        },
         password: {
             required: true,
             minLength: 6,
@@ -47,10 +58,14 @@ const SettingChagePass = ({onSubmited}) => {
     }
 
     // Form submit
-    const onSubmit = async ({password}) => {
+    const onSubmit = async ({oldPassword, password}) => {
         try {
             setLoading(true)
-            const {data} = await authApi.resetPassword(currentUser.id, password)
+            const {data} = await authApi.resetwithOldPassword({
+                oldPassword , 
+                userId: currentUser.id, 
+                password
+            })
             if(data?.success) {
                 toast.success(`${data.msg}`)
                 setLoading(false)
@@ -70,6 +85,7 @@ const SettingChagePass = ({onSubmited}) => {
         <div>
 
             <form onSubmit={handleSubmit(onSubmit)}>
+                <Input  {...register("oldPassword", inpValid.oldPassword)}      {...inputInit.oldPassword} />
                 <Input  {...register("password", inpValid.password)}      {...inputInit.password} />
                 <Input  {...register("rePassword", inpValid.rePassword)}  {...inputInit.rePassword} />
                 <Button disabled={loading} type="submit" primary size="lg" fluid style={{marginTop : "1em"}}> 

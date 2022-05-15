@@ -38,9 +38,15 @@
         
     }
     @include scrollBarDefault();
-
 }
 
+.quickStart {
+    padding: 0 1em;
+    p {
+        margin: 0;
+        margin-bottom: 1em;
+    }
+}
 
 .dark {
     background-color: $dark-lv4;
