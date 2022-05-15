@@ -10,6 +10,11 @@ const api = axios.create({
     timeout: 10000,
     withCredentials: true,
 });
+ 
+export const apiNonCookies = axios.create({
+    baseURL: 'https://react-chat-101.herokuapp.com/api',
+    timeout: 10000,
+});
 
 const AxiosInterceptor = ({ children }) => {
     const navigate = useNavigate();

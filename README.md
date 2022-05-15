@@ -1,6 +1,6 @@
 ## React Chat - Ứng dụng nhắn tin realtime - Frontend
 
-Đây là phần Frontend của ứng dụng [React chat]("http://localhost:3000/"). Phần Frontend được viết bằng reactjs, socket.io.
+Đây là phần Frontend của ứng dụng [React chat]("https://minhtri-chat.ga/"). Phần Frontend được viết bằng reactjs, socket.io.
 
 
 ### Cài đặt
