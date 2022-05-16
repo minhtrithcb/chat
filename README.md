@@ -1,4 +1,4 @@
-## React Chat - Ứng dụng nhắn tin realtime - Frontend
+## React Chat - Ứng dụng nhắn tin trực tuyến - Frontend
 
 <img src="https://minhtri-chat.ga/chat512.png" height="100" alt="React Chat logo">
 
@@ -8,7 +8,7 @@
 * Trang chủ website tại đây [Link trang chủ](https://minhtri-chat.ga)
 * Github backend [Link github backend](https://github.com/minhtrithcb/chat-backend)
 
-### Chức năng Chính
+### Chức năng
 
 * Đăng nhập, đăng ký, trang chủ, profile, gửi mail otp, đổi mật khẩu, quên mật khẩu, trang 404, cài đặt.
 * Danh sách bạn bè, nhóm, danh sách nhận tin kết bạn, nhận tin nhóm, danh sách chờ kết bạn, chờ duyệt nhóm. 
