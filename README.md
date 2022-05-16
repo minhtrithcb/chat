@@ -2,16 +2,16 @@
 
 <img src="https://minhtri-chat.ga/chat512.png" height="100" alt="React Chat logo">
 
-Đây là phần Frontend của ứng dụng [React chat]("https://minhtri-chat.ga"). Phần Frontend được viết bằng reactjs, scss.
+Đây là phần Frontend của ứng dụng [React chat](https://minhtri-chat.ga). Phần Frontend được viết bằng reactjs, scss.
 
 ### Đường dẫn
-* Trang chủ website tại đây [Link trang chủ]("https://minhtri-chat.ga")
-* Github backend [Link github backend]("https://github.com/minhtrithcb/chat-backend")
+* Trang chủ website tại đây [Link trang chủ](https://minhtri-chat.ga)
+* Github backend [Link github backend](https://github.com/minhtrithcb/chat-backend)
 
 ### Chức năng Chính
 
-* Giao diện: đăng nhập, đăng ký, trang chủ, profile, gửi mail otp, đổi mật khẩu, quên mật khẩu, trang 404, cài đặt.
-* Giao diện: Danh sách bạn bè, danh sách nhóm, danh sách nhận tin kết bạn,ds nhận tin nhóm, danh sách chờ kết bạn, danh sách chờ duyệt nhóm. 
+* Đăng nhập, đăng ký, trang chủ, profile, gửi mail otp, đổi mật khẩu, quên mật khẩu, trang 404, cài đặt.
+* Danh sách bạn bè, nhóm, danh sách nhận tin kết bạn, nhận tin nhóm, danh sách chờ kết bạn, chờ duyệt nhóm. 
 * Người dùng có thể xóa kết bạn, từ chối hoặc chấp nhận mời nhóm, mời kết bạn.
 * Giao diện mobile responsive. Theme màu sáng màu tối, tùy chỉnh giao diện hội thoại.
 * Người dùng có thể nhắn tin 1 - 1 hoặc nhắn tin nhóm, xem bạn bè đang online.
